@@ -1,0 +1,258 @@
+@use "mixins/all" as *;
+
+.site-header {
+	z-index: 9999;
+	position: fixed;
+	width: 100%;
+	background-color: $site-background;
+	top: 0;
+
+	@media print {
+		display: none !important;
+	}
+
+	&.scrolled {
+		filter: drop-shadow(0 0 2px rgba($black, 0.2));
+	}
+
+	@media (max-width: $max-m) {
+		filter: drop-shadow(0 0 2px rgba($black, 0.2));
+	}
+
+	// Jos admin bar on näkyvissä, tiputetaan navia vähän alemmas
+	.admin-bar & {
+		top: 32px;
+	}
+
+	.grid,
+	.grid-full {
+		grid-template-columns: minmax(0, 1fr);
+		padding: 0 15px;
+		align-items: flex-start;
+
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 14px 0;
+
+			.menu-toggle {
+				background-color: transparent;
+				border: none;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				margin-left: 30px;
+
+				> span {
+					font-size: 4.2rem;
+					color: $black;
+				}
+			}
+
+			.rty-branding {
+				margin-left: auto;
+
+				img {
+					max-width: 125px;
+
+					@media (max-width: $max-m) {
+						max-width: 100px;
+					}
+				}
+			}
+
+			.topten-branding {
+				img {
+					width: 72px;
+					height: auto;
+
+					@media (max-width: $max-m) {
+						width: 50px;
+					}
+				}
+			}
+		}
+	}
+}
+
+#site-navigation {
+	display: none;
+	position: fixed;
+	padding: 0;
+	top: 74px;
+	left: 0;
+	background-color: transparent;
+	z-index: 99999;
+	height: 100vh;
+	width: 100%;
+
+	@media (max-width: $max-m) {
+		top: 72px;
+	}
+
+	@media (max-width: $max-s) {
+		background-color: $white;
+	}
+
+	.menu-container {
+		padding: 0;
+		position: relative;
+		top: 10px;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		background-color: transparent;
+		height: calc(100vh - 10px);
+
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: $black;
+			opacity: 0.2;
+			z-index: 1;
+			max-width: 1965px;
+		}
+
+		&::before {
+			width: 100vw;
+			height: 100%;
+			z-index: 1;
+			background-color: $site-background;
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -100vw;
+		}
+
+		#primary-menu {
+			background-color: $site-background;
+			height: 100%;
+			margin: 0;
+			padding: 20px 0 30px;
+			list-style: none;
+			position: relative;
+			z-index: 999;
+			grid-column: 1 / 5;
+			overflow: visible;
+
+			@media (max-width: $max-l) {
+				grid-column: 1 / 6;
+				overflow-x: scroll;
+			}
+
+			@media (max-width: $max-m) {
+				grid-column: 1 / 8;
+				padding: 0 0 30px;
+			}
+
+			li.menu-item {
+				padding: 15px;
+				position: relative;
+
+				&::after {
+					content: "";
+					position: absolute;
+					bottom: 0;
+					left: -134%;
+					width: 234%;
+					height: 1px;
+					background-color: $background-grey;
+				}
+
+				a {
+					transition: all 0.15s;
+					text-decoration: none;
+					position: relative;
+					color: $black;
+
+					span.link-text {
+						font-size: 2.4rem;
+						font-weight: 600;
+						transition: all 0.15s;
+						display: block;
+
+						@media (max-width: $max-xl) {
+							font-size: 2.2rem;
+						}
+					}
+				}
+
+				&::before {
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 0;
+					height: 100%;
+					background-color: $green;
+					transition: all 0.15s;
+				}
+
+				&.current-menu-item,
+				&:hover {
+					&::before {
+						width: 15px;
+					}
+
+					a {
+						span {
+							margin-left: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.admin-bar & {
+		top: 106px;
+		height: calc(100vh - 106px);
+
+		@media (max-width: $max-m) {
+			top: 104px;
+			height: calc(100vh - 104px);
+		}
+	}
+}
+
+.pagination {
+	grid-column: 1 / -1;
+	text-align: center;
+
+	li {
+		display: inline;
+
+		a {
+			color: $white;
+			text-decoration: none;
+			background-color: $black;
+			border: 1px solid $black;
+			cursor: pointer;
+			padding: 1rem 2rem;
+			transition: all 0.25s;
+
+			&:hover {
+				background-color: $white;
+				color: $black;
+			}
+
+			&:hover {
+				background-color: $white;
+				color: $black;
+			}
+		}
+
+		&.active a {
+			background-color: $white;
+			color: $black;
+			font-weight: bold;
+		}
+	}
+}

@@ -1,0 +1,28 @@
+@use "mixins/all" as *;
+
+.tt-editor-disabled {
+	.block-editor {
+		.tt-editor-disabled-message {
+			position: fixed;
+			left: 160px;
+			top: 0;
+			width: calc(100% - 160px);
+			height: 100%;
+			background-color: rgba($black, 0.5);
+			z-index: 9999;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			p {
+				font-weight: 700;
+				color: $black;
+				font-size: 2.4rem;
+				background-color: $white;
+				padding: 15px;
+				border-radius: 2px;
+				margin: 0;
+			}
+		}
+	}
+}

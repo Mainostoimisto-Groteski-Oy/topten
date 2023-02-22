@@ -1,0 +1,240 @@
+{
+    "key": "group_6270d6ee62491",
+    "title": "Lohko: Haitari",
+    "fields": [
+        {
+            "key": "field_6270d71fe31a0",
+            "label": "Haitari",
+            "name": "accordion",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Lisää rivi",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6512d4b22887d",
+                    "label": "ID",
+                    "name": "id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Voit antaa riville oman ID:n, mikä on paremmin ihmisen luettavissa kuin autogeneroitu. Hyödyllinen jos halutaan linkata suoraan johonkin haitarin elementtiin.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6512c01223e5d",
+                                "operator": "==",
+                                "value": "false"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6270d71fe31a0"
+                },
+                {
+                    "key": "field_6270d732e31a1",
+                    "label": "Rivin otsikko",
+                    "name": "accordion_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6512c01223e5d",
+                                "operator": "==",
+                                "value": "false"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6270d71fe31a0"
+                },
+                {
+                    "key": "field_6270d761e31a3",
+                    "label": "Teksti",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6512c01223e5d",
+                                "operator": "==",
+                                "value": "false"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_6270d71fe31a0"
+                },
+                {
+                    "key": "field_64c1124d7671f",
+                    "label": "Painikkeet",
+                    "name": "buttons",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6512c01223e5d",
+                                "operator": "==",
+                                "value": "false"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "layout": "table",
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Lisää rivi",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_64c1125a76720",
+                            "label": "Painike",
+                            "name": "button",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "parent_repeater": "field_64c1124d7671f"
+                        },
+                        {
+                            "key": "field_64c1126676721",
+                            "label": "Painikkeen teksti",
+                            "name": "button_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_64c1124d7671f"
+                        }
+                    ],
+                    "parent_repeater": "field_6270d71fe31a0"
+                },
+                {
+                    "key": "field_6512c01223e5d",
+                    "label": "Näytä tekstin sijaan selite",
+                    "name": "show_guide",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "false": "Ei",
+                        "tulkinta": "Tulkintakortit",
+                        "ohje": "Ohjekortit",
+                        "lomake": "Lomakekortit"
+                    },
+                    "default_value": "false",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_6270d71fe31a0"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/haitari"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1695733095
+}

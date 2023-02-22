@@ -1,0 +1,51 @@
+@use "mixins/all" as *;
+
+.single-contact {
+	.grid {
+		.contact-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			.image {
+				border-radius: 250px;
+
+				img {
+					border-radius: 250px;
+					width: 125px;
+					height: 125px;
+					object-fit: cover;
+				}
+
+				&.logo {
+					border-radius: 0;
+
+					img {
+						border-radius: 0;
+						width: 100%;
+						height: 100%;
+						object-fit: contain;
+					}
+				}
+
+				&.placeholder {
+					.placeholder {
+						background-color: $green;
+						height: 75px;
+						width: 75px;
+						border-radius: 150px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						.material-symbols {
+							color: $white;
+							font-size: 4rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}

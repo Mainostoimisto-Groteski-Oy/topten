@@ -1,0 +1,175 @@
+/**
+* Css that applies to all single and archive card pages
+*/
+
+@use "mixins/all" as *;
+@use "sass:color";
+
+.page-template-template-vertaa {
+	section.single-card-container {
+		article {
+			&.old-card {
+				display: none;
+			}
+
+			grid-column: 1;
+
+			.card-content {
+				.change-wrapper {
+					background-color: $diff-change;
+					padding: 15px;
+
+					.change-header {
+						margin: 0;
+						font-size: 1.3rem;
+						text-transform: uppercase;
+						display: flex;
+						align-items: center;
+						gap: 5px;
+						border-radius: 4px;
+
+						span.material-symbols {
+							font-size: 2.4rem;
+						}
+					}
+
+					.change-text {
+						margin: 0;
+						margin-top: 5px;
+
+						p {
+							margin: 0;
+						}
+
+						img {
+							display: block;
+							max-height: 300px;
+						}
+					}
+				}
+
+				.empty-line {
+					background-color: $diff-added;
+					width: 15px;
+					height: 30px;
+					border-radius: 4px;
+					margin-top: 15px;
+				}
+
+				.empty-suffix {
+					background-color: $diff-added;
+					width: 15px;
+					height: 30px;
+					border-radius: 4px;
+				}
+
+				td,
+				th,
+				tr {
+					&.changed {
+						border-radius: 0;
+						position: initial;
+
+						.change-wrapper {
+							margin-top: 15px;
+						}
+					}
+				}
+
+				.changed {
+					position: relative;
+					background-color: $diff-added;
+					z-index: 1;
+					padding: 15px;
+					border-radius: 4px;
+					margin-bottom: 3px;
+
+					&.prefix,
+					&.suffix {
+						padding: 3px;
+					}
+				}
+
+				.deleted {
+					position: relative;
+					z-index: 1;
+
+					&::after {
+						content: "";
+						position: absolute;
+						top: -5px;
+						right: -5px;
+						width: calc(100% + 10px);
+						height: calc(100% + 10px);
+						background-color: $diff-deleted;
+						z-index: -1;
+					}
+				}
+			}
+		}
+	}
+}
+
+section.cards-notification {
+	&.scrolled {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		z-index: 999999;
+	}
+
+	&.expired {
+		background-color: $archive-red;
+		color: $black;
+
+		a {
+			color: $black !important;
+		}
+	}
+
+	&.future {
+		background-color: $highlight-green;
+
+		a {
+			color: $black !important;
+		}
+	}
+
+	.grid {
+		padding: 0 15px;
+
+		a {
+			text-decoration: none;
+
+			p {
+				display: inline-block;
+				position: relative;
+				font-size: 1.8rem;
+
+				span.material-symbols {
+					vertical-align: middle;
+					transition: all 0.15s;
+					font-size: 1.8rem;
+
+					@media (max-width: $max-s) {
+						font-size: 1.6rem;
+					}
+				}
+			}
+
+			&:hover {
+				p {
+					span.material-symbols {
+						transform: translateX(10px);
+					}
+				}
+			}
+		}
+
+		p {
+			display: inline-block;
+			position: relative;
+			font-size: 1.8rem;
+		}
+	}
+}

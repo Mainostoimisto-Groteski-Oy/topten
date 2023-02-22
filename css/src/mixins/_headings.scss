@@ -1,0 +1,77 @@
+@use "variables/breakpoints" as *;
+@use "mixins/typography" as *;
+@use "variables/typography" as *;
+@use "variables/colors" as *;
+
+/// h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
+@mixin headings {
+	h1,
+	.h1 {
+		// @include font-size(3.2rem, 6.4rem);
+		@include font-size(2.8rem, 3.6rem);
+
+		font-family: $font-heading;
+		margin: 15px 0;
+		font-weight: 600;
+	}
+
+	h2,
+	.h2 {
+		//		@include font-size(2.8rem, 4.8rem);
+		@include font-size(2.4rem, 3.2rem);
+
+		font-family: $font-heading;
+		margin: 15px 0;
+		font-weight: 600;
+	}
+
+	h3,
+	.h3,
+	h2.gform_title {
+		// @include font-size(2.4rem, 4rem);
+		@include font-size(2rem, 2.8rem);
+
+		font-family: $font-heading;
+		margin: 15px 0;
+		font-weight: 600;
+	}
+
+	h4,
+	.h4 {
+		// @include font-size(2rem, 3.2rem);
+		@include font-size(2rem, 2.4rem);
+
+		font-family: $font-heading;
+		margin: 15px 0;
+		font-weight: 600;
+	}
+
+	h5,
+	.h5 {
+		// @include font-size(1.8rem, 2.4rem);
+		@include font-size(1.8rem, 2rem);
+
+		font-family: $font-heading;
+		margin: 15px 0;
+		font-weight: 600;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.h1,
+	.h2,
+	.h3,
+	.h4,
+	.h5,
+	.h6 {
+		&.hide {
+			display: none;
+		}
+
+		letter-spacing: 0.32px;
+	}
+}

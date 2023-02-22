@@ -1,0 +1,5 @@
+@use "mixins/all" as *;
+
+section.buttons-block {
+	@include buttons;
+}

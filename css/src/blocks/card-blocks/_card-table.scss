@@ -1,0 +1,29 @@
+@use "mixins/all" as *;
+
+.card-content {
+	table {
+		width: 100%;
+		border-spacing: 0;
+		margin: 15px 0;
+
+		tr {
+			th,
+			td {
+				border-left: 1px solid $black;
+				border-top: 1px solid $black;
+				padding: 10px;
+
+				&:last-of-type {
+					border-right: 1px solid $black;
+				}
+			}
+
+			&:last-of-type {
+				th,
+				td {
+					border-bottom: 1px solid $black;
+				}
+			}
+		}
+	}
+}

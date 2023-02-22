@@ -1,0 +1,120 @@
+{
+    "key": "group_6500097b75c98",
+    "title": "Automaattiset heräteviestit",
+    "fields": [
+        {
+            "key": "field_6500097c8d1fd",
+            "label": "Heräteviestien vastaanottajat",
+            "name": "subscribers",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "layout": "table",
+            "pagination": 1,
+            "rows_per_page": 10,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Lisää rivi",
+            "sub_fields": [
+                {
+                    "key": "field_650009e48d1fe",
+                    "label": "Sähköpostiosoite",
+                    "name": "email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6500097c8d1fd"
+                },
+                {
+                    "key": "field_6500151094a38",
+                    "label": "Organisaatio",
+                    "name": "organization",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6500097c8d1fd"
+                },
+                {
+                    "key": "field_65000a008d1ff",
+                    "label": "Kieli",
+                    "name": "language",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "fi": "Suomi",
+                        "se": "Ruotsi"
+                    },
+                    "default_value": "fi",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "layout": "horizontal",
+                    "save_other_choice": 0,
+                    "parent_repeater": "field_6500097c8d1fd"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "subscriber-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1694519676
+}

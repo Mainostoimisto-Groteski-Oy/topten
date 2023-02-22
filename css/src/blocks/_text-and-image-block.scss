@@ -1,0 +1,60 @@
+@use "mixins/all" as *;
+
+section.text-and-image-block {
+	@include buttons;
+
+	.grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 50px;
+
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 15px;
+		}
+	}
+
+	.text-block {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.image-block {
+		text-align: center;
+
+		&.image-height-normal {
+			img {
+				height: auto;
+				object-fit: contain;
+			}
+		}
+
+		&.image-height-stretch {
+			img {
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		&.left {
+			grid-row: 1;
+			grid-column: 1;
+		}
+
+		@media (max-width: $max-s) {
+			grid-row: 1 / -1;
+		}
+	}
+}
+
+.content section.text-and-image-block .grid {
+	@media (max-width: $max-m) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.image-block {
+		@media (max-width: $max-m) {
+			grid-row: 1 / -1;
+		}
+	}
+}

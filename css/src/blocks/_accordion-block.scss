@@ -1,0 +1,276 @@
+@use "mixins/all" as *;
+
+.accordion-block {
+	margin: 15px 0;
+	padding-bottom: 25px;
+
+	&.override-margin {
+		margin: 0;
+		padding-bottom: 0;
+
+		.grid {
+			.content {
+				.accordion-title {
+					&:last-of-type {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+
+	&.no-padding {
+		padding-bottom: 0;
+	}
+
+	&.border {
+		.grid {
+			position: relative;
+		}
+	}
+
+	a {
+		color: $white;
+	}
+
+	.grid {
+		grid-template-columns: minmax(0, 1fr);
+
+		.content {
+			.accordion-title {
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				margin: 25px 0;
+				transition: all 0.15s;
+				cursor: pointer;
+				position: relative;
+				padding: 10px 15px;
+				background-color: $site-background;
+				color: $black;
+				width: 100%;
+				border: none;
+				border: 1px solid $black;
+				border-radius: 5px;
+
+				&:first-of-type {
+					margin-top: 0;
+				}
+
+				&.toggled {
+					margin-bottom: 0;
+					background-color: $site-background;
+					border-bottom-right-radius: 0;
+					border-bottom-left-radius: 0;
+
+					.material-symbols {
+						transform: rotate(-90deg);
+					}
+				}
+
+				&:hover {
+					background-color: $background-green;
+
+					.material-symbols {
+						transform: scale(1.2);
+					}
+
+					&.toggled {
+						.material-symbols {
+							transform: scale(1.2) rotate(-90deg);
+						}
+					}
+				}
+
+				span {
+					display: inline-block;
+					color: $green;
+					padding: 0;
+					margin: 0;
+
+					&:first-child {
+						font-weight: 600;
+						display: inline-block;
+					}
+
+					&.material-symbols {
+						font-weight: 400;
+						transition: all 0.25s;
+						margin-left: auto;
+						color: $green;
+						font-size: 3rem;
+						overflow: visible;
+
+						@media (max-width: $max-xs) {
+							font-size: 2.4rem;
+						}
+					}
+				}
+			}
+
+			.accordion-text {
+				display: none;
+				background-color: $background-green;
+				grid-template-columns: minmax(0, 1fr);
+				gap: 0;
+
+				h1 {
+					@include font-size(3.2rem, 6rem);
+
+					font-family: $font-heading;
+					margin: 15px 0;
+					font-weight: 600;
+				}
+
+				h2 {
+					@include font-size(2.4rem, 4rem);
+
+					font-family: $font-heading;
+					margin: 15px 0;
+					font-weight: 600;
+				}
+
+				h3 {
+					@include font-size(2rem, 2.8rem);
+
+					font-family: $font-heading;
+					margin: 15px 0;
+					font-weight: 600;
+				}
+
+				h4 {
+					@include font-size(1.8rem, 2rem);
+
+					font-family: $font-heading;
+					margin: 15px 0;
+					font-weight: 600;
+				}
+
+				h5 {
+					@include font-size(1.8rem, 2rem);
+
+					font-family: $font-heading;
+					margin: 15px 0;
+					font-weight: 600;
+				}
+
+				a {
+					color: $green;
+				}
+
+				p {
+					&:first-child {
+						margin-top: 0;
+					}
+				}
+
+				&.toggled {
+					display: grid;
+				}
+
+				@include arrowlinks($green, 600);
+
+				.links {
+					a.link {
+						&::before {
+							bottom: 0;
+						}
+					}
+				}
+
+				.text-wrapper {
+					padding: 30px;
+					border-left: 1px solid $black;
+					border-right: 1px solid $black;
+					border-bottom: 1px solid $black;
+
+					@media (max-width: $max-xxs) {
+						padding: 15px;
+					}
+				}
+			}
+		}
+
+		.tulkinta {
+			p {
+				position: relative;
+				display: flex;
+				align-items: center;
+				margin-top: 15px;
+				margin-bottom: 10px;
+				padding-left: 40px;
+				text-transform: uppercase;
+				font-size: 1.8rem;
+				font-weight: 400;
+
+				// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
+				&::before {
+					font-family: $font-icons;
+					text-transform: none;
+					width: 30px;
+					height: 30px;
+					color: $white;
+					position: absolute;
+					top: 0;
+					left: 0;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 60px;
+					font-weight: 400;
+					font-size: 1.8rem;
+				}
+
+				&.green {
+					&::before {
+						background-color: $tulkinta-green;
+					}
+				}
+
+				&.blue {
+					&::before {
+						background-color: $tulkinta-blue;
+					}
+				}
+
+				&.red {
+					&::before {
+						background-color: $tulkinta-red;
+					}
+				}
+
+				&.lightblue {
+					&::before {
+						background-color: $tulkinta-turquoise;
+					}
+				}
+
+				&.law {
+					&::before {
+						font-family: $font-main;
+						content: "§";
+					}
+				}
+
+				&.info {
+					&::before {
+						font-family: $font-main;
+						content: "i";
+					}
+				}
+
+				&.person {
+					&::before {
+						content: "\ea3d";
+					}
+				}
+
+				&.check {
+					&::before {
+						content: "\e876";
+					}
+				}
+			}
+		}
+	}
+}

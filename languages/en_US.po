@@ -1,0 +1,710 @@
+# Copyright (C) 2023 Mainostoimisto Groteski Oy
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Topten teema 1.0.22\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/topten\n"
+"Last-Translator: \n"
+"Language-Team: English (United States)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-06-21T12:21:29+00:00\n"
+"PO-Revision-Date: 2023-10-09 11:32+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: topten\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2"
+
+#: template-korttiluettelo.php:122
+msgid "(Huom: koskee toistaiseksi vain tulkintakortteja)"
+msgstr ""
+
+#: template-korttiluettelo.php:311
+msgid "Aakkosjärjestys"
+msgstr ""
+
+#: includes/backend/classes/class-ajax.php:147
+msgid "Anna koodi"
+msgstr ""
+
+#: template-parts/content-card.php:525 template-vertaa.php:704
+msgid "Anna palautetta tästä kortista"
+msgstr ""
+
+#: template-parts/content-card.php:357 template-vertaa.php:528
+msgid "Asiasanat"
+msgstr ""
+
+#: template-parts/content-card.php:175 template-vertaa.php:211
+#: template-vertaa.php:335
+msgid "Astuu voimaan"
+msgstr ""
+
+#: functions.php:1009
+msgid "Autamme mielellämme kehittämään sivustoasi entistäkin paremmaksi!"
+msgstr ""
+
+#: template-parts/content-card.php:100 template-vertaa.php:132
+msgid "Avaa sivupalkki"
+msgstr ""
+
+#: template-parts/content-card.php:361 template-vertaa.php:532
+msgid "Avaa tai piilota asiasanavalikko"
+msgstr ""
+
+#: template-parts/content-card.php:477 template-vertaa.php:651
+msgid "Avaa tai piilota kortin muutokset"
+msgstr ""
+
+#: template-parts/content-card.php:287 template-vertaa.php:455
+msgid "Avaa tai piilota lataa -valikko"
+msgstr ""
+
+#: template-parts/content-card.php:437 template-vertaa.php:608
+msgid "Avaa tai piilota liittyvät kortit"
+msgstr ""
+
+#: template-parts/content-card.php:531 template-vertaa.php:709
+msgid "Avaa tai piilota palautelomake"
+msgstr ""
+
+#: template-parts/content-card.php:333 template-vertaa.php:504
+msgid "Avaa tai piilota poista -valikko"
+msgstr ""
+
+#: template-parts/content-card.php:236 template-vertaa.php:396
+msgid "Avaa tai piilota sisällysluettelo"
+msgstr ""
+
+#: template-parts/content-card.php:259 template-vertaa.php:419
+msgid "Avaa tai piilota tallennusvalikko"
+msgstr ""
+
+#: template-parts/content-card.php:408 template-vertaa.php:579
+msgid "Avaa uudessa välilehdessä"
+msgstr ""
+
+#: template-parts/content-card.php:108 template-vertaa.php:140
+msgid "Avaa valikko"
+msgstr ""
+
+#: template-korttiluettelo.php:66 template-korttiluettelo.php:244
+msgid "Avoin tekstihaku"
+msgstr ""
+
+#: functions.php:1354
+msgid "Ei hakutuloksia."
+msgstr ""
+
+#. Template Name of the theme
+msgid "FAQ"
+msgstr ""
+
+#: template-korttiluettelo.php:89
+msgid "Hae asiasanaa"
+msgstr ""
+
+#: js/dist/main.min.js:8015
+msgid "Haluatko varmasti tyhjentää lomakkeen?"
+msgstr ""
+
+#. Theme URI of the theme
+msgid "https://github.com/Mainostoimisto-Groteski-Oy/topten"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://groteski.fi"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:166
+msgid "Hylkää"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:195
+msgid "Hylkää kortti"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:699
+msgid "Hylkääjän viesti:"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:162
+msgid "Hyväksy"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:189
+msgid "Hyväksy kortti"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:685
+msgid "Hyväksyjän viesti:"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:147
+msgid "Hyväksyntää odottavat kortit"
+msgstr ""
+
+#: template-parts/content-none.php:29
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: template-parts/content.php:145
+msgid "Jaa Facebookissa"
+msgstr ""
+
+#: template-parts/content.php:166
+msgid "Jaa LinkedInissä"
+msgstr ""
+
+#: template-parts/content.php:156
+msgid "Jaa X:ssä"
+msgstr ""
+
+#: template-parts/content-card.php:283 template-vertaa.php:451
+msgid "Jatka lomakkeen täyttämistä"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content-single-lift.php:68
+msgid "Jatka lukemista <span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: includes/backend/classes/class-ajax.php:178
+#: includes/backend/classes/class-ajax.php:184
+#: includes/backend/classes/class-ajax.php:200
+msgid "Jokin meni vikaan. Päivitä sivu ja yritä uudestaan."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:547
+#: includes/backend/classes/class-admin-cards.php:617
+#: includes/backend/classes/class-admin-cards.php:722
+#: includes/backend/classes/class-admin-cards.php:785
+msgid "Jotain meni vikaan. Yritä kohta uudestaan."
+msgstr "Something went wrong. Try again soon."
+
+#: includes/backend/class-topten-admin.php:191
+#: includes/backend/classes/class-admin-cards.php:77
+msgid "Julkaistu"
+msgstr ""
+
+#: template-korttiluettelo.php:307
+msgid "Julkaisuajankohdan mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:298
+msgid "Järjestä korttiluettelo"
+msgstr ""
+
+#: functions.php:1004
+msgid "Kaipaatko uusia ominaisuuksia?"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:72
+msgid "Kieli"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:73
+msgid "Kieliversiot"
+msgstr ""
+
+#. translators: 1: title.
+#: comments.php:35
+msgid "Kommentit"
+msgstr ""
+
+#: template-parts/content-card.php:608
+msgid "Koodi"
+msgstr ""
+
+#: js/dist/main.min.js:7957
+msgid "Koodi kopioitu leikepöydälle!"
+msgstr ""
+
+#: includes/backend/classes/class-ajax.php:223
+msgid "Koodi on lähetetty sähköpostiisi."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:293
+msgid "Kopioi"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:323
+msgid "Kopioi kieliversioksi"
+msgstr ""
+
+#: template-parts/content-card.php:618 template-parts/content-card.php:619
+msgid "Kopioi koodi"
+msgstr ""
+
+#: template-parts/content-card.php:472 template-vertaa.php:646
+msgid "Kortin muutokset"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:154
+msgid "Kortin nimi"
+msgstr ""
+
+#: template-korttiluettelo.php:256
+msgid "Kortit ajanjaksolta"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:650
+msgid "Kortti hylätty"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:580
+msgid "Kortti hyväksytty"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:562
+#: includes/backend/classes/class-admin-cards.php:632
+#: includes/backend/classes/class-admin-cards.php:739
+#: includes/backend/classes/class-admin-cards.php:802
+msgid "Korttia ei löytynyt"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Korttiluettelo"
+msgstr ""
+
+#. translators: %s: Card title
+#: includes/backend/classes/class-admin-cards.php:695
+msgid "Korttisi \"%s\" on hylätty."
+msgstr ""
+
+#. translators: %s: Card title
+#: includes/backend/classes/class-admin-cards.php:681
+msgid "Korttisi \"%s\" on hyväksytty."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:689
+msgid "Korttisi on hylätty"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:675
+msgid "Korttisi on hyväksytty"
+msgstr ""
+
+#: blocks/text-and-form-block.php:46
+msgid "Kuva henkilöstä puuttuu"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:746
+#: includes/backend/classes/class-admin-cards.php:809
+msgid "Käyttäjällesi ei ole asetettu kuntaa. Ota yhteys ylläpitoon."
+msgstr ""
+
+#: template-korttiluettelo.php:242
+msgid "Käytössä olevat suodattimet"
+msgstr ""
+
+#: template-parts/content-card.php:432 template-vertaa.php:603
+msgid "Liittyvät kortit"
+msgstr ""
+
+#: blocks/logos-block.php:85 blocks/logos-block.php:94
+#: blocks/logos-block.php:158 blocks/logos-block.php:167
+msgid "Linkki aukeaa uuteen ikkunaan"
+msgstr ""
+
+#: template-parts/content-card.php:405 template-vertaa.php:576
+msgid "Lisätietoja"
+msgstr ""
+
+#: template-korttiluettelo.php:97
+msgid "Lisää asiasana"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:132
+#: includes/backend/class-topten-admin.php:134
+#: includes/functions/general.php:250 template-faq.php:24
+#: template-korttiluettelo.php:225
+msgid "Lomakekortit"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:135
+msgid "Lomakekortti"
+msgstr ""
+
+#: blocks/articles-block.php:176 template-parts/content-after-single.php:78
+#: template-parts/content-single-lift.php:93
+msgid "Lue koko juttu"
+msgstr ""
+
+#: template-parts/content-card.php:317 template-parts/content-card.php:650
+#: template-vertaa.php:488
+msgid "Lähetä"
+msgstr ""
+
+#. Author of the theme
+msgid "Mainostoimisto Groteski Oy"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:75
+msgid "Muokattu"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:76
+msgid "Muokkaaja"
+msgstr ""
+
+#: template-parts/content-card.php:199 template-vertaa.php:235
+#: template-vertaa.php:359
+msgid "Muutos"
+msgstr ""
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr ""
+
+#: template-korttiluettelo.php:188 template-korttiluettelo.php:272
+msgid "Näytä"
+msgstr ""
+
+#: template-korttiluettelo.php:252
+msgid "Näytä kortit joita koskee pykälä "
+msgstr ""
+
+#: template-korttiluettelo.php:166 template-korttiluettelo.php:268
+msgid "Näytä kortit luokasta"
+msgstr ""
+
+#: template-korttiluettelo.php:107
+msgid "Näytä vain kortit jotka on laadittu"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:103
+#: includes/backend/class-topten-admin.php:105
+#: includes/backend/classes/pages/approve-cards/approve-ohjekortti.php:8
+#: includes/functions/general.php:220 template-korttiluettelo.php:212
+msgid "Ohjekortit"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:106
+msgid "Ohjekortti"
+msgstr ""
+
+#: template-unsubscribe.php:42
+msgid "Olet poistanut itsesi Topten-infoviestien tilaajalistalta."
+msgstr ""
+
+#: functions.php:999
+msgid "Ongelmia sivuston kanssa?"
+msgstr ""
+
+#: functions.php:1013
+msgid "Ota yhteyttä Groteskin tukeen:"
+msgstr ""
+
+#: header.php:48
+msgid "Palaa etusivulle"
+msgstr ""
+
+#: 404.php:26
+msgid "Palaa etusivulle."
+msgstr ""
+
+#. translators: %s = Error message
+#: includes/backend/classes/class-admin-cards.php:549
+#: includes/backend/classes/class-admin-cards.php:619
+msgid "Parametri puuttuu: %s"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:166
+#: includes/backend/class-topten-admin.php:189
+msgid "Poistettu"
+msgstr ""
+
+#. translators: %s: post count.
+#: includes/backend/class-topten-admin.php:172
+msgid "Poistettu <span class=\"count\">(%s)</span>"
+msgid_plural "Poistettu <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/backend/classes/class-admin-cards-lifecycle.php:294
+msgid "Päivitetty Topten-kortti:"
+msgstr ""
+
+#: functions.php:77
+msgid "Päävalikko"
+msgstr ""
+
+#: template-korttiluettelo.php:49
+msgid "Rajaa hakua kortistosta"
+msgstr ""
+
+#: header.php:71
+msgid "Rakennustarkastusyhdistyksen sivuille"
+msgstr ""
+
+#: template-parts/content-card.php:450
+msgid "Rakentamislaki 2025"
+msgstr ""
+
+#. translators: %s: search query.
+#: search.php:21
+msgid "Search Results for: %s"
+msgstr ""
+
+#: template-unsubscribe.php:65
+msgid "Siirry etusivulle"
+msgstr ""
+
+#: blocks/articles-block.php:118 blocks/text-and-card-block.php:94
+msgid "Siirry kortille"
+msgstr ""
+
+#. translators: %s: version number
+#: template-parts/content-card.php:512 template-vertaa.php:691
+msgid "Siirry korttiarkistoon tutkailemaan versiota %s"
+msgstr ""
+
+#: template-parts/content-card.php:565 template-vertaa.php:741
+msgid "Siirry korttilistaukseen"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:732
+#: includes/backend/classes/class-admin-cards.php:795
+msgid "Sinulla ei ole oikeuksia aktivoida kortteja"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:537
+#: includes/backend/classes/class-admin-cards.php:607
+msgid "Sinulla ei ole oikeuksia hyväksyä kortteja"
+msgstr ""
+
+#: includes/backend/classes/pages/approve-cards/approve-lomakekortti.php:3
+#: includes/backend/classes/pages/approve-cards/approve-ohjekortti.php:3
+#: includes/backend/classes/pages/approve-cards/approve-tulkintakortti.php:3
+msgid "Sinulla ei ole oikeuksia tälle sivulle."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:527
+#: includes/backend/classes/class-admin-cards.php:597
+msgid "Sinun täytyy kirjautua sisään hyväksyäksesi kortteja"
+msgstr ""
+
+#: template-parts/content-card.php:232 template-vertaa.php:392
+msgid "Sisällysluettelo"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:35
+msgid "Sisällön tarkastaja"
+msgstr ""
+
+#: 404.php:18
+msgid "Sivua ei löytynyt."
+msgstr ""
+
+#: header-normal-menu.php:31 header.php:30
+msgid "Skip to content"
+msgstr ""
+
+#: template-parts/content-none.php:22
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: template-parts/content-card.php:657
+msgid "Sulje"
+msgstr ""
+
+#: template-parts/content-card.php:394 template-vertaa.php:565
+msgid "Sulje asiasanan kuvaus"
+msgstr ""
+
+#: template-parts/content-card.php:112 template-vertaa.php:144
+msgid "Sulje valikko"
+msgstr ""
+
+#: template-vertaa.php:667
+msgid "Sulje vertailunäkymä"
+msgstr ""
+
+#: template-korttiluettelo.php:235
+msgid "Suodata hakutuloksia"
+msgstr ""
+
+#: template-korttiluettelo.php:82
+msgid "Suodata kortteja asiasanan mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:144
+msgid "Suodata kortteja laatijaryhmän mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:121
+msgid "Suodata MRL:n lukujen ja pykälien mukaan aihepiireittäin"
+msgstr ""
+
+#: includes/backend/classes/class-ajax.php:159
+msgid "Syöttämääsi koodia ei löytynyt."
+msgstr ""
+
+#: template-parts/content-card.php:305 template-parts/content-card.php:314
+#: template-vertaa.php:474 template-vertaa.php:485
+msgid "Syötä saamasi koodi tähän"
+msgstr ""
+
+#: template-parts/content-card.php:640 template-parts/content-card.php:647
+msgid "Sähköpostiosoite"
+msgstr ""
+
+#: includes/backend/classes/class-ajax.php:188
+msgid "Sähköpostiosoite ei ole kelvollinen."
+msgstr ""
+
+#: template-unsubscribe.php:49
+msgid "Sähköpostiosoitetta ei ole määritetty."
+msgstr ""
+
+#: template-unsubscribe.php:61
+msgid "Sähköpostiosoitetta ei ole rekisteröity tilaajalistalle."
+msgstr ""
+
+#: template-parts/content-card.php:256 template-vertaa.php:416
+msgid "Tallenna esitäytetty lomake"
+msgstr ""
+
+#: template-parts/content-card.php:555 template-vertaa.php:731
+msgid "Tallenna kortti PDF:nä"
+msgstr ""
+
+#: template-parts/content-card.php:274 template-vertaa.php:439
+msgid "Tallenna lomake"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:74
+msgid "Tila"
+msgstr ""
+
+#. Theme Name of the theme
+msgid "Topten"
+msgstr ""
+
+#: template-unsubscribe.php:28
+msgid "Topten-infoviestit"
+msgstr ""
+
+#. Description of the theme
+msgid "Toptenin teema"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:70
+#: includes/backend/class-topten-admin.php:72
+#: includes/backend/classes/pages/approve-cards/approve-lomakekortti.php:8
+#: includes/backend/classes/pages/approve-cards/approve-tulkintakortti.php:8
+#: includes/functions/general.php:169 template-korttiluettelo.php:199
+msgid "Tulkintakortit"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:73
+msgid "Tulkintakortti"
+msgstr ""
+
+#: template-parts/content-card.php:187 template-vertaa.php:223
+#: template-vertaa.php:347
+msgid "Tunniste"
+msgstr ""
+
+#: template-korttiluettelo.php:303
+msgid "Tunnisteen mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:280
+msgid "Tyhjennä kaikki valinnat"
+msgstr ""
+
+#: template-parts/content-card.php:329 template-parts/content-card.php:345
+#: template-vertaa.php:500 template-vertaa.php:516
+msgid "Tyhjennä lomake"
+msgstr ""
+
+#: template-parts/content-card.php:494 template-vertaa.php:673
+msgid "Tästä kortista on olemassa aiemmin luodut versiot:"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Unsubscribe"
+msgstr ""
+
+#: template-faq.php:20 template-parts/content-card.php:577
+#: template-vertaa.php:753
+msgid "Usein kysytyt kysymykset"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards-lifecycle.php:292
+msgid "Uusi Topten-kortti:"
+msgstr ""
+
+#: template-parts/content-card.php:152 template-vertaa.php:190
+#: template-vertaa.php:312
+msgid "Vahvistuspvm"
+msgstr ""
+
+#: template-korttiluettelo.php:128 template-korttiluettelo.php:150
+msgid "Valitse"
+msgstr ""
+
+#: template-korttiluettelo.php:264
+msgid "Valittu vastuuryhmä"
+msgstr ""
+
+#: template-korttiluettelo.php:248
+msgid "Valitut asiasanat"
+msgstr ""
+
+#: template-parts/content-card.php:452
+msgid "Vanhentunut"
+msgstr ""
+
+#: template-korttiluettelo.php:59
+msgid "Vapaa haku"
+msgstr ""
+
+#: template-unsubscribe.php:53
+msgid "Varmistustunnusta ei ole määritetty."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:70
+msgid "Versio"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:71
+msgid "Versiot"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Vertaa kortteja"
+msgstr ""
+
+#: template-parts/content-card.php:489 template-parts/content-card.php:548
+msgid "Vertaa korttia edelliseen versioon"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approve-cards.php:158
+msgid "Viesti"
+msgstr ""
+
+#: template-unsubscribe.php:57
+msgid "Virheellinen varmistustunnus."
+msgstr ""
+
+#: template-parts/content-card.php:448
+msgid "Voimassa"
+msgstr ""
+
+#: template-parts/content-card.php:161 template-vertaa.php:197
+#: template-vertaa.php:321
+msgid "Voimassaolo"
+msgstr ""
+
+#: template-korttiluettelo.php:113
+msgid "välisenä ajankohtana"
+msgstr ""

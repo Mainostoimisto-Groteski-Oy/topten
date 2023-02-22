@@ -1,0 +1,36 @@
+@use "admin/widgets";
+@use "admin/page-approval";
+@use "admin/editor";
+
+.post-type-tulkintakortti {
+	.fixed {
+		th.column-version,
+		th.column-versions,
+		th.column-language {
+			width: 5em;
+		}
+
+		th.column-other_languages,
+		th.column-modified,
+		th.column-status,
+		th.column-published,
+		th.column-modified_author {
+			width: 10em;
+		}
+	}
+
+	.wp-list-table {
+		td[class*="column-language_"],
+		th[class*="column-language_"] {
+			display: none !important;
+		}
+	}
+
+	.version-number {
+		padding: 0 5px;
+
+		&:not(:last-of-type) {
+			border-right: 1px solid #000;
+		}
+	}
+}

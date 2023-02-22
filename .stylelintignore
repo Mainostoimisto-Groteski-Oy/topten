@@ -1,0 +1,8 @@
+css/dist
+css/src/global/plugins/*.scss
+vendor
+scripts
+node_modules
+.github
+includes/fpdf
+docs

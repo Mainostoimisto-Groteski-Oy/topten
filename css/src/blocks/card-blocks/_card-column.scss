@@ -1,0 +1,163 @@
+@use "mixins/all" as *;
+
+.card-content {
+	.column-item {
+		width: calc(var(--width, 100%) - 10px);
+
+		&.added {
+			background-color: $diff-added !important;
+
+			// padding: 15px;
+			// border-radius: 4px;
+			// margin-bottom: 3px;
+		}
+
+		.card-content-wrapper:not(.print) & {
+			@media (max-width: $max-s) {
+				width: 100%;
+			}
+		}
+	}
+
+	.column {
+		padding: 15px 20px;
+		display: flex;
+		flex-wrap: wrap;
+
+		> * {
+			margin: 5px;
+		}
+
+		&:last-of-type,
+		.single {
+			border-right: none;
+		}
+
+		p {
+			margin: 15px 0;
+			line-height: 1.5;
+
+			&.strong {
+				font-weight: 400;
+			}
+		}
+
+		> .title-wrapper.background-grey,
+		.title-wrapper.background-light {
+			&:first-of-type {
+				margin-top: -25px;
+
+				.title {
+					padding: 10px 0;
+				}
+			}
+
+			&:only-child {
+				margin-bottom: -25px;
+			}
+		}
+
+		.title-wrapper {
+			padding: 10px 5px;
+			margin: 0;
+
+			&.background-white {
+				background-color: transparent;
+			}
+
+			&.background-grey {
+				.title {
+					background-color: $background-grey;
+
+					&::after,
+					&::before {
+						background-color: $background-grey;
+					}
+				}
+			}
+
+			&.background-light {
+				.title {
+					background-color: $background-green;
+
+					&::after,
+					&::before {
+						background-color: $background-green;
+					}
+				}
+			}
+
+			&.background-light,
+			&.background-grey {
+				margin: 0;
+
+				.title {
+					margin: 0 !important;
+					position: relative;
+					padding: 5px 0;
+
+					&::before {
+						width: 25px;
+						height: 100%;
+						content: "";
+						position: absolute;
+						top: 0;
+						left: -25px;
+
+						.card-content-wrapper:not(.print) & {
+							@media (max-width: $max-s) {
+								left: -25px;
+								width: 25px;
+							}
+						}
+					}
+
+					&::after {
+						width: 35px;
+						height: 100%;
+						content: "";
+						position: absolute;
+						top: 0;
+						right: -35px;
+
+						.card-content-wrapper:not(.print) & {
+							@media (max-width: $max-s) {
+								right: -25px;
+								width: 25px;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.small-title {
+			font-size: 1.6rem;
+			margin: 0;
+			line-height: 1.5;
+			font-weight: 400;
+
+			strong {
+				font-style: normal;
+			}
+		}
+
+		p.identifier-text,
+		p.version-text {
+			font-size: 1.8rem;
+			font-weight: 400;
+
+			em {
+				font-size: 1.8rem;
+			}
+		}
+	}
+}
+
+.single-lomakekortti {
+	.card-content {
+		.column {
+			align-items: center;
+		}
+	}
+}

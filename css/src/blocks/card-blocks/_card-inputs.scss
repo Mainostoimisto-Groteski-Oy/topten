@@ -1,0 +1,207 @@
+@use "mixins/all" as *;
+
+.input-wrapper {
+	&.centered {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	&.checkboxes-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: auto;
+		margin-bottom: auto;
+
+		.card-content-wrapper:not(.print) & {
+			@media (max-width: $max-s) {
+				width: 100%;
+				align-items: unset;
+			}
+		}
+
+		.checkboxes {
+			display: flex;
+			gap: 15px;
+			flex-wrap: wrap;
+		}
+
+		&.vertical {
+			.checkboxes {
+				flex-direction: column;
+				gap: 5px;
+
+				label.checkbox-field {
+					display: block;
+
+					input {
+						margin-right: 3px;
+					}
+				}
+			}
+		}
+
+		&.text-before {
+			flex-flow: column wrap;
+
+			.description {
+				max-width: unset !important;
+				width: 100%;
+			}
+
+			.checkboxes {
+				width: 100%;
+			}
+		}
+	}
+
+	&.radios-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.card-content-wrapper:not(.print) & {
+			@media (max-width: $max-s) {
+				width: 100%;
+				align-items: unset;
+			}
+		}
+
+		&.center {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+
+		.radios {
+			display: flex;
+			gap: 15px;
+
+			span.text-before {
+				font-size: 1.6rem;
+
+				&.responsive-only {
+					display: none;
+
+					.card-content-wrapper:not(.print) & {
+						@media (max-width: $max-s) {
+							display: inline;
+						}
+					}
+				}
+			}
+
+			.card-content-wrapper:not(.print) & {
+				@media (max-width: $max-s) {
+					width: 100%;
+				}
+			}
+		}
+
+		&.vertical {
+			.radios {
+				flex-direction: column;
+				gap: 5px;
+
+				label.radio-field {
+					display: block;
+
+					input {
+						margin-right: 3px;
+					}
+				}
+			}
+		}
+
+		&.text-before {
+			flex-direction: column;
+
+			.description {
+				max-width: unset !important;
+				width: 100%;
+			}
+
+			.radios {
+				width: 100%;
+			}
+		}
+	}
+
+	textarea {
+		margin-top: 5px;
+		resize: none;
+	}
+
+	label {
+		&.text-field,
+		&.textarea-field {
+			display: flex;
+			flex-direction: column;
+		}
+
+		&.text-field {
+			.input-field-wrapper {
+				display: flex;
+				gap: 5px;
+				align-items: center;
+
+				input {
+					width: 100%;
+					padding: 10px;
+					margin: 5px 0;
+				}
+
+				span.prefix,
+				span.suffix {
+					font-size: 1.6rem;
+					font-weight: 400;
+				}
+			}
+		}
+
+		&.checkbox-field,
+		&.radio-field {
+			display: flex;
+			gap: 5px;
+			align-items: center;
+
+			> span {
+				font-size: 1.6rem !important;
+			}
+		}
+
+		span.label-text {
+			font-size: 1.6rem;
+			font-weight: 400;
+		}
+	}
+
+	&.checkboxes-wrapper,
+	&.radios-wrapper {
+		.card-content-wrapper:not(.print) & {
+			@media (max-width: $max-s) {
+				width: 100%;
+			}
+		}
+
+		&.horizontal {
+			.card-content-wrapper:not(.print) & {
+				@media (max-width: $max-s) {
+					display: flex;
+					flex-direction: column;
+				}
+			}
+
+			.description {
+				max-width: 80%;
+
+				.card-content-wrapper:not(.print) & {
+					@media (max-width: $max-s) {
+						width: 100%;
+						max-width: unset;
+					}
+				}
+			}
+		}
+	}
+}

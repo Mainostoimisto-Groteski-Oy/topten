@@ -1,0 +1,14 @@
+node_modules
+vendor
+.phpdoc
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+*/dist
+/template-parts/savedump.php

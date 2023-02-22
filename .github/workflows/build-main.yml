@@ -1,0 +1,66 @@
+name: Build main
+
+on:
+  workflow_run:
+    workflows: ["Run linters"]
+    branches: [main]
+    types:
+      - completed
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Pull
+        run: |
+         git fetch
+         git pull
+
+      - name: Run gulp prod
+        run: gulp gitProd
+
+      - name: Commit & push
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -a -m "Build release"
+          git push
+
+      - name: Get version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+
+      - name: Archive release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "zip"
+          filename: "topten.zip"
+          exclusions: "*.git* /*node_modules/* .editorconfig /*vendor/*"
+
+      - name: Upload release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "topten.zip"
+          commit: "main"
+          tag: "${{ steps.package-version.outputs.current-version }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          makeLatest: true
+          prerelease: false

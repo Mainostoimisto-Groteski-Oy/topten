@@ -1,0 +1,44 @@
+@use "mixins/all" as *;
+
+footer {
+	section.banner-block {
+		margin: 0;
+	}
+}
+
+section.banner-block {
+	margin: 50px 0;
+	background-color: $green;
+
+	.grid {
+		padding: 0 15px;
+
+		.content {
+			&.with-text {
+				.title {
+					text-align: center;
+				}
+			}
+
+			.title {
+				margin: 15px 0;
+			}
+
+			.text p {
+				font-size: 2.2rem;
+				font-weight: 600;
+				color: $white;
+				text-align: center;
+				margin: 0;
+
+				@media (max-width: $max-s) {
+					font-size: 2.2rem;
+				}
+
+				@media (max-width: $max-xs) {
+					font-size: 2rem;
+				}
+			}
+		}
+	}
+}

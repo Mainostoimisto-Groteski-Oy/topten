@@ -1,0 +1,195 @@
+@use "mixins/all" as *;
+
+.gform_wrapper {
+	font-family: $font-main;
+	position: relative;
+
+	.gform_validation_errors {
+		grid-column: 1 / -1;
+
+		.gform_submission_error {
+			color: $admin-red;
+			font-size: 1.8rem;
+			font-weight: 400;
+		}
+	}
+
+	.gform_fields {
+		display: grid;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: 10px;
+
+		.gfield {
+			margin-top: auto;
+
+			&.gfield--type-checkbox {
+				grid-column: 1 / -1;
+				padding: 0;
+				border: 0;
+
+				legend {
+					margin-bottom: 10px;
+				}
+
+				.ginput_container_checkbox {
+					.gfield_checkbox {
+						display: flex;
+						flex-direction: column;
+						gap: 10px;
+						font-size: 1.8rem;
+
+						.gchoice {
+							font-size: 1.8rem;
+							font-weight: 400;
+							line-height: 1.5;
+							accent-color: $green;
+						}
+					}
+				}
+			}
+
+			&.gfield--width-full {
+				grid-column: 1 / -1;
+			}
+
+			&.gfield--width-half {
+				grid-column: span 6;
+			}
+
+			input:not([type="file"], [type="checkbox"], [type="radio"]),
+			textarea {
+				width: 100%;
+				padding: 10px;
+				border: 1px solid $black;
+				border-radius: 3px;
+				font-size: 1.8rem;
+			}
+
+			textarea {
+				&.large {
+					height: 300px;
+				}
+
+				&.medium {
+					height: 200px;
+				}
+
+				&.small {
+					height: 100px;
+				}
+			}
+
+			.gfield_label {
+				font-size: 1.6rem;
+				text-transform: uppercase;
+				font-weight: 400;
+				margin: 4px 0 2px;
+				display: block;
+
+				.gfield_required {
+					font-size: 1.6rem;
+				}
+			}
+
+			.gfield_description {
+				font-size: 1.8rem;
+				font-weight: 400;
+
+				&.gform_fileupload_rules {
+					display: block;
+					font-size: 1.6rem;
+					margin-top: 5px;
+				}
+			}
+
+			.ginput_container {
+				&.ginput_container_fileupload {
+					padding: 15px 15px 10px;
+					border: 1px solid $black;
+					border-radius: 3px;
+					background-color: $site-background;
+
+					input {
+						font-size: 1.6rem;
+					}
+				}
+			}
+		}
+	}
+
+	.gform_footer {
+		margin-top: 25px;
+
+		input[type="submit"] {
+			background-color: $green;
+			color: $white;
+			border: 1px solid $green;
+			border-radius: 5px;
+			transition: all 0.15s;
+			padding: 10px 25px;
+			font-size: 1.8rem;
+			font-weight: 600;
+			text-transform: uppercase;
+
+			&:hover {
+				color: $white;
+				background-color: $card-main-green;
+			}
+		}
+	}
+
+	.gform_confirmation_wrapper {
+		.gform_confirmation_message {
+			font-size: 1.8rem;
+			font-weight: 400;
+			line-height: 1.5;
+			text-align: center;
+			margin-bottom: 15px;
+		}
+	}
+}
+
+.text-and-form-block {
+	.gform_confirmation_wrapper {
+		background-color: $background-grey;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.gform_confirmation_message {
+			font-size: 1.8rem;
+			font-weight: 400;
+			text-align: center;
+			line-height: 1.5;
+		}
+	}
+}
+
+.single-tulkintakortti,
+.single-lomakekortti,
+.single-ohjekortti {
+	.gform_wrapper {
+		.gform_fields {
+			.gfield {
+				&.card-name {
+					display: none;
+
+					textarea {
+						display: none;
+						position: relative;
+						cursor: not-allowed;
+					}
+				}
+			}
+		}
+	}
+
+	.gform_confirmation_message {
+		font-size: 1.8rem;
+		font-weight: 400;
+		line-height: 1.5;
+	}
+}

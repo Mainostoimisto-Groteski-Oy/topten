@@ -1,0 +1,1178 @@
+@use "mixins/all" as *;
+
+.sidebar {
+	@media print {
+		display: none;
+	}
+}
+
+body.page-template-template-korttiluettelo {
+	main {
+		position: relative;
+
+		section.cards {
+			&.filters {
+				background-color: $site-background;
+			}
+
+			&.list {
+				background-color: $background-grey;
+				border-top: 1px solid $black;
+				position: relative;
+
+				#ajaxOverlay {
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 100%;
+					width: 100%;
+					background-color: $ajaxgrey;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					z-index: 99999;
+				}
+
+				#ajaxSpinner {
+					position: fixed;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					display: none;
+					z-index: 999999;
+
+					&.active {
+						display: block;
+					}
+
+					.spinner-wrapper {
+						height: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						.spinner {
+							width: 40px;
+							height: 40px;
+							border: 4px $highlight-grey solid;
+							border-top: 4px $green solid;
+							border-radius: 50%;
+							animation: spinning 0.6s infinite linear;
+						}
+					}
+				}
+			}
+
+			.grid {
+				&.top {
+					padding: 0 15px;
+					gap: 0;
+
+					.title-wrapper {
+						grid-column: 1 / -1;
+						position: relative;
+						margin-bottom: 25px;
+
+						@media (max-width: $max-xxs) {
+							margin: 0 0 25px;
+						}
+
+						.title {
+							font-weight: 600;
+							margin: 15px 0;
+							color: $black;
+						}
+
+						&.active {
+							margin-bottom: 0;
+						}
+
+						button.toggler {
+							width: 100%;
+							background-color: transparent;
+							text-align: left;
+							border: 1px solid $black;
+							border-radius: 5px;
+							padding: 0 15px;
+
+							.title {
+								color: $green;
+							}
+
+							span.material-symbols {
+								font-family: $font-icons;
+								font-size: 3rem;
+								background: none;
+								border: none;
+								position: absolute;
+								right: 15px;
+								top: 50%;
+								transform: translate(0, -50%) rotate(90deg);
+								transition: all 0.15s;
+								color: $green;
+							}
+
+							&.active {
+								border-bottom-right-radius: 0;
+								border-bottom-left-radius: 0;
+
+								span.material-symbols {
+									transform: translate(0, -50%) rotate(0deg);
+								}
+
+								&:hover {
+									span.material-symbols {
+										transform: translate(0, -50%) rotate(0deg) scale(1.2);
+									}
+								}
+							}
+
+							&:hover {
+								background-color: $background-green;
+
+								span.material-symbols {
+									transform: translate(0, -50%) rotate(90deg) scale(1.2);
+								}
+							}
+						}
+					}
+
+					.content-area {
+						display: grid;
+						grid-template-columns: 8fr 4fr;
+						gap: 0;
+
+						&.expanded {
+							border-left: 1px solid $black;
+							border-right: 1px solid $black;
+							background-color: $card-tertiary-green;
+						}
+
+						@media (max-width: $max-m) {
+							grid-template-columns: minmax(0, 1fr);
+						}
+					}
+
+					.sidebar {
+						display: none;
+						grid-column: 2;
+						position: relative;
+						flex-direction: column;
+						padding: 30px;
+						border-left: 1px solid $black;
+						border-bottom-right-radius: 5px;
+						background-color: $white;
+
+						@media (max-width: $max-m) {
+							grid-column: auto;
+							border-bottom-left-radius: 5px;
+							border-left: none;
+							border-top: 1px solid $black;
+						}
+
+						@media (max-width: $max-xs) {
+							padding: 15px;
+						}
+
+						@media (max-width: $max-xxs) {
+							padding-bottom: 25px;
+						}
+
+						&.active {
+							display: flex;
+						}
+
+						figure {
+							margin: 0 0 15px;
+							display: none;
+
+							&.active {
+								display: block;
+							}
+
+							figcaption {
+								margin: 10px 0;
+								padding: 0;
+								font-size: 1.6rem;
+								line-height: 1.25;
+								font-weight: 400;
+								letter-spacing: 0.32px;
+								text-transform: uppercase;
+								color: $black;
+							}
+
+							ul.keywords {
+								list-style: none;
+								margin: 10px 0 0;
+								padding: 0;
+								display: flex;
+
+								// flex-direction: column;
+								// flex-wrap: wrap;
+
+								flex-flow: column wrap;
+								gap: 0;
+
+								&#selectedDateRange {
+									flex-direction: row;
+									gap: 5px;
+									align-items: center;
+								}
+
+								@media (max-width: $max-l) {
+									gap: 10px;
+									flex-direction: row;
+								}
+
+								li.keyword {
+									display: flex;
+									gap: 5px;
+									align-items: center;
+									position: relative;
+
+									button {
+										border-radius: 100px;
+										background-color: $green;
+										color: $white;
+										font-size: 1.8rem;
+										border: none;
+										width: 20px;
+										height: 20px;
+										position: absolute;
+										top: 5px;
+										transition: all 0.15s;
+										padding: 0;
+										appearance: none;
+
+										@media (max-width: $max-s) {
+											width: 24px;
+											height: 24px;
+											top: 3px;
+										}
+
+										&:hover {
+											background-color: $black;
+										}
+
+										span.material-symbols {
+											position: absolute;
+											content: "\e5cd";
+											top: 50%;
+											left: 50%;
+											transform: translate(-50%, -50%);
+											font-family: $font-icons;
+											color: $white;
+											font-size: 1.6rem;
+											font-weight: 400;
+
+											@media (max-width: $max-s) {
+												font-size: 1.8rem;
+											}
+										}
+									}
+
+									span.name {
+										font-size: 1.8rem;
+										margin-left: 26px;
+										font-weight: 400;
+
+										@media (max-width: $max-s) {
+											margin-left: 30px;
+										}
+									}
+
+									&.disabled {
+										button {
+											background-color: $background-grey;
+											color: $black;
+
+											&::after {
+												color: $black;
+											}
+
+											cursor: not-allowed;
+										}
+									}
+								}
+							}
+						}
+
+						.title {
+							padding: 0;
+							margin: 0 0 15px;
+							font-weight: 600;
+							color: $black;
+						}
+
+						button.resetFilters {
+							background-color: $white;
+							border: 1px solid $black;
+							text-transform: uppercase;
+							transition: all 0.15s;
+							padding: 10px 20px;
+							border-radius: 5px;
+							margin-top: auto;
+							margin-right: auto;
+							display: inline-block;
+							font-weight: 400;
+							font-size: 1.8rem;
+							color: $black;
+
+							@media (max-width: $max-xl) {
+								padding: 5px 10px;
+							}
+
+							@media (max-width: $max-xxs) {
+								padding: 10px 20px;
+								width: 100%;
+							}
+
+							&:hover {
+								background-color: $black;
+								color: $white;
+							}
+						}
+					}
+				}
+
+				&:not(.top) {
+					grid-template-columns: minmax(0, 1fr);
+				}
+
+				input[type="checkbox"],
+				select {
+					cursor: pointer;
+				}
+
+				.search {
+					display: none;
+					grid-column: 1;
+					padding: 0 30px;
+
+					@media (max-width: $max-xl) {
+						grid-column: auto;
+					}
+
+					@media (max-width: $max-xs) {
+						padding: 0 15px;
+					}
+
+					&.active {
+						display: block;
+
+						.search-wrapper {
+							padding: 30px 0;
+							display: grid;
+							grid-template-columns: repeat(2, minmax(0, 1fr));
+							gap: 15px 30px;
+
+							@media (max-width: $max-s) {
+								grid-template-columns: minmax(0, 1fr);
+							}
+
+							@media (max-width: $max-xxs) {
+								padding: 0;
+								gap: 0;
+
+								> div {
+									padding: 15px;
+
+									&.submit {
+										padding: 0 15px 25px;
+										border-bottom: 1px solid $background-grey;
+										margin-bottom: 25px;
+									}
+								}
+							}
+						}
+					}
+
+					label,
+					small,
+					.small {
+						font-size: 1.6rem;
+						font-weight: 400;
+						letter-spacing: 0.32px;
+						text-transform: uppercase;
+						display: block;
+					}
+
+					label {
+						margin: 5px 0 10px;
+						line-height: 1.25;
+					}
+
+					small,
+					.small {
+						margin: 10px 0 5px;
+					}
+
+					.full {
+						grid-column: 1 / -1;
+						margin-bottom: 25px;
+
+						@media (max-width: $max-xs) {
+							margin-bottom: 0;
+						}
+
+						&.checkboxes {
+							display: grid;
+							grid-template-columns: repeat(2, minmax(0, 1fr));
+
+							@media (max-width: $max-xs) {
+								grid-template-columns: minmax(0, 1fr);
+							}
+
+							p.label {
+								grid-column: 1 / -1;
+								font-size: 1.8rem;
+								letter-spacing: 0.32px;
+								margin: 5px 0;
+								display: block;
+							}
+						}
+					}
+
+					.one-third {
+						grid-column: auto;
+						display: flex;
+						justify-content: flex-end;
+						flex-direction: column;
+
+						select {
+							background-color: $white;
+							color: $black;
+							padding: 10px;
+							width: 100%;
+							border-radius: 5px;
+							border: 1px solid $black;
+						}
+
+						&.special {
+							justify-content: unset;
+
+							.box-wrapper {
+								height: auto;
+							}
+						}
+					}
+
+					.full-small {
+						@media (max-width: $max-xl) {
+							grid-column: 1 / -1;
+						}
+					}
+
+					.box-wrapper {
+						display: flex;
+						flex-direction: row;
+						height: 100%;
+						gap: 5px;
+						align-items: center;
+						position: relative;
+
+						label {
+							font-size: 1.8rem;
+							font-weight: 400;
+							text-transform: none;
+							margin: 7px 0;
+							cursor: pointer;
+						}
+
+						input[type="checkbox"] {
+							accent-color: $black;
+						}
+
+						&.uudisrakentaminen,
+						&.lupavaiheen-kortit {
+							margin-bottom: 15px;
+
+							&::after {
+								position: absolute;
+								left: 0;
+								bottom: -7px;
+								height: 1px;
+								width: 100%;
+								background-color: $highlight-grey;
+								content: "";
+							}
+						}
+					}
+
+					.input-wrapper {
+						display: flex;
+						flex-direction: column;
+						white-space: none;
+
+						@include checkboxes;
+
+						&.horizontal {
+							flex-direction: row;
+							align-items: center;
+							height: 100%;
+							gap: 5px;
+
+							@media (max-width: $max-xl) {
+								margin-left: 0;
+							}
+
+							&.no-margin {
+								margin-left: 0;
+							}
+
+							label {
+								margin-left: auto;
+							}
+
+							.inner-wrapper {
+								display: flex;
+
+								input {
+									flex-grow: 0;
+									margin-right: 5px;
+								}
+							}
+						}
+
+						span.check {
+							font-size: 1.8rem;
+							font-weight: 400;
+							cursor: pointer;
+
+							@media (max-width: $max-xxs) {
+								font-size: 1.8rem;
+							}
+						}
+
+						.inner-wrapper {
+							display: flex;
+
+							@media (max-width: $max-xxs) {
+								flex-direction: column;
+								gap: 15px;
+							}
+
+							input {
+								flex-grow: 1;
+							}
+
+							&.date {
+								gap: 10px;
+								align-items: center;
+								font-size: 1.6rem;
+								letter-spacing: 0.32px;
+
+								@media (max-width: $max-xxs) {
+									align-items: unset;
+									gap: 0;
+								}
+
+								.divider {
+									text-align: center;
+								}
+
+								input {
+									width: 100%;
+									background-color: $white;
+									border: 1px solid $black;
+									border-radius: 5px;
+									color: $black;
+									appearance: none;
+
+									@media (max-width: $max-xs) {
+										min-height: 40px;
+									}
+								}
+							}
+						}
+
+						button {
+							padding: 0 30px;
+
+							@media (max-width: $max-xxs) {
+								padding: 10px 20px;
+							}
+						}
+					}
+
+					ul.keywords {
+						margin-top: 10px;
+					}
+
+					input,
+					textarea,
+					button,
+					select {
+						padding: 10px;
+						max-width: 100%;
+					}
+
+					input.error {
+						border: 1px solid $admin-red !important;
+					}
+
+					p#error-message {
+						margin: 0;
+						color: $admin-red;
+						font-size: 1.8rem;
+					}
+
+					#cardmunicipalities,
+					#cardkeywords {
+						border-right: none;
+						background-color: $white;
+						border-left: 1px solid $black;
+						border-top: 1px solid $black;
+						border-bottom: 1px solid $black;
+						border-radius: 5px 0 0 5px;
+
+						@media (max-width: $max-xxs) {
+							border-radius: 5px;
+							border: 1px solid $black;
+						}
+					}
+
+					#freeText {
+						border: 1px solid $black;
+						background-color: $white;
+						border-radius: 5px;
+					}
+
+					#textSearch.disabled {
+						pointer-events: none;
+						cursor: disabled;
+						background-color: $background-grey;
+						border: 1px solid $background-grey;
+					}
+
+					button:not(.checkboxbutton) {
+						background-color: $green;
+						color: $white;
+						border: 1px solid $green;
+						transition: all 0.15s;
+						border-radius: 0 5px 5px 0;
+						text-transform: uppercase;
+
+						@media (max-width: $max-xxs) {
+							border-radius: 5px;
+						}
+
+						&.searchTrigger {
+							border-radius: 5px;
+							font-size: 1.8rem;
+							padding: 10px 15px;
+
+							@media (max-width: $max-xxs) {
+								width: 100%;
+							}
+						}
+
+						&:hover {
+							color: $white;
+							background-color: $card-main-green;
+							border: 1px solid $card-main-green;
+						}
+					}
+
+					button[type="submit"] {
+						grid-column: 1 / -1;
+						margin-right: auto;
+					}
+
+					div.checkboxbutton {
+						margin-right: auto;
+						padding: 0;
+						background: transparent;
+						border: none;
+					}
+				}
+
+				.filters {
+					display: grid;
+					grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+					gap: 30px;
+					margin: 0 0 15px;
+
+					@media (max-width: $max-m) {
+						display: flex;
+						flex-direction: column;
+						gap: 15px;
+					}
+
+					@media (max-width: $max-xxs) {
+						border-bottom: 1px solid $black;
+						padding-bottom: 15px;
+					}
+
+					label,
+					small.small,
+					.label {
+						font-size: 1.8rem;
+						letter-spacing: 0.32px;
+						margin: 5px 0;
+						display: block;
+					}
+
+					.half {
+						display: flex;
+						margin-top: auto;
+
+						&:first-child {
+							margin-right: auto;
+
+							@media (max-width: $max-m) {
+								margin-right: 0;
+							}
+						}
+
+						&:last-child {
+							margin-left: auto;
+
+							@media (max-width: $max-m) {
+								margin-left: 0;
+							}
+
+							.input-wrapper {
+								.boxes {
+									@media (max-width: $max-xs) {
+										flex-direction: column;
+										align-items: flex-start;
+									}
+								}
+							}
+						}
+
+						.input-wrapper {
+							display: flex;
+							flex-direction: column;
+							white-space: none;
+
+							@include checkboxes;
+
+							span.check {
+								font-size: 1.8rem;
+								font-weight: 400;
+								margin-right: 10px;
+								cursor: pointer;
+
+								&:focus {
+									outline: 1px solid $black;
+								}
+
+								@media (max-width: $max-xxs) {
+									font-size: 1.8rem;
+								}
+							}
+
+							.boxes {
+								display: flex;
+								flex-direction: row;
+								align-items: center;
+								margin-left: auto;
+								height: 100%;
+								gap: 5px;
+
+								.box-wrapper {
+									display: flex;
+									align-items: center;
+									gap: 5px;
+								}
+
+								@media (max-width: $max-xl) {
+									margin-left: 0;
+								}
+
+								&.no-margin {
+									margin-left: 0;
+								}
+
+								label {
+									margin-left: auto;
+								}
+
+								.inner-wrapper {
+									display: flex;
+
+									input {
+										flex-grow: 0;
+										margin-right: 5px;
+									}
+								}
+							}
+
+							.inner-wrapper {
+								display: flex;
+
+								input {
+									flex-grow: 1;
+								}
+							}
+						}
+					}
+
+					select {
+						background-color: $white;
+						color: $black;
+						padding: 10px;
+						max-width: 100%;
+						border-radius: 5px;
+						border: 1px solid $black;
+					}
+				}
+
+				.list {
+					position: relative;
+
+					.no-results {
+						padding: 15px 30px;
+						border: 1px solid $black;
+						background-color: $white;
+						border-radius: 5px;
+					}
+
+					.cardlist {
+						position: relative;
+						z-index: 999;
+						margin-bottom: 25px;
+						border: 1px solid $black;
+						border-radius: 5px;
+
+						ul {
+							list-style-type: none;
+
+							li.card {
+								padding: 0 !important;
+
+								a.cardlink {
+									padding: 10px 15px 10px 45px;
+									display: grid;
+									grid-template-columns: 3fr 9fr;
+									align-items: center;
+									gap: 15px;
+									text-decoration: none;
+									color: $black;
+									position: relative;
+
+									@media (max-width: $max-s) {
+										padding: 10px 25px;
+									}
+
+									@media (max-width: $max-xxs) {
+										padding: 10px 15px;
+									}
+
+									&:hover {
+										background-color: $card-main-green;
+										color: $white !important;
+
+										.date {
+											&.red {
+												color: $white;
+											}
+
+											&.green {
+												color: $white;
+											}
+										}
+									}
+
+									@media (max-width: $max-s) {
+										display: flex;
+										flex-direction: column;
+										justify-content: flex-start;
+										align-items: flex-start;
+									}
+
+									.block {
+										&.first {
+											display: grid;
+
+											// grid-template-columns: 2fr 1fr 2fr;
+											grid-template-columns: 4fr 2fr 6fr;
+											align-items: center;
+
+											@media (max-width: $max-l) {
+												display: flex;
+												flex-direction: row;
+												gap: 15px;
+											}
+
+											@media (max-width: $max-s) {
+												border-bottom: 1px solid $background-grey;
+												padding-bottom: 5px;
+												width: 100%;
+											}
+										}
+
+										&.second {
+											@media (max-width: $max-s) {
+												padding-bottom: 5px;
+											}
+										}
+
+										&.third {
+											/* not in use currently */
+											display: none;
+											position: relative;
+
+											.languages {
+												position: absolute;
+												right: 0;
+												top: 0;
+											}
+										}
+									}
+
+									.date {
+										&.green {
+											color: $green;
+										}
+
+										&.red {
+											color: $admin-red;
+											font-size: 1.8rem;
+										}
+									}
+
+									.card-title {
+										font-weight: 600;
+									}
+
+									.languages {
+										display: flex;
+										gap: 15px;
+										margin-left: auto;
+
+										a {
+											text-decoration: none;
+											position: relative;
+											font-weight: 400;
+											font-size: 1.8rem;
+
+											span:not(.screen-reader-text) {
+												position: relative;
+
+												&::after {
+													content: "";
+													position: absolute;
+													bottom: 0;
+													left: 0;
+													width: 100%;
+													height: 1px;
+													background-color: $black;
+												}
+
+												&:hover {
+													&::after {
+														width: 0;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						&#tulkintakortit {
+							ul.cards {
+								background-color: $white;
+								margin: 0;
+								padding: 0;
+
+								li.parent {
+									> .name {
+										background-color: $card-secondary-green;
+										color: $black;
+										border-bottom: 1px solid $black;
+										font-weight: 600;
+										margin: 0;
+										padding: 10px 30px;
+
+										@media (max-width: $max-s) {
+											padding: 10px 25px;
+										}
+
+										@media (max-width: $max-xxs) {
+											padding: 10px 15px;
+										}
+									}
+
+									&:first-child {
+										> .name {
+											border-top: none;
+										}
+									}
+
+									ul.children {
+										margin: 0;
+										padding: 0;
+										background-color: $card-tertiary-green;
+
+										li.child {
+											background-color: $card-tertiary-green;
+
+											> .name {
+												color: $black;
+												background-color: $card-tertiary-green;
+												border-bottom: 1px solid $black;
+												margin: 0;
+												padding: 10px 10px 10px 45px;
+												font-weight: 600;
+
+												@media (max-width: $max-s) {
+													padding: 10px 25px;
+												}
+
+												@media (max-width: $max-xxs) {
+													padding: 10px 15px;
+												}
+											}
+
+											ul.grandchildren {
+												padding: 0;
+												background-color: $background-grey;
+
+												li.card {
+													border-bottom: 1px solid $black;
+													background-color: $white;
+
+													> span,
+													> p,
+													> a {
+														font-size: 1.8rem;
+													}
+
+													.ident {
+														span {
+															font-size: 1.8rem;
+														}
+													}
+
+													&.last {
+														border-bottom-right-radius: 5px;
+														border-bottom-left-radius: 5px;
+														border-bottom: none !important;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						&#ohjekortit,
+						&#lomakekortit {
+							ul.cards {
+								margin: 0;
+								padding: 0;
+
+								li.parent {
+									> .name {
+										color: $black;
+										background-color: $card-tertiary-green;
+										border-bottom: 1px solid $black;
+										margin: 0;
+										padding: 10px 10px 10px 45px;
+
+										@media (max-width: $max-s) {
+											padding: 10px 25px;
+										}
+
+										@media (max-width: $max-xxs) {
+											padding: 10px 15px;
+										}
+
+										font-weight: 600;
+									}
+
+									ul.children {
+										padding: 0;
+
+										li.card {
+											border-bottom: 1px solid $black;
+											background-color: $white;
+
+											a.cardlink {
+												.block.first {
+													grid-template-columns: 5fr 1fr 6fr;
+												}
+											}
+
+											> span,
+											> p,
+											> a {
+												font-size: 1.8rem;
+											}
+
+											.ident {
+												span {
+													font-size: 1.8rem;
+												}
+											}
+
+											&.last {
+												border-bottom-right-radius: 5px;
+												border-bottom-left-radius: 5px;
+												border-bottom: none !important;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					span.name {
+						display: block;
+						padding: 15px;
+					}
+
+					.title {
+						display: block;
+						padding: 15px 30px;
+						margin: 0 !important;
+						color: $white;
+						font-weight: 600;
+						background-color: $card-main-green;
+						border-bottom: 1px solid $black;
+
+						@media (max-width: $max-s) {
+							padding: 10px 25px;
+						}
+
+						@media (max-width: $max-xxs) {
+							padding: 10px 15px;
+						}
+					}
+
+					.parent {
+					}
+
+					@include buttons;
+
+					.buttons {
+						margin-left: auto;
+
+						a.button {
+							font-size: 1.8rem;
+							padding: 5px 10px;
+							font-weight: 600;
+							text-transform: uppercase;
+
+							@media (max-width: $max-l) {
+								font-size: 1.8rem;
+							}
+
+							@media (max-width: $max-m) and (min-width: $min-m) {
+								font-size: 1.6rem;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

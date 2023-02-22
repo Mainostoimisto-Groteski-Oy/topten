@@ -1,0 +1,77 @@
+{
+    "key": "group_64799f5d1c30e",
+    "title": "Artikkelin tiedot",
+    "fields": [
+        {
+            "key": "field_651d22b034c1d",
+            "label": "Kuva on ikoni",
+            "name": "article_image_icon",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Muuttaa kuvan asettelua esikatselukuvassa sekä artikkelisivulla. Huom: kuvan taustan tulee olla läpinäkyvä.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_64799f5e6e22d",
+            "label": "Kirjoittaja",
+            "name": "article_author",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "post_type": [
+                "yhteystieto"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "elements": "",
+            "bidirectional_target": []
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1696409806
+}

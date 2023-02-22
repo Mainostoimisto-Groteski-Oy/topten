@@ -1,0 +1,319 @@
+@use "variables/breakpoints" as *;
+@use "variables/colors" as *;
+@use "variables/typography" as *;
+
+/// Mixin yksittäiselle napille
+@mixin button {
+	a.button,
+	button.button {
+		border-radius: 5px;
+		padding: 10px 20px;
+		background-color: $green;
+		border: 1px solid $green;
+		color: $white;
+		text-decoration: none;
+		display: inline-block;
+		transition: all 0.15s;
+		font-weight: 600;
+		text-transform: uppercase;
+
+		@media (max-width: $max-xl) {
+			padding: 5px 10px;
+		}
+
+		&:hover {
+			background-color: $card-main-green;
+			border: 1px solid $card-main-green;
+			color: $white;
+		}
+
+		&.rss {
+			padding: 5px 15px 5px 35px;
+			position: relative;
+			color: $white;
+			font-weight: 600;
+			background-color: $green;
+			border: 1px solid $green;
+
+			span.material-symbols {
+				-webkit-font-smoothing: antialiased;
+				font-family: $font-icons;
+				font-size: 2.2rem;
+				position: absolute;
+				top: calc(50% + 1px);
+				transform: translate(0, -50%);
+				left: 8px;
+			}
+
+			&:hover {
+				border: 1px solid $card-main-green;
+				background-color: $card-main-green;
+			}
+		}
+
+		&.back {
+			padding: 5px 15px 5px 35px;
+			position: relative;
+			font-weight: 600;
+			font-size: 1.8rem;
+			background-color: $rty-red;
+			color: $white;
+			border: 1px solid $rty-red;
+
+			span.material-symbols {
+				-webkit-font-smoothing: antialiased;
+				font-family: $font-icons;
+				font-size: 2.2rem;
+				position: absolute;
+				top: calc(50% + 1px);
+				transform: scaleX(-1) translate(0, -50%);
+				left: 8px;
+			}
+
+			&:hover {
+				border: 1px solid $rty-red-hover;
+				background-color: $rty-red-hover;
+			}
+		}
+
+		&.doubleback {
+			padding: 5px 15px 5px 35px;
+			position: relative;
+			font-weight: 600;
+			font-size: 1.8rem;
+			background-color: $green;
+			border: 1px solid $green;
+			color: $white;
+
+			span.material-symbols {
+				-webkit-font-smoothing: antialiased;
+				font-family: $font-icons;
+				font-size: 2.2rem;
+				position: absolute;
+				top: calc(50% + 1px);
+				transform: translate(0, -50%);
+				left: 8px;
+			}
+
+			&:hover {
+				border: 1px solid $card-main-green;
+				background-color: $card-main-green;
+			}
+		}
+
+		&.action {
+			padding: 5px 15px;
+			position: relative;
+			font-weight: 600;
+			font-size: 1.8rem;
+			background-color: $white;
+			color: $black;
+
+			&:hover {
+				background-color: $card-main-green;
+				border: 1px solid $card-main-green;
+				color: $white;
+			}
+		}
+
+		&.close-comp {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+
+			.material-symbols {
+				position: relative;
+				top: 2px;
+			}
+		}
+
+		span.link-text {
+			font-weight: 600;
+		}
+	}
+}
+
+/// Mixin joka sisältää .buttons wrapperin ja kutsuu yksittäisen buttonin suoraan
+@mixin buttons {
+	.buttons {
+		@include button;
+
+		display: flex;
+		flex-wrap: wrap;
+		gap: 15px;
+	}
+}
+
+/// Mixin yksittäiselle linkille
+@mixin link {
+	a {
+		color: $green;
+		text-decoration: none;
+		transition: all 0.15s;
+		position: relative;
+		display: inline-block;
+		text-transform: uppercase;
+
+		&::after {
+			content: "";
+			background-color: $green;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 1px;
+			transition: inherit;
+		}
+
+		&:hover {
+			&::after {
+				width: 100%;
+			}
+		}
+	}
+}
+
+// Linkki nuolella
+@mixin arrowlink($color, $weight) {
+	a:not(.button) {
+		display: inline-block;
+		color: $color;
+		margin-right: 25px;
+		text-decoration: none;
+		position: relative;
+		text-transform: uppercase;
+
+		&::before {
+			position: absolute;
+			width: calc(100% + 20px);
+			height: 1px;
+			left: 0;
+			bottom: 0;
+			background-color: $color;
+			content: "";
+			transition: all 0.15s;
+		}
+
+		span.link-text {
+			padding-right: 3px;
+			font-weight: $weight;
+			position: relative;
+			left: 0;
+			transition: all 0.15s;
+		}
+
+		span.material-symbols {
+			position: absolute;
+			top: 50%;
+			right: -20px;
+			transform: translate(0, -50%);
+			transition: all 0.15s;
+			font-size: 2rem;
+		}
+
+		&:hover {
+			span.material-symbols {
+				right: calc(100% - 23px);
+			}
+
+			span.link-text {
+				left: 23px;
+			}
+		}
+	}
+}
+
+/// Mixin joka sisältää .links wrapperin ja kutsuu yksittäisen linkin suoraan
+@mixin links {
+	.links {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+
+		@include link;
+	}
+}
+
+// sama mutta nuolille
+
+@mixin arrowlinks($color, $weight) {
+	ul.links {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	.links {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+
+		li {
+			@include arrowlink($color, $weight);
+		}
+	}
+}
+
+// custom checkboxes
+
+@mixin checkboxes {
+	.checkbox-wrapper {
+		position: relative;
+		width: 15px;
+		height: 15px;
+		margin: 0;
+
+		input {
+			position: absolute;
+			top: 3px;
+			left: 3px;
+			height: 0;
+			width: 0;
+			cursor: pointer;
+
+			&:checked {
+				& ~ .checkmark {
+					background-color: $black;
+					color: $white;
+
+					&::after {
+						display: block;
+						border: solid $white;
+						border-width: 0 3px 3px 0;
+					}
+				}
+			}
+		}
+
+		.checkmark {
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			height: 15px;
+			width: 15px;
+			background-color: $white;
+			color: $black;
+			border: 1px solid $black;
+			z-index: 9999;
+			transform: translate(0, -50%);
+
+			&::after {
+				display: none;
+				position: absolute;
+				content: "";
+				left: 4px;
+				top: 2px;
+				width: 5px;
+				height: 10px;
+				font-weight: 300;
+				font-size: 1.8rem;
+				border: solid $black;
+				border-width: 0 2px 2px 0;
+				transform: rotate(45deg);
+				z-index: 99999;
+			}
+		}
+	}
+}

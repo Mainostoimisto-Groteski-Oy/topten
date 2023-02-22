@@ -1,0 +1,53 @@
+@use "mixins/all" as *;
+
+.tt-message-row {
+	background-color: $white;
+	padding: 10px;
+	box-shadow: 0 1px 1px rgba($black, 0.04);
+	border: 1px solid #c3c4c7;
+	border-left-width: 4px;
+
+	p {
+		margin: 8px 0;
+
+		&:first-of-type {
+			margin-top: 0;
+		}
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+
+	&.tt-error {
+		border-left-color: $admin-red;
+	}
+
+	&.tt-success {
+		border-left-color: $admin-green;
+	}
+}
+
+.tt-table {
+	background-color: $white;
+	padding: 15px;
+
+	td {
+		textarea {
+			width: 100%;
+		}
+
+		button.tt-controls {
+			padding: 10px;
+			border: none;
+			border-radius: 2px;
+			background-color: $admin-green;
+			color: $white;
+			cursor: pointer;
+
+			&.tt-disapprove {
+				background: $admin-red;
+			}
+		}
+	}
+}

@@ -1,0 +1,237 @@
+{
+    "key": "group_64140b0d099b4",
+    "title": "Kortin tila",
+    "fields": [
+        {
+            "key": "field_64140b0de82cd",
+            "label": "Kortin tila",
+            "name": "card_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "draft": "Luonnos",
+                "publish": "Julkaistu",
+                "deleted": "Poistettu"
+            },
+            "default_value": false,
+            "return_format": "array",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_64140b4cc42c7",
+            "label": "Kortin lisätila",
+            "name": "card_status_draft",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b0de82cd",
+                        "operator": "==",
+                        "value": "draft"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "draft": "Luonnos",
+                "pending_approval": "Hyväksyttävänä",
+                "approved_for_reuse": "Hyväksytty uudelleen käyttöönotettavaksi",
+                "approved": "Hyväksytty"
+            },
+            "default_value": false,
+            "return_format": "array",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_64140b70c42c8",
+            "label": "Kortin lisätila",
+            "name": "card_status_publish",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b0de82cd",
+                        "operator": "==",
+                        "value": "publish"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "valid": "Voimassa oleva",
+                "expired": "Vanhentunut",
+                "approved_for_repeal": "Hyväksytty kumottavaksi",
+                "repealed": "Kumottu",
+                "future": "2025"
+            },
+            "default_value": false,
+            "return_format": "array",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_64db692f5105c",
+            "label": "Kortin voimassaolo alkoi",
+            "name": "card_valid_start",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "expired"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "repealed"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_64db697a5105d",
+            "label": "Kortin voimassaolo päättyi",
+            "name": "card_valid_end",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "expired"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "repealed"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_64f1826d34bca",
+            "label": "Kortti astuu voimaan",
+            "name": "card_future_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "future"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "tulkintakortti"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "ohjekortti"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "lomakekortti"
+            }
+        ]
+    ],
+    "menu_order": -1,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1693549270
+}

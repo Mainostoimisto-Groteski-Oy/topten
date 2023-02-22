@@ -1,0 +1,68 @@
+@use "mixins/all" as *;
+
+.card-content {
+	.card-text-block {
+		// width: calc(var(--width, 100%) - 10px);
+		.text-wrapper {
+			:not(.tulkinta) {
+				p {
+					.card-content-wrapper:not(.print) & {
+						@media (max-width: $max-s) {
+							padding: 0 !important;
+						}
+					}
+				}
+			}
+
+			table {
+				table-layout: fixed;
+				word-wrap: break-word;
+
+				tbody {
+					tr {
+						td,
+						th {
+							p,
+							span,
+							ins,
+							del,
+							sup,
+							a,
+							li {
+								font-size: 1.6rem;
+							}
+						}
+					}
+				}
+			}
+
+			@media (max-width: $max-xl) and (min-width: $min-l) {
+				&.tabled {
+					overflow-x: auto;
+					width: calc(100% - 1px);
+
+					table {
+						width: auto !important;
+					}
+				}
+			}
+
+			@media (max-width: $max-s) {
+				&.tabled {
+					overflow-x: auto;
+					width: calc(100% - 1px);
+
+					table {
+						width: auto !important;
+
+						tr {
+							td {
+								// min-width: 200px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"require-dev": {
+		"wptrt/wpthemereview": "^0.2.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+		"php-stubs/acf-pro-stubs": "^6.0",
+		"wpsyntex/polylang-stubs": "^3.3",
+		"petriliuska/relevanssi-stubs": "^4.2",
+		"php-stubs/wordpress-seo-stubs": "^20.5"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}

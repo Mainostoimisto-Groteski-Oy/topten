@@ -1,0 +1,24 @@
+{
+    "key": "group_63be95d989306",
+    "title": "Lohko: Sivupalkki ja sisältö",
+    "fields": [],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/sivupalkki-ja-sisalto"
+            }
+        ]
+    ],
+    "menu_order": 4,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1679051893
+}

@@ -1,0 +1,101 @@
+@use "mixins/all" as *;
+
+section.text-and-form-block {
+	@include buttons;
+
+	background-color: $background-green;
+	padding: 50px 0;
+
+	@media (max-width: $max-xs) {
+		padding: 25px 0;
+	}
+
+	.grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 50px;
+
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 15px;
+		}
+	}
+
+	.text-block {
+		display: flex;
+		flex-direction: column;
+
+		.contact-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding: 30px 15px;
+			border: 1px solid $black;
+			border-radius: 5px;
+			text-align: center;
+			background-color: $site-background;
+
+			.image {
+				border-radius: 250px;
+
+				img {
+					border-radius: 250px;
+					width: 125px;
+					height: 125px;
+					object-fit: cover;
+				}
+
+				&.placeholder {
+					.placeholder {
+						background-color: $green;
+						height: 75px;
+						width: 75px;
+						border-radius: 150px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						.material-symbols {
+							color: $white;
+							font-size: 4rem;
+						}
+					}
+				}
+
+				&.logo {
+					border-radius: 0;
+
+					img {
+						border-radius: 0;
+						width: 150px;
+						height: 100%;
+						object-fit: contain;
+					}
+				}
+			}
+		}
+	}
+
+	.form-block {
+		&.left {
+			grid-row: 1;
+			grid-column: 1;
+		}
+
+		@media (max-width: $max-s) {
+			grid-row: 2;
+		}
+	}
+}
+
+.content section.text-and-form-block .grid {
+	@media (max-width: $max-m) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.form-block {
+		@media (max-width: $max-s) {
+			grid-row: 2;
+		}
+	}
+}

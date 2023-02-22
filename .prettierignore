@@ -1,0 +1,6 @@
+js/dist
+css/dist
+vendor
+node_modules
+.github
+docs

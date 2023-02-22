@@ -1,0 +1,123 @@
+@use "mixins/all" as *;
+
+footer {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding-bottom: 50px;
+
+	@media print {
+		display: none;
+	}
+
+	.grid:not(.banner) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+
+		&:not(.logos) {
+			padding-top: 0;
+		}
+
+		@media (max-width: $max-m) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	.grid.banner {
+		padding: 15px;
+	}
+
+	.logos {
+		padding-bottom: 0;
+
+		.site-branding {
+			grid-column: 1;
+			align-self: flex-start;
+			justify-self: flex-start;
+
+			> a {
+				display: block;
+			}
+
+			img {
+				max-width: 250px;
+			}
+		}
+
+		.rty-branding {
+			grid-column: 3;
+
+			@media (max-width: $max-m) {
+				grid-column: 2;
+			}
+
+			img {
+				max-width: 200px;
+			}
+		}
+
+		@media (max-width: $max-xs) {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	ul {
+		list-style-type: none;
+		padding-left: 0;
+		line-height: 2;
+	}
+
+	.contact-info {
+		> a,
+		> span {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			text-decoration: none;
+		}
+
+		> a {
+			.link-text {
+				text-decoration: none;
+			}
+		}
+	}
+
+	.some-link {
+		align-items: center;
+		display: inline-flex;
+		gap: 10px;
+		margin-bottom: 10px;
+
+		.some-icon {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	.web-design {
+		grid-column: 1 / -1;
+		text-align: center;
+
+		a {
+			text-decoration: underline;
+		}
+	}
+
+	@include buttons;
+	@include arrowlinks($green, 600);
+
+	.links {
+		a.link {
+			text-decoration: none !important;
+
+			&::before {
+				bottom: 0;
+			}
+		}
+	}
+}

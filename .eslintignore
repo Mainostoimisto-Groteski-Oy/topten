@@ -1,0 +1,9 @@
+js/dist
+js/src/variables/*.js
+js/src/plugins/*.js
+scripts
+vendor
+node_modules
+.github
+includes/fpdf
+docs

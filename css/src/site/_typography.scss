@@ -1,0 +1,74 @@
+@use "mixins/all" as *;
+
+#wpadminbar {
+	z-index: 9999999999;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: $font-main;
+	background-color: $site-background;
+	font-size: 1.6rem;
+	font-weight: 400;
+	letter-spacing: 0.32px;
+}
+
+.ingress {
+	> p {
+		font-size: 2rem;
+		color: $black;
+		font-weight: 400;
+	}
+
+	a {
+		color: $green;
+	}
+}
+
+p,
+li,
+a,
+i,
+s,
+u,
+span,
+del,
+ins,
+sub,
+sup {
+	font-size: 1.8rem;
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: 0.32px;
+}
+
+input,
+select,
+button,
+textarea {
+	font-size: 1.8rem;
+	letter-spacing: 0.32px;
+}
+
+p {
+	margin: 16px 0;
+}
+
+a {
+	color: $green;
+}
+
+sup {
+	top: -5px;
+}
+
+sub {
+	bottom: -5px;
+}
+
+// h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
+// mixins/_headings.scss
+@include headings;
