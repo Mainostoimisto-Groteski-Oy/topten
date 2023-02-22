@@ -1,2 +1,6 @@
+js/dist
 js/src/variables/*.js
 js/src/plugins/*.js
+vendor
+node_modules
+.github
