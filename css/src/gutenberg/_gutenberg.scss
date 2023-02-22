@@ -1,0 +1,71 @@
+@use "mixins/all" as *;
+
+.wp-block {
+	max-width: unset;
+	width: 100%;
+}
+
+.block-editor-block-list__block {
+	min-height: 50px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.acf-block-preview {
+	font-family: $font-main;
+
+	@include headings;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1.3rem;
+}
+
+// Editor button for adding blocks
+.components-dropdown.block-editor-inserter {
+	outline: none;
+
+	.block-list-appender__toggle.block-editor-button-block-appender {
+		width: auto;
+		background: var(--wp-admin-theme-color);
+		color: white;
+		text-decoration: none;
+		text-shadow: none;
+		box-shadow: none;
+		outline: 1px solid transparent;
+		border: none;
+		margin: auto;
+		transition: all 0.3s;
+
+		svg {
+			transition: all 0.3s;
+			transform: rotate(0);
+		}
+
+		&:hover {
+			background: var(--wp-admin-theme-color-darker-10);
+		}
+
+		&[aria-expanded="true"] {
+			background: #1e1e1e;
+
+			svg {
+				transform: rotate(45deg);
+			}
+		}
+	}
+
+	.components-button.block-list-appender__toggle.block-editor-button-block-appender {
+		margin-top: 23px;
+	}
+}
+
+// Icon dropdown
+.acf-fields > .acf-field [data-name="icon"] {
+	.select2-container.-acf .select2-selection {
+		height: 48px;
+	}
+}

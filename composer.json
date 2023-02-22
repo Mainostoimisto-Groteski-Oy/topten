@@ -1,0 +1,7 @@
+{
+	"require-dev": {
+		"wptrt/wpthemereview": "^0.2.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+		"php-stubs/acf-pro-stubs": "^6.0"
+	}
+}

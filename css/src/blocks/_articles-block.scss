@@ -1,0 +1,71 @@
+@use "mixins/all" as *;
+
+section.articles-block {
+	@include buttons;
+
+	.text-block {
+		text-align: center;
+	}
+
+	.post-wrapper {
+		display: grid;
+		gap: 15px;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+
+		@media (max-width: $max-s) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media (max-width: $max-xs) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.single-post {
+			border: 2px solid $black;
+			display: grid;
+			grid-template-rows: minmax(0, 1fr) minmax(0, 1.5fr);
+
+			.image {
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					aspect-ratio: 16/9;
+				}
+			}
+
+			.content {
+				padding: 25px 25px 125px;
+				position: relative;
+
+				.title {
+					margin: 25px 0;
+
+					@include text-clamp(2);
+				}
+
+				.text {
+					@include text-clamp(5);
+				}
+
+				.buttons {
+					position: absolute;
+					bottom: 25px;
+					left: 25px;
+				}
+			}
+		}
+	}
+}
+
+.content section.articles-block .grid {
+	.post-wrapper {
+		@media (max-width: $max-m) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+}

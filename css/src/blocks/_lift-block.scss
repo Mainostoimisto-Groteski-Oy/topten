@@ -1,0 +1,8 @@
+@use "mixins/all" as *;
+
+section.lift-block {
+	@include buttons;
+
+	background-size: cover;
+	background-repeat: no-repeat;
+}

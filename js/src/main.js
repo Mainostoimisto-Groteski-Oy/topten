@@ -1,0 +1,49 @@
+jQuery(document).ready(($) => {
+	$('#open-mobile-menu').on('click', () => {
+		$('#mobile-navigation').fadeIn(300);
+
+		$('body').addClass('disable-scroll');
+	});
+
+	$('#close-mobile-menu').on('click', () => {
+		$('#mobile-navigation').fadeOut(300);
+
+		$('body').removeClass('disable-scroll');
+	});
+
+	$('#primary-menu li.menu-item-has-children > a').on('click', function (event) {
+		event.preventDefault();
+
+		const submenu = $(this).parent().children('ul.sub-menu');
+
+		if ($(submenu).hasClass('open')) {
+			$(submenu).removeClass('open');
+
+			$(submenu).fadeOut(200);
+		} else {
+			$(submenu).addClass('open');
+
+			$(submenu).fadeIn(200);
+		}
+	});
+
+	$('.sidebar-navigation li.page_item_has_children > a').after(
+		'<button class="nav-button"><span class="material-icons-outlined nav-icon">add</span></button>'
+	);
+
+	$(document).on('click', '.page_item_has_children button.nav-button', function () {
+		if ($(this).hasClass('open')) {
+			$(this).removeClass('open');
+
+			$(this).children('.nav-icon').text('add');
+
+			$(this).parent().children('.children').fadeOut(200);
+		} else {
+			$(this).addClass('open');
+
+			$(this).children('.nav-icon').text('remove');
+
+			$(this).parent().children('.children').fadeIn(200);
+		}
+	});
+});

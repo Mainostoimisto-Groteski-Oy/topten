@@ -1,0 +1,33 @@
+@use "mixins/all" as *;
+
+section.logos-block {
+	.grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.text-block {
+		grid-column: 1 / -1;
+		text-align: center;
+	}
+
+	.logos-grid {
+		display: grid;
+		gap: 100px;
+
+		&.three-columns {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		&.four-columns {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		&.five-columns {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+
+		&.six-columns {
+			grid-template-columns: repeat(6, minmax(0, 1fr));
+		}
+	}
+}

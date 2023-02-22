@@ -1,0 +1,72 @@
+@use "variables/breakpoints" as *;
+@use "variables/colors" as *;
+
+/// Mixin yksittäiselle napille
+@mixin button {
+	a.button {
+		padding: 20px;
+		background-color: $black;
+		border: 1px solid $black;
+		color: $white;
+		text-decoration: none;
+		display: inline-block;
+		transition: all 0.25s;
+		outline: none;
+
+		&:hover {
+			background-color: $white;
+			color: $black;
+		}
+	}
+}
+
+/// Mixin joka sisältää .buttons wrapperin ja kutsuu yksittäisen buttonin suoraan
+@mixin buttons {
+	.buttons {
+		@include button;
+
+		display: flex;
+		flex-wrap: wrap;
+		gap: 15px;
+	}
+}
+
+/// Mixin yksittäiselle linkille
+@mixin link {
+	a {
+		color: $black;
+		text-decoration: none;
+		transition: all 0.25s;
+		position: relative;
+		display: inline-block;
+
+		&::after {
+			content: "";
+			background-color: $black;
+			position: absolute;
+			bottom: -3px;
+			left: 0;
+			width: 0;
+			height: 1px;
+			transition: inherit;
+		}
+
+		&:hover {
+			&::after {
+				width: 100%;
+			}
+		}
+	}
+}
+
+/// Mixin joka sisältää .links wrapperin ja kutsuu yksittäisen linkin suoraan
+@mixin links {
+	.links {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+
+		@include link;
+	}
+}

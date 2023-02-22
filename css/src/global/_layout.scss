@@ -1,0 +1,130 @@
+@use "mixins/all" as *;
+
+.animate-on-scroll {
+	opacity: 0;
+}
+
+body.disable-scroll {
+	overflow: hidden;
+}
+
+.breadcrumb {
+	border-bottom: 1px solid $black;
+}
+
+.grid,
+.grid-full {
+	grid-template-columns: minmax(0, 1fr);
+	display: grid;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 30px 0;
+	padding-right: 15px;
+	padding-left: 15px;
+	gap: 15px;
+}
+
+.grid-full {
+	max-width: 1920px;
+	width: 100%;
+}
+
+@media (max-width: $max-l) {
+	.grid {
+		width: 100%;
+	}
+}
+
+@media (min-width: $min-xl) {
+	.grid {
+		max-width: 1200px;
+	}
+}
+
+@media (min-width: $min-xxl) {
+	.grid {
+		max-width: 1370px;
+	}
+}
+
+// Focal points
+.focal-center {
+	background-position: center;
+	object-position: center;
+
+	img {
+		object-position: center;
+	}
+}
+
+.focal-center-left {
+	background-position: center left;
+	object-position: center left;
+
+	img {
+		object-position: center left;
+	}
+}
+
+.focal-center-right {
+	background-position: center right;
+	object-position: center right;
+
+	img {
+		object-position: center right;
+	}
+}
+
+.focal-top {
+	background-position: top;
+	object-position: top;
+
+	img {
+		object-position: top;
+	}
+}
+
+.focal-top-left {
+	background-position: top left;
+	object-position: top left;
+
+	img {
+		object-position: top left;
+	}
+}
+
+.focal-top-right {
+	background-position: top right;
+	object-position: top right;
+
+	img {
+		object-position: top right;
+	}
+}
+
+.focal-bottom {
+	background-position: bottom;
+	object-position: bottom;
+
+	img {
+		object-position: bottom;
+	}
+}
+
+.focal-bottom-left {
+	background-position: bottom left;
+	object-position: bottom left;
+
+	img {
+		object-position: bottom left;
+	}
+}
+
+.focal-bottom-right {
+	background-position: bottom right;
+	object-position: bottom right;
+
+	img {
+		object-position: bottom right;
+	}
+}

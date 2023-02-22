@@ -1,0 +1,57 @@
+@use "mixins/all" as *;
+
+section.hero-block {
+	@include buttons;
+
+	width: 100%;
+	height: 700px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+
+	&.hero-carousel {
+		.hero-content-wrapper {
+			pointer-events: none;
+
+			a.button {
+				pointer-events: all;
+			}
+		}
+	}
+
+	video {
+		object-fit: cover;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.splide.carousel {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		.splide__track {
+			height: 100%;
+
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+
+	.hero-content-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+		.grid {
+			height: 100%;
+			align-items: end;
+		}
+	}
+}

@@ -1,0 +1,35 @@
+@use "sass:list";
+
+/// Asettaa annetun linkin (.png, .jpeg) taustakuvaksi ja ottaa .webp-version käyttöön laitteilla jotka tukee sitä
+/// Käyttö:
+/// @include background( "#{$images}/carousel-koriste-vasen.png" );
+/// tai
+/// @include background( ../../assets/dist/images/carousel-koriste-vasen.png" );
+/// tai
+/// $urls: "#{$images}/carousel-koriste-vasen.png", "#{$images}/carousel-koriste-oikea.png";
+/// @include background( $urls );
+///
+/// @param {List} $urls
+/// 	Lista backgroundiin tulevista linkeistä
+
+@mixin background( $urls ) {
+	$images: ();
+
+	@each $url in $urls {
+		$url: url("#{$url}");
+		$images: list.append($images, $url, $separator: comma);
+	}
+
+	background-image: $images;
+
+	.webp & {
+		$images: ();
+
+		@each $url in $urls {
+			$url: url("#{$url}.webp");
+			$images: list.append($images, $url, $separator: comma);
+		}
+
+		background-image: $images;
+	}
+}

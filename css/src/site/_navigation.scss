@@ -1,0 +1,276 @@
+@use "mixins/all" as *;
+
+.site-header {
+	z-index: 9999;
+	position: sticky;
+	max-width: 100vw;
+	background-color: $white;
+	top: 0;
+	filter: drop-shadow(0 0 5px rgba($black, 0.2));
+
+	// Jos admin bar on näkyvissä, tiputetaan navia vähän alemmas
+	.admin-bar & {
+		top: 32px;
+	}
+
+	.grid {
+		grid-template-columns: 75px minmax(0, 1fr) 50px;
+		padding: 0 15px;
+	}
+
+	.site-branding {
+		font-size: 0;
+		padding: 15px 0;
+
+		.custom-logo-link {
+			display: inline-block;
+		}
+	}
+
+	.main-navigation {
+		height: 100%;
+
+		ul#primary-menu {
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+
+			li.menu-item {
+				height: 100%;
+				display: flex;
+				align-items: center;
+
+				a {
+					text-decoration: none;
+					color: $black;
+					font-size: 1.8rem;
+
+					> span {
+						position: relative;
+
+						&::after {
+							content: "";
+							display: block;
+							width: 0;
+							height: 2px;
+							background-color: $black;
+							transition: all 0.3s;
+							position: absolute;
+							bottom: -2px;
+							left: 0;
+						}
+					}
+
+					&:hover {
+						> span {
+							&::after {
+								width: 100%;
+							}
+						}
+					}
+				}
+			}
+
+			li.menu-item-has-children {
+				position: relative;
+
+				ul.sub-menu {
+					display: none;
+					background-color: $white;
+					position: absolute;
+					top: 100%;
+					left: 0;
+					list-style-type: none;
+					padding: 0;
+					margin: 0;
+					width: 100%;
+
+					li {
+						border-top: 1px dotted rgba($black, 0.2);
+						padding: 0;
+
+						a {
+							width: 100%;
+							padding: 15px;
+							line-height: 1;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.menu-toggle,
+.menu-close {
+	background-color: transparent;
+	background-size: cover;
+	background-position: center center;
+	border: none;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+}
+
+.menu-toggle {
+	display: none;
+	grid-column-start: 3;
+	justify-self: center;
+	align-self: center;
+
+	> span {
+		font-size: 2.5rem;
+	}
+}
+
+.menu-close {
+	position: absolute;
+	right: 25px;
+	top: 50px;
+	display: flex;
+
+	> span {
+		color: $white;
+		font-size: 4rem;
+	}
+}
+
+@media (max-width: $max-m) {
+	.main-navigation {
+		display: none;
+	}
+
+	.menu-toggle {
+		display: flex;
+	}
+}
+
+.mobile-menu {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: black;
+	z-index: 999999;
+	overflow: auto;
+
+	.site-branding-mobile {
+		width: 100px;
+		height: auto;
+		position: absolute;
+		top: 25px;
+		left: 25px;
+		pointer-events: none;
+	}
+
+	.main-navigation {
+		ul.menu {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
+			gap: 0;
+			list-style: none;
+			margin: 150px 0 50px;
+			padding: 0;
+
+			li {
+				width: 100%;
+				height: auto;
+				position: relative;
+				font-weight: bold;
+
+				&.current_page_item::before {
+					content: "";
+					width: 25px;
+					height: 100%;
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					background: $black;
+				}
+
+				&::after {
+					content: "";
+					width: 100%;
+					height: 1px;
+					background-color: $white;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+				}
+
+				ul.sub-menu {
+					list-style: none;
+					background: rgba($white, 0.1);
+					padding: 0;
+					position: absolute;
+					width: 100%;
+
+					li {
+						font-weight: 400;
+						padding-left: 1em;
+					}
+				}
+
+				a {
+					display: block;
+					text-decoration: none;
+					color: $white;
+					font-size: 2.4rem;
+					width: 100%;
+					height: 100%;
+					padding: 25px;
+					padding-left: 50px;
+
+					@media (max-width: $max-xs) {
+						font-size: 1.8rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+.pagination {
+	grid-column: 1 / -1;
+	text-align: center;
+
+	li {
+		display: inline;
+
+		a {
+			color: $white;
+			text-decoration: none;
+			background-color: $black;
+			border: 1px solid $black;
+			cursor: pointer;
+			padding: 1rem 2rem;
+			transition: all 0.25s;
+
+			&:hover {
+				background-color: $white;
+				color: $black;
+			}
+
+			&:hover {
+				background-color: $white;
+				color: $black;
+			}
+		}
+
+		&.active a {
+			background-color: $white;
+			color: $black;
+			font-weight: bold;
+		}
+	}
+}

@@ -1,0 +1,26 @@
+@use "mixins/all" as *;
+
+article {
+	.grid {
+		padding-top: 0;
+
+		.hero-block {
+			width: 100%;
+			height: 700px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			position: relative;
+		}
+
+		.entry-content {
+			p:first-child {
+				font-size: 1.33em;
+			}
+		}
+	}
+}
+
+.error-404 {
+	text-align: center;
+	padding: 6rem 0;
+}

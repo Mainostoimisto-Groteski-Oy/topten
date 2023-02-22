@@ -1,0 +1,29 @@
+@use "mixins/all" as *;
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: $font-main;
+	font-size: 1.6rem;
+}
+
+.ingress {
+	font-size: 1.8rem;
+}
+
+p,
+li,
+a {
+	line-height: 1.5;
+	font-size: 1.6rem;
+}
+
+a {
+	color: $black;
+}
+
+// h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
+// mixins/_headings.scss
+@include headings;
