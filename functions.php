@@ -508,5 +508,3 @@ function groteski_analytics() { ?>
 }
 
 // add_action( 'wp_head','groteski_analytics', 20 );
-
-if ( $asd === 'test' ) {
