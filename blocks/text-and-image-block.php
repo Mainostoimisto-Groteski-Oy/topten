@@ -1,5 +1,5 @@
 <?php
-$text_block = get_field( 'text_block' );
+$text_block  = get_field( 'text_block' );
 $image_block = get_field( 'image_block' );
 
 if ( $image_block['order'] ) :
@@ -13,19 +13,22 @@ endif;
 	<div class="grid">
 		<div class="text-block">
 			<?php groteski_block_title(); ?>
+
 			<?php if ( ! empty( $text_block['text'] ) ) : ?>
-				<?php echo $text_block['text']; ?>
+				<?php echo wp_kses_post( $text_block['text'] ); ?>
 			<?php endif; ?>
 
 			<?php groteski_buttons( $text_block ); ?>
 		</div>
 
-		<div class="image-block <?php echo $order; ?>">
+		<div class="image-block <?php echo esc_attr( $order ); ?>">
 			<?php if ( ! empty( $image_block['image'] ) ) : ?>
-				<?php $src = esc_url( $image_block['image']['sizes']['large'] );
-				$alt = esc_attr( $image_block['image']['alt'] ); ?>
+				<?php
+				$src = $image_block['image']['sizes']['large'];
+				$alt = $image_block['image']['alt'];
+				?>
 
-				<img class="<?php groteski_focal_point( false, $image_block ); ?>" src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" />
+				<img class="<?php groteski_focal_point( false, $image_block ); ?>" src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 			<?php endif; ?>
 		</div>
 	</div>

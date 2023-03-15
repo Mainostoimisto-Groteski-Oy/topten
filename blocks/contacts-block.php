@@ -2,17 +2,21 @@
 	<div class="grid">
 		<?php groteski_block_title(); ?>
 
-		<?php while ( have_rows( 'contacts' ) ) : the_row(); ?>
+		<?php
+		while ( have_rows( 'contacts' ) ) :
+			the_row();
+			?>
 			<div class="single-contact">
 				<div class="image">
 					<?php if ( get_sub_field( 'image' ) ) : ?>
 						<?php
 						$img = get_sub_field( 'image' );
 
-						$src = esc_url( $img['sizes']['medium'] );
-						$alt = esc_url( $img['alt'] ); ?>
+						$src = $img['sizes']['medium'];
+						$alt = $img['alt'];
+						?>
 
-						<img src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" />
+						<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 					<?php endif; ?>
 				</div>
 
@@ -33,19 +37,19 @@
 						<?php
 						$tel_group = get_sub_field( 'tel_group' );
 
-						$tel = $tel_group['tel'] ?? '';
+						$tel  = $tel_group['tel'] ?? '';
 						$icon = $tel_group['icon'] ?? '';
 						?>
 
 						<?php if ( $tel ) : ?>
 							<div class="contact-info">
-								<a class="tel" href="tel:<?php echo $tel; ?>">
+								<a class="tel" href="tel:<?php echo esc_attr( $tel ); ?>">
 									<?php if ( $icon ) : ?>
-										<?php echo $icon; ?>
+										<?php echo wp_kses_post( $icon ); ?>
 									<?php endif; ?>
 
 									<span class="link-text">
-										<?php echo $tel; ?>
+										<?php echo wp_kses_post( $tel ); ?>
 									</span>
 								</a>
 							</div>
@@ -57,18 +61,18 @@
 						$email_group = get_sub_field( 'email_group' );
 
 						$email = $email_group['email'] ?? '';
-						$icon = $email_group['icon'] ?? '';
+						$icon  = $email_group['icon'] ?? '';
 						?>
 
 						<?php if ( $email ) : ?>
 							<div class="contact-info">
-								<a class="mail" href="mailto:<?php echo $email; ?>">
+								<a class="mail" href="mailto:<?php echo esc_attr( $email ); ?>">
 									<?php if ( $icon ) : ?>
-										<?php echo $icon; ?>
+										<?php echo wp_kses_post( $icon ); ?>
 									<?php endif; ?>
 
 									<span class="link-text">
-										<?php echo $email; ?>
+										<?php echo wp_kses_post( $email ); ?>
 									</span>
 								</a>
 							</div>

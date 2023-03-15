@@ -1,5 +1,5 @@
 <?php
-$type = get_field( 'articles_type' );
+$type      = get_field( 'articles_type' );
 $post_type = get_field( 'post_type' );
 
 if ( 'newest' === $type ) {
@@ -47,22 +47,22 @@ if ( 'newest' === $type ) {
 				<?php foreach ( $postslist as $post ) : ?>
 					<?php setup_postdata( $post ); ?>
 
-					<div class="single-post" id="post-<?php echo $post->ID; ?>">
+					<div class="single-post" id="post-<?php echo esc_attr( $post->ID ); ?>">
 						<div class="image">
-							<img src="<?php echo get_the_post_thumbnail_url( $post->ID, 'medium' ); ?>" alt=""/>
+							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) ); ?>" alt=""/>
 						</div>
 
 						<div class="content">
 							<div class="date">
-								<?php echo date( 'd.m.Y', strtotime( $post->post_date ) ); ?>
+								<?php echo esc_html( date( 'd.m.Y', strtotime( $post->post_date ) ) ); ?>
 							</div>
 
 							<h4 class="title h4">
-								<?php echo $post->post_title; ?>
+								<?php echo esc_html( get_the_title( $post->ID ) ); ?>
 							</h4>
 
 							<div class="text">
-								<?php echo get_the_excerpt( $post->ID ); ?>
+								<?php echo wp_kses_post( get_the_excerpt( $post->ID ) ); ?>
 							</div>
 
 							<div class="buttons">

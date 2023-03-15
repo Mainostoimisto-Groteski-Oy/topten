@@ -11,27 +11,25 @@ get_header();
 ?>
 
 <div class="grid">
-
 	<main id="primary" class="site-main">
-
 		<section class="error-404 not-found">
-
 			<header class="page-header">
 				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'groteski' ); ?></h1>
-			</header><!-- .page-header -->
+			</header>
 
 			<div class="page-content">
+				<p>
+					<?php esc_html_e( 'It looks like nothing was found at this location.', 'groteski' ); ?>
+				</p>
 
-				<p><?php esc_html_e( 'It looks like nothing was found at this location.', 'groteski' ); ?></p>
-
-				<a href="<?php echo home_url(); ?>"><span><?php esc_html_e( 'Return to homepage.', 'groteski' ); ?></span></a>
-
-			</div><!-- .page-content -->
-
-		</section><!-- .error-404 -->
-
-	</main><!-- #main -->
-
+				<a href="<?php echo esc_url( home_url() ); ?>">
+					<span>
+						<?php esc_html_e( 'Return to homepage.', 'groteski' ); ?>
+					</span>
+				</a>
+			</div>
+		</section>
+	</main>
 </div>
 
 <?php

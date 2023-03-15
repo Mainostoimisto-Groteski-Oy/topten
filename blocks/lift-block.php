@@ -1,5 +1,5 @@
 <?php
-$background_url = '';
+$background_url   = '';
 $background_image = get_field( 'background_image' );
 
 if ( $background_image ) {
@@ -9,7 +9,7 @@ if ( $background_image ) {
 }
 ?>
 
-<section <?php groteski_block_id(); ?> class="lift-block?> <?php groteski_focal_point(); ?>" style="<?php echo $background_url; ?>">
+<section <?php groteski_block_id(); ?> class="lift-block?> <?php groteski_focal_point(); ?>" style="<?php echo esc_url( $background_url ); ?>">
 	<div class="grid">
 		<?php groteski_block_title(); ?>
 
