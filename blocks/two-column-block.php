@@ -1,5 +1,5 @@
 <?php
-	$left_block = get_field( 'left_block' );
+	$left_block  = get_field( 'left_block' );
 	$right_block = get_field( 'right_block' );
 ?>
 
@@ -10,12 +10,12 @@
 		<div class="left-block">
 			<?php if ( ! empty( $left_block['title'] ) ) : ?>
 				<h3 class="block-title h3">
-					<?php echo $left_block['title']; ?>
+					<?php echo wp_kses_post( $left_block['title'] ); ?>
 				</h3>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $left_block['text'] ) ) : ?>
-				<?php echo $left_block['text']; ?>
+				<?php echo wp_kses_post( $left_block['text'] ); ?>
 			<?php endif; ?>
 
 			<?php groteski_buttons( $left_block ); ?>
@@ -24,12 +24,12 @@
 		<div class="right-block">
 			<?php if ( ! empty( $right_block['title'] ) ) : ?>
 				<h3 class="block-title h3">
-					<?php echo $right_block['title']; ?>
+					<?php echo wp_kses_post( $right_block['title'] ); ?>
 				</h3>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $right_block['text'] ) ) : ?>
-				<?php echo $right_block['text']; ?>
+				<?php echo wp_kses_post( $right_block['text'] ); ?>
 			<?php endif; ?>
 
 			<?php groteski_buttons( $right_block ); ?>

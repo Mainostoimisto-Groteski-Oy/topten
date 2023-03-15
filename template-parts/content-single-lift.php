@@ -6,13 +6,12 @@
  *
  * @package Groteski
  */
-$background_image = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-$background_url = 'background-image: url(' . esc_url( $background_image ) . ')';
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="image">
-		<img src="<?php echo get_the_post_thumbnail_url( $post->ID, 'medium' ); ?>" alt=""/>
+		<img src="<?php echo esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) ); ?>" alt="" />
 	</div>
 
 	<div class="content">

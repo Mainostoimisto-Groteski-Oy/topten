@@ -140,6 +140,7 @@
                         "id": ""
                     },
                     "layout": "block",
+                    "parent_repeater": "field_61debe5a19f5d",
                     "sub_fields": [
                         {
                             "key": "field_63ca65de0b222",
@@ -190,8 +191,7 @@
                             "ajax": 0,
                             "placeholder": ""
                         }
-                    ],
-                    "parent_repeater": "field_61debe5a19f5d"
+                    ]
                 },
                 {
                     "key": "field_61e7eaaa716c9",
@@ -208,6 +208,7 @@
                         "id": ""
                     },
                     "layout": "block",
+                    "parent_repeater": "field_61debe5a19f5d",
                     "sub_fields": [
                         {
                             "key": "field_63ca67cfd6e91",
@@ -259,8 +260,7 @@
                             "ajax": 0,
                             "placeholder": ""
                         }
-                    ],
-                    "parent_repeater": "field_61debe5a19f5d"
+                    ]
                 }
             ]
         }
@@ -283,5 +283,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1674807293
+    "modified": 1677567771
 }

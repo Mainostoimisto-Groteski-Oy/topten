@@ -1,30 +1,45 @@
 @use "variables/breakpoints" as *;
 @use "mixins/typography" as *;
+@use "variables/typography" as *;
 
 /// h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
 @mixin headings {
 	h1,
 	.h1 {
 		@include font-size(4rem, 7.2rem);
+
+		font-family: $font-heading;
 	}
 
 	h2,
 	.h2 {
 		@include font-size(3.6rem, 6rem);
+
+		font-family: $font-heading;
+
 	}
 
 	h3,
 	.h3 {
 		@include font-size(3rem, 4.2rem);
+
+		font-family: $font-heading;
+
 	}
 
 	h4,
 	.h4 {
 		@include font-size(2.2rem, 3rem);
+
+		font-family: $font-heading;
+
 	}
 
 	h5,
 	.h5 {
 		@include font-size(1.8rem, 2rem);
+
+		font-family: $font-heading;
+
 	}
 }

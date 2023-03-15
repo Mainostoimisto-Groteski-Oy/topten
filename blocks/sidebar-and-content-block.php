@@ -1,7 +1,7 @@
 <?php
 global $post;
 
-//Lohkot, joita halutaan käyttää content alueella (75% leveys gridistä)
+// Lohkot, joita halutaan käyttää content alueella (75% leveys gridistä)
 $allowed_blocks = array(
 	'acf/teksti',
 	'acf/kaksi-saraketta',
@@ -26,16 +26,18 @@ $allowed_blocks = array(
 				<?php
 				if ( $post->post_parent ) :
 					$ancestors = get_post_ancestors( $post->ID );
-					$root = count( $ancestors ) - 1;
-					$parent = $ancestors[ $root ];
+					$root      = count( $ancestors ) - 1;
+					$parent    = $ancestors[ $root ];
 				else :
 					$parent = $post->ID;
 				endif;
 
-				wp_list_pages( array(
-					'title_li'    => '',
-					'child_of'    => $parent,
-				) );
+				wp_list_pages(
+					array(
+						'title_li' => '',
+						'child_of' => $parent,
+					)
+				);
 				?>
 			</ul>
 

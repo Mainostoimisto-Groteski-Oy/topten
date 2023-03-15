@@ -13,9 +13,12 @@
 		</div>
 
 		<?php if ( have_rows( 'logos' ) ) : ?>
-			<div class="logos-grid <?php echo $columns; ?>">
-				<?php while ( have_rows( 'logos' ) ) : the_row(); ?>
-					<?php
+			<div class="logos-grid <?php echo esc_attr( $columns ); ?>">
+
+				<?php
+				while ( have_rows( 'logos' ) ) :
+					the_row();
+
 					$logo = get_sub_field( 'logo' );
 
 					if ( $logo ) :
@@ -27,17 +30,17 @@
 						$link = get_sub_field( 'link' );
 
 						if ( $link ) :
-							$href = esc_url( $link['url'] );
-							$title = esc_attr( $link['title'] );
+							$href   = esc_url( $link['url'] );
+							$title  = esc_attr( $link['title'] );
 							$target = esc_attr( $link['target'] );
 
-							echo sprintf( '<a class="logo" href="%s" title="%s" target="%s">%s</a>', $href, $title, $target, $img );
+							echo sprintf( '<a class="logo" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $img ) );
 						else :
-							echo sprintf( '<div class="logo">%s</div>', $img );
+							echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
 						endif;
 					endif;
-					?>
-				<?php endwhile; ?>
+				endwhile;
+				?>
 			</div>
 		<?php endif; ?>
 	</div>

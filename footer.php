@@ -14,13 +14,15 @@
 		<div class="grid">
 			<div class="footer-left">
 				<div class="logo">
-					<?php $logo = get_field( 'footer_logo', 'options' );
+					<?php
+					$logo = get_field( 'footer_logo', 'options' );
 
 					if ( $logo ) :
-						$src = esc_url( $logo['sizes']['thumbnail'] );
-						$alt = esc_attr( $logo['alt'] ); ?>
+						$src = $logo['sizes']['thumbnail'];
+						$alt = $logo['alt'];
+						?>
 
-						<img src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" />
+						<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 					<?php endif; ?>
 				</div>
 			</div>
@@ -28,18 +30,25 @@
 			<div class="footer-center">
 				<?php if ( have_rows( 'footer_links', 'option' ) ) : ?>
 					<ul class="footer-links">
-						<?php while ( have_rows( 'footer_links', 'option' ) ) : the_row(); ?>
+						<?php
+						while ( have_rows( 'footer_links', 'option' ) ) :
+							the_row();
+							?>
 							<?php $link = get_sub_field( 'link', 'option' ); ?>
 
 							<?php if ( $link ) : ?>
 								<li>
-									<?php $href = esc_url( $link['url'] );
-									$title = esc_attr( $link['title'] );
-									$target = esc_attr( $link['target'] ); ?>
+									<?php
+									$href   = $link['url'];
+									$title  = $link['title'];
+									$target = $link['target'];
+									?>
 
-									<a href="<?php echo $href; ?>" title="<?php echo $title; ?>" target="<?php echo $target; ?>">
+									<a href="<?php echo esc_url( $href ); ?>"
+										title="<?php echo esc_attr( $title ); ?>"
+										target="<?php echo esc_attr( $target ); ?>">
 										<span class="link-text">
-											<?php echo $title; ?>
+											<?php echo wp_kses_post( $title ); ?>
 										</span>
 									</a>
 								</li>
@@ -51,20 +60,27 @@
 				<?php if ( have_rows( 'footer_some_links', 'option' ) ) : ?>
 					<div class="some-icons">
 						<ul>
-							<?php while ( have_rows( 'footer_some_links', 'option' ) ) : the_row(); ?>
-								<?php if ( get_sub_field( 'some_link', 'option' ) ) :
+							<?php
+							while ( have_rows( 'footer_some_links', 'option' ) ) :
+								the_row();
+								?>
+								<?php
+								if ( get_sub_field( 'some_link', 'option' ) ) :
 									$some_link = get_sub_field( 'some_link', 'option' );
-									$some_icon = get_sub_field( 'some_icon', 'option' ); ?>
+									$some_icon = get_sub_field( 'some_icon', 'option' );
+									?>
 
 									<li>
-										<a class="some-link" href="<?php echo esc_url( $some_link['url'] ) ?>" title="<?php echo esc_attr( $some_link['title'] ); ?>">
+										<a class="some-link"
+											href="<?php echo esc_url( $some_link['url'] ); ?>"
+											title="<?php echo esc_attr( $some_link['title'] ); ?>">
 
 											<span class="some-icon">
 												<img src="<?php echo esc_url( $some_icon['sizes']['thumbnail'] ); ?>" />
 											</span>
 
 											<span class="link-text">
-												<?php echo $some_link['title']; ?>
+												<?php echo wp_kses_post( $some_link['title'] ); ?>
 											</span>
 										</a>
 									</li>
@@ -81,18 +97,18 @@
 					$address_group = get_field( 'footer_address_group', 'options' );
 
 					$address = $address_group['address'] ?? false;
-					$icon = $address_group['icon'] ?? false;
+					$icon    = $address_group['icon'] ?? false;
 					?>
 
 					<?php if ( $address ) : ?>
 						<div class="contact-info">
-							<span class="address" href="<?php echo $address; ?>">
+							<span class="address">
 								<?php if ( $icon ) : ?>
-									<?php echo $icon; ?>
+									<?php echo wp_kses_post( $icon ); ?>
 								<?php endif; ?>
 
 								<span class="link-text">
-									<?php echo $address; ?>
+									<?php echo wp_kses_post( $address ); ?>
 								</span>
 							</span>
 						</div>
@@ -103,19 +119,19 @@
 					<?php
 					$tel_group = get_field( 'footer_phonenumber_group', 'options' );
 
-					$tel = $tel_group['tel'] ?? false;
+					$tel  = $tel_group['tel'] ?? false;
 					$icon = $tel_group['icon'] ?? false;
 					?>
 
 					<?php if ( $tel ) : ?>
 						<div class="contact-info">
-							<a class="tel" href="tel:<?php echo $tel; ?>">
+							<a class="tel" href="tel:<?php echo esc_attr( $tel ); ?>">
 								<?php if ( $icon ) : ?>
-									<?php echo $icon; ?>
+									<?php echo wp_kses_post( $icon ); ?>
 								<?php endif; ?>
 
 								<span class="link-text">
-									<?php echo $tel; ?>
+									<?php echo wp_kses_post( $tel ); ?>
 								</span>
 							</a>
 						</div>
@@ -127,18 +143,18 @@
 					$email_group = get_field( 'footer_email_group', 'options' );
 
 					$email = $email_group['email'] ?? '';
-					$icon = $email_group['icon'] ?? '';
+					$icon  = $email_group['icon'] ?? '';
 					?>
 
 					<?php if ( $email ) : ?>
 						<div class="contact-info">
-							<a class="mail" href="mailto:<?php echo $email; ?>">
+							<a class="mail" href="mailto:<?php echo esc_attr( $email ); ?>">
 								<?php if ( $icon ) : ?>
-									<?php echo $icon; ?>
+									<?php echo wp_kses_post( $icon ); ?>
 								<?php endif; ?>
 
 								<span class="link-text">
-									<?php echo $email; ?>
+									<?php echo wp_kses_post( $email ); ?>
 								</span>
 							</a>
 						</div>

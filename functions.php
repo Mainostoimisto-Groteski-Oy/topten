@@ -20,59 +20,62 @@ if ( ! defined( 'GROTESKI_VERSION' ) ) {
  */
 require get_template_directory() . '/includes/groteski-functions.php';
 
-if ( ! function_exists( 'groteski_setup' ) ) :
-	function groteski_setup() {
-		/**
-		 * Enable essential features.
-		 */
-		load_theme_textdomain( 'groteski', get_template_directory() . '/languages' );
+/**
+ * Theme setup
+ */
+function groteski_setup() {
+	/**
+	 * Enable essential features.
+	 */
+	load_theme_textdomain( 'groteski', get_template_directory() . '/languages' );
 
-		add_theme_support( 'automatic-feed-links' );
-		add_theme_support( 'title-tag' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support(
-			'html5',
-			array(
-				'search-form',
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-				'style',
-				'script',
-			)
-		);
-		add_theme_support(
-			'custom-logo',
-			array(
-				'height'      => 250,
-				'width'       => 250,
-				'flex-width'  => true,
-				'flex-height' => true,
-			)
-		);
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support(
+		'html5',
+		array(
+			'comment-list',
+			'comment-form',
+			'search-form',
+			'gallery',
+			'caption',
+			'style',
+			'script',
+		)
+	);
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 250,
+			'width'       => 250,
+			'flex-width'  => true,
+			'flex-height' => true,
+		)
+	);
 
-		add_image_size( 'fullhd', 1920 );
-		add_image_size( 'qhd', 2560 );
+	add_image_size( 'fullhd', 1920 );
+	add_image_size( 'qhd', 2560 );
 
-		register_nav_menus(
-			array(
-				'primary-menu' => esc_html__( 'Päävalikko', 'groteski' ),
-			)
-		);
-	}
-endif;
+	register_nav_menus(
+		array(
+			'primary-menu' => esc_html__( 'Päävalikko', 'groteski' ),
+		)
+	);
+}
 
 /**
  * ACF Options to admin menu
  */
 if ( function_exists( 'acf_add_options_page' ) ) {
-	acf_add_options_page(array(
-		'page_title' => 'Footer',
-		'menu_title' => 'Footer',
-		'menu_slug'  => 'footer-settings',
-		'redirect'   => false,
-	));
+	acf_add_options_page(
+		array(
+			'page_title' => 'Footer',
+			'menu_title' => 'Footer',
+			'menu_slug'  => 'footer-settings',
+			'redirect'   => false,
+		)
+	);
 }
 
 add_action( 'after_setup_theme', 'groteski_setup' );
@@ -98,75 +101,58 @@ remove_action( 'wp_footer', 'wp_enqueue_global_styles' );
  */
 
 // wp-content
-add_filter( 'ai1wm_exclude_content_from_export', function ( $exclude_filters ) {
-	$exclude_filters[] = 'updraft';
+add_filter(
+	'ai1wm_exclude_content_from_export',
+	function ( $exclude_filters ) {
+		$exclude_filters[] = 'updraft';
 
-	return $exclude_filters;
-} );
+		return $exclude_filters;
+	}
+);
 
 // wp-content/themes
-add_filter( 'ai1wm_exclude_themes_from_export', function ( $exclude_filters ) {
-	$exclude_filters[] = get_stylesheet() . '/node_modules';
-	$exclude_filters[] = get_stylesheet() . '/vendor';
-	$exclude_filters[] = 'twentytwenty';
-	$exclude_filters[] = 'twentytwentyone';
-	$exclude_filters[] = 'twentytwentytwo';
-	$exclude_filters[] = 'twentytwentythree';
-	$exclude_filters[] = 'twentytwentythree';
+add_filter(
+	'ai1wm_exclude_themes_from_export',
+	function ( $exclude_filters ) {
+		$exclude_filters[] = get_stylesheet() . '/node_modules';
+		$exclude_filters[] = get_stylesheet() . '/vendor';
+		$exclude_filters[] = 'twentytwenty';
+		$exclude_filters[] = 'twentytwentyone';
+		$exclude_filters[] = 'twentytwentytwo';
+		$exclude_filters[] = 'twentytwentythree';
+		$exclude_filters[] = 'twentytwentythree';
 
-	return $exclude_filters;
-});
+		return $exclude_filters;
+	}
+);
 
 // wp-content/uploads
-add_filter( 'ai1wm_exclude_media_from_export', function ( $exclude_filters ) {
-	$exclude_filters[] = 'backup';
+add_filter(
+	'ai1wm_exclude_media_from_export',
+	function ( $exclude_filters ) {
+		$exclude_filters[] = 'backup';
 
-	return $exclude_filters;
-} );
+		return $exclude_filters;
+	}
+);
 
 /**
  * Disable logging login attempts
  */
-add_filter('simple_history/simple_logger/log_message_key', function( $do_log, $logger_slug, $message_key ) {
-	if ( 'SimpleUserLogger' === $logger_slug && 'user_unknown_login_failed' === $message_key ) {
-		$do_log = false;
-	}
-	if ( 'SimpleUserLogger' === $logger_slug && 'user_login_failed' === $message_key ) {
-		$do_log = false;
-	}
-	return $do_log;
-}, 10, 5);
-
-// Lisätään CPT artikkelilohkon post_type kenttään
-// https://www.advancedcustomfields.com/resources/dynamically-populate-a-select-fields-choices/
-function groteski_acf_cpt( $field ) {
-	// Nollataan valinnat ja lisätään WPn oletus post type
-	$field['choices'] = array(
-		'post' => 'Artikkeli',
-	);
-
-	// Haetaan CPTt
-	$post_types = get_post_types( array(
-		'public'   => true,
-		'_builtin' => false,
-	) );
-
-	if ( $post_types ) {
-		foreach ( $post_types as $post_type ) {
-			// Haetaan post type object siistimpää nimeä varten
-			$post_type_object = get_post_type_object( $post_type );
-
-			// array key = palautettava arvo ($post_type, esim 'post')
-			// array value = ACFn näyttävä arvo (singular_name, esim 'Artikkeli')
-			// eli sama asia kuin 'post : Artikkeli'
-			$field['choices'][ $post_type ] = $post_type_object->labels->singular_name;
+add_filter(
+	'simple_history/simple_logger/log_message_key',
+	function( $do_log, $logger_slug, $message_key ) {
+		if ( 'SimpleUserLogger' === $logger_slug && 'user_unknown_login_failed' === $message_key ) {
+			$do_log = false;
 		}
-	}
-
-	return $field;
-}
-
-add_filter( 'acf/load_field/name=post_type', 'groteski_acf_cpt' );
+		if ( 'SimpleUserLogger' === $logger_slug && 'user_login_failed' === $message_key ) {
+			$do_log = false;
+		}
+		return $do_log;
+	},
+	10,
+	5
+);
 
 /**
  * Enqueue scripts and styles.
@@ -184,10 +170,14 @@ function groteski_scripts() {
 
 	wp_enqueue_script( 'groteski', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), GROTESKI_VERSION, true );
 
-	wp_localize_script( 'groteski', 'Ajax', array(
-		'url'   => admin_url( 'admin-ajax.php' ),
-		'nonce' => wp_create_nonce( 'nonce' ),
-	) );
+	wp_localize_script(
+		'groteski',
+		'Ajax',
+		array(
+			'url'   => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'nonce' ),
+		)
+	);
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -213,6 +203,9 @@ add_action( 'enqueue_block_editor_assets', 'groteski_editor_scripts' );
 
 /**
  * Allowed block types
+ *
+ * @param bool|string[]           $allowed_blocks Array of block type slugs, or boolean to enable/disable all.
+ * @param WP_Block_Editor_Context $editor_context The current block editor context
  */
 function groteski_allowed_block_types( $allowed_blocks, $editor_context ) {
 	// Tässä pitää käyttää blockin nimeä slugin sijasta (koska ???)
@@ -249,11 +242,11 @@ function groteski_allowed_block_types( $allowed_blocks, $editor_context ) {
 	}
 }
 
-	add_filter( 'allowed_block_types_all', 'groteski_allowed_block_types', 9, 2 );
+add_filter( 'allowed_block_types_all', 'groteski_allowed_block_types', 9, 2 );
 
-	/**
-	 * ACF Blocks
-	 */
+/**
+ * ACF Blocks
+ */
 function groteski_acf() {
 	if ( function_exists( 'acf_register_block' ) ) {
 
@@ -445,21 +438,62 @@ function groteski_acf() {
 	}
 }
 
-	add_action( 'acf/init', 'groteski_acf' );
+add_action( 'acf/init', 'groteski_acf' );
 
-//Login screen ulkoasua
-function groteski_login_logo() { ?>
-    <style type="text/css">
-        #login h1 a,
+/**
+ * Lisätään CPT artikkelilohkon post_type kenttään
+ * https://www.advancedcustomfields.com/resources/dynamically-populate-a-select-fields-choices/
+ *
+ * @param array $field ACFn kenttä
+ */
+function groteski_acf_cpt( $field ) {
+	// Nollataan valinnat ja lisätään WPn oletus post type
+	$field['choices'] = array(
+		'post' => 'Artikkeli',
+	);
+
+	// Haetaan CPTt
+	$post_types = get_post_types(
+		array(
+			'public'   => true,
+			'_builtin' => false,
+		)
+	);
+
+	if ( $post_types ) {
+		foreach ( $post_types as $post_type ) {
+			// Haetaan post type object siistimpää nimeä varten
+			$post_type_object = get_post_type_object( $post_type );
+
+			// array key = palautettava arvo ($post_type, esim 'post')
+			// array value = ACFn näyttävä arvo (singular_name, esim 'Artikkeli')
+			// eli sama asia kuin 'post : Artikkeli'
+			$field['choices'][ $post_type ] = $post_type_object->labels->singular_name;
+		}
+	}
+
+	return $field;
+}
+
+add_filter( 'acf/load_field/name=post_type', 'groteski_acf_cpt' );
+
+/**
+ * WP login sivun logo
+ */
+function groteski_login_logo() {
+	$logo_src = get_stylesheet_directory_uri() . '/assets/dist/images/groteski-logo.png.webp';
+	?>
+	<style type="text/css">
+		#login h1 a,
 		.login h1 a {
-            background-image: url("<?php echo get_stylesheet_directory_uri(); ?>/assets/dist/groteski-logo.png.webp");
+			background-image: url("<?php echo esc_url( $logo_src ); ?>");
 			width: 100%;
 			height: 200px;
 			background-size: 320px 65px;
 			background-repeat: no-repeat;
-        	padding-bottom: 30px;
+			padding-bottom: 30px;
 			background-size: contain;
-        }
+		}
 
 		body.login {
 			background: linear-gradient(180deg,#0f1127,#010007 99.99%,rgba(24,26,41,0));
@@ -478,26 +512,38 @@ function groteski_login_logo() { ?>
 		body.login form {
 			background-color: #ebeefe;
 		}
-    </style>
-<?php }
+	</style>
+	<?php
+}
 
 add_action( 'login_enqueue_scripts', 'groteski_login_logo' );
 
+/**
+ * WP login sivun logo linkki
+ */
 function groteski_login_logo_url() {
-    return 'https://groteski.fi/';
+	return 'https://groteski.fi/';
 }
+
 add_filter( 'login_headerurl', 'groteski_login_logo_url' );
 
+/**
+ * WP login sivun logo linkin teksti
+ */
 function groteski_login_logo_url_title() {
-    return 'Mainostoimisto Groteski Oy';
+	return 'Mainostoimisto Groteski Oy';
 }
 
 add_filter( 'login_headertext', 'groteski_login_logo_url_title' );
 
-// Analytics (uncomment add action and change G-XXX code)
-function groteski_analytics() { ?>
+/**
+ * Google analytics (vaihda G-xxxxxxxxxx) ja kommentoi add_action rivit käyttöön
+ */
+function groteski_analytics() {
+	?>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxxxxxxxxx"></script>
+
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}

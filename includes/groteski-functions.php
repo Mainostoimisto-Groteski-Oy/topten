@@ -3,10 +3,11 @@
  * Luo blockin titlen blockin globaaleista ACF-kentistä
  *
  * @param boolean $echo Echotaanko title suoraan, default true
+ * @param string  $id Titlelle annettava ID, default ''
  */
 function groteski_block_title( $echo = true, $id = '' ) {
 	$title_text = get_field( 'block_title' );
-	$title_tag = get_field( 'block_title_tag' );
+	$title_tag  = get_field( 'block_title_tag' );
 	$title_size = get_field( 'block_title_size' );
 
 	if ( ! $title_text ) {
@@ -26,7 +27,7 @@ function groteski_block_title( $echo = true, $id = '' ) {
 	}
 
 	if ( $echo ) {
-		echo $title;
+		echo wp_kses_post( $title );
 	} else {
 		return $title;
 	}
@@ -36,7 +37,7 @@ function groteski_block_title( $echo = true, $id = '' ) {
  * Palauttaa $postin ensimmäisen 'text'-nimisen kentän ensimmäiset $words sanaa
  *
  * @param WP_Post|int $post Postiobjekti tai post ID
- * @param int $words Sanojen määrä, default 20
+ * @param int         $words Sanojen määrä, default 20
  */
 function groteski_excerpt( $post, $words = 20 ) {
 	$blocks = parse_blocks( get_the_content( null, false, $post ) );
@@ -54,7 +55,7 @@ function groteski_excerpt( $post, $words = 20 ) {
  * @param string $id Blockin id
  */
 function groteski_block_id( $id = '' ) {
-	$block_id = get_field( 'block_id' );
+	$block_id    = get_field( 'block_id' );
 	$block_title = get_field( 'block_title' );
 
 	if ( '' !== $block_id ) {
@@ -63,23 +64,23 @@ function groteski_block_id( $id = '' ) {
 	if ( $id ) {
 		echo 'id="' . esc_attr( $id ) . '"';
 	} else {
-		echo 'id="' . sanitize_title( $block_title ) . '"';
+		echo 'id="' . esc_attr( sanitize_title( $block_title ) ) . '"';
 	}
 }
 
 /**
  * Palauttaa blockin kuvan focal pointin
  *
- * @param boolean
+ * @param boolean       $sub_field Onko kenttä repeater-kentän sisällä? Default false
  * @param array|boolean $block ACF ryhmä (image_block tms), default tyhjä array
- * @param boolean $echo Echotaanko focal point? Default true, falsella palauttaa stringinä ilman echoa
+ * @param string        $selector Kentän nimi, default 'focal_point'
  */
 function groteski_focal_point( $sub_field = false, $block = array(), $selector = 'focal_point' ) {
 	if ( $block ) {
 		if ( ! empty( $block[ $selector ] ) ) {
 			$focal_point = $block[ $selector ];
 		}
-	} else if ( $sub_field ) {
+	} elseif ( $sub_field ) {
 		$focal_point = get_sub_field( $selector );
 	} else {
 		$focal_point = get_field( $selector );
@@ -88,7 +89,7 @@ function groteski_focal_point( $sub_field = false, $block = array(), $selector =
 	$focal_point = $focal_point ? str_replace( '_', '-', $focal_point ) : 'center';
 
 	if ( $focal_point ) {
-		echo 'focal-' . $focal_point;
+		echo esc_attr( 'focal-' . $focal_point );
 	}
 }
 
@@ -113,17 +114,17 @@ function groteski_buttons( $block = array() ) {
 			foreach ( $block['buttons'] as $button ) {
 				if ( ! empty( $button['button'] ) ) {
 					$button = $button['button'];
-					$href = esc_url( $button['url'] );
-					$title = esc_attr( $button['title'] );
-					$target = esc_attr( $button['target'] );
+					$href   = $button['url'];
+					$title  = $button['title'];
+					$target = $button['target'];
 
-					echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', $href, $title, $target, $title );
+					echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 				}
 			}
 
 			echo '</div>';
 		}
-	} else if ( have_rows( 'buttons' ) ) {
+	} elseif ( have_rows( 'buttons' ) ) {
 		echo '<div class="buttons">';
 
 		while ( have_rows( 'buttons' ) ) {
@@ -132,15 +133,23 @@ function groteski_buttons( $block = array() ) {
 			$button = get_sub_field( 'button' );
 
 			if ( $button ) {
-				$href = esc_url( $button['url'] );
-				$title = esc_attr( $button['title'] );
+				$href   = esc_url( $button['url'] );
+				$title  = esc_attr( $button['title'] );
 				$target = esc_attr( $button['target'] );
 
-				echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', $href, $title, $target, $title );
+				echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 			}
 		}
 
 		echo '</div>';
 	}
+}
 
+/**
+ * Kääntää paramterin JSONiksi ja kirjoittaa sen error_logiin
+ *
+ * @param any $data_to_log Logitettava data
+ */
+function json_log( $data_to_log ) { // phpcs:ignore
+	error_log( wp_json_encode( $data_to_log ) ); // phpcs:ignore
 }

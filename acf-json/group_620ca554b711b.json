@@ -50,15 +50,7 @@
             "type": "button_group",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_620ca56b48b48",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "50",
                 "class": "",
@@ -72,7 +64,7 @@
             "default_value": "h2 : Keskikokoinen",
             "return_format": "value",
             "allow_null": 0,
-            "layout": ""
+            "layout": "horizontal"
         },
         {
             "key": "field_624fd4736e4cd",
@@ -106,7 +98,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "all"
+                "value": ""
             }
         ]
     ],
@@ -119,5 +111,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1675839375
+    "modified": 1677567771
 }
