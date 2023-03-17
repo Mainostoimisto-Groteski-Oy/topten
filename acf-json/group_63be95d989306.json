@@ -1,28 +1,7 @@
 {
     "key": "group_63be95d989306",
     "title": "Lohko: Sivupalkki ja sisältö",
-    "fields": [
-        {
-            "key": "field_63be96132aa52",
-            "label": "",
-            "name": "",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        }
-    ],
+    "fields": [],
     "location": [
         [
             {
@@ -41,5 +20,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1679051893
 }
