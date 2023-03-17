@@ -535,22 +535,3 @@ function groteski_login_logo_url_title() {
 }
 
 add_filter( 'login_headertext', 'groteski_login_logo_url_title' );
-
-/**
- * Google analytics (vaihda G-xxxxxxxxxx) ja kommentoi add_action rivit käyttöön
- */
-function groteski_analytics() {
-	?>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxxxxxxxxx"></script>
-
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'G-xxxxxxxxxx');
-	</script>
-	<?php
-}
-
-// add_action( 'wp_head','groteski_analytics', 20 );
