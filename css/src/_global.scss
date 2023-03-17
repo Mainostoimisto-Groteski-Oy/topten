@@ -21,3 +21,7 @@
 @use "blocks/multi-column-blocks";
 @use "blocks/sidebar-and-content-block";
 @use "blocks/buttons-block";
+
+// Card blocks
+@use "blocks/card-blocks/card-row";
+@use "blocks/card-blocks/card-column";

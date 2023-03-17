@@ -1,0 +1,25 @@
+.acf-block-preview {
+	.row-block {
+		.grid {
+			display: unset;
+
+			> .block-editor-inner-blocks {
+				> .block-editor-block-list__layout {
+					display: grid;
+					gap: 15px;
+					grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+
+					> .wp-block {
+						padding: 0 15px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.row-block {
+	.grid {
+		grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+	}
+}

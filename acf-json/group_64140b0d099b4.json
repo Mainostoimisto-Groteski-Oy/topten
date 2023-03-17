@@ -22,7 +22,7 @@
                 "publish": "Julkaistu"
             },
             "default_value": false,
-            "return_format": "value",
+            "return_format": "array",
             "multiple": 0,
             "allow_null": 0,
             "ui": 0,
@@ -59,7 +59,7 @@
                 "approved": "Hyväksytty"
             },
             "default_value": false,
-            "return_format": "value",
+            "return_format": "array",
             "multiple": 0,
             "allow_null": 0,
             "ui": 0,
@@ -96,7 +96,7 @@
                 "repealed": "Kumottu"
             },
             "default_value": false,
-            "return_format": "value",
+            "return_format": "array",
             "multiple": 0,
             "allow_null": 0,
             "ui": 0,
@@ -136,5 +136,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679036138
+    "modified": 1679042306
 }

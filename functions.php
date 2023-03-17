@@ -202,6 +202,17 @@ function groteski_editor_scripts() {
 add_action( 'enqueue_block_editor_assets', 'groteski_editor_scripts' );
 
 /**
+ * Globaali muuttuja korttien sallittuihin lohkoihin
+ */
+$card_allowed_blocks = array(
+	'acf/otsikko',
+	'acf/kuva',
+	'acf/teksti',
+	'acf/rivi',
+);
+
+
+/**
  * Allowed block types
  *
  * @param bool|string[]           $allowed_blocks Array of block type slugs, or boolean to enable/disable all.
@@ -209,6 +220,11 @@ add_action( 'enqueue_block_editor_assets', 'groteski_editor_scripts' );
  */
 function groteski_allowed_block_types( $allowed_blocks, $editor_context ) {
 	// Tässä pitää käyttää blockin nimeä slugin sijasta (koska ???)
+	$card_types = array(
+		'tulkintakortti',
+		'ohjekortti',
+		'lomakekortti',
+	);
 
 	if ( 'page' === $editor_context->post->post_type ) {
 		$allowed_blocks = array(
@@ -225,6 +241,12 @@ function groteski_allowed_block_types( $allowed_blocks, $editor_context ) {
 			// 'acf/sivupalkki-ja-sisalto',
 			// 'acf/painikkeet',
 		);
+
+		return $allowed_blocks;
+	} elseif ( in_array( $editor_context->post->post_type, $card_types, true ) ) {
+		global $card_allowed_blocks;
+
+		$allowed_blocks = $card_allowed_blocks;
 
 		return $allowed_blocks;
 	} else {
@@ -265,7 +287,7 @@ function groteski_acf() {
 			)
 		);
 
-		$block_name  = 'Teksti';
+		$block_name  = 'Tekstilohko';
 		$block_slug  = 'text-block';
 		$description = 'Lohko tekstipaikalla';
 
@@ -413,7 +435,7 @@ function groteski_acf() {
 				'keywords'        => array( $block_name ),
 				'mode'            => 'preview',
 				'supports'        => array(
-					'align' => true,
+					'align' => false,
 					'mode'  => false,
 					'jsx'   => true,
 				),
@@ -433,6 +455,93 @@ function groteski_acf() {
 				'render_template' => "blocks/$block_slug.php",
 				'keywords'        => array( $block_name ),
 				'icon'            => 'button',
+			)
+		);
+
+		/**
+		 * Korttien lohko
+		 */
+		$block_name  = 'Rivi';
+		$block_slug  = 'card-row';
+		$description = 'Rivi';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'mode'            => 'preview',
+				'supports'        => array(
+					'align'  => false,
+					'anchor' => true,
+					'mode'   => false,
+					'jsx'    => true,
+				),
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Sarake';
+		$block_slug  = 'card-column';
+		$description = 'Sarake';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'mode'            => 'preview',
+				'supports'        => array(
+					'align'  => false,
+					'anchor' => true,
+					'mode'   => false,
+					'jsx'    => true,
+				),
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Otsikko';
+		$block_slug  = 'card-title';
+		$description = 'Otsikko';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Teksti';
+		$block_slug  = 'card-text';
+		$description = 'Teksti';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Kuva';
+		$block_slug  = 'card-image';
+		$description = 'Kuva';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
 			)
 		);
 	}
