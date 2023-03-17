@@ -32,6 +32,7 @@
 		<exclude name="WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet" />
 		<exclude name="WordPress.WP.EnqueuedResources.NonEnqueuedScript" />
 		<exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
 
 		<!-- Exclude some of the rules related to commenting -->
 		<exclude name="Squiz.Commenting.FileComment.Missing" />

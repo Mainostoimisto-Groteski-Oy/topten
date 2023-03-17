@@ -61,10 +61,13 @@ function groteski_block_id( $id = '' ) {
 	if ( '' !== $block_id ) {
 		$id .= '' . $block_id;
 	}
+
+	if ( ! $id ) {
+		$id = esc_attr( sanitize_title( $block_title ) );
+	}
+
 	if ( $id ) {
 		echo 'id="' . esc_attr( $id ) . '"';
-	} else {
-		echo 'id="' . esc_attr( sanitize_title( $block_title ) ) . '"';
 	}
 }
 
@@ -143,13 +146,4 @@ function groteski_buttons( $block = array() ) {
 
 		echo '</div>';
 	}
-}
-
-/**
- * Kääntää paramterin JSONiksi ja kirjoittaa sen error_logiin
- *
- * @param any $data_to_log Logitettava data
- */
-function json_log( $data_to_log ) { // phpcs:ignore
-	error_log( wp_json_encode( $data_to_log ) ); // phpcs:ignore
 }

@@ -30,6 +30,10 @@ if ( 'newest' === $type ) {
 } else {
 	$postslist = get_field( 'articles' );
 }
+
+global $topten_logger;
+
+$topten_logger->insert( 'message', 'action', 'name', 'id' );
 ?>
 
 <section <?php groteski_block_id(); ?> class="articles-block">
