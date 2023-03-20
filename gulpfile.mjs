@@ -219,15 +219,17 @@ function watchFiles() {
 	watch(config.assets.watch, optimizeAssets);
 }
 
-export const prod = series(
-	cleanDist,
-	parallel(optimizeAssets, productionStyles, productionJs, bumpFunctions, bumpStylesheet)
-);
+export const prod = series(cleanDist, parallel(optimizeAssets, productionStyles, productionJs));
 
 export const generate = series(cleanDist, parallel(optimizeAssets, productionStyles, productionJs));
 
 export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor);
 
 export const bs = initBrowserSync;
+
+export const gitProd = series(
+	cleanDist,
+	parallel(optimizeAssets, productionStyles, productionJs, bumpFunctions, bumpStylesheet)
+);
 
 export default watchFiles;
