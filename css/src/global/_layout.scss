@@ -1,5 +1,12 @@
 @use "mixins/all" as *;
 
+@media print {
+	.site-header,
+	.site-footer {
+		display: none;
+	}
+}
+
 .animate-on-scroll {
 	opacity: 0;
 }
