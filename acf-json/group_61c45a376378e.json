@@ -88,7 +88,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/teksti"
+                "value": "acf\/tekstilohko"
             }
         ]
     ],
@@ -101,5 +101,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1679060375
 }
