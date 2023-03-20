@@ -9,10 +9,12 @@
 
 ?>
 
+<button class="save-as-pdf" data-type="tulkintakortti">
+	Tallenna PDF
+</button>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="grid">
-		<div class="entry-content">
-			<?php the_content(); ?>
-		</div>
+		<?php the_content(); ?>
 	</div>
 </article>

@@ -296,7 +296,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": ""
+                "value": "acf\/hero"
             }
         ]
     ],
@@ -309,5 +309,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1679318578
 }
