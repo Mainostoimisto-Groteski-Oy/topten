@@ -34,7 +34,7 @@ const config = {
 	},
 	bump: {
 		regex:
-			/([<|'|"]?(GROTESKI_VERSION)[>|'|"]?[ ]*[:=,]?[ ]*['|"]?[a-z]?)(\d+.\d+.\d+)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?(['|"|<]?)/i,
+			/([<|'|"]?(TOPTEN_VERSION)[>|'|"]?[ ]*[:=,]?[ ]*['|"]?[a-z]?)(\d+.\d+.\d+)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?(['|"|<]?)/i,
 	},
 	clean: ['./js/dist/**', './css/dist/**', './assets/dist/**'],
 	cssnano: {

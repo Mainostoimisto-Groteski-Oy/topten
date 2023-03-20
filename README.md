@@ -118,7 +118,7 @@ tai
 
 functions.php tiedostossa on kaksi funktiota, joihin uudet blockit tulee lisätä.
 
-`groteski_allowed_block_types()` lisätään arrayhyn uusi rivi 'acf/blockin-nimi' (nimenomaan blockin nimi, slug ei toimi koska ???)
-`groteski_acf()` funktioon lisätään mallin mukaisesti uusi block. Teemassa on käytetty muuttujia blockin nimeämiseen, ei ole pakko käyttää jos ei halua.
+`topten_allowed_block_types()` lisätään arrayhyn uusi rivi 'acf/blockin-nimi' (nimenomaan blockin nimi, slug ei toimi koska ???)
+`topten_acf()` funktioon lisätään mallin mukaisesti uusi block. Teemassa on käytetty muuttujia blockin nimeämiseen, ei ole pakko käyttää jos ei halua.
 
 </details>

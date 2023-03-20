@@ -15,7 +15,7 @@ if ( 'image' === $select ) {
 $class = 'hero-block hero-' . $select;
 ?>
 
-<section <?php groteski_block_id(); ?> class="<?php echo esc_attr( $class ); ?> <?php groteski_focal_point(); ?>">
+<section <?php topten_block_id(); ?> class="<?php echo esc_attr( $class ); ?> <?php topten_focal_point(); ?>">
 	<?php if ( 'video' === $select ) : ?>
 		<?php $background_video = get_field( 'background_video' ); ?>
 
@@ -34,9 +34,9 @@ $class = 'hero-block hero-' . $select;
 		<div class="hero-content-wrapper">
 			<div class="grid">
 				<div class="text-block">
-					<?php groteski_block_title(); ?>
+					<?php topten_block_title(); ?>
 
-					<?php groteski_buttons(); ?>
+					<?php topten_buttons(); ?>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@ $class = 'hero-block hero-' . $select;
 								?>
 
 								<li class="splide__slide">
-									<img class="<?php groteski_focal_point( true ); ?>"
+									<img class="<?php topten_focal_point( true ); ?>"
 										src="<?php echo esc_url( $src ); ?>"
 										alt="<?php echo esc_attr( $alt ); ?>" />
 								</li>
@@ -75,9 +75,9 @@ $class = 'hero-block hero-' . $select;
 			<div class="hero-content-wrapper">
 				<div class="grid">
 					<div class="text-block">
-						<?php groteski_block_title(); ?>
+						<?php topten_block_title(); ?>
 
-						<?php groteski_buttons(); ?>
+						<?php topten_buttons(); ?>
 					</div>
 				</div>
 			</div>

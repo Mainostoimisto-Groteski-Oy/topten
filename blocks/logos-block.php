@@ -2,10 +2,10 @@
 	$columns = get_field( 'columns' );
 	$columns = $columns . '-columns';
 ?>
-<section <?php groteski_block_id(); ?> class="logos-block">
+<section <?php topten_block_id(); ?> class="logos-block">
 	<div class="grid">
 		<div class="text-block">
-			<?php groteski_block_title(); ?>
+			<?php topten_block_title(); ?>
 
 			<?php if ( get_field( 'text' ) ) : ?>
 				<?php the_field( 'text' ); ?>

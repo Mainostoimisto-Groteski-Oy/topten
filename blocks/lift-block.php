@@ -9,10 +9,10 @@ if ( $background_image ) {
 }
 ?>
 
-<section <?php groteski_block_id(); ?> class="lift-block?> <?php groteski_focal_point(); ?>" style="<?php echo esc_url( $background_url ); ?>">
+<section <?php topten_block_id(); ?> class="lift-block?> <?php topten_focal_point(); ?>" style="<?php echo esc_url( $background_url ); ?>">
 	<div class="grid">
-		<?php groteski_block_title(); ?>
+		<?php topten_block_title(); ?>
 
-		<?php groteski_buttons(); ?>
+		<?php topten_buttons(); ?>
 	</div>
 </section>

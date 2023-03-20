@@ -1,4 +1,4 @@
 <?php
-if ( ! defined( 'GROTESKI_VERSION' ) ) {
-	define( 'GROTESKI_VERSION', '1.0.0' );
+if ( ! defined( 'TOPTEN_VERSION' ) ) {
+	define( 'TOPTEN_VERSION', '1.0.0' );
 }

@@ -1,6 +1,6 @@
-<section <?php groteski_block_id(); ?> class="text-block">
+<section <?php topten_block_id(); ?> class="text-block">
 	<div class="grid">
-		<?php groteski_block_title(); ?>
+		<?php topten_block_title(); ?>
 
 		<?php if ( get_field( 'ingress' ) ) : ?>
 			<div class="ingress">
@@ -14,6 +14,6 @@
 			</div>
 		<?php endif; ?>
 
-		<?php groteski_buttons(); ?>
+		<?php topten_buttons(); ?>
 	</div>
 </section>

@@ -28,11 +28,11 @@ if ( post_password_required() ) {
 		?>
 		<h2 class="comments-title">
 			<?php
-			$groteski_comment_count = get_comments_number();
-			if ( '1' === $groteski_comment_count ) {
+			$topten_comment_count = get_comments_number();
+			if ( '1' === $topten_comment_count ) {
 				printf(
 					/* translators: 1: title. */
-					esc_html__( 'Kommentit', 'groteski' ),
+					esc_html__( 'Kommentit', 'topten' ),
 					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
 				);
 			}

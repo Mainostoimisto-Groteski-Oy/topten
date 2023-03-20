@@ -11,8 +11,8 @@
 require get_template_directory() . '/theme-version.php';
 
 // Version fallback
-if ( ! defined( 'GROTESKI_VERSION' ) ) {
-	define( 'GROTESKI_VERSION', '1.0.0' );
+if ( ! defined( 'TOPTEN_VERSION' ) ) {
+	define( 'TOPTEN_VERSION', '1.0.0' );
 }
 
 /**
@@ -23,11 +23,11 @@ require get_template_directory() . '/includes/groteski-functions.php';
 /**
  * Theme setup
  */
-function groteski_setup() {
+function topten_setup() {
 	/**
 	 * Enable essential features.
 	 */
-	load_theme_textdomain( 'groteski', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'topten', get_template_directory() . '/languages' );
 
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'title-tag' );
@@ -59,7 +59,7 @@ function groteski_setup() {
 
 	register_nav_menus(
 		array(
-			'primary-menu' => esc_html__( 'Päävalikko', 'groteski' ),
+			'primary-menu' => esc_html__( 'Päävalikko', 'topten' ),
 		)
 	);
 }
@@ -78,12 +78,12 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 	);
 }
 
-add_action( 'after_setup_theme', 'groteski_setup' );
+add_action( 'after_setup_theme', 'topten_setup' );
 
 /**
  * Dequeue useless stuff
  */
-function groteski_remove_scripts() {
+function topten_remove_scripts() {
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'wp-block-library-theme' );
 
@@ -91,7 +91,7 @@ function groteski_remove_scripts() {
 	// wp_dequeue_style( 'wc-block-style' );
 }
 
-add_action( 'wp_enqueue_scripts', 'groteski_remove_scripts', 100 );
+add_action( 'wp_enqueue_scripts', 'topten_remove_scripts', 100 );
 
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 remove_action( 'wp_footer', 'wp_enqueue_global_styles' );
@@ -157,21 +157,21 @@ add_filter(
 /**
  * Enqueue scripts and styles.
  */
-function groteski_scripts() {
-	// wp_enqueue_style( 'font', '//fonts.googleapis.com/css2?family=Oswald&display=swap', array(), GROTESKI_VERSION );
+function topten_scripts() {
+	// wp_enqueue_style( 'font', '//fonts.googleapis.com/css2?family=Oswald&display=swap', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' );
 
-	wp_enqueue_style( 'groteski', get_template_directory_uri() . '/css/dist/site.min.css', array(), GROTESKI_VERSION );
+	wp_enqueue_style( 'topten', get_template_directory_uri() . '/css/dist/site.min.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), GROTESKI_VERSION );
+	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'jquery' );
 
-	wp_enqueue_script( 'groteski', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), GROTESKI_VERSION, true );
+	wp_enqueue_script( 'topten', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
 	wp_localize_script(
-		'groteski',
+		'topten',
 		'Ajax',
 		array(
 			'url'   => admin_url( 'admin-ajax.php' ),
@@ -184,22 +184,22 @@ function groteski_scripts() {
 	}
 }
 
-add_action( 'wp_enqueue_scripts', 'groteski_scripts' );
+add_action( 'wp_enqueue_scripts', 'topten_scripts' );
 
 /**
  * Enqueue editor scripts and styles
  */
-function groteski_editor_scripts() {
-	// wp_enqueue_style( 'font', '//fonts.googleapis.com/css2?family=Oswald&display=swap', array(), GROTESKI_VERSION );
+function topten_editor_scripts() {
+	// wp_enqueue_style( 'font', '//fonts.googleapis.com/css2?family=Oswald&display=swap', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), GROTESKI_VERSION );
+	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
 
-	wp_enqueue_script( 'groteski-script', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), GROTESKI_VERSION, true );
+	wp_enqueue_script( 'groteski-script', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
-	wp_enqueue_style( 'groteski-editor', get_template_directory_uri() . '/css/dist/gutenberg.min.css', array(), GROTESKI_VERSION );
+	wp_enqueue_style( 'groteski-editor', get_template_directory_uri() . '/css/dist/gutenberg.min.css', array(), TOPTEN_VERSION );
 }
 
-add_action( 'enqueue_block_editor_assets', 'groteski_editor_scripts' );
+add_action( 'enqueue_block_editor_assets', 'topten_editor_scripts' );
 
 /**
  * Globaali muuttuja korttien sallittuihin lohkoihin
@@ -218,7 +218,7 @@ $card_allowed_blocks = array(
  * @param bool|string[]           $allowed_blocks Array of block type slugs, or boolean to enable/disable all.
  * @param WP_Block_Editor_Context $editor_context The current block editor context
  */
-function groteski_allowed_block_types( $allowed_blocks, $editor_context ) {
+function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 	// Tässä pitää käyttää blockin nimeä slugin sijasta (koska ???)
 	$card_types = array(
 		'tulkintakortti',
@@ -264,12 +264,12 @@ function groteski_allowed_block_types( $allowed_blocks, $editor_context ) {
 	}
 }
 
-add_filter( 'allowed_block_types_all', 'groteski_allowed_block_types', 9, 2 );
+add_filter( 'allowed_block_types_all', 'topten_allowed_block_types', 9, 2 );
 
 /**
  * ACF Blocks
  */
-function groteski_acf() {
+function topten_acf() {
 	if ( function_exists( 'acf_register_block' ) ) {
 
 		$block_name  = 'Hero';
@@ -547,7 +547,7 @@ function groteski_acf() {
 	}
 }
 
-add_action( 'acf/init', 'groteski_acf' );
+add_action( 'acf/init', 'topten_acf' );
 
 /**
  * Lisätään CPT artikkelilohkon post_type kenttään
@@ -555,7 +555,7 @@ add_action( 'acf/init', 'groteski_acf' );
  *
  * @param array $field ACFn kenttä
  */
-function groteski_acf_cpt( $field ) {
+function topten_acf_cpt( $field ) {
 	// Nollataan valinnat ja lisätään WPn oletus post type
 	$field['choices'] = array(
 		'post' => 'Artikkeli',
@@ -584,12 +584,12 @@ function groteski_acf_cpt( $field ) {
 	return $field;
 }
 
-add_filter( 'acf/load_field/name=post_type', 'groteski_acf_cpt' );
+add_filter( 'acf/load_field/name=post_type', 'topten_acf_cpt' );
 
 /**
  * WP login sivun logo
  */
-function groteski_login_logo() {
+function topten_login_logo() {
 	$logo_src = get_stylesheet_directory_uri() . '/assets/dist/images/groteski-logo.png.webp';
 	?>
 	<style type="text/css">
@@ -625,22 +625,22 @@ function groteski_login_logo() {
 	<?php
 }
 
-add_action( 'login_enqueue_scripts', 'groteski_login_logo' );
+add_action( 'login_enqueue_scripts', 'topten_login_logo' );
 
 /**
  * WP login sivun logo linkki
  */
-function groteski_login_logo_url() {
+function topten_login_logo_url() {
 	return 'https://groteski.fi/';
 }
 
-add_filter( 'login_headerurl', 'groteski_login_logo_url' );
+add_filter( 'login_headerurl', 'topten_login_logo_url' );
 
 /**
  * WP login sivun logo linkin teksti
  */
-function groteski_login_logo_url_title() {
+function topten_login_logo_url_title() {
 	return 'Mainostoimisto Groteski Oy';
 }
 
-add_filter( 'login_headertext', 'groteski_login_logo_url_title' );
+add_filter( 'login_headertext', 'topten_login_logo_url_title' );

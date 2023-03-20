@@ -37,7 +37,7 @@
 				sprintf(
 					wp_kses(
 						/* translators: %s: Name of current post. Only visible to screen readers */
-						__( 'Jatka lukemista <span class="screen-reader-text"> "%s"</span>', 'groteski' ),
+						__( 'Jatka lukemista <span class="screen-reader-text"> "%s"</span>', 'topten' ),
 						array(
 							'span' => array(
 								'class' => array(),
@@ -50,7 +50,7 @@
 
 			wp_link_pages(
 				array(
-					'before' => '<div class="page-links">' . esc_html__( 'Sivut:', 'groteski' ),
+					'before' => '<div class="page-links">' . esc_html__( 'Sivut:', 'topten' ),
 					'after'  => '</div>',
 				)
 			);
@@ -60,7 +60,7 @@
 		<div class="buttons">
 			<a class="button" href="<?php the_permalink( $post->ID ); ?>">
 				<span class="button-text">
-					<?php esc_html_e( 'Lue lisää', 'groteski' ); ?>
+					<?php esc_html_e( 'Lue lisää', 'topten' ); ?>
 				</span>
 			</a>
 		</div>

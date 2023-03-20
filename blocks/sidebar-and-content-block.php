@@ -15,7 +15,7 @@ $allowed_blocks = array(
 	'acf/painikkeet',
 );
 ?>
-<section <?php groteski_block_id(); ?> class="sidebar-and-content-block">
+<section <?php topten_block_id(); ?> class="sidebar-and-content-block">
 	<div class="grid sidebar-and-content">
 		<div class="sidebar">
 			<span class="sidebar-title">

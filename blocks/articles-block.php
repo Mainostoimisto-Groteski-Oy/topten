@@ -32,10 +32,10 @@ if ( 'newest' === $type ) {
 }
 ?>
 
-<section <?php groteski_block_id(); ?> class="articles-block">
+<section <?php topten_block_id(); ?> class="articles-block">
 	<div class="grid">
 		<div class="text-block">
-			<?php groteski_block_title(); ?>
+			<?php topten_block_title(); ?>
 
 			<?php if ( get_field( 'text' ) ) : ?>
 				<?php the_field( 'text' ); ?>
@@ -68,7 +68,7 @@ if ( 'newest' === $type ) {
 							<div class="buttons">
 								<a class="button" href="<?php the_permalink( $post->ID ); ?>">
 									<span class="button-text">
-										<?php esc_html_e( 'Lue lisää', 'groteski' ); ?>
+										<?php esc_html_e( 'Lue lisää', 'topten' ); ?>
 									</span>
 								</a>
 							</div>
@@ -79,6 +79,6 @@ if ( 'newest' === $type ) {
 				<?php wp_reset_postdata(); ?>
 			<?php endif; ?>
 		</div>
-		<?php groteski_buttons(); ?>
+		<?php topten_buttons(); ?>
 	</div>
 </section>

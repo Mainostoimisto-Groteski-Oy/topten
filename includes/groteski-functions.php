@@ -5,7 +5,7 @@
  * @param boolean $echo Echotaanko title suoraan, default true
  * @param string  $id Titlelle annettava ID, default ''
  */
-function groteski_block_title( $echo = true, $id = '' ) {
+function topten_block_title( $echo = true, $id = '' ) {
 	$title_text = get_field( 'block_title' );
 	$title_tag  = get_field( 'block_title_tag' );
 	$title_size = get_field( 'block_title_size' );
@@ -39,7 +39,7 @@ function groteski_block_title( $echo = true, $id = '' ) {
  * @param WP_Post|int $post Postiobjekti tai post ID
  * @param int         $words Sanojen määrä, default 20
  */
-function groteski_excerpt( $post, $words = 20 ) {
+function topten_excerpt( $post, $words = 20 ) {
 	$blocks = parse_blocks( get_the_content( null, false, $post ) );
 
 	foreach ( $blocks as $block ) {
@@ -54,7 +54,7 @@ function groteski_excerpt( $post, $words = 20 ) {
  *
  * @param string $id Blockin id
  */
-function groteski_block_id( $id = '' ) {
+function topten_block_id( $id = '' ) {
 	$block_id    = get_field( 'block_id' );
 	$block_title = get_field( 'block_title' );
 
@@ -78,7 +78,7 @@ function groteski_block_id( $id = '' ) {
  * @param array|boolean $block ACF ryhmä (image_block tms), default tyhjä array
  * @param string        $selector Kentän nimi, default 'focal_point'
  */
-function groteski_focal_point( $sub_field = false, $block = array(), $selector = 'focal_point' ) {
+function topten_focal_point( $sub_field = false, $block = array(), $selector = 'focal_point' ) {
 	if ( $block ) {
 		if ( ! empty( $block[ $selector ] ) ) {
 			$focal_point = $block[ $selector ];
@@ -103,13 +103,13 @@ function groteski_focal_point( $sub_field = false, $block = array(), $selector =
  *
  * Esim.
  * $left_block = get_field( 'left_block' );
- * groteski_buttons( $left_block );
+ * topten_buttons( $left_block );
  *
  * Muuten parametrin voi jättää tyhjäksi
  *
  * @param array|boolean $block ACF ryhmä (left_block tms), default tyhjä array
  */
-function groteski_buttons( $block = array() ) {
+function topten_buttons( $block = array() ) {
 	if ( $block ) {
 		if ( ! empty( $block['buttons'] ) ) {
 			echo '<div class="buttons">';

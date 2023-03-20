@@ -1,6 +1,6 @@
-<section <?php groteski_block_id(); ?> class="contacts-block">
+<section <?php topten_block_id(); ?> class="contacts-block">
 	<div class="grid">
-		<?php groteski_block_title(); ?>
+		<?php topten_block_title(); ?>
 
 		<?php
 		while ( have_rows( 'contacts' ) ) :
