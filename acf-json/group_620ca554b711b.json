@@ -98,7 +98,27 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": ""
+                "value": "all"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/sarake"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/rivi"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/teksti"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/kuva"
             }
         ]
     ],
@@ -111,5 +131,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1679318625
 }
