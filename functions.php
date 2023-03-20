@@ -16,9 +16,24 @@ if ( ! defined( 'TOPTEN_VERSION' ) ) {
 }
 
 /**
- * Groteski functions
+ * General functions
  */
-require get_template_directory() . '/includes/groteski-functions.php';
+require get_template_directory() . '/includes/functions/general.php';
+
+/**
+ * Backend functions
+ */
+require get_template_directory() . '/includes/functions/backend.php';
+
+/**
+ * Block functions
+ */
+require get_template_directory() . '/includes/functions/block.php';
+
+/**
+ * Init backend
+ */
+topten_backend_init();
 
 /**
  * Theme setup
