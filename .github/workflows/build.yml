@@ -22,10 +22,6 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
-      - name: Get version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@main
-
       - name: Run gulp prod
         run: gulp gitProd
 
@@ -35,6 +31,10 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -a -m "Build release"
           git push
+
+      - name: Get version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
 
       - name: Archive release
         uses: thedoctor0/zip-release@main
