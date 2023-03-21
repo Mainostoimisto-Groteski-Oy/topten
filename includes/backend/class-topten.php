@@ -30,12 +30,12 @@ class Topten {
 		add_filter( 'manage_edit-ohjekortti_sortable_columns', array( $this, 'set_sortable_columns' ) );
 		add_filter( 'manage_edit-lomakekortti_sortable_columns', array( $this, 'set_sortable_columns' ) );
 
-		// add_post_status_column filtterit
+		// add_custom_columns filtterit
 		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'add_custom_columns' ) );
 		add_filter( 'manage_ohjekortti_posts_columns', array( $this, 'add_custom_columns' ) );
 		add_filter( 'manage_lomakekortti_posts_columns', array( $this, 'add_custom_columns' ) );
 
-		// add_post_status_to_column actionit
+		// add_custom_column_data actionit
 		add_action( 'manage_tulkintakortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
 		add_action( 'manage_ohjekortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
 		add_action( 'manage_lomakekortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
