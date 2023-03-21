@@ -129,6 +129,22 @@ function productionJs() {
 		.pipe(browserSync.stream());
 }
 
+function bumpPackage() {
+	return src('./package.json')
+		.pipe(bump())
+
+		.pipe(dest('./'));
+}
+
+function bumpPackageMinor() {
+	config.bump.type = 'minor';
+
+	return src('./package.json')
+		.pipe(bump({ type: 'minor' }))
+
+		.pipe(dest('./'));
+}
+
 function bumpFunctions() {
 	return src('./theme-version.php')
 		.pipe(bump(config.bump))
@@ -223,13 +239,20 @@ export const prod = series(cleanDist, parallel(optimizeAssets, productionStyles,
 
 export const generate = series(cleanDist, parallel(optimizeAssets, productionStyles, productionJs));
 
-export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor);
+export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor, bumpPackageMinor);
 
 export const bs = initBrowserSync;
 
 export const gitProd = series(
 	cleanDist,
-	parallel(optimizeAssets, productionStyles, productionJs, bumpFunctions, bumpStylesheet)
+	parallel(
+		optimizeAssets,
+		productionStyles,
+		productionJs,
+		bumpFunctions,
+		bumpStylesheet,
+		bumpPackage
+	)
 );
 
 export default watchFiles;
