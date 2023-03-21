@@ -20,15 +20,25 @@ class Topten {
 		add_action( 'init', array( $this, 'register_cpts' ) );
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 
+		// reorder_columns filtterit
+		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
+		add_filter( 'manage_ohjekortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
+		add_filter( 'manage_lomakekortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
+
+		// set_sortable_columns filtterit
+		add_filter( 'manage_edit-tulkintakortti_sortable_columns', array( $this, 'set_sortable_columns' ) );
+		add_filter( 'manage_edit-ohjekortti_sortable_columns', array( $this, 'set_sortable_columns' ) );
+		add_filter( 'manage_edit-lomakekortti_sortable_columns', array( $this, 'set_sortable_columns' ) );
+
 		// add_post_status_column filtterit
-		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'add_post_status_column' ) );
-		add_filter( 'manage_ohjekortti_posts_columns', array( $this, 'add_post_status_column' ) );
-		add_filter( 'manage_lomakekortti_posts_columns', array( $this, 'add_post_status_column' ) );
+		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'add_custom_columns' ) );
+		add_filter( 'manage_ohjekortti_posts_columns', array( $this, 'add_custom_columns' ) );
+		add_filter( 'manage_lomakekortti_posts_columns', array( $this, 'add_custom_columns' ) );
 
 		// add_post_status_to_column actionit
-		add_action( 'manage_tulkintakortti_posts_custom_column', array( $this, 'add_post_status_to_column' ), 10, 2 );
-		add_action( 'manage_ohjekortti_posts_custom_column', array( $this, 'add_post_status_to_column' ), 10, 2 );
-		add_action( 'manage_lomakekortti_posts_custom_column', array( $this, 'add_post_status_to_column' ), 10, 2 );
+		add_action( 'manage_tulkintakortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
+		add_action( 'manage_ohjekortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
+		add_action( 'manage_lomakekortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
 	}
 
 	/**
@@ -131,19 +141,19 @@ class Topten {
 	}
 
 	/**
-	 * Lisää tilakolumnin korttilistaukseen
+	 * Muokkaa sarakkeiden järjestystä
 	 *
-	 * @param string[] $columns Kolumnit
+	 * @param string[] $columns Sarakkeet
 	 */
-	public function add_post_status_column( $columns ) {
-		$columns['status'] = esc_html__( 'Tila', 'topten' );
-
-		// Siirretään status-kolumni kirjoittajaa ennen
+	public function reorder_columns( $columns ) {
 		$ordered_columns = array();
 
 		foreach ( $columns as $index => $value ) {
+			// Siirretään omat sarakkeet ennen kirjoittajaa
 			if ( 'author' === $index ) {
-				$ordered_columns['status'] = 'status';
+				$ordered_columns['status']          = 'status';
+				$ordered_columns['modified_author'] = 'modified_author';
+				$ordered_columns['modified']        = 'modified';
 			}
 
 			$ordered_columns[ $index ] = $value;
@@ -153,14 +163,54 @@ class Topten {
 	}
 
 	/**
-	 * Lisää kortin tilan kolumniin
+	 * Asettaa järjestettävät sarakkeet
 	 *
-	 * @param string $column Kolumnin nimi
+	 * @param string[] $columns Sarakkeet
+	 */
+	public function set_sortable_columns( $columns ) {
+		$columns['modified'] = 'modified';
+
+		return $columns;
+	}
+
+	/**
+	 * Lisää omat sarakkeet
+	 *
+	 * @param string[] $columns Sarakkeet
+	 */
+	public function add_custom_columns( $columns ) {
+		$columns['status']          = esc_html__( 'Tila', 'topten' );
+		$columns['modified_author'] = esc_html__( 'Muokkaaja', 'topten' );
+		$columns['modified']        = esc_html__( 'Muokattu', 'topten' );
+
+		return $columns;
+	}
+
+	/**
+	 * Lisää data omiin sarakkeisiin
+	 *
+	 * @param string $column Sarakkeen nimi
 	 * @param int    $post_id Postin ID
 	 */
-	public function add_post_status_to_column( $column, $post_id ) {
+	public function add_custom_column_data( $column, $post_id ) {
 		if ( 'status' === $column ) {
 			echo esc_html( topten_get_post_status( $post_id ) );
+		}
+
+		if ( 'modified_author' === $column ) {
+			$last_id = get_post_meta( get_post()->ID, '_edit_last', true );
+
+			if ( $last_id ) {
+				$last_user = get_user_by( 'id', $last_id );
+
+				if ( $last_user ) {
+					echo esc_html( $last_user->display_name );
+				}
+			}
+		}
+
+		if ( 'modified' === $column ) {
+			echo esc_html( get_the_modified_date( 'j.n.Y H:i', $post_id ) );
 		}
 	}
 }
