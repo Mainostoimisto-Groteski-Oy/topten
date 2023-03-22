@@ -41,7 +41,6 @@
 		"webpack-stream": "^7.0.0"
 	},
 	"dependencies": {
-		"@splidejs/splide": "^4.1.4",
-		"html2pdf.js": "^0.10.1"
+		"@splidejs/splide": "^4.1.4"
 	}
 }

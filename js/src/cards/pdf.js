@@ -1,25 +1,57 @@
-import html2pdf from 'html2pdf.js';
-
-function saveAsPDF(selector) {
-	const element = document.querySelector(selector);
-
-	const args = {
-		margin: 1,
-		filename: 'tulkintakortti.pdf',
-		image: { type: 'jpeg', quality: 0.98 },
-		html2canvas: { scale: 2, letterRendering: true },
-		jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-	};
-
-	html2pdf(element, args);
-}
+/* global REST */
 
 document.addEventListener('DOMContentLoaded', () => {
 	const button = document.querySelector('.save-as-pdf');
 
-	button.addEventListener('click', function () {
-		const { type } = this.dataset;
+	if (button) {
+		/**
+		 * PDF-tallennusnapin eventlistener
+		 */
+		button.addEventListener('click', function () {
+			// Haetaan kortin tyyppi datasetista (data-type="tulkintakortti")
+			const { type } = this.dataset;
 
-		saveAsPDF(`.${type}`);
-	});
+			// Haetaan kortin sisältö
+			const element = document.querySelector(`.${type}`);
+
+			// Haetaan PDF stringinä rajapinnasta
+			fetch(`${REST.url}/pdf`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8',
+					'X-WP-Nonce': REST.nonce,
+				},
+				body: JSON.stringify({
+					title: 'test',
+					html: element.innerHTML,
+					article_url: 'testest',
+				}),
+			})
+				.then((res) => res.json())
+				.then((response) => {
+					const byteCharacters = window.atob(response);
+					const byteNumbers = new Array(byteCharacters.length);
+
+					for (let i = 0; i < byteCharacters.length; i += 1) {
+						byteNumbers[i] = byteCharacters.charCodeAt(i);
+					}
+
+					const byteArray = new Uint8Array(byteNumbers);
+
+					const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+					const url = URL.createObjectURL(blob);
+
+					window.open(url, '_blank');
+				})
+				// .then((res) => res.blob())
+				// .then((blob) => URL.createObjectURL(blob))
+				// .then((url) => {
+				// 	window.open(url, '_blank');
+				// })
+				.catch((error) => {
+					console.log(error);
+				});
+		});
+	}
 });
