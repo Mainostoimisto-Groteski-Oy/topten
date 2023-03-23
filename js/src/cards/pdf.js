@@ -1,5 +1,56 @@
 /* global REST */
 
+function getChildData(child) {
+	const data = {
+		tag: child.tagName.toLowerCase(),
+		children: [],
+	};
+
+	child.childNodes.forEach((node) => {
+		const nodeData = {
+			tag: node.nodeName.toLowerCase(),
+			value: node.textContent,
+		};
+
+		data.children.push(nodeData);
+	});
+
+	return data;
+}
+
+function generatePDFdata(parent) {
+	const data = {
+		count: 0,
+		rows: [],
+	};
+
+	Array.from(parent.children).forEach((row) => {
+		if (row.className.includes('row-block')) {
+			data.count += 1;
+
+			const rowData = {
+				columns: [],
+			};
+
+			const columns = row.querySelectorAll('.column');
+
+			columns.forEach((column) => {
+				const columnData = [];
+
+				Array.from(column.children).forEach((child) => {
+					columnData.push(getChildData(child));
+				});
+
+				rowData.columns.push(columnData);
+			});
+
+			data.rows.push(rowData);
+		}
+	});
+
+	return data;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	const button = document.querySelector('.save-as-pdf');
 
@@ -12,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const { type } = this.dataset;
 
 			// Haetaan kortin sisältö
-			const element = document.querySelector(`.${type}`);
+			const data = generatePDFdata(document.querySelector(`.${type} > .grid`));
 
 			// Haetaan PDF stringinä rajapinnasta
 			fetch(`${REST.url}/pdf`, {
@@ -23,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				},
 				body: JSON.stringify({
 					title: 'test',
-					html: element.innerHTML,
+					data,
 					article_url: 'testest',
 				}),
 			})
@@ -44,11 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 					window.open(url, '_blank');
 				})
-				// .then((res) => res.blob())
-				// .then((blob) => URL.createObjectURL(blob))
-				// .then((url) => {
-				// 	window.open(url, '_blank');
-				// })
 				.catch((error) => {
 					console.log(error);
 				});

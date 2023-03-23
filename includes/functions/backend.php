@@ -15,10 +15,10 @@ defined( 'ABSPATH' ) || exit;
  */
 function topten_backend_init() {
 	require_once get_template_directory() . '/includes/backend/class-topten.php';
-	require_once get_template_directory() . '/includes/backend/class-pdf.php';
+	require_once get_template_directory() . '/includes/backend/class-rest.php';
 
 	new Topten();
-	new Topten_PDF();
+	new Topten_REST();
 }
 
 /**

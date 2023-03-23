@@ -1,23 +1,23 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
+require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
+
+define( 'FPDF_FONTPATH', get_template_directory() . '/fonts' ); // phpcs:ignore
+
 /**
  * Class createPDF
  *
  * Perustuu http://www.fpdf.org/en/script/script53.php
  */
-class Topten_PDF {
-	/**
-	 * REST API namespace
-	 *
-	 * @var string
-	 */
-	protected $namespace = 'topten/v1';
-
+class Topten_PDF extends FPDFA {
 	/**
 	 * Sallitut tagit
 	 *
 	 * @var string[]
 	 */
 	protected $allowed_tags = array(
+		'section',
 		'a',
 		'b',
 		'br',
@@ -40,112 +40,127 @@ class Topten_PDF {
 	);
 
 	/**
-	 * Class constructor
-	 */
-	public function __construct() {
-		$this->init_rest_api();
-	}
-
-	/**
-	 * Init rest api
-	 */
-	public function init_rest_api() {
-		add_action(
-			'rest_api_init',
-			function() {
-				register_rest_route(
-					$this->namespace,
-					'/pdf',
-					array(
-						'methods'  => 'POST',
-						'callback' => array( $this, 'endpoint' ),
-					)
-				);
-			}
-		);
-	}
-
-	/**
-	 * Luo PDF-tiedoston HTML-koodista
+	 * Fontin koko
 	 *
-	 * @param WP_REST_Request $request Request
+	 * @var int Fontin koko
 	 */
-	public function endpoint( $request ) {
-		// Tarkistetaan nonce
-		if ( ! wp_verify_nonce( $request->get_header( 'X-WP-Nonce' ), 'wp_rest' ) ) {
-			$response = new WP_Error(
-				'Invalid nonce',
-				'Invalid nonce',
-				array(
-					'status' => 400,
-				)
-			);
-
-			return rest_ensure_response( $response );
-		}
-
-		// Sanitoidaan parametrit
-		$title       = sanitize_text_field( $request->get_param( 'title' ) );
-		$article_url = esc_url( $request->get_param( 'article_url' ) );
-		$html        = strip_tags( htmlspecialchars( $request->get_param( 'html' ) ), $this->allowed_tags );
-
-		// Luodaan PDF luokka
-		require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
-
-		// Määritetään FPDF:n fonttien polku oikeaksi
-		define( 'FPDF_FONTPATH', get_template_directory() . '/fonts' ); // phpcs:ignore
-
-		$pdf = new FPDFA( 'P', 'mm', 'A4', $title, $article_url );
-
-		$pdf->AddFont( 'Roboto', '', 'Roboto-Regular.php' );
-		$pdf->SetFont( 'Roboto', '', 12 );
-
-		$pdf->AddPage();
-
-		$this->write_html( $pdf, $html );
-
-		$response = new WP_REST_Response( base64_encode( $pdf->Output( 's' ) ) );
-
-		return rest_ensure_response( $response );
-	}
+	protected $font_size = 16;
 
 	/**
-	 * Kirjoittaa HTML-koodin PDF-tiedostoon
+	 * Fontin tyyli
 	 *
-	 * @param FPDF $pdf PDF-objekti
+	 * @var string Fontin tyyli (B = bold, I = italic, U = underline, tyhjä = normaali)
 	 */
-	private function doc_loop( &$pdf, $node ) {
-		foreach ( $node->childNodes as $child ) {
-			switch ( $child->nodeName ) {
-				case 'h1':
-					$pdf->Ln( 5 );
-					$pdf->SetFontSize( 24 );
-					break;
-				case 'h2':
-					$pdf->Ln( 5 );
-					$pdf->SetFontSize( 50 );
-					break;
-			}
+	protected $font_style = '';
 
-			$pdf->Write( 10, 'tes111t' );
+	/**
+	 * Muuttaa HTML-koodin PDF-tiedostoksi
+	 *
+	 * @param array $data HTML-koodi
+	 */
+	public function generate_pdf( $data ) {
+		// Luodaan PDF
+		$this->AddFont( 'Roboto', '', 'Roboto-Regular.php' );
+		$this->AddFont( 'Roboto', 'B', 'Roboto-Bold.php' );
+		$this->AddFont( 'Roboto', 'I', 'Roboto-Italic.php' );
 
-			// if ( $node->hasChildNodes() ) {
-			// $this->doc_loop( $child );
-			// }
+		$this->SetFont( 'Roboto', $this->font_style, $this->font_size );
+
+		$this->AddPage();
+
+		foreach ( $data['rows'] as $index => $row ) {
+			$this->write_columns( $row );
 		}
 	}
 
 	/**
+	 * Luodaan sarakkeet
 	 *
+	 * @param array $row Rivi
 	 */
-	private function write_html( &$pdf, $html ) {
-		$html = strip_tags( $html, $this->allowed_tags );
+	private function write_columns( $row ) {
+		// Sarakkeiden määrä
+		$columns = $row['columns'] ?? array();
+		$count   = count( $columns );
 
-		$doc = new DOMDocument( '1.0', 'UTF-8' );
+		// Lasketaan yksittäisen sarakkeen leveys (sivun leveys - vasen ja oikea marginaali / sarakkeiden määrä)
+		$column_width = ( $this->GetPageWidth() - $this->lMargin - $this->rMargin ) / $count;
 
-		@$doc->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD ); // phpcs:ignore
+		// Otetaan talteen nykyinen Y-koordinaatti (rivin alku)
+		$y = $this->GetY();
 
-		$this->doc_loop( $pdf, $doc );
+		foreach ( $columns as $index => $column ) {
+			// Siirretään X-koordinaattia sarakkeen leveyden verran
+			if ( 0 === $index ) {
+				$x = $this->lMargin;
+
+				$this->SetXY( $x, $y );
+			} else {
+				$x = $this->GetX() + $column_width;
+
+				$this->SetXY( $x, $y );
+			}
+
+			// Kirjoitetaan sarake
+			$this->Cell( $column_width, 10, '', 1 );
+
+			foreach ( $column as $column_children ) {
+				$this->SetX( $x );
+
+				$this->set_size( $column_children['tag'] );
+				$this->set_style( $column_children['tag'] );
+
+				foreach ( $column_children['children'] as $child ) {
+					$this->set_style( $child['tag'] );
+
+					// $this->Write( 20, $child['value'] );
+
+					$this->Write( 5, 'test test test test' );
+
+					$this->SetX( $x );
+				}
+			}
+		}
 	}
 
+	/**
+	 * Asettaa fontin tagin mukaan
+	 *
+	 * @param string $tag Tagi
+	 */
+	private function set_size( $tag ) {
+		switch ( $tag ) {
+			case 'h2':
+				$this->font_size = 32;
+				break;
+			default:
+				$this->font_size = 16;
+				break;
+		}
+
+		$this->SetFont( 'Roboto', $this->font_style, $this->font_size );
+	}
+
+	/**
+	 * Asettaa fontin tyylin tagin mukaan
+	 *
+	 * @param string $tag Tagi
+	 */
+	private function set_style( $tag ) {
+		switch ( $tag ) {
+			case 'b':
+			case 'strong':
+				$this->font_style = 'B';
+				break;
+			case 'i':
+			case 'em':
+				$this->font_style = 'I';
+				break;
+			default:
+				$this->font_style = '';
+				break;
+		}
+
+		$this->SetFont( 'Roboto', $this->font_style, $this->font_size );
+	}
 }
