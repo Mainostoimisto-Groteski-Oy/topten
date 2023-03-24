@@ -1,15 +1,26 @@
 /* global REST */
 
 function getChildData(child) {
+	const tag = child.tagName.toLowerCase();
+
 	const data = {
-		tag: child.tagName.toLowerCase(),
+		tag,
 		children: [],
+		attributes: {},
 	};
+
+	if (tag === 'picture') {
+		const image = child.querySelector('img');
+
+		data.tag = 'img';
+		data.attributes.src = image.src;
+	}
 
 	child.childNodes.forEach((node) => {
 		const nodeData = {
 			tag: node.nodeName.toLowerCase(),
 			value: node.textContent,
+			attributes: {},
 		};
 
 		data.children.push(nodeData);
