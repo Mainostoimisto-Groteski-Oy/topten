@@ -23,17 +23,18 @@ class Topten_REST {
 	 */
 	public function init_rest_api() {
 		add_action(
-			'rest_api_init',
+			'rest_api_init', 
 			function() {
 				register_rest_route(
 					$this->namespace,
 					'/pdf',
 					array(
-						'methods'  => 'POST',
-						'callback' => array( $this, 'pdf_endpoint' ),
-					)
+						'methods'             => 'POST',
+						'callback'            => array( $this, 'pdf_endpoint' ),
+						'permission_callback' => '__return_true',
+					),
 				);
-			}
+			} 
 		);
 	}
 
