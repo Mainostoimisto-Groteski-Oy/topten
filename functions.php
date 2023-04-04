@@ -194,6 +194,15 @@ function topten_scripts() {
 		)
 	);
 
+	wp_localize_script(
+		'topten',
+		'REST',
+		array(
+			'url'   => get_rest_url( null, '/topten/v1' ),
+			'nonce' => wp_create_nonce( 'wp_rest' ),
+		)
+	);
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}

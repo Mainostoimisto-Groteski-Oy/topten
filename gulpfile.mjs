@@ -104,7 +104,7 @@ function js() {
 	return src(config.js.src)
 		.pipe(webpack(webpackConfig, compiler))
 
-		.on('error', () => {
+		.on('error', function () {
 			this.emit('end');
 		})
 
@@ -120,7 +120,7 @@ function productionJs() {
 	return src(config.js.src)
 		.pipe(webpack(webpackConfig, compiler))
 
-		.on('error', () => {
+		.on('error', function () {
 			this.emit('end');
 		})
 
