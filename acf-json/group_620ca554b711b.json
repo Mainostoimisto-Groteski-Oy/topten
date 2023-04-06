@@ -56,10 +56,12 @@
                 "class": "",
                 "id": ""
             },
+            "relevanssi_exclude": 0,
             "choices": {
                 "h1": "Iso",
                 "h2": "Keskikokoinen",
-                "h3": "Pieni"
+                "h3": "Pieni",
+                "h4": "Pienin"
             },
             "default_value": "h2 : Keskikokoinen",
             "return_format": "value",
@@ -131,5 +133,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679318625
+    "modified": 1680784101
 }

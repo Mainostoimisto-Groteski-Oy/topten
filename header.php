@@ -54,9 +54,10 @@
 					menu
 				</span>
 			</button>
+			<div class="search">Hae</div>
 		</div>
 	</header>
-
+	
 	<nav id="mobile-navigation" class="mobile-menu">
 		<div class="site-branding-mobile">
 			<?php the_custom_logo(); ?>

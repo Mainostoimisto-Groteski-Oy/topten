@@ -14,6 +14,7 @@
 @use "blocks/three-column-block";
 @use "blocks/articles-block";
 @use "blocks/text-and-image-block";
+@use "blocks/text-and-card-block";
 @use "blocks/embed-block";
 @use "blocks/lift-block";
 @use "blocks/logos-block";
@@ -21,6 +22,7 @@
 @use "blocks/multi-column-blocks";
 @use "blocks/sidebar-and-content-block";
 @use "blocks/buttons-block";
+@use "blocks/banner-block";
 
 // Card blocks
 @use "blocks/card-blocks/card-row";

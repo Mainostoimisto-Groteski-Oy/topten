@@ -1,5 +1,5 @@
 <?php
-$select         = get_field( 'hero_type' );
+$select = get_field( 'hero_type' );
 $background_url = '';
 
 if ( 'image' === $select ) {
@@ -15,7 +15,7 @@ if ( 'image' === $select ) {
 $class = 'hero-block hero-' . $select;
 ?>
 
-<section <?php topten_block_id(); ?> class="<?php echo esc_attr( $class ); ?> <?php topten_focal_point(); ?>">
+<section <?php topten_block_id(); ?> class="<?php echo esc_attr( $class ); ?> <?php topten_focal_point(); ?>" <?php if( 'image' === $select ) { if($background_url) : ?> style="<?php echo $background_url; ?>" <?php endif; } ?> >
 	<?php if ( 'video' === $select ) : ?>
 		<?php $background_video = get_field( 'background_video' ); ?>
 

@@ -3,6 +3,40 @@
 section.lift-block {
 	@include buttons;
 
-	background-size: cover;
-	background-repeat: no-repeat;
+
+	.grid {
+		grid-template-columns: 150px repeat(2, minmax(0,1fr)) 150px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		.content {
+			position: relative;
+			grid-column: 2;
+			padding: 0px 25px 25px;
+			&::before {
+				content: '';
+				position: absolute;
+				top: -30px;
+				left: 0;
+				height: calc(100% + 60px);
+				width: 100%;
+				background-color: $paper-transparent;
+				display: block;
+				z-index: 1;
+			}
+			.text {
+				padding-bottom: 25px;
+				position: relative;
+				z-index: 999;
+			}
+			.title {
+				color: $red;
+				position: relative;
+				z-index: 999;
+			}
+			.buttons {
+				position: relative;
+				z-index: 999;
+			}
+		}
+	}
 }

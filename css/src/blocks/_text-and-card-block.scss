@@ -1,0 +1,68 @@
+@use "mixins/all" as *;
+
+section.text-and-card-block {
+	.grid {
+        grid-template-columns: 8fr 4fr;
+        .text-container {
+            .title {
+                margin-top: 0!important;
+                color: $red;
+            }
+            .ingress {
+                font-size: 2rem;
+            }
+        }
+        .text-container {
+            padding: 50px 0px;
+            @include buttons;
+        }
+        .card {
+            background-color: $grey;
+            height: 100%;
+            padding: 50px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .card-container {
+                background-color: $white;
+                border: 1px solid $red;
+                border-radius: 5px;
+                margin: 25px;
+                
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                >span, >div, .title {
+                    padding: 10px 15px;
+                }
+                .type {
+                    color: $red;
+                    text-transform: uppercase;
+                    font-size: 1.4rem;
+                    margin-top: 15px;
+                }
+                .top {
+                    display: flex;
+                    justify-content: space-between;
+                    font-weight: 700;
+                    .version {
+                        margin-right: 30px;
+                    }
+                }
+                .title {
+                    margin: 10px 0px;
+                    font-weight: 500;
+                }
+                @include buttons;
+
+                .bottom {
+                    background-color: $paper;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 15px;
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}

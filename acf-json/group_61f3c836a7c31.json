@@ -31,7 +31,7 @@
         {
             "key": "field_6327f78b98961",
             "label": "Artikkelien tyyppi",
-            "name": "post_type",
+            "name": "type",
             "aria-label": "",
             "type": "select",
             "instructions": "",
@@ -50,14 +50,16 @@
                 "class": "",
                 "id": ""
             },
+            "relevanssi_exclude": 0,
             "choices": {
-                "post": "Artikkeli"
+                "post": "Artikkeli",
+                "card": "Kortti"
             },
             "default_value": false,
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
             "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
             "ajax": 0,
             "placeholder": ""
         },
@@ -203,6 +205,30 @@
                     "parent_repeater": "field_63bd602071aa4"
                 }
             ]
+        },
+        {
+            "key": "field_642ebfc08ca4f",
+            "label": "Taustaväri",
+            "name": "background",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "white": "Valkoinen",
+                "grey": "Harmaa"
+            },
+            "default_value": "white",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
         }
     ],
     "location": [
@@ -223,5 +249,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1680785366
 }

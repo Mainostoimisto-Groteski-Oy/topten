@@ -1,8 +1,13 @@
 <?php
-$type      = get_field( 'articles_type' );
-$post_type = get_field( 'post_type' );
+$articles_type = get_field( 'articles_type' );
+$type = get_field( 'type' );
+if($type === 'card') {
+	$post_type = array('tulkintakortti', 'ohjekortti', 'lomakekortti');
+} else {
+	$post_type = 'post';
+}
 
-if ( 'newest' === $type ) {
+if ( 'newest' === $articles_type ) {
 	if ( get_field( 'show_all' ) ) {
 		$posts_per_page = -1;
 	} else {
@@ -32,7 +37,7 @@ if ( 'newest' === $type ) {
 }
 ?>
 
-<section <?php topten_block_id(); ?> class="articles-block">
+<section <?php topten_block_id(); ?> class="articles-block <?php the_field('background'); ?>">
 	<div class="grid">
 		<div class="text-block">
 			<?php topten_block_title(); ?>
@@ -43,11 +48,48 @@ if ( 'newest' === $type ) {
 		</div>
 
 		<div class="post-wrapper">
-			<?php if ( $postslist ) : ?>
+			<?php if ( $postslist && $type === 'card') : 
+				
+				?>
 				<?php foreach ( $postslist as $post ) : ?>
 					<?php setup_postdata( $post ); ?>
+						<div class="card-container">
+							<?php  
+							// Poimitaan oliosta tarvittavat tiedot
+							// Seuraava rivi on tässä vain siksi etten jaksanut muuttaa muuttujia kun copypastesin koodin
+							$card = $post;
+							$id = $card->ID;
+							$identifier = esc_html(get_field('identifier', $id));
+							$title = esc_html($card->post_title);
+							$type = get_post_type($id);
+							$version = esc_html(get_field('version', $id));
+							$modified = date('j.n.Y', strtotime(esc_html($card->post_modified)));
+							$link = esc_url(get_permalink($id));
+							$summary = get_field('edit_summary', $id);
+							?>
+							<span class="type"><?php echo $type; ?></span>
+							<div class="top">
+								<span class="identifier"><?php echo $identifier; ?></span>
+								<span class="version"><?php echo $version; ?></span>
+							</div>
+							<h2 class="title h4"><?php echo $title; ?></h2>
+							<span class="modified"><?php echo $modified; ?></span>
+							<div class="buttons">
+								<a class="button" href="<?php echo $link; ?>"><?php esc_html_e( 'Siirry korttiin', 'topten' ); ?></a>
+							</div>
+							<div class="bottom">
+								<p><?php echo $summary; ?></p>
+							</div>
 
-					<div class="single-post" id="post-<?php echo esc_attr( $post->ID ); ?>">
+						</div>
+				<?php endforeach; ?>
+
+				<?php wp_reset_postdata(); ?>
+			<?php else : ?>
+				<?php foreach ( $postslist as $post ) : ?>
+					<?php setup_postdata( $post ); ?>
+						<div class="single-post" id="post-<?php echo esc_attr( $post->ID ); ?>">
+						
 						<div class="image">
 							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) ); ?>" alt=""/>
 						</div>
@@ -68,14 +110,13 @@ if ( 'newest' === $type ) {
 							<div class="buttons">
 								<a class="button" href="<?php the_permalink( $post->ID ); ?>">
 									<span class="button-text">
-										<?php esc_html_e( 'Lue lisää', 'topten' ); ?>
+										<?php esc_html_e( 'Lue koko juttu', 'topten' ); ?>
 									</span>
 								</a>
 							</div>
 						</div>
 					</div>
 				<?php endforeach; ?>
-
 				<?php wp_reset_postdata(); ?>
 			<?php endif; ?>
 		</div>

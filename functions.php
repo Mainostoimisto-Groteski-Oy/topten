@@ -173,7 +173,8 @@ add_filter(
  * Enqueue scripts and styles.
  */
 function topten_scripts() {
-	// wp_enqueue_style( 'font', '//fonts.googleapis.com/css2?family=Oswald&display=swap', array(), TOPTEN_VERSION );
+
+	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' );
 
@@ -214,7 +215,8 @@ add_action( 'wp_enqueue_scripts', 'topten_scripts' );
  * Enqueue editor scripts and styles
  */
 function topten_editor_scripts() {
-	// wp_enqueue_style( 'font', '//fonts.googleapis.com/css2?family=Oswald&display=swap', array(), TOPTEN_VERSION );
+
+	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
 
@@ -254,12 +256,14 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 		$allowed_blocks = array(
 			'acf/hero',
 			'acf/teksti',
+			'acf/teksti-ja-kuva',
+			'acf/teksti-ja-kortti',
+			'acf/nosto',
+			'acf/artikkelit',
+			'acf/banneri',
 			// 'acf/kaksi-saraketta',
 			// 'acf/kolme-saraketta',
-			// 'acf/teksti-ja-kuva',
-			// 'acf/artikkelit',
 			// 'acf/upotus',
-			// 'acf/nosto',
 			// 'acf/logot',
 			// 'acf/yhteystiedot',
 			// 'acf/sivupalkki-ja-sisalto',
@@ -371,6 +375,22 @@ function topten_acf() {
 			)
 		);
 
+		$block_name  = 'Teksti ja kortti';
+		$block_slug  = 'text-and-card-block';
+		$description = 'Lohko tekstipaikalla ja korttinostolla';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'format-image',
+			)
+		);
+
+
 		$block_name  = 'Artikkelit';
 		$block_slug  = 'articles-block';
 		$description = 'Lohko artikkeleille';
@@ -403,7 +423,22 @@ function topten_acf() {
 
 		$block_name  = 'Nosto';
 		$block_slug  = 'lift-block';
-		$description = 'Lohko täysleveälle nostolle';
+		$description = 'Lohko isolle nostolle';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'align-wide',
+			)
+		);
+
+		$block_name  = 'Banneri';
+		$block_slug  = 'banner-block';
+		$description = 'Lohko täysleveälle tekstibannerille';
 
 		acf_register_block_type(
 			array(

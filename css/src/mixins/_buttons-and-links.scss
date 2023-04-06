@@ -4,18 +4,19 @@
 /// Mixin yksittäiselle napille
 @mixin button {
 	a.button {
-		padding: 20px;
-		background-color: $black;
-		border: 1px solid $black;
+		border-radius: 5px;
+		padding: 10px 20px;
+		background-color: $red;
+		border: 1px solid $red;
 		color: $white;
 		text-decoration: none;
 		display: inline-block;
-		transition: all 0.25s;
+		transition: ease-in-out 0.25s;
 		outline: none;
-
+		font-weight: 700;
 		&:hover {
-			background-color: $white;
-			color: $black;
+			background-color: $darkred;
+			color: $white;
 		}
 	}
 }
