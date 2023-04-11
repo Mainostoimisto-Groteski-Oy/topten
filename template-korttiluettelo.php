@@ -20,20 +20,20 @@ $card = get_posts($args);
 */
 $tulkintakortit = get_posts(array(
 	'post_type' => 'tulkintakortti',
-	'amount'	=> -1,
-	'status'	=> 'publish',
+	'posts_per_page'	=> -1,
+	'post_status'	=> 'publish',
 	),
 );
 $ohjekortit = get_posts(array(
 	'post_type' => 'ohjekortti',
-	'amount'	=> -1,
-	'status'	=> 'publish',
+	'posts_per_page'	=> -1,
+	'post_status'	=> 'publish',
 	),
 );
 $lomakekortit = get_posts(array(
 	'post_type' => 'lomakekortti',
-	'amount'	=> -1,
-	'status'	=> 'publish',
+	'posts_per_page'	=> -1,
+	'post_status'	=> 'publish',
 	),
 );
 
