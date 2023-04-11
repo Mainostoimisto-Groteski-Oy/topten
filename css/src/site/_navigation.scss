@@ -14,7 +14,7 @@
 	}
 
 	.grid {
-		grid-template-columns: 125px minmax(0, 1fr) 150px;
+		grid-template-columns: 125px minmax(0, 1fr);
 		padding: 0 15px;
 		align-items: center;
 	}
@@ -60,24 +60,12 @@
 						> span {
 							position: relative;
 
-							&::after {
-								content: "";
-								display: block;
-								width: 0;
-								height: 2px;
-								background-color: $black;
-								transition: all 0.3s;
-								position: absolute;
-								bottom: -2px;
-								left: 0;
-							}
+							
 						}
 
 						&:hover {
 							> span {
-								&::after {
-									width: 100%;
-								}
+								color: $black;
 							}
 						}
 					}
@@ -85,7 +73,20 @@
 
 				li.menu-item-has-children {
 					position: relative;
+					&::after {
+						content: '';
+						background-image: url( "#{$icons}/dropdown.svg" );
+						background-position: center center;
+						background-size: contain;
+						position: absolute;
+						top: 50%;
+						transform: translate(0, -50%);
+						right: -24px;
+						width: 24px;
+						height: 24px;
+						display: block;
 
+					}
 					ul.sub-menu {
 						display: none;
 						background-color: $white;
@@ -95,16 +96,22 @@
 						list-style-type: none;
 						padding: 0;
 						margin: 0;
-						width: 100%;
+						width: calc(100% + 12px);
 
 						li {
 							border-top: 1px dotted rgba($black, 0.2);
 							padding: 0;
+							
 
 							a {
 								width: 100%;
 								padding: 15px;
 								line-height: 1;
+								font-size: 1.8rem;
+								transition: all 0.25s;
+								&:hover {
+									background-color: $paper;
+								}
 							}
 						}
 					}

@@ -24,8 +24,8 @@
                 <?php 
                 $args = array(
                     'post_type'	=> array('ohjekortti', 'tulkintakortti', 'lomakekortti'),
-                    'amount'	=> 1,
-                    'status'    => 'publish',
+                    'posts_per_page'	=> 1,
+                    'post_status'    => 'publish',
                 );
                 $card = get_posts($args);
                 ?>

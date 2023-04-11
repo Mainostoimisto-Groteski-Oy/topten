@@ -16,8 +16,25 @@ get_header();
 ?>
 
 	<main id="primary" class="site-main">
-
+	
 		<?php
+
+		if(!is_front_page()) : ?>
+			<div class="page-title">
+				<div class="grid">
+					<?php the_title( '<h1 class="entry-title h3">', '</h1>' ); ?>
+				</div>
+			</div>
+			<?php
+			if ( function_exists('yoast_breadcrumb') ) : ?>
+				<div class="page-breadcrumbs">
+					<div class="grid">
+						<?php yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ); ?>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php
+		endif;
 		while ( have_posts() ) :
 			the_post();
 

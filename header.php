@@ -54,7 +54,6 @@
 					menu
 				</span>
 			</button>
-			<div class="search">Hae</div>
 		</div>
 	</header>
 	

@@ -4,8 +4,29 @@
     "fields": [
         {
             "key": "field_642ea1ef07723",
-            "label": "Tunniste",
-            "name": "identifier",
+            "label": "Tunnisteen alkuosa",
+            "name": "identifier_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6435377dcfeca",
+            "label": "Tunnisteen loppuosa",
+            "name": "identifier_end",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -152,5 +173,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1680779233
+    "modified": 1681209223
 }
