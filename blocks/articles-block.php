@@ -56,20 +56,22 @@ if ( 'newest' === $articles_type ) {
 						<div class="card-container">
 							<?php  
 							// Poimitaan oliosta tarvittavat tiedot
-							// Seuraava rivi on tässä vain siksi etten jaksanut muuttaa muuttujia kun copypastesin koodin
-							$card = $post;
-							$id = $card->ID;
-							$identifier = esc_html(get_field('identifier', $id));
-							$title = esc_html($card->post_title);
+							$id = $post->ID;
+							$identifier_start = esc_html(get_field('identifier_start', $id));
+							$identifier_end = esc_html(get_field('identifier_end', $id));
+							$title = esc_html($post->post_title);
 							$type = get_post_type($id);
 							$version = esc_html(get_field('version', $id));
-							$modified = date('j.n.Y', strtotime(esc_html($card->post_modified)));
+							$modified = date('j.n.Y', strtotime(esc_html($post->post_modified)));
 							$link = esc_url(get_permalink($id));
 							$summary = get_field('edit_summary', $id);
 							?>
 							<span class="type"><?php echo $type; ?></span>
 							<div class="top">
-								<span class="identifier"><?php echo $identifier; ?></span>
+								<div class="identifier">
+									<span class="start"><?php echo $identifier_start; ?></span>
+									<span class="end"><?php echo $identifier_end; ?></span>
+								</div>
 								<span class="version"><?php echo $version; ?></span>
 							</div>
 							<h2 class="title h4"><?php echo $title; ?></h2>

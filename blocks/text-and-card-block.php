@@ -41,7 +41,8 @@
                 // Tässä tapauksessa haetaan vain yksi kortti joten se on aina 0
                 $card = $card[0];
                 $id = $card->ID;
-                $identifier = esc_html(get_field('identifier', $id));
+                $identifier_start = esc_html(get_field('identifier_start', $id));
+                $identifier_end = esc_html(get_field('identifier_end', $id));
                 $title = esc_html($card->post_title);
                 $type = get_post_type($id);
                 $version = esc_html(get_field('version', $id));
@@ -51,7 +52,10 @@
                 ?>
                 <span class="type"><?php echo $type; ?></span>
                 <div class="top">
-                <span class="identifier"><?php echo $identifier; ?></span>
+                <div class="identifier">
+                    <span class="start"><?php echo $identifier_start; ?></span>
+                    <span class="end"><?php echo $identifier_end; ?></span>
+                </div>
                 <span class="version"><?php echo $version; ?></span>
                 </div>
                 <h2 class="title h4"><?php echo $title; ?></h2>

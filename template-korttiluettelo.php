@@ -47,14 +47,15 @@ $lomakekortit = get_posts(array(
 					<?php the_title( '<h1 class="entry-title h3">', '</h1>' ); ?>
 				</div>
 			</section>
-		<?php
-	
-		if ( function_exists('yoast_breadcrumb') ) : ?>
-			<section class="page-breadcrumbs">
+
+			<?php
+			// Yoast SEO pluginin tarjoama murupolku, tarkistetaan ensin että plugin on päällä function_exists -funktiolla
+			if ( function_exists('yoast_breadcrumb') ) : ?>
+				<section class="page-breadcrumbs">
 					<div class="grid">
 						<?php yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ); ?>
 					</div>
-			</section>
+				</section>
 			<?php endif; ?>
 		<?php endif; ?>
 		<section class="cards">

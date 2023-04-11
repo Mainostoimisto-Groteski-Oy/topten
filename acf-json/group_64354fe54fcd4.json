@@ -1,9 +1,9 @@
 {
-    "key": "group_642ea1ee8d474",
-    "title": "Tulkintakortin tiedot",
+    "key": "group_64354fe54fcd4",
+    "title": "Lomakekortin tiedot",
     "fields": [
         {
-            "key": "field_642ea1ef07723",
+            "key": "field_64354fe558ad5",
             "label": "Tunnisteen alkuosa",
             "name": "identifier_start",
             "aria-label": "",
@@ -24,7 +24,7 @@
             "append": ""
         },
         {
-            "key": "field_6435377dcfeca",
+            "key": "field_64354fe55c556",
             "label": "Tunnisteen loppuosa",
             "name": "identifier_end",
             "aria-label": "",
@@ -45,7 +45,7 @@
             "append": ""
         },
         {
-            "key": "field_642ea24707726",
+            "key": "field_64354fe5601fd",
             "label": "Versio",
             "name": "version",
             "aria-label": "",
@@ -66,7 +66,7 @@
             "append": ""
         },
         {
-            "key": "field_642ea56207727",
+            "key": "field_64354fe563ee0",
             "label": "Kategoria",
             "name": "card_category",
             "aria-label": "",
@@ -80,7 +80,7 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "taxonomy": "laki",
+            "taxonomy": "lomake",
             "add_term": 0,
             "save_terms": 0,
             "load_terms": 0,
@@ -90,7 +90,7 @@
             "allow_null": 0
         },
         {
-            "key": "field_64354fbc9e802",
+            "key": "field_64354fe56791a",
             "label": "Asiasanat",
             "name": "card_keywords",
             "aria-label": "",
@@ -114,7 +114,7 @@
             "multiple": 0
         },
         {
-            "key": "field_642ea6f13e6a7",
+            "key": "field_64354fe56b3a1",
             "label": "Liittyvä kortti",
             "name": "linked_card",
             "aria-label": "",
@@ -141,7 +141,7 @@
             "ui": 1
         },
         {
-            "key": "field_642ea74674d4a",
+            "key": "field_64354fe56f03b",
             "label": "Lyhyt kuvaus muutoksista",
             "name": "edit_summary",
             "aria-label": "",
@@ -167,7 +167,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "tulkintakortti"
+                "value": "lomakekortti"
             }
         ]
     ],
@@ -180,5 +180,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681216390
+    "modified": 1681216455
 }
