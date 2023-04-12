@@ -1,6 +1,6 @@
 {
     "key": "group_642ea1ee8d474",
-    "title": "Tulkintakortin tiedot",
+    "title": "Kortin perustiedot",
     "fields": [
         {
             "key": "field_642ea1ef07723",
@@ -66,54 +66,6 @@
             "append": ""
         },
         {
-            "key": "field_642ea56207727",
-            "label": "Kategoria",
-            "name": "card_category",
-            "aria-label": "",
-            "type": "taxonomy",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "taxonomy": "laki",
-            "add_term": 0,
-            "save_terms": 0,
-            "load_terms": 0,
-            "return_format": "id",
-            "field_type": "checkbox",
-            "multiple": 0,
-            "allow_null": 0
-        },
-        {
-            "key": "field_64354fbc9e802",
-            "label": "Asiasanat",
-            "name": "card_keywords",
-            "aria-label": "",
-            "type": "taxonomy",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "taxonomy": "asiasanat",
-            "add_term": 0,
-            "save_terms": 0,
-            "load_terms": 0,
-            "return_format": "id",
-            "field_type": "multi_select",
-            "allow_null": 1,
-            "multiple": 0
-        },
-        {
             "key": "field_642ea6f13e6a7",
             "label": "Liittyvä kortti",
             "name": "linked_card",
@@ -169,6 +121,20 @@
                 "operator": "==",
                 "value": "tulkintakortti"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "ohjekortti"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "lomakekortti"
+            }
         ]
     ],
     "menu_order": -1,
@@ -180,5 +146,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681216390
+    "modified": 1681282315
 }

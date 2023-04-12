@@ -31,6 +31,22 @@ if ( 'newest' === $articles_type ) {
 		);
 	}
 
+	if($post_type !== 'post') {
+		$args['meta_query'] = array(
+			'relation'      => 'AND',
+			array(
+				'key'       => 'card_status',
+				'value'     => 'publish',
+				'compare'   => '=',
+			),
+			array(
+				'key'       => 'card_status_publish',
+				'value'     => 'valid',
+				'compare'   => '=',
+			),
+		);
+	}
+
 	$postslist = get_posts( $args );
 } else {
 	$postslist = get_field( 'articles' );

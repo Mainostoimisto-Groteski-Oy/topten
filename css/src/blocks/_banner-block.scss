@@ -1,5 +1,9 @@
 @use "mixins/all" as *;
-
+footer {
+    section.banner-block {
+        margin: 50px 0 0 0;
+    }
+}
 section.banner-block {
     margin: 50px 0px;
     &.brown {
@@ -11,6 +15,21 @@ section.banner-block {
     &.red {
         background-color: $red;
         color: $white;
+    }
+    &.black {
+        background-color: $black;
+        color: $white;
+        font-weight: 700;
+        .grid {
+            .content {
+                .text {
+                    p {
+                        font-style: normal;
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
     }
 	.grid {
         .content {

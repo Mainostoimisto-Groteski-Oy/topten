@@ -7,7 +7,7 @@ footer {
 
 	@include links;
 
-	.grid {
+	.grid:not(.banner) {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 
 		@media (max-width: $max-m) {
@@ -18,7 +18,9 @@ footer {
 			grid-template-columns: repeat(1, minmax(0, 1fr));
 		}
 	}
-
+	.grid.banner {
+		padding: 15px;
+	}
 	ul {
 		list-style-type: none;
 		padding-left: 0;

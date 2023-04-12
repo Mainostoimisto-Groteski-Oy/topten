@@ -34,9 +34,9 @@
 						$type = get_post_type($id);
 						$version = esc_html(get_field('version', $id));
 						$modified = date('j.n.Y', strtotime(esc_html($post->post_modified)));
-						$keywords = get_field('card_keywords', $id);
+						$keywords = get_the_terms($id, 'asiasanat');
 						// Tätä käytetään myöhemmin loopissa mikä alkaa tietenkin nollasta
-						$keywords_count = count($keywords)-1;
+						if(!empty($keywords)) { $keywords_count = count($keywords)-1; }
 						?>
 						<div class="card-info">
 							<div class="date">
@@ -55,13 +55,15 @@
 									</div>
 								</div>
 							<?php else : ?>
-								<div class="identifier dual">
+								<div class="identifier first">
 									<div class="start">
-										<span class="small"></span>
-										<span></span>
+										<span class="small">Tunniste</span>
+										<span><?php echo $identifier_start; ?></span>
 									</div>
+								</div>
+								<div class="identifier last">
 									<div class="end">
-										<span></span>
+										<span><?php echo $identifier_end; ?></span>
 									</div>
 								</div>
 							<?php endif; ?>
@@ -78,14 +80,14 @@
 		// Kortin sisältölohkot
 		the_content(); 
 		?>
+		<?php
+		// Kortin asiasanat
+		if(!empty($keywords)) : ?>
 		<section class="row-block">
 			<div class="grid">
 				<div class="column">
 					<div class="card-keywords">
 						<span class="desc">Asiasanat</span>
-						<?php
-						// Kortin asiasanat
-						if(!empty($keywords)) : ?>
 							<div class="keywords-wrapper">
 							<?php foreach ($keywords as $index => $keyword) :
 								$term = get_term( $keyword );
@@ -96,13 +98,13 @@
 								<?php endif; 
 							endforeach; ?>
 							</div>
-							<?php
-						endif;
-						?>
 					</div>
 				</div>
 			</div>
 		</section>
+		<?php
+		endif;
+		?>
 	</article>
 	<aside class="feedback">
 		<span class="h4 red"><strong>Palaute</strong></span>

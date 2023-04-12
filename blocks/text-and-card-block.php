@@ -26,6 +26,19 @@
                     'post_type'	=> array('ohjekortti', 'tulkintakortti', 'lomakekortti'),
                     'posts_per_page'	=> 1,
                     'post_status'    => 'publish',
+                    'meta_query'    => array(
+                        'relation'      => 'AND',
+                        array(
+                            'key'       => 'card_status',
+                            'value'     => 'publish',
+                            'compare'   => '=',
+                        ),
+                        array(
+                            'key'       => 'card_status_publish',
+                            'value'     => 'valid',
+                            'compare'   => '=',
+                        ),
+                    ),
                 );
                 $card = get_posts($args);
                 ?>
