@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  checks: write
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,9 +25,27 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm ci
-
-      - name: Pull
-        run: git pull origin main
+        
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+          tools: composer
+          
+      - name: Install PHP dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-ansi --no-interaction
+          echo "${PWD}/vendor/bin" >> $GITHUB_PATH
+          
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          auto_fix: true
+          commit: false
+          php_codesniffer: true
+          stylelint: true
+          eslint: true
 
       - name: Run gulp prod
         run: gulp gitProd
