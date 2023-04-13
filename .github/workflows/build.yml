@@ -22,6 +22,9 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
+      - name: Pull
+        run: git pull origin main
+
       - name: Run gulp prod
         run: gulp gitProd
 
