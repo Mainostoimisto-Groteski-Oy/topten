@@ -42,10 +42,12 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           auto_fix: true
-          commit: false
           php_codesniffer: true
           stylelint: true
           eslint: true
+          
+      - name: Pull
+        run: git pull origin main
 
       - name: Run gulp prod
         run: gulp gitProd
