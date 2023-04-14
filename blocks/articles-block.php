@@ -1,8 +1,8 @@
 <?php
 $articles_type = get_field( 'articles_type' );
-$type = get_field( 'type' );
-if($type === 'card') {
-	$post_type = array('tulkintakortti', 'ohjekortti', 'lomakekortti');
+$type          = get_field( 'type' );
+if ( $type === 'card' ) {
+	$post_type = array( 'tulkintakortti', 'ohjekortti', 'lomakekortti' );
 } else {
 	$post_type = 'post';
 }
@@ -31,18 +31,18 @@ if ( 'newest' === $articles_type ) {
 		);
 	}
 
-	if($post_type !== 'post') {
+	if ( $post_type !== 'post' ) {
 		$args['meta_query'] = array(
-			'relation'      => 'AND',
+			'relation' => 'AND',
 			array(
-				'key'       => 'card_status',
-				'value'     => 'publish',
-				'compare'   => '=',
+				'key'     => 'card_status',
+				'value'   => 'publish',
+				'compare' => '=',
 			),
 			array(
-				'key'       => 'card_status_publish',
-				'value'     => 'valid',
-				'compare'   => '=',
+				'key'     => 'card_status_publish',
+				'value'   => 'valid',
+				'compare' => '=',
 			),
 		);
 	}
@@ -53,7 +53,7 @@ if ( 'newest' === $articles_type ) {
 }
 ?>
 
-<section <?php topten_block_id(); ?> class="articles-block <?php the_field('background'); ?>">
+<section <?php topten_block_id(); ?> class="articles-block <?php the_field( 'background' ); ?>">
 	<div class="grid">
 		<div class="text-block">
 			<?php topten_block_title(); ?>
@@ -64,23 +64,24 @@ if ( 'newest' === $articles_type ) {
 		</div>
 
 		<div class="post-wrapper">
-			<?php if ( $postslist && $type === 'card') : 
-				
+			<?php
+			if ( $postslist && $type === 'card' ) :
+
 				?>
 				<?php foreach ( $postslist as $post ) : ?>
 					<?php setup_postdata( $post ); ?>
 						<div class="card-container">
-							<?php  
+							<?php
 							// Poimitaan oliosta tarvittavat tiedot
-							$id = $post->ID;
-							$identifier_start = esc_html(get_field('identifier_start', $id));
-							$identifier_end = esc_html(get_field('identifier_end', $id));
-							$title = esc_html($post->post_title);
-							$type = get_post_type($id);
-							$version = esc_html(get_field('version', $id));
-							$modified = date('j.n.Y', strtotime(esc_html($post->post_modified)));
-							$link = esc_url(get_permalink($id));
-							$summary = get_field('edit_summary', $id);
+							$id               = $post->ID;
+							$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
+							$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
+							$title            = esc_html( $post->post_title );
+							$type             = get_post_type( $id );
+							$version          = esc_html( get_field( 'version', $id ) );
+							$modified         = date( 'j.n.Y', strtotime( esc_html( $post->post_modified ) ) );
+							$link             = esc_url( get_permalink( $id ) );
+							$summary          = get_field( 'edit_summary', $id );
 							?>
 							<span class="type"><?php echo $type; ?></span>
 							<div class="top">
@@ -107,7 +108,7 @@ if ( 'newest' === $articles_type ) {
 				<?php foreach ( $postslist as $post ) : ?>
 					<?php setup_postdata( $post ); ?>
 						<div class="single-post" id="post-<?php echo esc_attr( $post->ID ); ?>">
-						
+
 						<div class="image">
 							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) ); ?>" alt=""/>
 						</div>

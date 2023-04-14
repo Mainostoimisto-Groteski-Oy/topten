@@ -27,6 +27,7 @@
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/includes/fpdf/*</exclude-pattern>
 	<exclude-pattern>/fonts/*</exclude-pattern>
+	<exclude-pattern>/includes/fpdf</exclude-pattern>
 
 	<rule ref="WordPress">
 		<!-- Generic excludes -->
@@ -36,6 +37,7 @@
 		<exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda" />
 
 		<!-- Exclude some of the rules related to commenting -->
 		<exclude name="Squiz.Commenting.FileComment.Missing" />
@@ -82,6 +84,7 @@
 	<!-- Use WPThemeReview set -->
 	<rule ref="WPThemeReview">
 		<exclude name="WPThemeReview.PluginTerritory.ForbiddenFunctions.plugin_territory_register_post_type" />
+		<exclude name="WPThemeReview.CoreFunctionality.PostsPerPage" />
 		<exclude name="WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound" />
 		<exclude name="PHPCompatibility" />
 	</rule>

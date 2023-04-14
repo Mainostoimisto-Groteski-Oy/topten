@@ -3,3 +3,4 @@ css/src/global/plugins/*.scss
 vendor
 node_modules
 .github
+includes/fpdf

@@ -1,11 +1,11 @@
 <?php
 $image = get_field( 'image' );
 
-if(get_field('description')) : ?>
-    <div class="desc">
-        <?php the_field('description'); ?>
-    </div>
-    <?php
+if ( get_field( 'description' ) ) : ?>
+	<div class="desc">
+		<?php the_field( 'description' ); ?>
+	</div>
+	<?php
 endif;
 
 if ( $image ) :

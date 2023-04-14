@@ -9,25 +9,26 @@
  * @package Groteski
  */
 
- get_header();
+get_header();
 
 // Querytaan kaikki julkaistut kortit joiden tila on Julkaistu - Voimassa
 // Haetaan kaikki yhdessä queryssa ja tulostellaan niistä tarpeelliset myöhemmin ettei tarvita useampia meta_queryja
-$cards = get_posts(array(
-		'post_type'	=> array('ohjekortti', 'tulkintakortti', 'lomakekortti'),
-		'posts_per_page'	=> -1,
-		'post_status'	=> 'publish',
-		'meta_query'    => array(
-			'relation'      => 'AND',
+$cards = get_posts(
+	array(
+		'post_type'      => array( 'ohjekortti', 'tulkintakortti', 'lomakekortti' ),
+		'posts_per_page' => -1,
+		'post_status'    => 'publish',
+		'meta_query'     => array(
+			'relation' => 'AND',
 			array(
-				'key'       => 'card_status',
-				'value'     => 'publish',
-				'compare'   => '=',
+				'key'     => 'card_status',
+				'value'   => 'publish',
+				'compare' => '=',
 			),
 			array(
-				'key'       => 'card_status_publish',
-				'value'     => 'valid',
-				'compare'   => '=',
+				'key'     => 'card_status_publish',
+				'value'   => 'valid',
+				'compare' => '=',
 			),
 		),
 	),
@@ -36,7 +37,8 @@ $cards = get_posts(array(
 
 	<main id="primary" class="site-main">
 		<?php
-		if(!is_front_page()) : ?>
+		if ( ! is_front_page() ) :
+			?>
 			<section class="page-title">
 				<div class="grid">
 					<?php the_title( '<h1 class="entry-title h3">', '</h1>' ); ?>
@@ -45,10 +47,11 @@ $cards = get_posts(array(
 
 			<?php
 			// Yoast SEO pluginin tarjoama murupolku, tarkistetaan ensin että plugin on päällä function_exists -funktiolla
-			if ( function_exists('yoast_breadcrumb') ) : ?>
+			if ( function_exists( 'yoast_breadcrumb' ) ) :
+				?>
 				<section class="page-breadcrumbs">
 					<div class="grid">
-						<?php yoast_breadcrumb( '<p id="breadcrumbs">','</p>' ); ?>
+						<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
 					</div>
 				</section>
 			<?php endif; ?>
@@ -64,7 +67,7 @@ $cards = get_posts(array(
 							</div>
 						</div>
 						<div class="keywords" id="selectedKeywords">
-							
+
 						</div>
 					</div>
 					<div class="one-third">
@@ -74,7 +77,7 @@ $cards = get_posts(array(
 						</div>
 						<label>Erota kunnat pilkulla</label>
 						<div class="keywords" id="selectedMunicipalities">
-						
+
 
 						</div>
 					</div>
@@ -83,7 +86,7 @@ $cards = get_posts(array(
 						<div class="inner-wrapper">
 							<?php $terms = get_terms( 'laki', array( 'hide_empty' => false ) ); ?>
 							<select name="cardLaw" id="cardLaw">
-								<?php foreach ($terms as $term) : ?>
+								<?php foreach ( $terms as $term ) : ?>
 									<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
 								<?php endforeach; ?>
 							</select>
@@ -92,15 +95,15 @@ $cards = get_posts(array(
 					<div class="one-third">
 						<label for="cardCategory">Suodata kortteja luokan mukaan</label>
 						<div class="inner-wrapper">
-							<?php 
-							$terms1 = get_terms( 'ohje', array( 'hide_empty' => false ) ); 
-							$terms2 = get_terms( 'lomake', array( 'hide_empty' => false ) ); 
-							if(!empty($terms1) && !empty($terms2)) {
-								$terms = array_merge($terms1, $terms2);
+							<?php
+							$terms1 = get_terms( 'ohje', array( 'hide_empty' => false ) );
+							$terms2 = get_terms( 'lomake', array( 'hide_empty' => false ) );
+							if ( ! empty( $terms1 ) && ! empty( $terms2 ) ) {
+								$terms = array_merge( $terms1, $terms2 );
 							}
 							?>
 							<select name="cardCategory" id="cardCategory">
-								<?php foreach ($terms as $term) : ?>
+								<?php foreach ( $terms as $term ) : ?>
 									<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
 								<?php endforeach; ?>
 							</select>
@@ -142,30 +145,31 @@ $cards = get_posts(array(
 						<?php $terms = get_terms( 'laki', array( 'hide_empty' => false ) ); ?>
 						<ul class="cards">
 							<?php
-							foreach($terms as $term) :
-								if($term->parent === 0) : 
-								$children = get_term_children($term->term_id, 'laki');
-								?>
-									<li class="parent"> <span class="name"><?php echo esc_html($term->name); ?> </span>
+							foreach ( $terms as $term ) :
+								if ( $term->parent === 0 ) :
+									$children = get_term_children( $term->term_id, 'laki' );
+									?>
+									<li class="parent"> <span class="name"><?php echo esc_html( $term->name ); ?> </span>
 									<ul class="children">
 									<?php
-									foreach ($children as $child) : 
-									$child = get_term($child);
-									?>
-										
-										<li class="child"> <span class="name"><?php echo esc_html($child->name); ?> </span>
+									foreach ( $children as $child ) :
+										$child = get_term( $child );
+										?>
+
+										<li class="child"> <span class="name"><?php echo esc_html( $child->name ); ?> </span>
 											<ul class="grandchildren">
-											<?php foreach($cards as $card) : 
-												if('tulkintakortti' === get_post_type($card->ID) && is_object_in_term($card->ID, 'laki', $child->name)) : 
-													$id = $card->ID;
-													$identifier_start = esc_html(get_field('identifier_start', $id));
-													$identifier_end = esc_html(get_field('identifier_end', $id));
-													$title = esc_html($card->post_title);
-													$type = get_post_type($id);
-													$version = esc_html(get_field('version', $id));
-													$modified = date('j.n.Y', strtotime(esc_html($card->post_modified)));
-													$link = esc_url(get_permalink($id));
-												?>
+											<?php
+											foreach ( $cards as $card ) :
+												if ( 'tulkintakortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'laki', $child->name ) ) :
+													$id               = $card->ID;
+													$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
+													$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
+													$title            = esc_html( $card->post_title );
+													$type             = get_post_type( $id );
+													$version          = esc_html( get_field( 'version', $id ) );
+													$modified         = date( 'j.n.Y', strtotime( esc_html( $card->post_modified ) ) );
+													$link             = esc_url( get_permalink( $id ) );
+													?>
 													<li class="card">
 														<div class="ident">
 															<span class="start"><?php echo $identifier_start; ?></span>
@@ -189,11 +193,13 @@ $cards = get_posts(array(
 											<?php endforeach; ?>
 											</ul></li>
 										<?php
-										
-									endforeach; ?>
+
+									endforeach;
+									?>
 									</ul></li>
-								<?php endif;
-							endforeach; 
+									<?php
+								endif;
+							endforeach;
 							?>
 						</ul>
 					</div>
@@ -202,21 +208,22 @@ $cards = get_posts(array(
 						<?php $terms = get_terms( 'ohje', array( 'hide_empty' => false ) ); ?>
 						<ul class="cards">
 							<?php
-							foreach($terms as $term) :
+							foreach ( $terms as $term ) :
 								?>
-									<li class="parent"> <span class="name"><?php echo esc_html($term->name); ?> </span>
+									<li class="parent"> <span class="name"><?php echo esc_html( $term->name ); ?> </span>
 									<ul class="children">
-										<?php foreach($cards as $card) : 
-											if('ohjekortti' === get_post_type($card->ID) && is_object_in_term($card->ID, 'ohje', $term->name)) : 
-												$id = $card->ID;
-												$identifier_start = esc_html(get_field('identifier_start', $id));
-												$identifier_end = esc_html(get_field('identifier_end', $id));
-												$title = esc_html($card->post_title);
-												$type = get_post_type($id);
-												$version = esc_html(get_field('version', $id));
-												$modified = date('j.n.Y', strtotime(esc_html($card->post_modified)));
-												$link = esc_url(get_permalink($id));
-											?>
+										<?php
+										foreach ( $cards as $card ) :
+											if ( 'ohjekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
+												$id               = $card->ID;
+												$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
+												$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
+												$title            = esc_html( $card->post_title );
+												$type             = get_post_type( $id );
+												$version          = esc_html( get_field( 'version', $id ) );
+												$modified         = date( 'j.n.Y', strtotime( esc_html( $card->post_modified ) ) );
+												$link             = esc_url( get_permalink( $id ) );
+												?>
 												<li class="card">
 													<div class="ident">
 														<span class="start"><?php echo $identifier_start; ?></span>
@@ -240,30 +247,31 @@ $cards = get_posts(array(
 										<?php endforeach; ?>
 									</ul></li>
 								<?php
-							endforeach; 
+							endforeach;
 							?>
 						</ul>
 					</div>
 					<div class="cardlist" id="lomakekortit">
 						<h2 class="h4 title">Lomakekortit</h2>
 						<?php $terms = get_terms( 'lomake', array( 'hide_empty' => false ) ); ?>
-						<ul class="cards"> 
+						<ul class="cards">
 							<?php
-							foreach($terms as $term) :
-							?>
-									<li class="parent"> <span class="name"><?php echo esc_html($term->name); ?> </span>
+							foreach ( $terms as $term ) :
+								?>
+									<li class="parent"> <span class="name"><?php echo esc_html( $term->name ); ?> </span>
 									<ul class="children">
-										<?php foreach($cards as $card) : 
-											if('lomakekortti' === get_post_type($card->ID) && is_object_in_term($card->ID, 'lomake', $term->name)) : 
-												$id = $card->ID;
-												$identifier_start = esc_html(get_field('identifier_start', $id));
-												$identifier_end = esc_html(get_field('identifier_end', $id));
-												$title = esc_html($card->post_title);
-												$type = get_post_type($id);
-												$version = esc_html(get_field('version', $id));
-												$modified = date('j.n.Y', strtotime(esc_html($card->post_modified)));
-												$link = esc_url(get_permalink($id));
-											?>
+										<?php
+										foreach ( $cards as $card ) :
+											if ( 'lomakekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'lomake', $term->name ) ) :
+												$id               = $card->ID;
+												$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
+												$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
+												$title            = esc_html( $card->post_title );
+												$type             = get_post_type( $id );
+												$version          = esc_html( get_field( 'version', $id ) );
+												$modified         = date( 'j.n.Y', strtotime( esc_html( $card->post_modified ) ) );
+												$link             = esc_url( get_permalink( $id ) );
+												?>
 												<li class="card">
 													<div class="ident">
 														<span class="start"><?php echo $identifier_start; ?></span>
@@ -287,7 +295,7 @@ $cards = get_posts(array(
 										<?php endforeach; ?>
 									</ul></li>
 								<?php
-							endforeach; 
+							endforeach;
 							?>
 						</ul>
 					</div>
@@ -298,4 +306,4 @@ $cards = get_posts(array(
 	</main>
 <?php get_footer(); ?>
 
- 
+

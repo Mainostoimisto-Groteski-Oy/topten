@@ -14,9 +14,9 @@ if ( $background_image ) {
 	<div class="grid <?php topten_focal_point(); ?>" style="<?php echo $background_url; ?>">
 		<div class="content">
 		<?php topten_block_title(); ?>
-		<?php if(get_field('text')) : ?>
+		<?php if ( get_field( 'text' ) ) : ?>
 			<div class="text">
-				<?php the_field('text'); ?>
+				<?php the_field( 'text' ); ?>
 			</div>
 		<?php endif; ?>
 		<?php topten_buttons(); ?>
