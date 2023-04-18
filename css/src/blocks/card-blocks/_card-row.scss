@@ -1,3 +1,5 @@
+@use "mixins/all" as *;
+
 .acf-block-preview {
 	.row-block {
 		.grid {
@@ -19,7 +21,41 @@
 }
 
 .row-block {
+	border-top: 1px solid $red;
+	border-right: 1px solid $red;
+	border-left: 1px solid $red;
+
+	&:last-child {
+		border-bottom: 1px solid $red;
+	}
+
 	.grid {
 		grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+		padding: 0;
+	}
+
+	&.top {
+		.grid {
+			grid-template-columns: 250px minmax(0, 1fr) 150px 150px;
+			justify-content: space-between;
+			gap: 0;
+		}
+
+		.column {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			&.date {
+				flex-direction: row;
+				align-items: center;
+				justify-content: flex-start;
+				gap: 5px;
+			}
+		}
+
+		p {
+			font-size: 1.4rem;
+		}
 	}
 }

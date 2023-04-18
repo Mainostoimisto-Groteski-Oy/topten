@@ -1,12 +1,5 @@
 @use "mixins/all" as *;
 
-@media print {
-	.site-header,
-	.site-footer {
-		display: none;
-	}
-}
-
 .animate-on-scroll {
 	opacity: 0;
 }
@@ -17,6 +10,10 @@ body.disable-scroll {
 
 .breadcrumb {
 	border-bottom: 1px solid $black;
+}
+
+.hidden {
+	display: none !important;
 }
 
 .grid,

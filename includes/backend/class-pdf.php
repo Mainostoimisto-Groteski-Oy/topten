@@ -3,7 +3,7 @@
 
 require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
 
-define( 'FPDF_FONTPATH', get_template_directory() . '/fonts' ); // phpcs:ignore
+define( 'FPDF_FONTPATH', get_template_directory() . '/fonts/fpdf' ); // phpcs:ignore
 
 /**
  * Class createPDF
