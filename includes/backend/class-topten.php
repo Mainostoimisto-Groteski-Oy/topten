@@ -10,6 +10,12 @@ class Topten {
 	 */
 	public function __construct() {
 		$this->add_actions();
+
+		require_once 'class-user-roles.php';
+		require_once 'class-lifecycle.php';
+
+		new Topten_User_Roles();
+		new Topten_Lifecycle();
 	}
 
 	/**
@@ -48,6 +54,7 @@ class Topten {
 		load_plugin_textdomain( 'topten', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
+
 	/**
 	 * Rekisteröi CPT:t
 	 */
@@ -78,6 +85,10 @@ class Topten {
 					'revisions',
 					'author',
 				),
+				// 'capabilities' => array(
+				// 'edit_posts'  => 'edit_tulkintakorttis',
+				// 'delete_post' => 'read_tulkintakortti',
+				// ),
 			)
 		);
 

@@ -4,62 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "941079ec0c711a903eb0f3d36f95681a",
-    "packages": [
-        {
-            "name": "fpdf/fpdf",
-            "version": "1.85.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/coreydoughty/Fpdf.git",
-                "reference": "5ba6a7d4363174ac828a0c15cc1b4a8f845b1e16"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/coreydoughty/Fpdf/zipball/5ba6a7d4363174ac828a0c15cc1b4a8f845b1e16",
-                "reference": "5ba6a7d4363174ac828a0c15cc1b4a8f845b1e16",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "FPDF": "Fpdf\\Fpdf"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Fpdf\\": "src/Fpdf"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Corey Doughty",
-                    "email": "corey@doughty.ca"
-                }
-            ],
-            "description": "FPDF Composer Wrapper",
-            "homepage": "https://github.com/coreydoughty/Fpdf",
-            "keywords": [
-                "fpdf",
-                "pdf",
-                "wrapper"
-            ],
-            "support": {
-                "issues": "https://github.com/coreydoughty/Fpdf/issues",
-                "source": "https://github.com/coreydoughty/Fpdf/tree/1.85.0"
-            },
-            "time": "2022-11-18T15:23:37+00:00"
-        }
-    ],
+    "content-hash": "136d2879b3c40ef151279cccbd7f4a88",
+    "packages": [],
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -182,16 +128,16 @@
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.1.1",
+            "version": "v6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "601c429ba8d91ef50a2a1bec05a7cd38b88064ff"
+                "reference": "b73fe99eadf9fb56363619dac0343b6d19907dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/601c429ba8d91ef50a2a1bec05a7cd38b88064ff",
-                "reference": "601c429ba8d91ef50a2a1bec05a7cd38b88064ff",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/b73fe99eadf9fb56363619dac0343b6d19907dce",
+                "reference": "b73fe99eadf9fb56363619dac0343b6d19907dce",
                 "shasum": ""
             },
             "require-dev": {
@@ -199,7 +145,7 @@
                 "php": "~7.3 || ~8.0",
                 "php-stubs/generator": "^0.8.3",
                 "phpdocumentor/reflection-docblock": "^5.3",
-                "phpstan/phpstan": "^1.2"
+                "phpstan/phpstan": "^1.9"
             },
             "suggest": {
                 "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
@@ -220,9 +166,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.1.1"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.2.0"
             },
-            "time": "2023-02-09T11:10:35+00:00"
+            "time": "2023-03-31T09:48:52+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -505,6 +451,40 @@
                 "wiki": "https://github.com/WordPress/WordPress-Coding-Standards/wiki"
             },
             "time": "2020-05-13T23:57:56+00:00"
+        },
+        {
+            "name": "wpsyntex/polylang-stubs",
+            "version": "3.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/polylang/polylang-stubs.git",
+                "reference": "af77c264f0017d55384dd715d055b76d177c29ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/polylang/polylang-stubs/zipball/af77c264f0017d55384dd715d055b76d177c29ab",
+                "reference": "af77c264f0017d55384dd715d055b76d177c29ab",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php": "~7.1",
+                "php-stubs/generator": "^0.8.1"
+            },
+            "suggest": {
+                "wpsyntex/polylang-phpstan": "Polylang extension for PHPStan"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "Polylang and Polylang Pro function and class declaration stubs for static analysis.",
+            "homepage": "https://polylang.pro",
+            "support": {
+                "issues": "https://github.com/polylang/polylang-stubs/issues",
+                "source": "https://github.com/polylang/polylang-stubs/tree/3.3.1"
+            },
+            "time": "2023-02-20T14:02:22+00:00"
         },
         {
             "name": "wptrt/wpthemereview",

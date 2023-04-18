@@ -45,6 +45,13 @@
                 "operator": "==",
                 "value": "acf\/otsikko"
             }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/taulukko"
+            }
         ]
     ],
     "menu_order": 0,
@@ -56,5 +63,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681214210
+    "modified": 1681817688
 }

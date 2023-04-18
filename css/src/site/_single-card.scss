@@ -3,216 +3,69 @@
 .single-tulkintakortti,
 .single-ohjekortti,
 .single-lomakekortti {
-	main {
-		.page-breadcrumbs {
-			background-color: $paper;
-
-			.grid {
-				padding: 10px 15px;
-
-				a {
-					color: $red;
-					text-decoration: underline;
-				}
-			}
-		}
+	.page-breadcrumbs {
+		background-color: $paper;
 
 		.grid {
-			grid-template-columns: 9fr 3fr;
-			gap: 50px;
+			padding: 10px 15px;
+		}
 
-			article {
-				.row-block {
-					border-top: 1px solid $red;
-					border-right: 1px solid $red;
-					border-left: 1px solid $red;
+		a {
+			color: $red;
+			text-decoration: underline;
+		}
+	}
 
-					&:last-child {
-						border-bottom: 1px solid $red;
-					}
+	.sidebar-grid {
+		grid-template-columns: minmax(0, 9fr) minmax(0, 3fr);
+		gap: 50px;
+	}
 
-					.grid {
-						grid-template-columns: minmax(0, 1fr);
-						padding: 0;
-
-						.column.top {
-							width: 100%;
-
-							.card-info {
-								display: grid;
-								grid-template-columns: 250px minmax(0, 1fr) 150px 150px;
-								width: 100%;
-								justify-content: space-between;
-								align-items: center;
-
-								.date {
-									border-right: 1px solid $red;
-									display: flex;
-									height: 100%;
-									flex-direction: row;
-									justify-content: center;
-									align-items: center;
-									gap: 5px;
-									padding: 15px 30px;
-
-									span.small {
-										font-size: 1.4rem;
-										font-style: italic;
-									}
-
-									span:not(.small) {
-										font-size: 1.4rem;
-										font-weight: 700;
-									}
-								}
-
-								.identifier {
-									border-left: 1px solid $red;
-									border-right: 1px solid $red;
-									padding: 15px 30px;
-
-									.small {
-										display: block;
-										margin-bottom: 15px;
-										width: 100%;
-										font-size: 1.6rem;
-										font-style: italic;
-									}
-
-									.wrapper {
-										font-weight: 700;
-
-										.start {
-											font-size: 2.4rem;
-										}
-
-										.end {
-											font-size: 2.2rem;
-										}
-									}
-								}
-
-								.version {
-									display: flex;
-									flex-direction: column;
-									padding: 15px 30px;
-
-									span.small {
-										display: block;
-										margin-bottom: 15px;
-										width: 100%;
-										font-size: 1.6rem;
-										font-style: italic;
-									}
-
-									span:not(.small) {
-										font-size: 2.4rem;
-										font-weight: 700;
-									}
-								}
-							}
-						}
-
-						.column:not(.top) {
-							padding: 30px;
-
-							.desc {
-								font-size: 1.4rem;
-								font-style: italic;
-								display: block;
-								margin-bottom: 15px;
-							}
-
-							p:last-child {
-								margin-bottom: 0;
-							}
-						}
-					}
-
-					ul {
-						li {
-							margin-bottom: 10px;
-						}
-					}
-				}
-
-				&.ohjekortti,
-				&.lomakekortti {
-					.row-block {
-						.grid {
-							.column.top {
-								.card-info {
-									grid-template-columns: 250px minmax(0, 1fr) 150px 150px 150px;
-
-									.identifier {
-										display: block;
-										height: 100%;
-
-										.start span:not(.small) {
-											font-size: 2.4rem;
-											font-weight: 700;
-										}
-
-										.end span:not(.small) {
-											font-size: 2.2rem;
-											font-weight: 700;
-										}
-
-										&.last {
-											border-left: none;
-											display: flex;
-											flex-direction: column;
-
-											div.end {
-												margin-top: auto;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+	article {
+		.card-content {
+			.title {
+				margin-bottom: 0;
 			}
+		}
+	}
 
-			article,
-			aside {
-				h1,
-				.h1 {
-					font-size: 3.6rem;
-				}
+	article,
+	aside {
+		h1,
+		.h1 {
+			font-size: 3.6rem;
+		}
 
-				h2,
-				.h2 {
-					font-size: 3.2rem;
-				}
+		h2,
+		.h2 {
+			font-size: 3.2rem;
+		}
 
-				h3,
-				.h3 {
-					font-size: 2.6rem;
-				}
+		h3,
+		.h3 {
+			font-size: 2.6rem;
+		}
 
-				h4,
-				.h4 {
-					font-size: 2.2rem;
-				}
+		h4,
+		.h4 {
+			font-size: 2.2rem;
+		}
 
-				h5,
-				.h5 {
-					font-size: 2rem;
-				}
+		h5,
+		.h5 {
+			font-size: 2rem;
+		}
 
-				.red {
-					color: $red;
-				}
+		.red {
+			color: $red;
+		}
 
-				.title-wrapper h1,
-				.title-wrapper h2,
-				.title-wrapper h3,
-				.title-wrapper h4 {
-					margin-bottom: 0;
-				}
-			}
+		.desc {
+			font-size: 1.4rem;
+			font-style: italic;
+			font-weight: 400;
+			margin-top: 0;
+			scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
 		}
 	}
 }

@@ -1,0 +1,39 @@
+@use "mixins/all" as *;
+
+.card-content {
+	.column {
+		border-right: 1px solid $red;
+		padding: 15px 30px;
+
+		p {
+			margin: 0;
+			line-height: 1.5;
+
+			&.strong {
+				font-weight: 700;
+			}
+		}
+
+		.small-title {
+			font-size: 1.4rem;
+			margin: 0;
+			line-height: 1.5;
+			font-weight: 400;
+			font-style: italic;
+		}
+
+		p.identifier-text,
+		p.version-text {
+			font-size: 2.2rem;
+			font-weight: 600;
+
+			em {
+				font-size: 2rem;
+			}
+		}
+
+		&:last-of-type {
+			border-right: none;
+		}
+	}
+}

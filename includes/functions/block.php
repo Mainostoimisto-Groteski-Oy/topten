@@ -147,3 +147,58 @@ function topten_buttons( $block = array() ) {
 		echo '</div>';
 	}
 }
+
+/**
+ * Luo sisällysluettelon
+ */
+function topten_get_table_of_contents() {
+	$blocks = parse_blocks( get_the_content() );
+
+	$table_of_contents = '<ol class="table-of-contents">';
+
+	// Rivit
+	foreach ( $blocks as $row ) {
+		if ( ! empty( $row['innerBlocks'] ) ) {
+
+			// Sarakkeet
+			foreach ( $row['innerBlocks'] as $column ) {
+				if ( ! empty( $column['innerBlocks'] ) ) {
+
+					// Sarakkeen lohkot
+					foreach ( $column['innerBlocks'] as $block ) {
+						if ( ! empty( $block['attrs']['data']['description'] ) ) {
+							$title = $block['attrs']['data']['description'];
+							$id    = sanitize_title( $block['attrs']['data']['description'] );
+							$href  = sprintf( '#%s', $id );
+
+							$link = sprintf( '<a href="%s" aria-label="%s">%s</a>', $href, $title, $title );
+
+							$table_of_contents .= sprintf( '<li>%s</li>', $link );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	$table_of_contents .= '</ol>';
+
+	echo wp_kses_post( $table_of_contents );
+}
+
+/**
+ * Hakee pikkuotsikon
+ *
+ * @param string $description Pikkuotsikko, default get_field('description')
+ */
+function topten_get_desc( $description = false ) {
+	if ( ! $description ) {
+		$description = get_field( 'description' );
+	}
+
+	if ( $description ) {
+		$id = sanitize_title( $description );
+
+		echo sprintf( '<h2 id="%s" class="desc">%s</h2>', esc_attr( $id ), esc_html( $description ) );
+	}
+}

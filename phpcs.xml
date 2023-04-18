@@ -84,6 +84,7 @@
 	<!-- Use WPThemeReview set -->
 	<rule ref="WPThemeReview">
 		<exclude name="WPThemeReview.PluginTerritory.ForbiddenFunctions.plugin_territory_register_post_type" />
+		<exclude name="WPThemeReview.PluginTerritory.ForbiddenFunctions.plugin_territory_register_taxonomy" />
 		<exclude name="WPThemeReview.CoreFunctionality.PostsPerPage" />
 		<exclude name="WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound" />
 		<exclude name="PHPCompatibility" />

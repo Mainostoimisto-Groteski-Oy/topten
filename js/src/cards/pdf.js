@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const { type } = this.dataset;
 
 			// Haetaan kortin sisältö
-			const data = generatePDFdata(document.querySelector(`.${type} > .grid`));
+			const data = generatePDFdata(document.querySelector(`article.${type} .card-content`));
 
 			// Haetaan PDF stringinä rajapinnasta
 			fetch(`${REST.url}/pdf`, {
