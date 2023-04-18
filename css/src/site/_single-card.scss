@@ -8,11 +8,11 @@
 
 		.grid {
 			padding: 10px 15px;
+		}
 
-			a {
-				color: $red;
-				text-decoration: underline;
-			}
+		a {
+			color: $red;
+			text-decoration: underline;
 		}
 	}
 
@@ -22,57 +22,11 @@
 	}
 
 	article {
-		// .row-block {
-		// 	ul {
-		// 		li {
-		// 			margin-bottom: 10px;
-		// 		}
-		// 	}
-		// }
-
 		.card-content {
 			.title {
 				margin: 0;
 			}
 		}
-
-		// &.ohjekortti,
-		// &.lomakekortti {
-		// 	.row-block {
-		// 		.grid {
-		// 			.column.top {
-		// 				.card-info {
-		// 					grid-template-columns: 250px minmax(0, 1fr) 150px 150px 150px;
-
-		// 					.identifier {
-		// 						display: block;
-		// 						height: 100%;
-
-		// 						.start span:not(.small) {
-		// 							font-size: 2.4rem;
-		// 							font-weight: 700;
-		// 						}
-
-		// 						.end span:not(.small) {
-		// 							font-size: 2.2rem;
-		// 							font-weight: 700;
-		// 						}
-
-		// 						&.last {
-		// 							border-left: none;
-		// 							display: flex;
-		// 							flex-direction: column;
-
-		// 							div.end {
-		// 								margin-top: auto;
-		// 							}
-		// 						}
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
 	}
 
 	article,
@@ -104,6 +58,12 @@
 
 		.red {
 			color: $red;
+		}
+
+		.desc {
+			font-size: 1.4rem;
+			font-style: italic;
+			font-weight: 400;
 		}
 	}
 }

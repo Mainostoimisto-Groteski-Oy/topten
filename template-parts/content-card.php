@@ -86,23 +86,21 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 				<section class="row-block">
 					<div class="grid">
 						<div class="column">
-							<em class="desc">
+							<h2 class="desc">
 								<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
-							</em>
+							</h2>
 
-							<ul class="keywords">
+							<p class="keywords">
 								<?php $keywords_count = count( $keywords ) - 1; ?>
 
 								<?php foreach ( $keywords as $index => $keyword ) : ?>
-									<li class="keyword">
-										<?php if ( $index !== $keywords_count ) : ?>
-											<?php echo esc_html( $term->name ) . ', '; ?>
-										<?php else : ?>
-											<?php echo esc_html( $term->name ); ?>
-										<?php endif; ?>
-									</li>
+									<?php if ( $index !== $keywords_count ) : ?>
+										<?php echo esc_html( $keyword->name ) . ', '; ?>
+									<?php else : ?>
+										<?php echo esc_html( $keyword->name ); ?>
+									<?php endif; ?>
 								<?php endforeach; ?>
-							</ul>
+							</p>
 						</div>
 					</div>
 				</section>

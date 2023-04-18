@@ -1,12 +1,11 @@
+<?php if ( get_field( 'description' ) ) : ?>
+	<h2 class="desc">
+		<?php the_field( 'description' ); ?>
+	</h2>
+<?php endif; ?>
+
 <?php
 $image = get_field( 'image' );
-
-if ( get_field( 'description' ) ) : ?>
-	<div class="desc">
-		<?php the_field( 'description' ); ?>
-	</div>
-	<?php
-endif;
 
 if ( $image ) :
 	$src = $image['sizes']['medium'];
@@ -14,3 +13,4 @@ if ( $image ) :
 
 	echo sprintf( '<div class="image-wrapper"><img src="%1$s" alt="%2$s" /></div>', esc_url( $src ), esc_attr( $alt ) );
 endif;
+?>

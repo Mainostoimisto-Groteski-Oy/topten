@@ -39,11 +39,10 @@
             },
             "relevanssi_exclude": 0,
             "choices": {
-                "h1": "h1",
                 "h2": "h2",
                 "h3": "h3",
                 "h4": "h4",
-                "div": "div"
+                "h5": "h5"
             },
             "default_value": "h2",
             "return_format": "value",
@@ -69,5 +68,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679049951
+    "modified": 1681805203
 }
