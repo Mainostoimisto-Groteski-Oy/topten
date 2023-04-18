@@ -18,7 +18,6 @@ class Topten {
 	public function add_actions() {
 		// Init
 		add_action( 'init', array( $this, 'register_cpts' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		// reorder_columns filtterit
@@ -141,33 +140,6 @@ class Topten {
 		);
 
 
-	}
-
-	/**
-	 * Rekisteröi taksonomiat
-	 */
-	public function register_taxonomies() {
-		/**
-		 * Asiasanat
-		 */
-		register_taxonomy(
-			'asiasanat',
-			array(
-				'tulkintakortti',
-				'ohjekortti',
-				'lomakekortti',
-			),
-			array(
-				'label'        => esc_html__( 'Asiasanat', 'topten' ),
-				'labels'       => array(
-					'name'          => esc_html__( 'Asiasanat', 'topten' ),
-					'singular_name' => esc_html__( 'Asiasana', 'topten' ),
-				),
-				'public'       => true,
-				'hierarchical' => true,
-				'show_in_rest' => true,
-			)
-		);
 	}
 
 	/**
