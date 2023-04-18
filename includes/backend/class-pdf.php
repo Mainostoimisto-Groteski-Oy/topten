@@ -190,8 +190,6 @@ class Topten_PDF extends FPDFA {
 	 */
 	private function write_image( $data ) {
 		$tag = $data['tag'];
-
-		json_log( $data );
 	}
 
 	/**

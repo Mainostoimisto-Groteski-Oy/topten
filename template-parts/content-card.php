@@ -24,7 +24,6 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 	</section>
 <?php endif; ?>
 
-<!-- todo -->
 <h1 class="screen-reader-text">
 	<?php the_title(); ?>
 </h1>
@@ -86,9 +85,7 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 				<section class="row-block">
 					<div class="grid">
 						<div class="column">
-							<h2 class="desc">
-								<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
-							</h2>
+							<?php topten_get_desc( __( 'Asiasanat', 'topten' ) ); ?>
 
 							<p class="keywords">
 								<?php $keywords_count = count( $keywords ) - 1; ?>
@@ -113,11 +110,13 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 	</article>
 
 	<aside class="feedback">
-		<span class="h4 red">
+		<?php topten_get_table_of_contents(); ?>
+
+		<h2 class="h4 red">
 			<strong>
 				<?php esc_html_e( 'Palaute', 'topten' ); ?>
 			</strong>
-		</span>
+		</h2>
 
 		<p>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat porttitor erat pharetra facilisis. Duis rutrum suscipit ex at sodales. Nullam mollis auctor justo sed accumsan. Nam ac metus feugiat, viverra est eget, tempus lectus.

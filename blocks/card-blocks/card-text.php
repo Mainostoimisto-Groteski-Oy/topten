@@ -1,8 +1,4 @@
-<?php if ( get_field( 'description' ) ) : ?>
-	<h2 class="desc">
-		<?php the_field( 'description' ); ?>
-	</h2>
-<?php endif; ?>
+<?php topten_get_desc(); ?>
 
 <?php $text = get_field( 'text' ); ?>
 

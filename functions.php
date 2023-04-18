@@ -50,8 +50,8 @@ function topten_setup() {
 	add_theme_support(
 		'html5',
 		array(
-			'comment-list',
-			'comment-form',
+			// 'comment-list',
+			// 'comment-form',
 			'search-form',
 			'gallery',
 			'caption',
@@ -89,6 +89,7 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 			'menu_title' => 'Footer',
 			'menu_slug'  => 'footer-settings',
 			'redirect'   => false,
+			'capability' => 'administrator',
 		)
 	);
 }
@@ -235,8 +236,8 @@ $card_allowed_blocks = array(
 	'acf/kuva',
 	'acf/teksti',
 	'acf/rivi',
+	'acf/taulukko',
 );
-
 
 /**
  * Allowed block types
@@ -593,6 +594,20 @@ function topten_acf() {
 		$block_name  = 'Kuva';
 		$block_slug  = 'card-image';
 		$description = 'Kuva';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Taulukko';
+		$block_slug  = 'card-table';
+		$description = 'Taulukko';
 
 		acf_register_block_type(
 			array(

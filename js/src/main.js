@@ -46,4 +46,19 @@ jQuery(document).ready(($) => {
 			$(this).parent().children('.children').fadeIn(200);
 		}
 	});
+
+	/**
+	 * Navigaation korkeus
+	 */
+	function setNavbarHeight() {
+		const navbar = $('.site-header').height();
+
+		$(':root').css('--navbar-height', `${navbar}px`);
+	}
+
+	setNavbarHeight();
+
+	$(window).resize(() => {
+		setNavbarHeight();
+	});
 });

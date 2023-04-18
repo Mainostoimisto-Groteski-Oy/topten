@@ -16,6 +16,10 @@ body.disable-scroll {
 	display: none !important;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 .grid,
 .grid-full {
 	grid-template-columns: minmax(0, 1fr);
