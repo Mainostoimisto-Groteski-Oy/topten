@@ -138,7 +138,6 @@ class Topten_Admin_Columns extends Topten {
 		$url = admin_url( 'admin.php?action=topten_copy_card&post=' . $post->ID );
 		$url = wp_nonce_url( $url, 'topten_copy_card_' . $post->ID );
 
-
 		$actions[] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Kopioi', 'topten' ) . '</a>';
 
 		return $actions;
@@ -198,6 +197,7 @@ class Topten_Admin_Columns extends Topten {
 
 		update_field( 'version', $version, $new_post_id );
 
+		// Ohjataan uuteen luonnokseen
 		wp_safe_redirect(
 			add_query_arg(
 				array(
