@@ -1,42 +1,109 @@
 @use "mixins/all" as *;
 
 body.page-template-template-korttiluettelo {
-	main {
-		section.cards {
-			.grid {
-				input[type="checkbox"],
-				select {
-					cursor: pointer;
+	section.search {
+
+	}
+
+	section.cards {
+		.grid {
+			input[type="checkbox"],
+			select {
+				cursor: pointer;
+			}
+
+			.search {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: 30px;
+
+				label {
+					font-size: 1.4rem;
+					font-style: italic;
+					margin: 5px 0;
+					display: block;
 				}
 
-				.search {
-					display: grid;
-					grid-template-columns: repeat(3, minmax(0, 1fr));
-					gap: 30px;
+				.full {
+					grid-column: 1 / -1;
+				}
 
-					label {
-						font-size: 1.4rem;
-						font-style: italic;
-						margin: 5px 0;
-						display: block;
+				.one-third {
+					grid-column: auto;
+
+					&:last-child {
+						margin-left: auto;
 					}
+				}
 
-					.full {
-						grid-column: 1 / -1;
-					}
+				.input-wrapper {
+					display: flex;
+					flex-direction: column;
+					white-space: none;
 
-					.one-third {
-						grid-column: auto;
+					.inner-wrapper {
+						display: flex;
 
-						&:last-child {
-							margin-left: auto;
+						input {
+							flex-grow: 1;
 						}
 					}
+				}
+
+				.keyword-list {
+					margin-top: 10px;
+				}
+
+				input,
+				textarea,
+				button,
+				select {
+					padding: 10px;
+					max-width: 100%;
+				}
+			}
+
+			.filters {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+				gap: 30px;
+
+				label {
+					font-size: 1.4rem;
+					font-style: italic;
+					margin: 5px 0;
+					display: block;
+				}
+
+				.half {
+					display: flex;
+					margin-top: auto;
 
 					.input-wrapper {
 						display: flex;
 						flex-direction: column;
 						white-space: none;
+
+						&.horizontal {
+							flex-direction: row;
+							align-items: center;
+							margin-left: auto;
+							height: 100%;
+							gap: 15px;
+
+							label {
+								margin-left: auto;
+							}
+
+							.inner-wrapper {
+								display: flex;
+
+								input {
+									flex-grow: 0;
+									margin-right: 5px;
+								}
+							}
+						}
 
 						.inner-wrapper {
 							display: flex;
@@ -46,198 +113,133 @@ body.page-template-template-korttiluettelo {
 							}
 						}
 					}
-
-					.keywords {
-						margin-top: 10px;
-					}
-
-					input,
-					textarea,
-					button,
-					select {
-						padding: 10px;
-						max-width: 100%;
-					}
 				}
 
-				.filters {
-					display: grid;
-					grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-					gap: 30px;
+				select {
+					padding: 10px;
+					max-width: 100%;
+				}
+			}
 
-					label {
-						font-size: 1.4rem;
-						font-style: italic;
-						margin: 5px 0;
-						display: block;
-					}
+			.list {
+				position: relative;
 
-					.half {
-						display: flex;
-						margin-top: auto;
+				&::before {
+					width: 300vw;
+					height: 100%;
+					background-color: $grey;
+					position: absolute;
+					right: -200vw;
+					top: 0;
 
-						.input-wrapper {
-							display: flex;
-							flex-direction: column;
-							white-space: none;
-
-							&.horizontal {
-								flex-direction: row;
-								align-items: center;
-								margin-left: auto;
-								height: 100%;
-								gap: 15px;
-
-								label {
-									margin-left: auto;
-								}
-
-								.inner-wrapper {
-									display: flex;
-
-									input {
-										flex-grow: 0;
-										margin-right: 5px;
-									}
-								}
-							}
-
-							.inner-wrapper {
-								display: flex;
-
-								input {
-									flex-grow: 1;
-								}
-							}
-						}
-					}
-
-					select {
-						padding: 10px;
-						max-width: 100%;
-					}
+					// content: "";
+					z-index: -1;
 				}
 
-				.list {
+				.cardlist {
 					position: relative;
+					z-index: 999;
 
-					&::before {
-						width: 300vw;
-						height: 100%;
-						background-color: $grey;
-						position: absolute;
-						right: -200vw;
-						top: 0;
+					ul {
+						list-style-type: none;
 
-						// content: "";
-						z-index: -1;
+						li.card {
+							padding: 15px;
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							flex-grow: 1;
+						}
 					}
 
-					.cardlist {
-						position: relative;
-						z-index: 999;
+					&#tulkintakortit {
+						ul.cards {
+							background-color: $white;
+							margin: 0;
+							padding: 0;
 
-						ul {
-							list-style-type: none;
+							li.parent {
+								>span.name {
+									background-color: $red;
+									color: $white;
+									border-radius: 5px;
+									border: 1px solid $white;
+									font-weight: 700;
+								}
 
-							li.card {
-								padding: 15px;
-								display: flex;
-								justify-content: space-between;
-								align-items: center;
-								flex-grow: 1;
-							}
-						}
+								ul.children {
+									margin: 0;
+									padding: 0;
 
-						&#tulkintakortit {
-							ul.cards {
-								background-color: $white;
-								margin: 0;
-								padding: 0;
+									li.child {
+										>span.name {
+											color: $black;
+											background-color: $paper;
+											border-radius: 5px;
+											border: 1px solid $white;
+										}
 
-								li.parent {
-									>span.name {
-										background-color: $red;
-										color: $white;
-										border-radius: 5px;
-										border: 1px solid $white;
-										font-weight: 700;
-									}
+										ul.grandchildren {
+											padding: 0 15px;
 
-									ul.children {
-										margin: 0;
-										padding: 0;
-
-										li.child {
-											>span.name {
-												color: $black;
-												background-color: $paper;
-												border-radius: 5px;
-												border: 1px solid $white;
-											}
-
-											ul.grandchildren {
-												padding: 0 15px;
-
-												li.card {
-													padding: 15px;
-												}
+											li.card {
+												padding: 15px;
 											}
 										}
 									}
 								}
 							}
 						}
+					}
 
-						&#ohjekortit,
-						&#lomakekortit {
-							ul.cards {
-								margin: 0;
-								padding: 0;
+					&#ohjekortit,
+					&#lomakekortit {
+						ul.cards {
+							margin: 0;
+							padding: 0;
 
-								li.parent {
-									>span.name {
-										color: $black;
-										background-color: $paper;
-										border-radius: 5px;
-										border: 1px solid $white;
-									}
+							li.parent {
+								>span.name {
+									color: $black;
+									background-color: $paper;
+									border-radius: 5px;
+									border: 1px solid $white;
+								}
 
-									ul.children {
-										padding: 0 15px;
+								ul.children {
+									padding: 0 15px;
 
-										li.card {
-											padding: 15px;
-										}
+									li.card {
+										padding: 15px;
 									}
 								}
 							}
 						}
 					}
-
-					span.name {
-						display: block;
-						padding: 15px;
-					}
-
-					.title {
-						display: block;
-						padding: 15px;
-						margin: 0 !important;
-						background-color: $red;
-						color: $white;
-						font-weight: 500;
-						font-size: 2.4rem;
-						border-radius: 5px;
-					}
-
-					.parent {
-
-
-					}
-
-					@include buttons;
 				}
+
+				span.name {
+					display: block;
+					padding: 15px;
+				}
+
+				.title {
+					display: block;
+					padding: 15px;
+					margin: 0 !important;
+					background-color: $red;
+					color: $white;
+					font-weight: 500;
+					font-size: 2.4rem;
+					border-radius: 5px;
+				}
+
+				.parent {
+
+
+				}
+
+				@include buttons;
 			}
 		}
 	}

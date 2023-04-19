@@ -1,16 +1,25 @@
 jQuery(document).ready(($) => {
+	/**
+	 * Mobiilimenun avaus
+	 */
 	$('#open-mobile-menu').on('click', () => {
 		$('#mobile-navigation').fadeIn(300);
 
 		$('body').addClass('disable-scroll');
 	});
 
+	/**
+	 * Mobiilimenun sulkeminen
+	 */
 	$('#close-mobile-menu').on('click', () => {
 		$('#mobile-navigation').fadeOut(300);
 
 		$('body').removeClass('disable-scroll');
 	});
 
+	/**
+	 * Alavalikon avaus
+	 */
 	$('#primary-menu li.menu-item-has-children > a').on('click', function (event) {
 		event.preventDefault();
 
@@ -48,7 +57,7 @@ jQuery(document).ready(($) => {
 	});
 
 	/**
-	 * Navigaation korkeus
+	 * Asettaa navigaation korkeuden CSS-muuttujaan --navbar-height
 	 */
 	function setNavbarHeight() {
 		const navbar = $('.site-header').height();
@@ -56,8 +65,10 @@ jQuery(document).ready(($) => {
 		$(':root').css('--navbar-height', `${navbar}px`);
 	}
 
+	// Asetetaan korkeus heti sivun latauksen jälkeen
 	setNavbarHeight();
 
+	// Asetetaan korkeus myös ikkunan koon muuttuessa
 	$(window).resize(() => {
 		setNavbarHeight();
 	});

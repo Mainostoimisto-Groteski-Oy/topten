@@ -74,32 +74,55 @@ if ( 'newest' === $articles_type ) {
 							<?php
 							// Poimitaan oliosta tarvittavat tiedot
 							$id               = $post->ID;
-							$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
-							$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
-							$title            = esc_html( $post->post_title );
+							$identifier_start = get_field( 'identifier_start', $id );
+							$identifier_end   = get_field( 'identifier_end', $id );
+							$title            = $post->post_title;
 							$type             = get_post_type( $id );
-							$version          = esc_html( get_field( 'version', $id ) );
-							$modified         = date( 'j.n.Y', strtotime( esc_html( $post->post_modified ) ) );
-							$link             = esc_url( get_permalink( $id ) );
+							$version          = get_field( 'version', $id );
+							$modified         = date( 'j.n.Y', strtotime( $post->post_modified ) );
+							$link             = get_permalink( $id );
 							$summary          = get_field( 'edit_summary', $id );
 							?>
-							<span class="type"><?php echo $type; ?></span>
+
+							<span class="type">
+								<?php echo esc_html( $type ); ?>
+							</span>
+
 							<div class="top">
 								<div class="identifier">
-									<span class="start"><?php echo $identifier_start; ?></span>
-									<span class="end"><?php echo $identifier_end; ?></span>
+									<span class="start">
+										<?php echo esc_html( $identifier_start ); ?>
+									</span>
+
+									<span class="end">
+										<?php echo esc_html( $identifier_end ); ?>
+									</span>
 								</div>
-								<span class="version"><?php echo $version; ?></span>
-							</div>
-							<h2 class="title h4"><?php echo $title; ?></h2>
-							<span class="modified"><?php echo $modified; ?></span>
-							<div class="buttons">
-								<a class="button" href="<?php echo $link; ?>"><?php esc_html_e( 'Siirry korttiin', 'topten' ); ?></a>
-							</div>
-							<div class="bottom">
-								<p><?php echo $summary; ?></p>
+
+								<span class="version">
+									<?php echo esc_html( $version ); ?>
+								</span>
 							</div>
 
+							<h2 class="title h4">
+								<?php echo esc_html( $title ); ?>
+							</h2>
+
+							<span class="modified">
+								<?php echo esc_html( $modified ); ?>
+							</span>
+
+							<div class="buttons">
+								<a class="button" href="<?php echo esc_url( $link ); ?>">
+									<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
+								</a>
+							</div>
+
+							<div class="bottom">
+								<p>
+									<?php echo esc_html( $summary ); ?>
+								</p>
+							</div>
 						</div>
 				<?php endforeach; ?>
 

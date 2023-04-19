@@ -33,277 +33,308 @@ $cards = get_posts(
 		),
 	),
 );
+
+// Haetaan kaikki lait
+$laws = get_terms(
+	'laki',
+	array(
+		'hide_empty' => false,
+	)
+);
+
+// Ohjekortin kategoriat
+$ohje_terms = get_terms(
+	'ohje',
+	array(
+		'hide_empty' => false,
+	)
+);
+
+// Lomalomakkeen kategoriat
+$lomake_terms = get_terms(
+	'lomake',
+	array(
+		'hide_empty' => false,
+	)
+);
+
+if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
+	$terms = array_merge( $ohje_terms, $lomake_terms );
+} elseif ( ! empty( $ohje_terms ) ) {
+	$terms = $ohje_terms;
+} elseif ( ! empty( $lomake_terms ) ) {
+	$terms = $lomake_terms;
+} else {
+	$terms = array();
+}
 ?>
 
-	<main id="primary" class="site-main">
-		<?php
-		if ( ! is_front_page() ) :
-			?>
-			<section class="page-title">
-				<div class="grid">
-					<?php the_title( '<h1 class="entry-title h3">', '</h1>' ); ?>
+<main id="primary" class="site-main">
+	<section class="page-title">
+		<div class="grid">
+			<h1 class="entry-title h3">
+				<?php the_title(); ?>
+			</h1>
+		</div>
+	</section>
+
+	<?php topten_breadcrumbs(); ?>
+
+	<section class="cards">
+		<div class="grid">
+			<div class="search" id="searchCards">
+				<div class="full">
+					<div class="input-wrapper keywords">
+						<label for="cardKeywords">
+							<?php esc_html_e( 'Suodata kortteja asiasanan mukaan', 'topten' ); ?>
+						</label>
+
+						<div class="inner-wrapper">
+							<input type="text"
+								name="cardKeywords"
+								id="cardKeywords"
+								placeholder="<?php esc_html_e( 'Alkaa kirjaimilla', 'topten' ); ?>..."/>
+							<button type="submit" name="keywordSearch" role="search">
+								<?php esc_html_e( 'Hae asiasanalla', 'topten' ); ?>
+							</button>
+						</div>
+					</div>
+
+					<div class="keywords" id="selectedKeywords"></div>
 				</div>
-			</section>
 
-			<?php
-			// Yoast SEO pluginin tarjoama murupolku, tarkistetaan ensin että plugin on päällä function_exists -funktiolla
-			if ( function_exists( 'yoast_breadcrumb' ) ) :
-				?>
-				<section class="page-breadcrumbs">
-					<div class="grid">
-						<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
-					</div>
-				</section>
-			<?php endif; ?>
-		<?php endif; ?>
-		<section class="cards">
-			<div class="grid">
-				<div class="search" id="searchCards">
-					<div class="full">
-						<div class="input-wrapper keywords">
-							<label for="cardKeywords">Suodata kortteja asiasanan mukaan</label>
-							<div class="inner-wrapper">
-								<input type="text" name="cardKeywords" id="cardKeywords" placeholder="Alkaa kirjaimilla.."/><button type="submit" name="keywordSearch" role="search">Hae asiasanalla</button>
-							</div>
-						</div>
-						<div class="keywords" id="selectedKeywords">
+				<div class="one-third">
+					<label for="cardMunicipality">
+						<?php esc_html_e( 'Suodata kortteja kunnan mukaan', 'topten' ); ?>
+					</label>
 
-						</div>
+					<div class="inner-wrapper">
+						<input type="text"
+							name="cardMunicipality"
+							id="cardMunicipality"
+							placeholder="Kirjoita kuntasi nimi tähän"/>
+
+						<button type="submit" name="municipalitySearch" role="search">
+							<?php esc_html_e( 'Lisää', 'topten' ); ?>
+						</button>
 					</div>
+
+					<p class="help">
+						<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
+					</p>
+
+					<div class="keywords" id="selectedMunicipalities"></div>
+				</div>
+
+				<?php if ( $laws ) : ?>
 					<div class="one-third">
-						<label for="cardMunicipality">Suodata kortteja kunnan mukaan</label>
-						<div class="inner-wrapper">
-							<input type="text" name="cardMunicipality" id="cardMunicipality" placeholder="Kirjoita kuntasi nimi tähän"/><button type="submit" name="municipalitySearch" role="search">Lisää</button>
-						</div>
-						<label>Erota kunnat pilkulla</label>
-						<div class="keywords" id="selectedMunicipalities">
+						<label for="cardLaw">
+							<?php esc_html_e( 'Suodata kortteja pykälän mukaan', 'topten' ); ?>
+						</label>
 
-
-						</div>
-					</div>
-					<div class="one-third">
-						<label for="cardLaw">Suodata kortteja pykälän mukaan</label>
 						<div class="inner-wrapper">
-							<?php $terms = get_terms( 'laki', array( 'hide_empty' => false ) ); ?>
 							<select name="cardLaw" id="cardLaw">
-								<?php foreach ( $terms as $term ) : ?>
-									<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+								<?php foreach ( $laws as $law ) : ?>
+									<option value="<?php echo esc_attr( $law->term_id ); ?>">
+										<?php echo esc_html( $law->name ); ?>
+									</option>
 								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
+				<?php endif; ?>
+
+				<?php if ( $terms ) : ?>
 					<div class="one-third">
-						<label for="cardCategory">Suodata kortteja luokan mukaan</label>
+						<label for="cardCategory">
+							<?php esc_html_e( 'Suodata kortteja luokan mukaan', 'topten' ); ?>
+						</label>
+
 						<div class="inner-wrapper">
-							<?php
-							$terms1 = get_terms( 'ohje', array( 'hide_empty' => false ) );
-							$terms2 = get_terms( 'lomake', array( 'hide_empty' => false ) );
-							if ( ! empty( $terms1 ) && ! empty( $terms2 ) ) {
-								$terms = array_merge( $terms1, $terms2 );
-							}
-							?>
 							<select name="cardCategory" id="cardCategory">
 								<?php foreach ( $terms as $term ) : ?>
-									<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+									<option value="<?php echo esc_attr( $term->term_id ); ?>">
+										<?php echo esc_html( $term->name ); ?>
+									</option>
 								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
-				</div>
-				<div class="filters" id="filterCards">
-					<div class="half">
-						<div class="input-wrapper">
-							<label for="filterOrder">Järjestä korttiluettelo</label>
-							<select name="filterOrder" id="filterOrder">
-								<option value="identifier">Tunnisteen mukaan</option>
-								<option value="pubDate">Julkaisuajankohdan mukaan</option>
-								<option value="alphabetical">Aakkosjärjestys</option>
-							</select>
-						</div>
-					</div>
-					<div class="half">
-						<div class="input-wrapper horizontal">
-							<label for="filterType">Näytä vain</label>
-							<div class="inner-wrapper">
-								<input type="checkbox" name="cardTulkinta" id="cardTulkinta" checked />
-								<span class="post-type">Tulkintakortit</span>
-							</div>
-							<div class="inner-wrapper">
-								<input type="checkbox" name="cardOhje" id="cardOhje" checked />
-								<span class="post-type">Ohjekortit</span>
-							</div>
-							<div class="inner-wrapper">
-								<input type="checkbox" name="cardLomake" id="cardLomake" checked />
-								<span class="post-type">Lomakekortit</span>
-							</div>
-						</div>
+				<?php endif; ?>
+			</div>
+
+			<div class="filters" id="filterCards">
+				<div class="half">
+					<div class="input-wrapper">
+						<label for="filterOrder">
+							<?php esc_html_e( 'Järjestä korttiluettelo', 'topten' ); ?>
+						</label>
+
+						<select name="filterOrder" id="filterOrder">
+							<option value="identifier">
+								<?php esc_html_e( 'Tunnisteen mukaan', 'topten' ); ?>
+							</option>
+
+							<option value="pubDate">
+								<?php esc_html_e( 'Julkaisuajankohdan mukaan', 'topten' ); ?>
+							</option>
+
+							<option value="alphabetical">
+								<?php esc_html_e( 'Aakkosjärjestys', 'topten' ); ?>
+							</option>
+						</select>
 					</div>
 				</div>
-				<div class="list" id="listCards">
-					<div class="cardlist" id="tulkintakortit">
-						<h2 class="h4 title">Tulkintakortit</h2>
-						<?php $terms = get_terms( 'laki', array( 'hide_empty' => false ) ); ?>
-						<ul class="cards">
-							<?php
-							foreach ( $terms as $term ) :
-								if ( $term->parent === 0 ) :
-									$children = get_term_children( $term->term_id, 'laki' );
-									?>
-									<li class="parent"> <span class="name"><?php echo esc_html( $term->name ); ?> </span>
-									<ul class="children">
-									<?php
-									foreach ( $children as $child ) :
-										$child = get_term( $child );
-										?>
 
-										<li class="child"> <span class="name"><?php echo esc_html( $child->name ); ?> </span>
-											<ul class="grandchildren">
-											<?php
-											foreach ( $cards as $card ) :
-												if ( 'tulkintakortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'laki', $child->name ) ) :
-													$id               = $card->ID;
-													$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
-													$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
-													$title            = esc_html( $card->post_title );
-													$type             = get_post_type( $id );
-													$version          = esc_html( get_field( 'version', $id ) );
-													$modified         = date( 'j.n.Y', strtotime( esc_html( $card->post_modified ) ) );
-													$link             = esc_url( get_permalink( $id ) );
-													?>
-													<li class="card">
-														<div class="ident">
-															<span class="start"><?php echo $identifier_start; ?></span>
-															<span class="end"><?php echo $identifier_end; ?></span>
-														</div>
-														<span class="version">
-															<?php echo $version; ?>
-														</span>
-														<span class="card-title">
-															<?php echo $title; ?>
-														</span>
-														<div class="languages">
-															<a href="" class="fi">Fi</a>
-															<a href="" class="se">Se</a>
-														</div>
-														<div class="buttons">
-															<a class="button" href="<?php echo $link; ?>"><?php esc_html_e( 'Siirry korttiin', 'topten' ); ?></a>
-														</div>
-													</li>
-												<?php endif; ?>
-											<?php endforeach; ?>
-											</ul></li>
-										<?php
+				<div class="half">
+					<div class="input-wrapper horizontal">
+						<label for="filterType">
+							<?php esc_html_e( 'Näytä vain', 'topten' ); ?>
+						</label>
 
-									endforeach;
-									?>
-									</ul></li>
-									<?php
-								endif;
-							endforeach;
-							?>
-						</ul>
-					</div>
-					<div class="cardlist" id="ohjekortit">
-						<h2 class="h4 title">Ohjekortit</h2>
-						<?php $terms = get_terms( 'ohje', array( 'hide_empty' => false ) ); ?>
-						<ul class="cards">
-							<?php
-							foreach ( $terms as $term ) :
-								?>
-									<li class="parent"> <span class="name"><?php echo esc_html( $term->name ); ?> </span>
-									<ul class="children">
-										<?php
-										foreach ( $cards as $card ) :
-											if ( 'ohjekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
-												$id               = $card->ID;
-												$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
-												$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
-												$title            = esc_html( $card->post_title );
-												$type             = get_post_type( $id );
-												$version          = esc_html( get_field( 'version', $id ) );
-												$modified         = date( 'j.n.Y', strtotime( esc_html( $card->post_modified ) ) );
-												$link             = esc_url( get_permalink( $id ) );
-												?>
-												<li class="card">
-													<div class="ident">
-														<span class="start"><?php echo $identifier_start; ?></span>
-														<span class="end"><?php echo $identifier_end; ?></span>
-													</div>
-													<span class="version">
-														<?php echo $version; ?>
-													</span>
-													<span class="card-title">
-														<?php echo $title; ?>
-													</span>
-													<div class="languages">
-														<a href="" class="fi">Fi</a>
-														<a href="" class="se">Se</a>
-													</div>
-													<div class="buttons">
-														<a class="button" href="<?php echo $link; ?>"><?php esc_html_e( 'Siirry korttiin', 'topten' ); ?></a>
-													</div>
-												</li>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									</ul></li>
-								<?php
-							endforeach;
-							?>
-						</ul>
-					</div>
-					<div class="cardlist" id="lomakekortit">
-						<h2 class="h4 title">Lomakekortit</h2>
-						<?php $terms = get_terms( 'lomake', array( 'hide_empty' => false ) ); ?>
-						<ul class="cards">
-							<?php
-							foreach ( $terms as $term ) :
-								?>
-									<li class="parent"> <span class="name"><?php echo esc_html( $term->name ); ?> </span>
-									<ul class="children">
-										<?php
-										foreach ( $cards as $card ) :
-											if ( 'lomakekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'lomake', $term->name ) ) :
-												$id               = $card->ID;
-												$identifier_start = esc_html( get_field( 'identifier_start', $id ) );
-												$identifier_end   = esc_html( get_field( 'identifier_end', $id ) );
-												$title            = esc_html( $card->post_title );
-												$type             = get_post_type( $id );
-												$version          = esc_html( get_field( 'version', $id ) );
-												$modified         = date( 'j.n.Y', strtotime( esc_html( $card->post_modified ) ) );
-												$link             = esc_url( get_permalink( $id ) );
-												?>
-												<li class="card">
-													<div class="ident">
-														<span class="start"><?php echo $identifier_start; ?></span>
-														<span class="end"><?php echo $identifier_end; ?></span>
-													</div>
-													<span class="version">
-														<?php echo $version; ?>
-													</span>
-													<span class="card-title">
-														<?php echo $title; ?>
-													</span>
-													<div class="languages">
-														<a href="" class="fi">Fi</a>
-														<a href="" class="se">Se</a>
-													</div>
-													<div class="buttons">
-														<a class="button" href="<?php echo $link; ?>"><?php esc_html_e( 'Siirry korttiin', 'topten' ); ?></a>
-													</div>
-												</li>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									</ul></li>
-								<?php
-							endforeach;
-							?>
-						</ul>
+						<div class="inner-wrapper">
+							<label for="cardTulkinta">
+								<input type="checkbox"
+									name="cardTulkinta"
+									id="cardTulkinta"
+									value="tulkintakortti"
+									checked />
+
+								<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
+							</label>
+						</div>
+
+						<div class="inner-wrapper">
+							<label for="cardOhje">
+								<input type="checkbox"
+									name="cardOhje"
+									id="cardOhje"
+									value="ohjekortti"
+									checked />
+
+								<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
+							</label>
+						</div>
+
+						<div class="inner-wrapper">
+							<label for="cardLomake">
+								<input type="checkbox"
+									name="cardLomake"
+									id="cardLomake"
+									value="lomakekortti"
+									checked />
+
+								<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
+							</label>
+						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-		<?php the_content(); ?>
-	</main>
-<?php get_footer(); ?>
 
+			<div class="list" id="listCards">
+				<div class="cardlist" id="tulkintakortit">
+					<h2 class="h4 title">
+						<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
+					</h2>
 
+					<ul class="cards">
+						<?php foreach ( $laws as $index => $law ) : ?>
+							<?php
+							if ( 0 !== $law->parent ) :
+								continue;
+							endif;
+							?>
+
+							<?php $children = get_term_children( $law->term_id, 'laki' ); ?>
+
+							<li class="parent">
+								<p class="name">
+									<?php echo esc_html( $law->name ); ?>
+								</p>
+
+								<ul class="children">
+									<?php foreach ( $children as $child ) : ?>
+										<?php $child = get_term_by( 'id', $child, 'laki' ); ?>
+
+										<li class="child">
+											<p class="name">
+												<?php echo esc_html( $child->name ); ?>
+											</p>
+
+											<ul class="grandchildren">
+												<?php
+												foreach ( $cards as $index => $card ) :
+													if ( 'tulkintakortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'laki', $child->name ) ) :
+														topten_get_card( $card );
+													endif;
+												endforeach;
+												?>
+											</ul>
+										</li>
+									<?php endforeach; ?>
+								</ul>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+
+				<div class="cardlist" id="ohjekortit">
+					<h2 class="h4 title">
+						<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
+					</h2>
+
+					<ul class="cards">
+						<?php foreach ( $ohje_terms as $term ) : ?>
+							<li class="parent">
+								<p class="name">
+									<?php echo esc_html( $term->name ); ?>
+								</p>
+
+								<ul class="children">
+									<?php
+									foreach ( $cards as $card ) :
+										if ( 'ohjekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
+											topten_get_card( $card );
+										endif;
+									endforeach;
+									?>
+								</ul>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+
+				<div class="cardlist" id="lomakekortit">
+					<h2 class="h4 title">
+						<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
+					</h2>
+
+					<ul class="cards">
+						<?php foreach ( $lomake_terms as $term ) : ?>
+							<li class="parent">
+								<p class="name">
+									<?php echo esc_html( $term->name ); ?>
+								</p>
+
+								<ul class="children">
+									<?php
+									foreach ( $cards as $card ) :
+										if ( 'ohjekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
+											topten_get_card( $card );
+										endif;
+									endforeach;
+									?>
+								</ul>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<?php the_content(); ?>
+</main>
+
+<?php
+get_footer();

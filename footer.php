@@ -28,7 +28,7 @@ $columns = array( 'left', 'middle', 'right' );
 
 		<div class="grid">
 			<?php foreach ( $columns as $column ) : ?>
-				<div class="footer <?php echo $column; ?>">
+				<div class="footer <?php echo esc_attr( $column ); ?>">
 					<?php
 					if ( get_field( 'footer_' . $column, 'options' ) ) {
 						the_field( 'footer_' . $column, 'options' );
