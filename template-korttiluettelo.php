@@ -56,11 +56,31 @@ $cards = get_posts(array(
 		<section class="cards">
 			<div class="grid">
 				<div class="search" id="searchCards">
+				<div class="full">
+						<div class="input-wrapper freeText">
+							<label for="freeText"><?php pll_e('Vapaa haku'); ?></label>
+							<div class="inner-wrapper">
+								<input type="text" name="freeText" id="freeText" placeholder="Alkaa kirjaimilla.."/><button type="submit" class="searchTrigger" name="textSearch" id="textSearch" role="search">Hae</button>
+							</div>
+						</div>
+					</div>
 					<div class="full">
 						<div class="input-wrapper keywords">
-							<label for="cardKeywords">Suodata kortteja asiasanan mukaan</label>
+							<label for="cardKeywords"><?php pll_e('Suodata kortteja asiasanan mukaan'); ?></label>
 							<div class="inner-wrapper">
-								<input type="text" name="cardKeywords" id="cardKeywords" placeholder="Alkaa kirjaimilla.."/><button type="submit" name="keywordSearch" role="search">Hae asiasanalla</button>
+								<input type="text" name="cardKeywords" id="cardKeywords" placeholder="Alkaa kirjaimilla.."/><button type="submit" class="searchTrigger" name="keywordSearch" id="keywordSearch" role="search">Hae asiasanalla</button>
+							</div>
+							<span class="small"><?php pll_e('Erota asiasanat pilkulla'); ?></span>
+						</div>
+						<div class="keywords" id="selectedKeywords">
+							
+						</div>
+					</div>
+					<div class="full">
+						<div class="input-wrapper dateRange">
+							<label for="cardDateStart"><?php pll_e('Suodata kortteja laatimisajan mukaan'); ?></label>
+							<div class="inner-wrapper date">
+								<input type="date" name="cardDateStart" id="cardDateStart"/> - <input type="date" name="cardDateEnd" id="cardDateEnd"/><button type="submit" class="searchTrigger" name="cardDateRange" id="cardDateRange" role="search">Rajaa</button>
 							</div>
 						</div>
 						<div class="keywords" id="selectedKeywords">
@@ -68,21 +88,22 @@ $cards = get_posts(array(
 						</div>
 					</div>
 					<div class="one-third">
-						<label for="cardMunicipality">Suodata kortteja kunnan mukaan</label>
+						<label for="cardMunicipality"><?php pll_e('Suodata kortteja kunnan mukaan'); ?></label>
 						<div class="inner-wrapper">
-							<input type="text" name="cardMunicipality" id="cardMunicipality" placeholder="Kirjoita kuntasi nimi tähän"/><button type="submit" name="municipalitySearch" role="search">Lisää</button>
+							<input type="text" name="cardMunicipality" id="cardMunicipality" placeholder="Kirjoita kuntasi nimi tähän"/><button type="submit" class="searchTrigger" name="municipalitySearch" id="municipalitySearch" role="search">Lisää</button>
 						</div>
-						<label>Erota kunnat pilkulla</label>
+						<span class="small"><?php pll_e('Erota kunnat pilkulla'); ?></span>
 						<div class="keywords" id="selectedMunicipalities">
 						
 
 						</div>
 					</div>
 					<div class="one-third">
-						<label for="cardLaw">Suodata kortteja pykälän mukaan</label>
+						<label for="cardLaw"><?php pll_e('Suodata kortteja pykälän mukaan'); ?></label>
 						<div class="inner-wrapper">
 							<?php $terms = get_terms( 'laki', array( 'hide_empty' => false ) ); ?>
-							<select name="cardLaw" id="cardLaw">
+							<select class="searchTrigger" name="cardLaw" id="cardLaw">
+								<option value="" disabled selected>Valitse</option>
 								<?php foreach ($terms as $term) : ?>
 									<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
 								<?php endforeach; ?>
@@ -99,7 +120,8 @@ $cards = get_posts(array(
 								$terms = array_merge($terms1, $terms2);
 							}
 							?>
-							<select name="cardCategory" id="cardCategory">
+							<select class="searchTrigger" name="cardCategory" id="cardCategory">
+								<option value="" disabled selected>Valitse</option>
 								<?php foreach ($terms as $term) : ?>
 									<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
 								<?php endforeach; ?>
@@ -110,35 +132,35 @@ $cards = get_posts(array(
 				<div class="filters" id="filterCards">
 					<div class="half">
 						<div class="input-wrapper">
-							<label for="filterOrder">Järjestä korttiluettelo</label>
-							<select name="filterOrder" id="filterOrder">
-								<option value="identifier">Tunnisteen mukaan</option>
-								<option value="pubDate">Julkaisuajankohdan mukaan</option>
-								<option value="alphabetical">Aakkosjärjestys</option>
+							<label for="filterOrder"><?php pll_e('Järjestä korttiluettelo'); ?></label>
+							<select class="filterTrigger" name="filterOrder" id="filterOrder">
+								<option value="identifier"><?php pll_e('Tunnisteen mukaan'); ?></option>
+								<option value="pubDate"><?php pll_e('Julkaisuajankohdan mukaan'); ?></option>
+								<option value="alphabetical"><?php pll_e('Aakkosjärjestys'); ?></option>
 							</select>
 						</div>
 					</div>
 					<div class="half">
 						<div class="input-wrapper horizontal">
-							<label for="filterType">Näytä vain</label>
+							<label for="filterType"><?php pll_e('Näytä vain'); ?></label>
 							<div class="inner-wrapper">
-								<input type="checkbox" name="cardTulkinta" id="cardTulkinta" checked />
-								<span class="post-type">Tulkintakortit</span>
+								<input class="filterTrigger" type="checkbox" name="cardTulkinta" id="cardTulkinta" checked />
+								<span class="post-type"><?php pll_e('Tulkintakortit'); ?></span>
 							</div>
 							<div class="inner-wrapper">
-								<input type="checkbox" name="cardOhje" id="cardOhje" checked />
-								<span class="post-type">Ohjekortit</span>
+								<input class="filterTrigger" type="checkbox" name="cardOhje" id="cardOhje" checked />
+								<span class="post-type"><?php pll_e('Ohjekortit'); ?></span>
 							</div>
 							<div class="inner-wrapper">
-								<input type="checkbox" name="cardLomake" id="cardLomake" checked />
-								<span class="post-type">Lomakekortit</span>
+								<input class="filterTrigger" type="checkbox" name="cardLomake" id="cardLomake" checked />
+								<span class="post-type"><?php pll_e('Lomakekortit'); ?></span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="list" id="listCards">
 					<div class="cardlist" id="tulkintakortit">
-						<h2 class="h4 title">Tulkintakortit</h2>
+						<h2 class="h4 title"><?php pll_e('Tulkintakortit'); ?></h2>
 						<?php $terms = get_terms( 'laki', array( 'hide_empty' => false ) ); ?>
 						<ul class="cards">
 							<?php
@@ -198,7 +220,7 @@ $cards = get_posts(array(
 						</ul>
 					</div>
 					<div class="cardlist" id="ohjekortit">
-						<h2 class="h4 title">Ohjekortit</h2>
+						<h2 class="h4 title"><?php pll_e('Ohjekortit'); ?></h2>
 						<?php $terms = get_terms( 'ohje', array( 'hide_empty' => false ) ); ?>
 						<ul class="cards">
 							<?php
@@ -245,7 +267,7 @@ $cards = get_posts(array(
 						</ul>
 					</div>
 					<div class="cardlist" id="lomakekortit">
-						<h2 class="h4 title">Lomakekortit</h2>
+						<h2 class="h4 title"><?php pll_e('Lomakekortit'); ?></h2>
 						<?php $terms = get_terms( 'lomake', array( 'hide_empty' => false ) ); ?>
 						<ul class="cards"> 
 							<?php

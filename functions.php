@@ -186,14 +186,22 @@ function topten_scripts() {
 
 	wp_enqueue_script( 'topten', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
-	wp_localize_script(
+	/*wp_localize_script(
 		'topten',
 		'Ajax',
 		array(
 			'url'   => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( 'nonce' ),
 		)
+	); */
+
+	$scripts = array(
+		'topten_card_search',
 	);
+
+    foreach ( $scripts as $script ) {
+		wp_localize_script( 'topten', $script, array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'ajax-nonce' )) );
+	}
 
 	wp_localize_script(
 		'topten',
@@ -703,3 +711,37 @@ function topten_login_logo_url_title() {
 }
 
 add_filter( 'login_headertext', 'topten_login_logo_url_title' );
+
+
+function topten_card_search() {
+	$nonce = $_POST['nonce'];
+	if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+		die( 'Nonce value cannot be verified.' );
+    }
+	if($_REQUEST['freeText']) {
+		$s = wp_kses($_REQUEST['freeText'], '', '');
+	}
+	if($_REQUEST['cardKeywords']) {
+		$keywords = explode( ',', sanitize_text_field( $_REQUEST['cardKeywords'] ) );
+	}
+	var_dump($_REQUEST);
+	/*
+	const freeText = $('#freeText').val();
+		const cardKeywords = $('#cardKeywords').val();
+		const cardMunicipality = $('#cardMunicipality').val();
+		const cardLaw = $('#cardLaw').val();
+		const cardCategory = $('#cardCategory').val();
+		const filterOrder = $('#filterOrder').val();
+		const cardTulkinta = $('#cardTulkinta').is(':checked');
+		const cardDateStart = $('#cardDateStart').val();
+		const cardDateEnd = $('#cardDateEnd').val();
+		const cardOhje = $('#cardOhje').is(':checked');
+		const cardLomake = $('#cardLomake').is(':checked');
+	*/
+	// Tähän tulee ihan vitun kevyt query :DDD:D
+	wp_die();
+}
+
+
+add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
+add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
