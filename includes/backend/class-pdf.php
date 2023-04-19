@@ -216,6 +216,7 @@ class Topten_PDF extends FPDFA {
 			// Todo: Lisää numeroitu lista
 			if ( 'ol' === $list_type ) {
 				// Jos listan tyyppi on numeroitu, lisätään numero
+				$char = '1.'; // todo
 			} else {
 				// Muuten lisätään bullet
 				$char = chr( 149 );
