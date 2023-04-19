@@ -3,7 +3,7 @@
 /**
  * Topten REST API
  */
-class Topten_REST {
+class Topten_REST extends Topten {
 	/**
 	 * REST API namespace
 	 *
@@ -23,7 +23,7 @@ class Topten_REST {
 	 */
 	public function init_rest_api() {
 		add_action(
-			'rest_api_init', 
+			'rest_api_init',
 			function() {
 				register_rest_route(
 					$this->namespace,
@@ -34,7 +34,7 @@ class Topten_REST {
 						'permission_callback' => '__return_true',
 					),
 				);
-			} 
+			}
 		);
 	}
 

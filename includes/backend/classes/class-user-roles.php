@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Käyttäjäroolit
  */
-class Topten_User_Roles {
+class Topten_User_Roles extends Topten {
 	/**
 	 * Class constructor
 	 */
