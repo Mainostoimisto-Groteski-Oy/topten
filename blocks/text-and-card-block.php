@@ -48,13 +48,15 @@
 			<div class="card-container">
 				<?php
 				// Poimitaan oliosta tarvittavat tiedot
-				$id               = $post->ID;
+				// Tässä tapauksessa haetaan vain yksi kortti joten se on aina 0
+				$card             = $card[0];
+				$id               = $card->ID;
 				$identifier_start = get_field( 'identifier_start', $id );
 				$identifier_end   = get_field( 'identifier_end', $id );
-				$title            = $post->post_title;
+				$title            = $card->post_title;
 				$type             = get_post_type( $id );
 				$version          = get_field( 'version', $id );
-				$modified         = date( 'j.n.Y', strtotime( $post->post_modified ) );
+				$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
 				$link             = get_permalink( $id );
 				$summary          = get_field( 'edit_summary', $id );
 				?>
