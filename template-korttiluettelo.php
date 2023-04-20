@@ -49,6 +49,7 @@ $categories = get_terms(
 		'hide_empty' => false,
 	)
 );
+
 ?>
 
 <main id="primary" class="site-main">
@@ -63,167 +64,157 @@ $categories = get_terms(
 	<?php topten_breadcrumbs(); ?>
 
 	<section class="cards">
-		<div class="grid">
-			<div class="search" id="searchCards">
-				<div class="full">
-					<div class="input-wrapper freeText">
-						<label for="freeText">
-							<?php esc_html_e( 'Vapaa haku', 'topten' ); ?>
-						</label>
+		<div class="grid top">
+			<div class="content-area">
+				<div class="search" id="searchCards">
+					<div class="full">
+						<div class="input-wrapper freeText">
+							<label for="freeText">
+								<?php esc_html_e( 'Vapaa haku', 'topten' ); ?>
+							</label>
 
-						<div class="inner-wrapper">
-							<input type="text"
-								name="freeText"
-								id="freeText"
-								placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
+							<div class="inner-wrapper">
+								<input type="text"
+									name="freeText"
+									id="freeText"
+									placeholder="<?php esc_html_e( 'Avoin tekstihaku', 'topten' ); ?>" />
 
-							<button type="submit"
-								class="searchTrigger"
-								name="textSearch"
-								id="textSearch">
-								<?php esc_html_e( 'Hae', 'topten' ); ?>
-							</button>
-						</div>
-					</div>
-				</div>
+								<button type="submit"
+									class="searchTrigger"
+									name="textSearch"
+									id="textSearch">
+									<?php esc_html_e( 'Hae', 'topten' ); ?>
+								</button>
+							</div>
 
-				<div class="full">
-					<div class="input-wrapper keywords">
-						<label for="cardKeywords">
-							<?php esc_html_e( 'Suodata kortteja asiasanan mukaan', 'topten' ); ?>
-						</label>
-
-						<div class="inner-wrapper">
-							<input type="text"
-								name="cardKeywords"
-								id="cardKeywords"
-								placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
-
-							<button type="submit"
-								class="searchTrigger"
-								name="keywordSearch"
-								id="keywordSearch" >
-								<?php esc_html_e( 'Hae asiasanalla', 'topten' ); ?>
-							</button>
-						</div>
-
-						<small class="small">
-							<?php esc_html_e( 'Erota asiasanat pilkulla', 'topten' ); ?>
-						</small>
-					</div>
-
-					<ul class="keywords" id="selectedKeywords"></ul>
-				</div>
-
-				<div class="full">
-					<div class="input-wrapper dateRange">
-						<label for="cardDateStart">
-							<?php esc_html_e( 'Suodata kortteja laatimisajan mukaan', 'topten' ); ?>
-						</label>
-
-						<div class="inner-wrapper date">
-							<input type="date" name="cardDateStart" id="cardDateStart"/> - <input type="date" name="cardDateEnd" id="cardDateEnd"/>
-
-							<button type="submit"
-								class="searchTrigger"
-								name="cardDateRange"
-								id="cardDateRange">
-								<?php esc_html_e( 'Rajaa', 'topten' ); ?>
-							</button>
 						</div>
 					</div>
 
-					<ul class="keywords" id="selectedKeywords"></ul>
-				</div>
+					<div class="full">
+						<div class="input-wrapper keywords">
+							<label for="cardKeywords">
+								<?php esc_html_e( 'Suodata kortteja asiasanan mukaan', 'topten' ); ?>
+							</label>
 
-				<div class="one-third">
-					<label for="cardMunicipality">
-						<?php esc_html_e( 'Suodata kortteja kunnan mukaan', 'topten' ); ?>
-					</label>
+							<div class="inner-wrapper">
+								<input type="text"
+									name="cardKeywords"
+									id="cardKeywords"
+									placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
 
-					<div class="inner-wrapper">
-						<input type="text"
-							name="cardMunicipality"
-							id="cardMunicipality"
-							placeholder="<?php esc_html_e( 'Kirjoita kuntasi nimi tähän', 'topten' ); ?>" />
+								<button type="submit"
+									class="searchTrigger"
+									name="keywordSearch"
+									id="keywordSearch" >
+									<?php esc_html_e( 'Lisää', 'topten' ); ?>
+								</button>
+							</div>
 
-						<button type="submit"
-							class="searchTrigger"
-							name="municipalitySearch"
-							id="municipalitySearch" role="search">
-							<?php esc_html_e( 'Lisää', 'topten' ); ?>
-						</button>
+							<small class="small">
+								<?php esc_html_e( 'Erota asiasanat pilkulla', 'topten' ); ?>
+							</small>
+						</div>
+
+						
+
+					</div>
+					
+
+					<div class="full">
+						<div class="input-wrapper keywords">
+							<label for="cardMunicipality">
+								<?php esc_html_e( 'Suodata kortteja kunnan mukaan', 'topten' ); ?>
+							</label>
+
+							<div class="inner-wrapper">
+								<input type="text"
+									name="cardMunicipality"
+									id="cardMunicipality"
+									placeholder="<?php esc_html_e( 'Kirjoita kuntasi nimi tähän', 'topten' ); ?>" />
+
+								<button type="submit"
+									class="searchTrigger"
+									name="municipalitySearch"
+									id="municipalitySearch" role="search">
+									<?php esc_html_e( 'Lisää', 'topten' ); ?>
+								</button>
+							</div>
+
+							<small class="small">
+								<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
+							</small>
+						</div>
+							
+				
+					
 					</div>
 
-					<small class="small">
-						<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
-					</small>
-
-					<ul class="keywords" id="selectedMunicipalities"></ul>
-
-					<div class="inner-wrapper">
-						<input type="text"
-							name="cardMunicipality"
-							id="cardMunicipality"
-							placeholder="Kirjoita kuntasi nimi tähän"/>
-
-						<button type="submit" name="municipalitySearch" role="search">
-							<?php esc_html_e( 'Lisää', 'topten' ); ?>
-						</button>
-					</div>
-
-					<p class="help">
-						<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
-					</p>
-
-					<ul class="keywords" id="selectedMunicipalities"></ul>
-				</div>
-
-				<?php if ( $laws ) : ?>
 					<div class="one-third">
-						<label for="cardLaw">
-							<?php esc_html_e( 'Suodata kortteja pykälän mukaan', 'topten' ); ?>
-						</label>
+						<div class="input-wrapper dateRange">
+							<label for="cardDateStart">
+								<?php esc_html_e( 'Suodata kortteja laatimisajan mukaan', 'topten' ); ?>
+							</label>
 
-						<div class="inner-wrapper">
-							<select class="searchTrigger" name="cardLaw" id="cardLaw">
-								<option value="" selected>
-									<?php esc_html_e( 'Valitse', 'topten' ); ?>
-								</option>
+							<div class="inner-wrapper date">
+								<input type="date" name="cardDateStart" id="cardDateStart"/> - <input type="date" name="cardDateEnd" id="cardDateEnd"/>
+							</div>
+						</div>
 
-								<?php foreach ( $laws as $law ) : ?>
-									<option value="<?php echo esc_attr( $law->term_id ); ?>">
-										<?php echo esc_html( $law->name ); ?>
+					</div>
+
+					<?php if ( $laws ) : ?>
+						<div class="one-third">
+							<label for="cardLaw">
+								<?php esc_html_e( 'Suodata kortteja pykälän mukaan', 'topten' ); ?>
+							</label>
+
+							<div class="inner-wrapper">
+								<select class="searchTrigger" name="cardLaw" id="cardLaw">
+									<option value="" selected>
+										<?php esc_html_e( 'Valitse', 'topten' ); ?>
 									</option>
-								<?php endforeach; ?>
-							</select>
+
+									<?php foreach ( $laws as $law ) : ?>
+										<option value="<?php echo esc_attr( $law->term_id ); ?>">
+											<?php echo esc_html( $law->name ); ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
 						</div>
-					</div>
-				<?php endif; ?>
+					<?php endif; ?>
 
-				<?php if ( $categories ) : ?>
-					<div class="one-third">
-						<label for="cardCategory">
-							<?php esc_html_e( 'Suodata kortteja luokan mukaan', 'topten' ); ?>
-						</label>
+					<?php if ( $categories ) : ?>
+						<div class="one-third">
+							<label for="cardCategory">
+								<?php esc_html_e( 'Suodata kortteja luokan mukaan', 'topten' ); ?>
+							</label>
 
-						<div class="inner-wrapper">
-							<select class="searchTrigger" name="cardCategory" id="cardCategory">
-								<option value="" disabled selected>
-									<?php esc_html_e( 'Valitse', 'topten' ); ?>
-								</option>
+							<div class="inner-wrapper">
+								<select class="searchTrigger" name="cardCategory" id="cardCategory">
+									<option value="" selected>
+										<?php esc_html_e( 'Valitse', 'topten' ); ?>
+									</option>
 
-								<?php foreach ( $categories as $category ) : ?>
-									<option value="<?php echo esc_attr( $term->term_id ); ?>">
-									<?php echo esc_attr( $term->name ); ?>
-								</option>
-								<?php endforeach; ?>
-							</select>
+									<?php foreach ( $categories as $category ) : ?>
+										<option value="<?php echo esc_attr( $category->term_id ); ?>">
+										<?php echo esc_html( $category->name ); ?>
+									</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
 						</div>
-					</div>
-				<?php endif; ?>
+					<?php endif; ?>
+				</div>
+			</div> <!-- end content area -->
+			
+			<div class="sidebar" id="cardSidebar">
+				<ul class="keywords" id="selectedKeywords"></ul>
+				<ul class="keywords" id="selectedMunicipalities"></ul>
 			</div>
+		</div><!-- end top grid -->
 
+		<div class="grid">
 			<div class="filters" id="filterCards">
 				<div class="half">
 					<div class="input-wrapper">
@@ -387,15 +378,17 @@ $categories = get_terms(
 
 					<ul class="cards">
 						<?php foreach ( $categories as $category ) : ?>
+
 							<li class="parent">
 								<p class="name">
-									<?php echo esc_html( $term->name ); ?>
+									<?php echo esc_html( $category->name ); ?>
 								</p>
 
 								<ul class="children">
 									<?php
 									foreach ( $cards as $card ) :
-										if ( 'ohjekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
+
+										if ( 'ohjekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) :
 											continue;
 										endif;
 
@@ -461,13 +454,13 @@ $categories = get_terms(
 						<?php foreach ( $categories as $category ) : ?>
 							<li class="parent">
 								<p class="name">
-									<?php echo esc_html( $term->name ); ?>
+									<?php echo esc_html( $category->name ); ?>
 								</p>
 
 								<ul class="children">
 									<?php
 									foreach ( $cards as $card ) :
-										if ( 'lomakekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'lomake', $term->name ) ) :
+										if ( 'lomakekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) :
 											continue;
 										endif;
 
@@ -524,6 +517,7 @@ $categories = get_terms(
 					</ul>
 				</div>
 			</div>
+			
 		</div>
 	</section>
 

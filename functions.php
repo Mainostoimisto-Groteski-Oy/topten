@@ -196,6 +196,7 @@ function topten_scripts() {
 		)
 	);
 
+	
 	wp_localize_script(
 		'topten',
 		'REST',
@@ -786,14 +787,57 @@ function topten_card_search() {
 		$args['s'] = $s;
 	}
 
-	// Avainsanat
-	$keywords = isset( $_POST['cardKeywords'] ) ? sanitize_text_field( $_POST['cardKeywords'] ) : '';
+	// Kunta
+	$municipality = isset( $_POST['cardMunicipality'] );
 
-	if ( $keywords ) {
-		// Todo: mikä on oikea taksonomia tälle?
+	if ( $municipality ) {
+		// sanitize array values
+		$municipality = array_map( 'sanitize_text_field', $municipality );
+
 		$args['tax_query'] = array(
 			array(
-				'taxonomy' => 'avainsana',
+				'taxonomy' => 'kunta',
+				'field'    => 'slug',
+				'terms'    => $municipality,
+			),
+		);
+	}
+
+	// Lakipykälä
+	$law = isset( $_POST['law'] ) ? sanitize_text_field( $_POST['law'] ) : '';
+
+	if ( $law ) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'laki',
+				'field'    => 'slug',
+				'terms'    => $law,
+			),
+		);
+	}
+
+	// Kategoria (ammattiala / vastuuryhmä)
+	$category = isset( $_POST['category'] ) ? sanitize_text_field( $_POST['category'] ) : '';
+
+	if ( $category ) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'kortin_kategoria',
+				'field'    => 'slug',
+				'terms'    => $category,
+			),
+		);
+	}
+	// Avainsanat
+	$keywords = isset( $_POST['cardKeywords'] );
+
+	if ( $keywords ) {
+		// Sanitize array values
+		$keywords = array_map( 'sanitize_text_field', $keywords );
+		
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'asiasanat',
 				'field'    => 'slug',
 				'terms'    => $keywords,
 			),
