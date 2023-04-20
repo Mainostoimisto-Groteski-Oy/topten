@@ -19,7 +19,8 @@
             "relevanssi_exclude": 0,
             "choices": {
                 "draft": "Luonnos",
-                "publish": "Julkaistu"
+                "publish": "Julkaistu",
+                "deleted": "Poistettu"
             },
             "default_value": false,
             "return_format": "array",
@@ -136,5 +137,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679042306
+    "modified": 1681900273
 }
