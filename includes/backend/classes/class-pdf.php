@@ -3,7 +3,7 @@
 
 require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
 
-define( 'FPDF_FONTPATH', get_template_directory() . '/fonts' ); // phpcs:ignore
+define( 'FPDF_FONTPATH', get_template_directory() . '/fonts/fpdf' ); // phpcs:ignore
 
 /**
  * Class createPDF
@@ -190,8 +190,6 @@ class Topten_PDF extends FPDFA {
 	 */
 	private function write_image( $data ) {
 		$tag = $data['tag'];
-
-		json_log( $data );
 	}
 
 	/**
@@ -218,6 +216,7 @@ class Topten_PDF extends FPDFA {
 			// Todo: Lisää numeroitu lista
 			if ( 'ol' === $list_type ) {
 				// Jos listan tyyppi on numeroitu, lisätään numero
+				$char = '1.'; // todo
 			} else {
 				// Muuten lisätään bullet
 				$char = chr( 149 );

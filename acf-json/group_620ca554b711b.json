@@ -126,6 +126,11 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/otsikko"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/taulukko"
             }
         ]
     ],
@@ -138,5 +143,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681213879
+    "modified": 1681817699
 }

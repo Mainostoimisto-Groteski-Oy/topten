@@ -1,6 +1,6 @@
 {
     "key": "group_64146a1056cbc",
-    "title": "Korttilohko: Kuva (kopio)",
+    "title": "Korttilohko: Teksti",
     "fields": [
         {
             "key": "field_64146a36091ab",
@@ -42,5 +42,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679059519
+    "modified": 1681805185
 }

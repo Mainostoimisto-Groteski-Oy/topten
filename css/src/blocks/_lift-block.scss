@@ -3,17 +3,18 @@
 section.lift-block {
 	@include buttons;
 
-
 	.grid {
-		grid-template-columns: 150px repeat(2, minmax(0,1fr)) 150px;
+		grid-template-columns: 150px repeat(2, minmax(0, 1fr)) 150px;
 		background-size: cover;
 		background-repeat: no-repeat;
+
 		.content {
 			position: relative;
 			grid-column: 2;
-			padding: 0px 25px 25px;
+			padding: 0 25px 25px;
+
 			&::before {
-				content: '';
+				content: "";
 				position: absolute;
 				top: -30px;
 				left: 0;
@@ -23,16 +24,19 @@ section.lift-block {
 				display: block;
 				z-index: 1;
 			}
+
 			.text {
 				padding-bottom: 25px;
 				position: relative;
 				z-index: 999;
 			}
+
 			.title {
 				color: $red;
 				position: relative;
 				z-index: 999;
 			}
+
 			.buttons {
 				position: relative;
 				z-index: 999;

@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Topten lokiluokka
  */
-class Topten_Logger {
+class Topten_Logger extends Topten {
 	/**
 	 * Taulun nimi
 	 *

@@ -4,3 +4,4 @@ js/src/plugins/*.js
 vendor
 node_modules
 .github
+includes/fpdf

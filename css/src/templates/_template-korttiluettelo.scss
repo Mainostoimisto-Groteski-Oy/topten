@@ -30,7 +30,7 @@ body.page-template-template-korttiluettelo {
                         display: flex;
                         flex-direction: column;
                         white-space: none;
-                      
+
                         .inner-wrapper {
                             display: flex;
                             input {
@@ -40,12 +40,12 @@ body.page-template-template-korttiluettelo {
                                 gap: 50px;
                                 align-items: center;
                             }
-                            
+
                         }
                         button {
                             min-width: 140px;
                         }
-                       
+
                     }
                     .keywords {
                         margin-top: 10px;
@@ -79,18 +79,18 @@ body.page-template-template-korttiluettelo {
                                 margin-left: auto;
                                 height: 100%;
                                 gap: 15px;
-                                
+
                                 label {
                                     margin-left: auto;
                                 }
                                 .inner-wrapper {
                                     display: flex;
-                                    
+
                                     input {
                                         flex-grow: 0;
                                         margin-right: 5px;
                                     }
-                                    
+
                                 }
                             }
                             .inner-wrapper {
@@ -98,9 +98,9 @@ body.page-template-template-korttiluettelo {
                                 input {
                                     flex-grow: 1;
                                 }
-                                
+
                             }
-                        
+
                         }
                     }
                     select {
@@ -112,7 +112,7 @@ body.page-template-template-korttiluettelo {
                 .list {
                     position: relative;
 
-                    
+
                     .cardlist {
                         position: relative;
                         z-index: 999;
@@ -153,7 +153,7 @@ body.page-template-template-korttiluettelo {
                                                 padding: 0 15px;
                                                 li.card {
                                                     padding: 15px;
-            
+
                                                 }
                                             }
                                         }
@@ -197,8 +197,8 @@ body.page-template-template-korttiluettelo {
                         border-radius: 5px;
                     }
                     .parent {
-                       
-                        
+
+
                     }
                     @include buttons;
                 }

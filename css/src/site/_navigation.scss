@@ -27,10 +27,12 @@
 			display: inline-block;
 		}
 	}
+
 	.search {
 		font-size: 2rem;
 		color: $red;
 	}
+
 	.main-navigation {
 		height: 100%;
 		display: flex;
@@ -38,6 +40,7 @@
 
 		.menu-container {
 			width: 100%;
+
 			ul#primary-menu {
 				height: 100%;
 				padding: 0;
@@ -59,8 +62,6 @@
 
 						> span {
 							position: relative;
-
-							
 						}
 
 						&:hover {
@@ -73,9 +74,10 @@
 
 				li.menu-item-has-children {
 					position: relative;
+
 					&::after {
-						content: '';
-						background-image: url( "#{$icons}/dropdown.svg" );
+						content: "";
+						background-image: url("#{$icons}/dropdown.svg");
 						background-position: center center;
 						background-size: contain;
 						position: absolute;
@@ -85,8 +87,8 @@
 						width: 24px;
 						height: 24px;
 						display: block;
-
 					}
+
 					ul.sub-menu {
 						display: none;
 						background-color: $white;
@@ -101,7 +103,6 @@
 						li {
 							border-top: 1px dotted rgba($black, 0.2);
 							padding: 0;
-							
 
 							a {
 								width: 100%;
@@ -109,6 +110,7 @@
 								line-height: 1;
 								font-size: 1.8rem;
 								transition: all 0.25s;
+
 								&:hover {
 									background-color: $paper;
 								}

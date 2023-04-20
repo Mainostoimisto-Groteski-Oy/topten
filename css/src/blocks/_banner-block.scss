@@ -1,51 +1,60 @@
 @use "mixins/all" as *;
+
 footer {
-    section.banner-block {
-        margin: 50px 0 0 0;
-    }
+	section.banner-block {
+		margin: 50px 0 0;
+	}
 }
+
 section.banner-block {
-    margin: 50px 0px;
-    &.brown {
-        background-color: $paper;
-        color: $red;
-        border-top: 1px solid $red;
-        border-bottom: 1px solid $red;
-    }
-    &.red {
-        background-color: $red;
-        color: $white;
-    }
-    &.black {
-        background-color: $black;
-        color: $white;
-        font-weight: 700;
-        .grid {
-            .content {
-                .text {
-                    p {
-                        font-style: normal;
-                        font-size: 2rem;
-                    }
-                }
-            }
-        }
-    }
+	margin: 50px 0;
+
+	&.brown {
+		background-color: $paper;
+		color: $red;
+		border-top: 1px solid $red;
+		border-bottom: 1px solid $red;
+	}
+
+	&.red {
+		background-color: $red;
+		color: $white;
+	}
+
+	&.black {
+		background-color: $black;
+		color: $white;
+		font-weight: 700;
+
+		.grid {
+			.content {
+				.text {
+					p {
+						font-style: normal;
+						font-size: 2rem;
+					}
+				}
+			}
+		}
+	}
+
 	.grid {
-        .content {
-            &.with-text {
-                .title {
-                    text-align: center;
-                }
-            }
-            .title {
-                margin: 15px 0px;
-            }
-            .text {
-                font-style: italic;
-                font-size: 2rem;
-                text-align: center;
-            }
-        }
-    }
+		.content {
+			&.with-text {
+				.title {
+					text-align: center;
+				}
+			}
+
+			.title {
+				margin: 15px 0;
+			}
+
+			.text {
+				font-style: italic;
+				font-size: 2rem;
+				text-align: center;
+			}
+		}
+	}
 }

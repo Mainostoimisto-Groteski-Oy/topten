@@ -1,9 +1,6 @@
 name: Lint
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -42,7 +39,6 @@ jobs:
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
-          auto_fix: true
           php_codesniffer: true
           stylelint: true
           eslint: true
