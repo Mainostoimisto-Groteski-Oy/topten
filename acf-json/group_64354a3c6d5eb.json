@@ -52,6 +52,20 @@
                 "operator": "==",
                 "value": "acf\/taulukko"
             }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/linkkilista"
+            }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/liitteet"
+            }
         ]
     ],
     "menu_order": 0,
@@ -63,5 +77,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681817688
+    "modified": 1681972908
 }

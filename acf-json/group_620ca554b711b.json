@@ -131,6 +131,16 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/taulukko"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/linkkilista"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/liitteet"
             }
         ]
     ],
@@ -143,5 +153,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681817699
+    "modified": 1681972922
 }
