@@ -1,8 +1,6 @@
-/* eslint-disable camelcase */
-/* global topten_card_search */
+/* global Ajax */
 jQuery(document).ready(($) => {
 	function cardSearch() {
-		
 		const freeText = $('#freeText').val();
 		const cardKeywords = $('#cardKeywords').val();
 		const keywordArray = cardKeywords.split(',');
@@ -17,9 +15,8 @@ jQuery(document).ready(($) => {
 		const cardOhje = $('#cardOhje').is(':checked');
 		const cardLomake = $('#cardLomake').is(':checked');
 
-
-		jQuery.ajax({
-			url: topten_card_search.ajaxurl,
+		$.ajax({
+			url: Ajax.url,
 			method: 'POST',
 			data: {
 				action: 'topten_card_search',
@@ -34,15 +31,14 @@ jQuery(document).ready(($) => {
 				cardTulkinta,
 				cardOhje,
 				cardLomake,
-
-				nonce: topten_card_search.nonce,
+				nonce: Ajax.nonce,
 			},
 			success(data) {
 				console.log(data);
-			}, 
+			},
 			error(errorThrown) {
 				console.log(errorThrown);
-			}
+			},
 		});
 	}
 	$('#searchCards select.searchTrigger').on('change', () => {
