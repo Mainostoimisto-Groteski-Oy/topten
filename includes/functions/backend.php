@@ -40,6 +40,36 @@ function topten_get_post_status( $post_id = null ) {
 }
 
 /**
+ * Palauttaa postin tilan
+ *
+ * @param int $post_id Postin ID, default get_the_id()
+ * @return string
+ */
+function topten_get_post_secondary_status( $post_id = null ) {
+	if ( null === $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$status = get_field( 'card_status', $post_id );
+
+	$status = $status['value'] ?? 'draft';
+
+	if ( 'deleted' === $status ) {
+		return 'Poistettu';
+	}
+
+	$selector = 'card_status_' . $status;
+
+	$secondary_status = get_field( $selector, $post_id );
+
+	if ( $secondary_status ) {
+		return $secondary_status['label'];
+	}
+
+	return '';
+}
+
+/**
  * Hakee kortin kielen
  *
  * @param int $post_id Postin ID

@@ -41,6 +41,8 @@ class Topten_Cards extends Topten {
 		add_action( 'manage_tulkintakortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
 		add_action( 'manage_ohjekortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
 		add_action( 'manage_lomakekortti_posts_custom_column', array( $this, 'add_custom_column_data' ), 10, 2 );
+
+		add_action( 'pre_get_posts', array( $this, 'sort_cards_by_status' ) );
 	}
 
 	/**
@@ -88,9 +90,34 @@ class Topten_Cards extends Topten {
 	 * @param string[] $columns Sarakkeet
 	 */
 	public function set_sortable_columns( $columns ) {
+		$columns['status']   = 'status';
 		$columns['modified'] = 'modified';
 
 		return $columns;
+	}
+
+	/**
+	 * Statuskolumnin järjestys
+	 *
+	 * @param WP_Query $query Kysely
+	 */
+	public function sort_cards_by_status( $query ) {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$orderby = $query->get( 'orderby' );
+
+		if ( 'status' !== $orderby ) {
+			return;
+		}
+
+		error_log( $orderby );
+
+		$query->set( 'meta_key', 'card_status' );
+		$query->set( 'orderby', 'meta_value' );
+
+		return $query;
 	}
 
 	/**
@@ -143,7 +170,7 @@ class Topten_Cards extends Topten {
 		}
 
 		if ( 'status' === $column ) {
-			echo esc_html( topten_get_post_status( $post_id ) );
+			echo esc_html( topten_get_post_secondary_status( $post_id ) );
 		}
 
 		if ( 'modified_author' === $column ) {

@@ -86,14 +86,13 @@ class Topten_Lifecycle extends Topten {
 			return;
 		}
 
-		// Näitä ei välttämättä tarvitakkaan tässä
-		// // Päätila (publish / draft), jos tilaa ei jostain syystä ole asetettu, oletetaan että se on draft
-		// $primary_status       = get_field( 'card_status', $this->post_id );
-		// $this->primary_status = $primary_status['value'] ?? 'draft';
+		// Päätila (publish / draft), jos tilaa ei jostain syystä ole asetettu, oletetaan että se on draft
+		$primary_status       = get_field( 'card_status', $this->post_id );
+		$this->primary_status = $primary_status['value'] ?? 'draft';
 
-		// // Toissijainen tila
-		// $secondary_status       = get_field( 'card_status_' . $this->primary_status, $this->post_id );
-		// $this->secondary_status = $secondary_status['value'] ?? '';
+		// Toissijainen tila
+		$secondary_status       = get_field( 'card_status_' . $this->primary_status, $this->post_id );
+		$this->secondary_status = $secondary_status['value'] ?? '';
 
 		// Postin päivityksen array
 		$post_array = array(
@@ -103,6 +102,8 @@ class Topten_Lifecycle extends Topten {
 		// Asetetaan postin tila päätilan mukaan. Jos päätila on 'publish', asetetaan postin tila 'publish', muuten 'draft'
 		if ( 'publish' === $this->primary_status ) {
 			$post_array['post_status'] = 'publish';
+		} elseif ( 'deleted' === $this->primary_status ) {
+			$post_array['post_status'] = 'deleted';
 		} else {
 			$post_array['post_status'] = 'draft';
 		}

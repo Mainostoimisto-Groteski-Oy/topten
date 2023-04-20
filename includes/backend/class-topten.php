@@ -27,8 +27,11 @@ class Topten {
 	 * Class constructor
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_cpts' ) );
 		add_action( 'init', array( $this, 'load_textdomain' ) );
+		add_action( 'init', array( $this, 'register_cpts' ) );
+		add_action( 'init', array( $this, 'register_post_statuses' ) );
+
+		add_filter( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
 
 		require_once 'classes/class-logger.php';
 		require_once 'classes/class-rest.php';
@@ -146,6 +149,44 @@ class Topten {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Rekisteröi omat post statukset
+	 */
+	public function register_post_statuses() {
+		register_post_status(
+			'deleted',
+			array(
+				'label'                     => esc_html__( 'Poistettu', 'topten' ),
+				'public'                    => false,
+				'private'                   => true,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				// translators: %s: post count.
+				'label_count'               => _n_noop( 'Poistettu <span class="count">(%s)</span>', 'Poistettu <span class="count">(%s)</span>', 'topten' ),
+			)
+		);
+	}
+
+	/**
+	 * Lisää postin statuksen muokkausnäkymään
+	 *
+	 * @param string[] $states Postin statukset
+	 * @param WP_Post  $post Posti
+	 */
+	public function display_post_states( $states, $post ) {
+		if ( ! $this->is_card( $post->post_type ) ) {
+			return $states;
+		}
+
+		if ( 'deleted' === $post->post_status ) {
+			$states['deleted'] = esc_html__( 'Poistettu', 'topten' );
+		} elseif ( 'publish' === $post->post_status ) {
+			$states['publish'] = esc_html__( 'Julkaistu', 'topten' );
+		}
+
+		return $states;
 	}
 
 	/**
