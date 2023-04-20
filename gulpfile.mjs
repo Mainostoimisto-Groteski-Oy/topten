@@ -60,7 +60,7 @@ const config = {
 	},
 	styles: {
 		dest: './css/dist',
-		src: ['./css/src/site.scss', './css/src/gutenberg.scss'],
+		src: ['./css/src/site.scss', './css/src/gutenberg.scss', './css/src/admin.scss'],
 		watch: ['./css/src/*.scss', './css/src/**/*.scss'],
 	},
 	uglify: {

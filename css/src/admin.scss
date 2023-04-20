@@ -1,0 +1,16 @@
+.fixed {
+	th.column-version,
+	th.column-language,
+	th.column-status {
+		width: 5em;
+	}
+
+	th.column-other_languages,
+	th.column-modified {
+		width: 10em;
+	}
+
+	th.column-modified_author {
+		width: 10%;
+	}
+}

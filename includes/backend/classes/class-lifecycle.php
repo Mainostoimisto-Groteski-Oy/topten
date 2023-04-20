@@ -67,9 +67,6 @@ class Topten_Lifecycle extends Topten {
 
 		$secondary_status       = get_field( 'card_status_' . $this->old_primary_status, $post_id );
 		$this->secondary_status = $secondary_status['value'] ?? '';
-
-		json_log( $secondary_status );
-
 	}
 
 	/**
@@ -79,8 +76,6 @@ class Topten_Lifecycle extends Topten {
 	 * @see acf/save_post
 	 */
 	public function after_save( $post_id ) {
-		$card_status = get_field( 'card_status', $post_id );
-
 		// Asetetaan postin ID luokan muuttujaan
 		$this->post_id = $post_id;
 
@@ -91,13 +86,16 @@ class Topten_Lifecycle extends Topten {
 			return;
 		}
 
-		// Päätila (publish / draft), jos tilaa ei jostain syystä ole asetettu, oletetaan että se on draft
-		$primary_status       = get_field( 'card_status', $this->post_id );
-		$this->primary_status = $primary_status['value'] ?? 'draft';
+		// Näitä ei välttämättä tarvitakkaan tässä
+		// // Päätila (publish / draft), jos tilaa ei jostain syystä ole asetettu, oletetaan että se on draft
+		// $primary_status       = get_field( 'card_status', $this->post_id );
+		// $this->primary_status = $primary_status['value'] ?? 'draft';
 
-		$secondary_status       = get_field( 'card_status_' . $this->primary_status, $this->post_id );
-		$this->secondary_status = $secondary_status['value'] ?? '';
+		// // Toissijainen tila
+		// $secondary_status       = get_field( 'card_status_' . $this->primary_status, $this->post_id );
+		// $this->secondary_status = $secondary_status['value'] ?? '';
 
+		// Postin päivityksen array
 		$post_array = array(
 			'ID' => $this->post_id,
 		);

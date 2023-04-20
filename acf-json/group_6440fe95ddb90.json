@@ -1,0 +1,172 @@
+{
+    "key": "group_6440fe95ddb90",
+    "title": "Kortin kieliversio",
+    "fields": [
+        {
+            "key": "field_6440fea2d2b0f",
+            "label": "Kieli",
+            "name": "language",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "fi": "Suomi",
+                "sv": "Ruotsi",
+                "en": "Englanti"
+            },
+            "default_value": false,
+            "return_format": "array",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6440fef2e892c",
+            "label": "Suomenkielinen versio",
+            "name": "version_fi",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6440fea2d2b0f",
+                        "operator": "!=",
+                        "value": "fi"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "post_type": [
+                "tulkintakortti",
+                "lomakekortti",
+                "ohjekortti"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "return_format": "object",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_6440ff10e892d",
+            "label": "Ruotsinkielinen versio",
+            "name": "version_sv",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6440fea2d2b0f",
+                        "operator": "!=",
+                        "value": "sv"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "post_type": [
+                "lomakekortti",
+                "tulkintakortti",
+                "ohjekortti"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "return_format": "object",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_6440ff1ce892e",
+            "label": "Englanninkielinen versio",
+            "name": "version_en",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6440fea2d2b0f",
+                        "operator": "!=",
+                        "value": "en"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "post_type": [
+                "lomakekortti",
+                "tulkintakortti",
+                "ohjekortti"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "return_format": "object",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "tulkintakortti"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "ohjekortti"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "lomakekortti"
+            }
+        ]
+    ],
+    "menu_order": -1,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1681987971
+}

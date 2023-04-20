@@ -38,3 +38,68 @@ function topten_get_post_status( $post_id = null ) {
 
 	return 'Luonnos';
 }
+
+/**
+ * Hakee kortin kielen
+ *
+ * @param int $post_id Postin ID
+ * @return string
+ */
+function topten_get_card_language( $post_id = null ) {
+	if ( null === $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$language = get_field( 'language', $post_id );
+
+	if ( $language ) {
+		return $language['label'];
+	}
+
+	return 'Suomi';
+}
+
+/**
+ * Hakee kortin kieliversioiden IDt
+ *
+ * @param int $post_id Postin ID
+ */
+function topten_get_card_language_versions( $post_id = null ) {
+	if ( null === $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$languages = array(
+		'fi' => array(
+			'post'         => false,
+			'current_lang' => false,
+			'lang_name'    => 'Suomi',
+		),
+		'sv' => array(
+			'post'         => false,
+			'current_lang' => false,
+			'lang_name'    => 'Ruotsi',
+		),
+		'en' => array(
+			'post'         => false,
+			'current_lang' => false,
+			'lang_name'    => 'Englanti',
+		),
+	);
+
+	$card_language  = get_field( 'language', $post_id );
+	$card_lang_slug = $card_language['value'] ?? 'fi';
+
+	foreach ( $languages as $slug => $language ) {
+		if ( $slug === $card_lang_slug ) {
+			$languages[ $slug ]['post']         = get_post( $post_id );
+			$languages[ $slug ]['current_lang'] = true;
+		} else {
+			$selector = 'version_' . $slug;
+
+			$languages[ $slug ]['post'] = get_field( $selector, $post_id );
+		}
+	}
+
+	return $languages;
+}

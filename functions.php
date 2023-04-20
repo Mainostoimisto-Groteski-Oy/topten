@@ -171,10 +171,18 @@ add_filter(
 );
 
 /**
+ * Ylläpitopuolen skriptit ja tyylit
+ */
+function topten_admin_scripts() {
+	wp_enqueue_style( 'topten-admin', get_template_directory_uri() . '/css/dist/admin.min.css', array(), TOPTEN_VERSION );
+}
+
+add_action( 'admin_enqueue_scripts', 'topten_admin_scripts' );
+
+/**
  * Enqueue scripts and styles.
  */
 function topten_scripts() {
-
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' );
@@ -216,7 +224,6 @@ add_action( 'wp_enqueue_scripts', 'topten_scripts' );
  * Enqueue editor scripts and styles
  */
 function topten_editor_scripts() {
-
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
@@ -860,3 +867,13 @@ function topten_card_search() {
 
 add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
 add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
+
+
+add_filter( 'gform_confirmation', 'custom_confirmation', 10, 4 );
+function custom_confirmation( $confirmation, $form, $entry, $ajax ) {
+	$file = get_field( 'title', 2 );
+
+	error_log( gettype( $file ) );
+
+	return $confirmation;
+}

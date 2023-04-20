@@ -33,7 +33,7 @@ class Topten {
 		require_once 'classes/class-logger.php';
 		require_once 'classes/class-rest.php';
 		require_once 'classes/class-user-roles.php';
-		require_once 'classes/class-admin-columns.php';
+		require_once 'classes/class-cards.php';
 		require_once 'classes/class-lifecycle.php';
 
 		// Luodaan lokiluokasta muuttuja
@@ -41,7 +41,7 @@ class Topten {
 
 		new Topten_REST();
 		new Topten_User_Roles();
-		new Topten_Admin_Columns();
+		new Topten_Cards();
 		new Topten_Lifecycle();
 	}
 
