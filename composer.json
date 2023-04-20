@@ -4,5 +4,10 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
 		"php-stubs/acf-pro-stubs": "^6.0",
 		"wpsyntex/polylang-stubs": "^3.3"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }

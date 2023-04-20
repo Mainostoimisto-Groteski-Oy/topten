@@ -192,7 +192,7 @@ function topten_scripts() {
 		'Ajax',
 		array(
 			'url'   => admin_url( 'admin-ajax.php' ),
-			'nonce' => wp_create_nonce( 'nonce' ),
+			'nonce' => wp_create_nonce( 'ajax_nonce' ),
 		)
 	);
 
@@ -718,3 +718,115 @@ function topten_login_logo_url_title() {
 }
 
 add_filter( 'login_headertext', 'topten_login_logo_url_title' );
+
+/**
+ * Kortin haku
+ */
+function topten_card_search() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+		wp_send_json_error( 'Nonce value cannot be verified.' );
+
+		wp_die();
+	}
+
+	$args = array(
+		'posts_per_page' => -1,
+		'post_status'    => 'publish',
+		'fields'         => 'ids',
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'card_status',
+				'value'   => 'publish',
+				'compare' => '=',
+			),
+			array(
+				'key'     => 'card_status_publish',
+				'value'   => 'valid',
+				'compare' => '=',
+			),
+		),
+	);
+
+	/*
+	Todo: Nämä puuttuu ainakin vielä:
+
+	const cardMunicipality = $('#cardMunicipality').val();
+	const cardLaw = $('#cardLaw').val();
+	const cardCategory = $('#cardCategory').val();
+	const filterOrder = $('#filterOrder').val();
+	const cardDateStart = $('#cardDateStart').val();
+	const cardDateEnd = $('#cardDateEnd').val();
+	*/
+
+	// Kortin tyypit
+	$post_types = array();
+
+	// Tulkintakortti
+	if ( isset( $_POST['cardTulkinta'] ) && sanitize_text_field( $_POST['cardTulkinta'] ) ) {
+		$post_types[] = 'tulkintakortti';
+	}
+
+	// Ohjekortti
+	if ( isset( $_POST['cardOhje'] ) && sanitize_text_field( $_POST['cardOhje'] ) ) {
+		$post_types[] = 'ohjekortti';
+	}
+
+	// Lomakekortti
+	if ( isset( $_POST['cardLomake'] ) && sanitize_text_field( $_POST['cardLomake'] ) ) {
+		$post_types[] = 'lomakekortti';
+	}
+
+	$args['post_type'] = $post_types;
+
+	// Hakusana
+	$s = isset( $_POST['freeText'] ) ? sanitize_text_field( $_POST['freeText'] ) : '';
+
+	if ( $s ) {
+		$args['s'] = $s;
+	}
+
+	// Avainsanat
+	$keywords = isset( $_POST['cardKeywords'] ) ? sanitize_text_field( $_POST['cardKeywords'] ) : '';
+
+	if ( $keywords ) {
+		// Todo: mikä on oikea taksonomia tälle?
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'avainsana',
+				'field'    => 'slug',
+				'terms'    => $keywords,
+			),
+		);
+	}
+
+	$the_query = new WP_Query();
+
+	$the_query->parse_query( $args );
+
+	// Jos Relevanssi on päällä, käytetään sitä
+	if ( function_exists( 'relevanssi_do_query' ) ) {
+		relevanssi_do_query( $the_query );
+	} else {
+		$the_query->query( $args );
+	}
+
+	/*
+	Todo: Postien pyörittely
+	Tässä kannattanee pyörittää jo kortit valmiiksi ennen palautusta?
+	Kannattaisiko yksittäisestä kortista tehdä funktion joka palauttaa valmiin kortin? Sitä voisi käyttää myös template-korttiluettelossa, jolloin mahdollisia muutoksia ei tarvitse tehdä moneen paikkaan
+	*/
+	if ( $the_query->have_posts() ) {
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			$post_id = get_the_ID();
+		}
+	}
+
+	wp_send_json_success( 'Success' );
+
+	wp_die();
+}
+
+add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
+add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );

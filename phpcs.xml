@@ -38,6 +38,7 @@
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+		<exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash" />
 
 		<!-- Exclude some of the rules related to commenting -->
 		<exclude name="Squiz.Commenting.FileComment.Missing" />

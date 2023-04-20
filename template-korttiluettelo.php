@@ -42,31 +42,13 @@ $laws = get_terms(
 	)
 );
 
-// Ohjekortin kategoriat
-$ohje_terms = get_terms(
-	'ohje',
+// Kortin kategoriat
+$categories = get_terms(
+	'kortin_kategoria',
 	array(
 		'hide_empty' => false,
 	)
 );
-
-// Lomalomakkeen kategoriat
-$lomake_terms = get_terms(
-	'lomake',
-	array(
-		'hide_empty' => false,
-	)
-);
-
-if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
-	$terms = array_merge( $ohje_terms, $lomake_terms );
-} elseif ( ! empty( $ohje_terms ) ) {
-	$terms = $ohje_terms;
-} elseif ( ! empty( $lomake_terms ) ) {
-	$terms = $lomake_terms;
-} else {
-	$terms = array();
-}
 ?>
 
 <main id="primary" class="site-main">
@@ -84,6 +66,28 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 		<div class="grid">
 			<div class="search" id="searchCards">
 				<div class="full">
+					<div class="input-wrapper freeText">
+						<label for="freeText">
+							<?php esc_html_e( 'Vapaa haku', 'topten' ); ?>
+						</label>
+
+						<div class="inner-wrapper">
+							<input type="text"
+								name="freeText"
+								id="freeText"
+								placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
+
+							<button type="submit"
+								class="searchTrigger"
+								name="textSearch"
+								id="textSearch">
+								<?php esc_html_e( 'Hae', 'topten' ); ?>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="full">
 					<div class="input-wrapper keywords">
 						<label for="cardKeywords">
 							<?php esc_html_e( 'Suodata kortteja asiasanan mukaan', 'topten' ); ?>
@@ -93,20 +97,69 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 							<input type="text"
 								name="cardKeywords"
 								id="cardKeywords"
-								placeholder="<?php esc_html_e( 'Alkaa kirjaimilla', 'topten' ); ?>..."/>
-							<button type="submit" name="keywordSearch" role="search">
+								placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
+
+							<button type="submit"
+								class="searchTrigger"
+								name="keywordSearch"
+								id="keywordSearch" >
 								<?php esc_html_e( 'Hae asiasanalla', 'topten' ); ?>
+							</button>
+						</div>
+
+						<small class="small">
+							<?php esc_html_e( 'Erota asiasanat pilkulla', 'topten' ); ?>
+						</small>
+					</div>
+
+					<ul class="keywords" id="selectedKeywords"></ul>
+				</div>
+
+				<div class="full">
+					<div class="input-wrapper dateRange">
+						<label for="cardDateStart">
+							<?php esc_html_e( 'Suodata kortteja laatimisajan mukaan', 'topten' ); ?>
+						</label>
+
+						<div class="inner-wrapper date">
+							<input type="date" name="cardDateStart" id="cardDateStart"/> - <input type="date" name="cardDateEnd" id="cardDateEnd"/>
+
+							<button type="submit"
+								class="searchTrigger"
+								name="cardDateRange"
+								id="cardDateRange">
+								<?php esc_html_e( 'Rajaa', 'topten' ); ?>
 							</button>
 						</div>
 					</div>
 
-					<div class="keywords" id="selectedKeywords"></div>
+					<ul class="keywords" id="selectedKeywords"></ul>
 				</div>
 
 				<div class="one-third">
 					<label for="cardMunicipality">
 						<?php esc_html_e( 'Suodata kortteja kunnan mukaan', 'topten' ); ?>
 					</label>
+
+					<div class="inner-wrapper">
+						<input type="text"
+							name="cardMunicipality"
+							id="cardMunicipality"
+							placeholder="<?php esc_html_e( 'Kirjoita kuntasi nimi tähän', 'topten' ); ?>" />
+
+						<button type="submit"
+							class="searchTrigger"
+							name="municipalitySearch"
+							id="municipalitySearch" role="search">
+							<?php esc_html_e( 'Lisää', 'topten' ); ?>
+						</button>
+					</div>
+
+					<small class="small">
+						<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
+					</small>
+
+					<ul class="keywords" id="selectedMunicipalities"></ul>
 
 					<div class="inner-wrapper">
 						<input type="text"
@@ -123,7 +176,7 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 						<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
 					</p>
 
-					<div class="keywords" id="selectedMunicipalities"></div>
+					<ul class="keywords" id="selectedMunicipalities"></ul>
 				</div>
 
 				<?php if ( $laws ) : ?>
@@ -133,7 +186,11 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 						</label>
 
 						<div class="inner-wrapper">
-							<select name="cardLaw" id="cardLaw">
+							<select class="searchTrigger" name="cardLaw" id="cardLaw">
+								<option value="" selected>
+									<?php esc_html_e( 'Valitse', 'topten' ); ?>
+								</option>
+
 								<?php foreach ( $laws as $law ) : ?>
 									<option value="<?php echo esc_attr( $law->term_id ); ?>">
 										<?php echo esc_html( $law->name ); ?>
@@ -144,18 +201,22 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 					</div>
 				<?php endif; ?>
 
-				<?php if ( $terms ) : ?>
+				<?php if ( $categories ) : ?>
 					<div class="one-third">
 						<label for="cardCategory">
 							<?php esc_html_e( 'Suodata kortteja luokan mukaan', 'topten' ); ?>
 						</label>
 
 						<div class="inner-wrapper">
-							<select name="cardCategory" id="cardCategory">
-								<?php foreach ( $terms as $term ) : ?>
+							<select class="searchTrigger" name="cardCategory" id="cardCategory">
+								<option value="" disabled selected>
+									<?php esc_html_e( 'Valitse', 'topten' ); ?>
+								</option>
+
+								<?php foreach ( $categories as $category ) : ?>
 									<option value="<?php echo esc_attr( $term->term_id ); ?>">
-										<?php echo esc_html( $term->name ); ?>
-									</option>
+									<?php echo esc_attr( $term->name ); ?>
+								</option>
 								<?php endforeach; ?>
 							</select>
 						</div>
@@ -170,7 +231,7 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 							<?php esc_html_e( 'Järjestä korttiluettelo', 'topten' ); ?>
 						</label>
 
-						<select name="filterOrder" id="filterOrder">
+						<select class="filterTrigger" name="filterOrder" id="filterOrder">
 							<option value="identifier">
 								<?php esc_html_e( 'Tunnisteen mukaan', 'topten' ); ?>
 							</option>
@@ -188,45 +249,41 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 
 				<div class="half">
 					<div class="input-wrapper horizontal">
-						<label for="filterType">
+						<p for="filterType">
 							<?php esc_html_e( 'Näytä vain', 'topten' ); ?>
+						</p>
+
+						<label for="cardTulkinta" class="inner-wrapper">
+							<input class="filterTrigger"
+								type="checkbox"
+								name="cardTulkinta"
+								id="cardTulkinta"
+								value="tulkintakortti"
+								checked />
+
+							<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
 						</label>
 
-						<div class="inner-wrapper">
-							<label for="cardTulkinta">
-								<input type="checkbox"
-									name="cardTulkinta"
-									id="cardTulkinta"
-									value="tulkintakortti"
-									checked />
+						<label for="cardOhje" class="inner-wrapper">
+							<input class="filterTrigger"
+								type="checkbox"
+								name="cardOhje"
+								id="cardOhje"
+								value="ohjekortti"
+								checked />
 
-								<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
-							</label>
-						</div>
+							<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
+						</label>
 
-						<div class="inner-wrapper">
-							<label for="cardOhje">
-								<input type="checkbox"
-									name="cardOhje"
-									id="cardOhje"
-									value="ohjekortti"
-									checked />
-
-								<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
-							</label>
-						</div>
-
-						<div class="inner-wrapper">
-							<label for="cardLomake">
-								<input type="checkbox"
-									name="cardLomake"
-									id="cardLomake"
-									value="lomakekortti"
-									checked />
-
-								<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
-							</label>
-						</div>
+						<label for="cardLomake" class="inner-wrapper">
+							<input class="filterTrigger"
+								type="checkbox"
+								name="cardLomake"
+								id="cardLomake"
+								value="lomakekortti"
+								checked />
+							<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -238,23 +295,23 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 					</h2>
 
 					<ul class="cards">
-						<?php foreach ( $laws as $index => $law ) : ?>
+						<?php foreach ( $laws as $term ) : ?>
 							<?php
-							if ( 0 !== $law->parent ) :
+							if ( 0 !== $term->parent ) :
 								continue;
 							endif;
-							?>
 
-							<?php $children = get_term_children( $law->term_id, 'laki' ); ?>
+							$children = get_term_children( $term->term_id, 'laki' );
+							?>
 
 							<li class="parent">
 								<p class="name">
-									<?php echo esc_html( $law->name ); ?>
+									<?php echo esc_html( $term->name ); ?>
 								</p>
 
 								<ul class="children">
 									<?php foreach ( $children as $child ) : ?>
-										<?php $child = get_term_by( 'id', $child, 'laki' ); ?>
+										<?php $child = get_term( $child ); ?>
 
 										<li class="child">
 											<p class="name">
@@ -262,13 +319,58 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 											</p>
 
 											<ul class="grandchildren">
-												<?php
-												foreach ( $cards as $index => $card ) :
-													if ( 'tulkintakortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'laki', $child->name ) ) :
-														topten_get_card( $card );
+												<?php foreach ( $cards as $card ) : ?>
+													<?php
+													if ( 'tulkintakortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'laki', $child->name ) ) :
+														continue;
 													endif;
-												endforeach;
-												?>
+
+													$id               = $card->ID;
+													$identifier_start = get_field( 'identifier_start', $id );
+													$identifier_end   = get_field( 'identifier_end', $id );
+													$title            = $card->post_title;
+													$type             = get_post_type( $id );
+													$version          = get_field( 'version', $id );
+													$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
+													$link             = get_permalink( $id );
+													?>
+													<li class="card">
+														<div class="ident">
+															<span class="start">
+																<?php echo esc_html( $identifier_start ); ?>
+															</span>
+
+															<span class="end">
+																<?php echo esc_html( $identifier_end ); ?>
+															</span>
+														</div>
+
+														<span class="version">
+															<?php echo esc_html( $version ); ?>
+														</span>
+
+														<span class="card-title">
+															<?php echo esc_html( $title ); ?>
+														</span>
+
+														<div class="languages">
+															<a href="" class="fi">
+																Fi
+															</a>
+
+															<a href="" class="se">
+																Se
+															</a>
+														</div>
+
+														<div class="buttons">
+															<a class="button"
+																href="<?php echo esc_url( $link ); ?>">
+																<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
+															</a>
+														</div>
+													</li>
+												<?php endforeach; ?>
 											</ul>
 										</li>
 									<?php endforeach; ?>
@@ -284,7 +386,7 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 					</h2>
 
 					<ul class="cards">
-						<?php foreach ( $ohje_terms as $term ) : ?>
+						<?php foreach ( $categories as $category ) : ?>
 							<li class="parent">
 								<p class="name">
 									<?php echo esc_html( $term->name ); ?>
@@ -293,11 +395,57 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 								<ul class="children">
 									<?php
 									foreach ( $cards as $card ) :
-										if ( 'ohjekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
-											topten_get_card( $card );
+										if ( 'ohjekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
+											continue;
 										endif;
-									endforeach;
-									?>
+
+										$id               = $card->ID;
+										$identifier_start = get_field( 'identifier_start', $id );
+										$identifier_end   = get_field( 'identifier_end', $id );
+										$title            = $card->post_title;
+										$type             = get_post_type( $id );
+										$version          = get_field( 'version', $id );
+										$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
+										$link             = esc_url( get_permalink( $id ) );
+										?>
+
+										<li class="card">
+											<div class="ident">
+												<span class="start">
+													<?php echo esc_html( $identifier_start ); ?>
+												</span>
+
+												<span class="end">
+													<?php echo esc_html( $identifier_end ); ?>
+												</span>
+											</div>
+
+											<span class="version">
+												<?php echo esc_html( $version ); ?>
+											</span>
+
+											<span class="card-title">
+												<?php echo esc_html( $title ); ?>
+											</span>
+
+											<div class="languages">
+												<a href="" class="fi">
+													Fi
+												</a>
+
+												<a href="" class="se">
+													Se
+												</a>
+											</div>
+
+											<div class="buttons">
+												<a class="button"
+													href="<?php echo esc_url( $link ); ?>">
+													<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
+												</a>
+											</div>
+										</li>
+									<?php endforeach; ?>
 								</ul>
 							</li>
 						<?php endforeach; ?>
@@ -310,7 +458,7 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 					</h2>
 
 					<ul class="cards">
-						<?php foreach ( $lomake_terms as $term ) : ?>
+						<?php foreach ( $categories as $category ) : ?>
 							<li class="parent">
 								<p class="name">
 									<?php echo esc_html( $term->name ); ?>
@@ -319,11 +467,57 @@ if ( ! empty( $ohje_terms ) && ! empty( $lomake_terms ) ) {
 								<ul class="children">
 									<?php
 									foreach ( $cards as $card ) :
-										if ( 'ohjekortti' === get_post_type( $card->ID ) && is_object_in_term( $card->ID, 'ohje', $term->name ) ) :
-											topten_get_card( $card );
+										if ( 'lomakekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'lomake', $term->name ) ) :
+											continue;
 										endif;
-									endforeach;
-									?>
+
+										$id               = $card->ID;
+										$identifier_start = get_field( 'identifier_start', $id );
+										$identifier_end   = get_field( 'identifier_end', $id );
+										$title            = $card->post_title;
+										$type             = get_post_type( $id );
+										$version          = get_field( 'version', $id );
+										$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
+										$link             = get_permalink( $id );
+										?>
+
+										<li class="card">
+											<div class="ident">
+												<span class="start">
+													<?php echo esc_html( $identifier_start ); ?>
+												</span>
+
+												<span class="end">
+													<?php echo esc_html( $identifier_end ); ?>
+												</span>
+											</div>
+
+											<span class="version">
+												<?php echo esc_html( $version ); ?>
+											</span>
+
+											<span class="card-title">
+												<?php echo esc_html( $title ); ?>
+											</span>
+
+											<div class="languages">
+												<a href="" class="fi">
+													Fi
+												</a>
+
+												<a href="" class="se">
+													Se
+												</a>
+											</div>
+
+											<div class="buttons">
+												<a class="button"
+													href="<?php echo esc_url( $link ); ?>">
+													<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
+												</a>
+											</div>
+										</li>
+									<?php endforeach; ?>
 								</ul>
 							</li>
 						<?php endforeach; ?>

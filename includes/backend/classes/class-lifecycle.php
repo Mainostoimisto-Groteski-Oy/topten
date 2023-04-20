@@ -103,7 +103,7 @@ class Topten_Lifecycle extends Topten {
 		);
 
 		// Asetetaan postin tila päätilan mukaan. Jos päätila on 'publish', asetetaan postin tila 'publish', muuten 'draft'
-		if ( 'publish' === $primary_status ) {
+		if ( 'publish' === $this->primary_status ) {
 			$post_array['post_status'] = 'publish';
 		} else {
 			$post_array['post_status'] = 'draft';
