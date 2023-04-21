@@ -1,13 +1,13 @@
 {
-    "key": "group_6441050de1aa6",
-    "title": "testi",
+    "key": "group_644279c307c57",
+    "title": "Käyttäjä",
     "fields": [
         {
-            "key": "field_6441050e3d7d2",
-            "label": "TESTI",
-            "name": "testi",
+            "key": "field_644279c40f0cd",
+            "label": "Käyttäjän kunta",
+            "name": "user_municipality",
             "aria-label": "",
-            "type": "text",
+            "type": "taxonomy",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -17,19 +17,22 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "taxonomy": "kunta",
+            "add_term": 1,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "id",
+            "field_type": "select",
+            "allow_null": 0,
+            "multiple": 0
         }
     ],
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "user_role",
                 "operator": "==",
-                "value": "page"
+                "value": "kuntahyvaksyja"
             }
         ]
     ],
@@ -42,5 +45,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681982748
+    "modified": 1682078260
 }

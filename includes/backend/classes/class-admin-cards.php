@@ -3,24 +3,33 @@
 /**
  * Topten kortit
  */
-class Topten_Cards extends Topten {
+class Topten_Admin_Cards extends Topten_Admin {
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
 		$this->add_actions();
+
+		require_once 'class-admin-cards-lifecycle.php';
+
+		// Korttien elinkaari
+		new Topten_Admins_Cards_Lifecycle();
 	}
 
 	/**
 	 * Lisää actionit ja filtterit
 	 */
 	private function add_actions() {
-		// Kopioi kortti
+		// Kopioi kortti linkit
 		add_filter( 'post_row_actions', array( $this, 'copy_card_action' ), 10, 2 );
 		add_filter( 'post_row_actions', array( $this, 'copy_card_language_action' ), 10, 2 );
 
+		// Kopioi kortti
 		add_filter( 'admin_action_topten_copy_card', array( $this, 'copy_card' ) );
 		add_filter( 'admin_action_topten_copy_card_language', array( $this, 'copy_card_language' ) );
+
+		// Ota kortti käyttöön kunnassa
+		add_filter( 'admin_action_topten_activate_card', array( $this, 'activate_card' ) );
 
 		// reorder_columns filtterit
 		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
@@ -112,8 +121,6 @@ class Topten_Cards extends Topten {
 			return;
 		}
 
-		error_log( $orderby );
-
 		$query->set( 'meta_key', 'card_status' );
 		$query->set( 'orderby', 'meta_value' );
 
@@ -191,6 +198,15 @@ class Topten_Cards extends Topten {
 	}
 
 	/**
+	 * Tarkistaa onko postityyppi kortti
+	 *
+	 * @param string $post_type Postityyppi
+	 */
+	public function is_card( $post_type ) {
+		return in_array( $post_type, $this->card_types, true );
+	}
+
+	/**
 	 * Kopioi -nappi korttien listaukseen
 	 *
 	 * @param string[] $actions Olemassa olevat toiminnot
@@ -224,7 +240,14 @@ class Topten_Cards extends Topten {
 			return $actions;
 		}
 
-		$url = admin_url( 'admin.php?action=topten_copy_card_language&post=' . $post->ID );
+		$url = add_query_arg(
+			array(
+				'action' => 'topten_copy_card_language',
+				'post'   => $post->ID,
+			),
+			admin_url( 'admin-post.php' ),
+		);
+
 		$url = wp_nonce_url( $url, 'topten_copy_card_language_' . $post->ID );
 
 		$actions[] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Kopioi kieliversioksi', 'topten' ) . '</a>';
@@ -236,6 +259,10 @@ class Topten_Cards extends Topten {
 	 * Kopioi kortin uudeksi luonnokseksi
 	 */
 	public function copy_card() {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
 		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'topten_copy_card' !== $_GET['action'] ) ) {
 			return;
 		}
@@ -302,6 +329,10 @@ class Topten_Cards extends Topten {
 	 * Kopioi kortin uudeksi kieliverisoksi
 	 */
 	public function copy_card_language() {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
 		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'topten_copy_card_language' !== $_GET['action'] ) ) {
 			return;
 		}
@@ -372,5 +403,61 @@ class Topten_Cards extends Topten {
 				admin_url( 'post.php' )
 			)
 		);
+	}
+
+	/**
+	 *
+	 */
+	public function activate_card() {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'topten_activate_card' !== $_GET['action'] ) ) {
+			wp_die( esc_html__( 'Jotain meni vikaan. Yritä uudestaan', 'topten' ) );
+		}
+
+		$post_id = intval( $_GET['post'] );
+
+		// Tarkistetaan nonce
+		check_admin_referer( 'topten_activate_card_' . $post_id );
+
+		// Tarkistetaan käyttäjän oikeudet
+		if ( ! current_user_can( 'activate_for_municipality' ) ) {
+			wp_die( esc_html__( 'Sinulla ei ole oikeuksia aktivoida kortteja', 'topten' ) );
+		}
+
+		$post = get_post( $post_id );
+
+		// Tarkistetaan onko kortti olemassa
+		if ( ! $post ) {
+			wp_die( esc_html__( 'Korttia ei löytynyt', 'topten' ) );
+		}
+
+		// Haetaan hyväksyjän kunta ja asetetaan se kortille
+		$user_municipality = get_field( 'user_municipality', 'user_' . get_current_user_id() );
+		$set_term          = wp_set_object_terms( $post_id, $user_municipality, 'kunta', true );
+
+		$redirect_url = wp_get_referer();
+
+		if ( is_wp_error( $set_term ) ) {
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'success' => 0,
+					),
+					$redirect_url
+				)
+			);
+		} else {
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'success' => 1,
+					),
+					$redirect_url
+				)
+			);
+		}
 	}
 }

@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Korttien elinkaari
  */
-class Topten_Lifecycle extends Topten {
+class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 	/**
 	 * Lokit
 	 *
@@ -82,7 +82,7 @@ class Topten_Lifecycle extends Topten {
 		$type = get_post_type( $this->post_id );
 
 		// Tarkistetaan onko postin tyyppi kortti, jos ei ole, ei tehdä mitään
-		if ( ! $this->is_card( $type ) ) {
+		if ( ! $this->cards->is_card( $type ) ) {
 			return;
 		}
 

@@ -1,3 +1,5 @@
+@use "admin/page-approval";
+
 .fixed {
 	th.column-version,
 	th.column-language {
@@ -12,5 +14,12 @@
 
 	th.column-modified_author {
 		width: 10%;
+	}
+}
+
+.wp-list-table {
+	td[class*="column-language_"],
+	th[class*="column-language_"] {
+		display: none !important;
 	}
 }

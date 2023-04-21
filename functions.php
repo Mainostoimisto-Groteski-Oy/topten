@@ -174,7 +174,12 @@ add_filter(
  * Ylläpitopuolen skriptit ja tyylit
  */
 function topten_admin_scripts() {
+	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array(), TOPTEN_VERSION, true );
 	wp_enqueue_style( 'topten-admin', get_template_directory_uri() . '/css/dist/admin.min.css', array(), TOPTEN_VERSION );
+
+	// Datatables
+	wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js', array(), '1.13.4', true );
+	wp_enqueue_style( 'datatables', '//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css', array(), '1.13.4' );
 }
 
 add_action( 'admin_enqueue_scripts', 'topten_admin_scripts' );
@@ -867,13 +872,3 @@ function topten_card_search() {
 
 add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
 add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
-
-
-add_filter( 'gform_confirmation', 'custom_confirmation', 10, 4 );
-function custom_confirmation( $confirmation, $form, $entry, $ajax ) {
-	$file = get_field( 'title', 2 );
-
-	error_log( gettype( $file ) );
-
-	return $confirmation;
-}
