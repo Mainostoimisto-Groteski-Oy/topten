@@ -66,7 +66,7 @@ $categories = get_terms(
 	<section class="cards">
 		<div class="grid top">
 			<div class="content-area">
-				<div class="search" id="searchCards">
+				<div class="search" id="searchCards" role="search">
 					<div class="full">
 						<div class="input-wrapper freeText">
 							<label for="freeText">
@@ -103,7 +103,6 @@ $categories = get_terms(
 									placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
 
 								<button type="submit"
-									class="searchTrigger"
 									name="keywordSearch"
 									id="keywordSearch" >
 									<?php esc_html_e( 'Lisää', 'topten' ); ?>
@@ -133,9 +132,8 @@ $categories = get_terms(
 									placeholder="<?php esc_html_e( 'Kirjoita kuntasi nimi tähän', 'topten' ); ?>" />
 
 								<button type="submit"
-									class="searchTrigger"
 									name="municipalitySearch"
-									id="municipalitySearch" role="search">
+									id="municipalitySearch">
 									<?php esc_html_e( 'Lisää', 'topten' ); ?>
 								</button>
 							</div>
@@ -212,10 +210,11 @@ $categories = get_terms(
 				<ul class="keywords" id="selectedKeywords"></ul>
 				<ul class="keywords" id="selectedMunicipalities"></ul>
 			</div>
+			<div id="test" style="grid-column: 1 / -1"></div>
 		</div><!-- end top grid -->
 
 		<div class="grid">
-			<div class="filters" id="filterCards">
+			<div class="filters" id="filterCards" role="search">
 				<div class="half">
 					<div class="input-wrapper">
 						<label for="filterOrder">
@@ -227,11 +226,11 @@ $categories = get_terms(
 								<?php esc_html_e( 'Tunnisteen mukaan', 'topten' ); ?>
 							</option>
 
-							<option value="pubDate">
+							<option value="publishDate">
 								<?php esc_html_e( 'Julkaisuajankohdan mukaan', 'topten' ); ?>
 							</option>
 
-							<option value="alphabetical">
+							<option value="title">
 								<?php esc_html_e( 'Aakkosjärjestys', 'topten' ); ?>
 							</option>
 						</select>
@@ -295,73 +294,27 @@ $categories = get_terms(
 							$children = get_term_children( $term->term_id, 'laki' );
 							?>
 
-							<li class="parent">
+							<li class="parent" data-id="<?php echo esc_html($term->term_id); ?>">
 								<p class="name">
 									<?php echo esc_html( $term->name ); ?>
 								</p>
 
-								<ul class="children">
+								<ul class="children" data-parent="<?php echo esc_html($term->term_id); ?>">
 									<?php foreach ( $children as $child ) : ?>
 										<?php $child = get_term( $child ); ?>
 
-										<li class="child">
+										<li class="child" data-id="<?php echo esc_html($child->term_id); ?>">
 											<p class="name">
 												<?php echo esc_html( $child->name ); ?>
 											</p>
 
-											<ul class="grandchildren">
-												<?php foreach ( $cards as $card ) : ?>
-													<?php
-													if ( 'tulkintakortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'laki', $child->name ) ) :
+											<ul class="grandchildren" data-parent="<?php echo esc_html($child->term_id); ?>" data-grandparent="<?php echo esc_html($term->term_id); ?>">
+												<?php foreach ( $cards as $card ) {
+													if ( 'tulkintakortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'laki', $child->name ) ) {
 														continue;
-													endif;
-
-													$id               = $card->ID;
-													$identifier_start = get_field( 'identifier_start', $id );
-													$identifier_end   = get_field( 'identifier_end', $id );
-													$title            = $card->post_title;
-													$type             = get_post_type( $id );
-													$version          = get_field( 'version', $id );
-													$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
-													$link             = get_permalink( $id );
-													?>
-													<li class="card">
-														<div class="ident">
-															<span class="start">
-																<?php echo esc_html( $identifier_start ); ?>
-															</span>
-
-															<span class="end">
-																<?php echo esc_html( $identifier_end ); ?>
-															</span>
-														</div>
-
-														<span class="version">
-															<?php echo esc_html( $version ); ?>
-														</span>
-
-														<span class="card-title">
-															<?php echo esc_html( $title ); ?>
-														</span>
-
-														<div class="languages">
-															<a href="" class="fi">
-																Fi
-															</a>
-
-															<a href="" class="se">
-																Se
-															</a>
-														</div>
-
-														<div class="buttons">
-															<a class="button"
-																href="<?php echo esc_url( $link ); ?>">
-																<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
-															</a>
-														</div>
-													</li>
-												<?php endforeach; ?>
+													}
+													topten_get_card( $card, 'echo');
+												} ?>
 											</ul>
 										</li>
 									<?php endforeach; ?>
@@ -379,66 +332,19 @@ $categories = get_terms(
 					<ul class="cards">
 						<?php foreach ( $categories as $category ) : ?>
 
-							<li class="parent">
+							<li class="parent" data-id="<?php echo esc_html( $category->term_id ); ?>">
 								<p class="name">
 									<?php echo esc_html( $category->name ); ?>
 								</p>
 
-								<ul class="children">
+								<ul class="children" data-parent="<?php echo esc_html( $category->term_id ); ?>">
 									<?php
-									foreach ( $cards as $card ) :
-
-										if ( 'ohjekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) :
+									foreach ( $cards as $card ) {
+										if ( 'ohjekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) {
 											continue;
-										endif;
-
-										$id               = $card->ID;
-										$identifier_start = get_field( 'identifier_start', $id );
-										$identifier_end   = get_field( 'identifier_end', $id );
-										$title            = $card->post_title;
-										$type             = get_post_type( $id );
-										$version          = get_field( 'version', $id );
-										$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
-										$link             = esc_url( get_permalink( $id ) );
-										?>
-
-										<li class="card">
-											<div class="ident">
-												<span class="start">
-													<?php echo esc_html( $identifier_start ); ?>
-												</span>
-
-												<span class="end">
-													<?php echo esc_html( $identifier_end ); ?>
-												</span>
-											</div>
-
-											<span class="version">
-												<?php echo esc_html( $version ); ?>
-											</span>
-
-											<span class="card-title">
-												<?php echo esc_html( $title ); ?>
-											</span>
-
-											<div class="languages">
-												<a href="" class="fi">
-													Fi
-												</a>
-
-												<a href="" class="se">
-													Se
-												</a>
-											</div>
-
-											<div class="buttons">
-												<a class="button"
-													href="<?php echo esc_url( $link ); ?>">
-													<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
-												</a>
-											</div>
-										</li>
-									<?php endforeach; ?>
+										}
+										topten_get_card( $card, 'echo');
+									} ?>
 								</ul>
 							</li>
 						<?php endforeach; ?>
@@ -452,65 +358,19 @@ $categories = get_terms(
 
 					<ul class="cards">
 						<?php foreach ( $categories as $category ) : ?>
-							<li class="parent">
+							<li class="parent" data-id="<?php echo esc_html( $category->term_id ); ?>">
 								<p class="name">
 									<?php echo esc_html( $category->name ); ?>
 								</p>
 
-								<ul class="children">
+								<ul class="children" data-parent="<?php echo esc_html( $category->term_id ); ?>">
 									<?php
-									foreach ( $cards as $card ) :
-										if ( 'lomakekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) :
+									foreach ( $cards as $card ) {
+										if ( 'lomakekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) {
 											continue;
-										endif;
-
-										$id               = $card->ID;
-										$identifier_start = get_field( 'identifier_start', $id );
-										$identifier_end   = get_field( 'identifier_end', $id );
-										$title            = $card->post_title;
-										$type             = get_post_type( $id );
-										$version          = get_field( 'version', $id );
-										$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
-										$link             = get_permalink( $id );
-										?>
-
-										<li class="card">
-											<div class="ident">
-												<span class="start">
-													<?php echo esc_html( $identifier_start ); ?>
-												</span>
-
-												<span class="end">
-													<?php echo esc_html( $identifier_end ); ?>
-												</span>
-											</div>
-
-											<span class="version">
-												<?php echo esc_html( $version ); ?>
-											</span>
-
-											<span class="card-title">
-												<?php echo esc_html( $title ); ?>
-											</span>
-
-											<div class="languages">
-												<a href="" class="fi">
-													Fi
-												</a>
-
-												<a href="" class="se">
-													Se
-												</a>
-											</div>
-
-											<div class="buttons">
-												<a class="button"
-													href="<?php echo esc_url( $link ); ?>">
-													<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
-												</a>
-											</div>
-										</li>
-									<?php endforeach; ?>
+										}
+										topten_get_card( $card, 'echo');
+									} ?>
 								</ul>
 							</li>
 						<?php endforeach; ?>

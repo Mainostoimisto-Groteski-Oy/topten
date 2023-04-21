@@ -34,20 +34,51 @@ jQuery(document).ready(($) => {
 				nonce: Ajax.nonce,
 			},
 			success(data) {
+				// Data on käsitelty PHP:llä joten tarvitsee enää tulostaa se
 				console.log(data);
+				$('#listCards').html(data);
+
+				// Piilota tyhjät kategoriat
+				// Tulkintakorteilla on kolmitasoinen hierarkia, muilla kaksi
+				$('#tulkintakortit ul.children').each(function() {
+					const tulkintaStatus = [];
+					const grandparent = $(this).attr('data-parent');
+					$(this).children().children('ul.grandchildren').each(function() {
+						const parent = $(this).attr('data-parent');
+						if($(this).children().length <= 0) {
+							$(this).parent(`li.child[data-id=${parent}]`).hide();
+							tulkintaStatus.push('false');
+						} else {
+							tulkintaStatus.push('true');
+						}
+					});
+					if(tulkintaStatus.indexOf('true') === -1){
+						$(`#tulkintakortit li.parent[data-id=${grandparent}]`).hide();
+					}
+				});
+
+				$('#ohjekortit ul.children').each(function() {
+					if($(this).children().length <= 0) {
+						$(this).hide();
+						$(this).parent('li.parent').hide();
+					}
+				});
+				$('#lomakekortit ul.children').each(function() {
+					if($(this).children().length <= 0) {
+						$(this).hide();
+						$(this).parent('li.parent').hide();
+					}
+				});
+				
+
 			},
 			error(errorThrown) {
 				console.log(errorThrown);
 			},
 		});
 	}
-	$('#searchCards select.searchTrigger').on('change', () => {
-		cardSearch();
-	});
 	$('#searchCards button.searchTrigger').on('click', () => {
 		cardSearch();
 	});
-	$('#searchCards input.searchTrigger').on('click', () => {
-		cardSearch();
-	});
+
 });

@@ -192,10 +192,17 @@ function topten_scripts() {
 		'Ajax',
 		array(
 			'url'   => admin_url( 'admin-ajax.php' ),
-			'nonce' => wp_create_nonce( 'ajax_nonce' ),
+			'nonce' => wp_create_nonce( 'nonce' ),
 		)
 	);
 
+	$scripts = array(
+		'topten_card_search',
+	);
+
+	foreach ( $scripts as $script ) {
+		wp_localize_script( 'topten', $script, array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'nonce' )) );
+	}
 	
 	wp_localize_script(
 		'topten',
@@ -721,10 +728,10 @@ function topten_login_logo_url_title() {
 add_filter( 'login_headertext', 'topten_login_logo_url_title' );
 
 /**
- * Kortin haku
+ * Card search
  */
 function topten_card_search() {
-	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 
 		wp_die();
@@ -749,18 +756,7 @@ function topten_card_search() {
 		),
 	);
 
-	/*
-	Todo: Nämä puuttuu ainakin vielä:
-
-	const cardMunicipality = $('#cardMunicipality').val();
-	const cardLaw = $('#cardLaw').val();
-	const cardCategory = $('#cardCategory').val();
-	const filterOrder = $('#filterOrder').val();
-	const cardDateStart = $('#cardDateStart').val();
-	const cardDateEnd = $('#cardDateEnd').val();
-	*/
-
-	// Kortin tyypit
+	// Card types
 	$post_types = array();
 
 	// Tulkintakortti
@@ -780,97 +776,200 @@ function topten_card_search() {
 
 	$args['post_type'] = $post_types;
 
-	// Hakusana
+	// Search text input
 	$s = isset( $_POST['freeText'] ) ? sanitize_text_field( $_POST['freeText'] ) : '';
 
 	if ( $s ) {
 		$args['s'] = $s;
 	}
 
-	// Kunta
-	$municipality = isset( $_POST['cardMunicipality'] );
+	// Municipality (multiple values)
+	if ( isset( $_POST['cardMunicipality'] ) ) {
+		
+		// sanitize array integer values
+		$municipality = array_map( 'intval', $_POST['cardMunicipality'] );
+		
+		if ( ! $municipality ) {
+			$municipality = '';
+		}
+	}
 
 	if ( $municipality ) {
-		// sanitize array values
-		$municipality = array_map( 'sanitize_text_field', $municipality );
 
 		$args['tax_query'] = array(
 			array(
 				'taxonomy' => 'kunta',
-				'field'    => 'slug',
+				'field'    => 'term_id',
 				'terms'    => $municipality,
 			),
 		);
 	}
 
-	// Lakipykälä
-	$law = isset( $_POST['law'] ) ? sanitize_text_field( $_POST['law'] ) : '';
+	// Law article (single value)
+	if( isset( $_POST['cardLaw'] ) ) {
+		$law = intval( $_POST['cardLaw'] );
+		if ( !$law ) {
+			$law = '';
+		}
+	}
 
 	if ( $law ) {
+		
 		$args['tax_query'] = array(
 			array(
 				'taxonomy' => 'laki',
-				'field'    => 'slug',
+				'field'    => 'term_id',
 				'terms'    => $law,
 			),
 		);
+		
 	}
 
-	// Kategoria (ammattiala / vastuuryhmä)
-	$category = isset( $_POST['category'] ) ? sanitize_text_field( $_POST['category'] ) : '';
+	// Category (single value)
+	if( isset( $_POST['cardCategory'] ) ) {
+		$category = intval( $_POST['cardCategory'] );
+		if ( !$category ) {
+			$category = '';
+		}
+	}
 
 	if ( $category ) {
+
 		$args['tax_query'] = array(
 			array(
 				'taxonomy' => 'kortin_kategoria',
-				'field'    => 'slug',
+				'field'    => 'term_id',
 				'terms'    => $category,
 			),
 		);
 	}
-	// Avainsanat
-	$keywords = isset( $_POST['cardKeywords'] );
+
+	// Keywords (multiple), TODO: NYI
+	if ( isset( $_POST['cardKeywords'] ) ) {
+		
+		$keywords = array_map( 'sanitize_text_field', $_POST['cardKeywords']);
+
+		if ( ! $keywords ) {
+			$keywords = '';
+		}
+	}
 
 	if ( $keywords ) {
-		// Sanitize array values
-		$keywords = array_map( 'sanitize_text_field', $keywords );
 		
 		$args['tax_query'] = array(
 			array(
 				'taxonomy' => 'asiasanat',
-				'field'    => 'slug',
+				'field'    => 'term_id',
 				'terms'    => $keywords,
 			),
 		);
 	}
 
+	// Card publish date. User can filter by either starting from, ending at or both.
+	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
+	$cardDateEnd = isset( $_POST['cardDateEnd'] ) ? sanitize_text_field( $_POST['cardDateEnd'] ) : '';
+	
+	
+	if ($cardDateStart && !$cardDateEnd) {
+		
+		$args['date_query'] = array(
+			array(
+				'after' => $cardDateStart,
+				
+			),
+		);
+	
+	} else if (!$cardDateStart && $cardDateEnd) {
+		
+		$args['date_query'] = array(
+			array(
+				'before' => $cardDateEnd,
+				
+			),
+		);
+	
+	} else if ($cardDateStart && $cardDateEnd) {
+		
+		$args['date_query'] = array(
+			array(
+				'after' => $cardDateStart,
+				'before' => $cardDateEnd,
+				
+			),
+		);
+
+	} 
+
+	// Display order of cards
+	$filterOrder = isset( $_POST['filterOrder'] ) ? sanitize_text_field( $_POST['filterOrder'] ) : '';
+
+	if ( $filterOrder ) {
+		// Identifier, notice that this is not a WordPress ID
+		if ( $filterOrder === 'identifier') {
+			$args['orderby'] = 'meta_value';
+			$args['meta_key'] = 'identifier_start';
+			$args['order'] = 'ASC';
+		// Publish date, descending order // TODO: Should this be modified time instead?
+		} else if ( $filterOrder === 'publishDate') {
+			$args['orderby'] = 'date';
+			$args['order'] = 'DESC';
+		// card name, alphabetical order
+		} else if ( $filterOrder === 'title') {
+			$args['orderby'] = 'title';
+			$args['order'] = 'ASC';
+		}
+
+	}
+	
+
 	$the_query = new WP_Query();
 
 	$the_query->parse_query( $args );
 
-	// Jos Relevanssi on päällä, käytetään sitä
+		// If Relevanssi is installed, use it
 	if ( function_exists( 'relevanssi_do_query' ) ) {
 		relevanssi_do_query( $the_query );
 	} else {
 		$the_query->query( $args );
 	}
+	
+	
+	// If posts are found, save them to their own arrays from which one array is created
 
-	/*
-	Todo: Postien pyörittely
-	Tässä kannattanee pyörittää jo kortit valmiiksi ennen palautusta?
-	Kannattaisiko yksittäisestä kortista tehdä funktion joka palauttaa valmiin kortin? Sitä voisi käyttää myös template-korttiluettelossa, jolloin mahdollisia muutoksia ei tarvitse tehdä moneen paikkaan
-	*/
 	if ( $the_query->have_posts() ) {
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
 			$post_id = get_the_ID();
+			if('tulkintakortti' === get_post_type($post_id) ) {
+				$tulkinta_array[] = $post_id;
+			} else if ('ohjekortti' === get_post_type($post_id) ) {
+				$ohje_array[] = $post_id;
+			} else if( 'lomakekortti' === get_post_type($post_id) ) {
+				$lomake_array[] = $post_id;
+			} else {
+				// Nothing here.
+			}
+			
 		}
 	}
-
-	wp_send_json_success( 'Success' );
-
+	// If nothing is found, return notice to user
+	if(empty($tulkinta_array) && empty($ohje_array) && empty($lomake_array)) {
+		$results = '<div class="noResults">';
+		$results .= '<p>'.esc_html('Ei hakutuloksia','topten').'</p>';
+		$results .= '</div>';
+	} else {
+		// Create array of arrays
+		$card_array = array('tulkinta' => $tulkinta_array, 'ohje' => $ohje_array, 'lomake' => $lomake_array);
+		// Run function to get the results
+		$results = topten_card_list($card_array);
+	}
+	// Send back as json
+	wp_send_json($results);
+	
+	// You need to use wp_die for ajax calls
 	wp_die();
 }
 
 add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
 add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
+
