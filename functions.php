@@ -177,13 +177,15 @@ function topten_scripts() {
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' );
+	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' ); // TODO: Tarvitaanko tätä?
 
 	wp_enqueue_style( 'topten', get_template_directory_uri() . '/css/dist/site.min.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'jquery' );
+	
+	wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'topten', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
@@ -198,6 +200,8 @@ function topten_scripts() {
 
 	$scripts = array(
 		'topten_card_search',
+		'topten_fetch_suggestions',
+		'topten_fetch_terms',
 	);
 
 	foreach ( $scripts as $script ) {
@@ -844,26 +848,28 @@ function topten_card_search() {
 		);
 	}
 
-	// Keywords (multiple), TODO: NYI
-	if ( isset( $_POST['cardKeywords'] ) ) {
+	// Keywords (multiple), TODO: jatka tästä
+	if ( isset( $_POST['cardKeywords'] ) && is_array( $_POST['cardKeywords'])) {
+		// Sanitize array
+		$keywords = array_map( 'intval', $_POST['cardKeywords'] );
 		
-		$keywords = array_map( 'sanitize_text_field', $_POST['cardKeywords']);
-
-		if ( ! $keywords ) {
+		if( !$keywords ) {
 			$keywords = '';
 		}
+		
 	}
+	
 
 	if ( $keywords ) {
 		
 		$args['tax_query'] = array(
 			array(
-				'taxonomy' => 'asiasanat',
-				'field'    => 'term_id',
-				'terms'    => $keywords,
+				'taxonomy' 		=> 'asiasanat',
+				'field'			=> 'term_id',
+				'terms'			=> $keywords,
 			),
 		);
-	}
+	} */
 
 	// Card publish date. User can filter by either starting from, ending at or both.
 	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
@@ -923,7 +929,7 @@ function topten_card_search() {
 	
 
 	$the_query = new WP_Query();
-
+	json_log($args);
 	$the_query->parse_query( $args );
 
 		// If Relevanssi is installed, use it
@@ -964,7 +970,7 @@ function topten_card_search() {
 		$results = topten_card_list($card_array);
 	}
 	// Send back as json
-	wp_send_json($results);
+	wp_send_json_success($results);
 	
 	// You need to use wp_die for ajax calls
 	wp_die();
@@ -973,3 +979,99 @@ function topten_card_search() {
 add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
 add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
 
+function topten_fetch_suggestions() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
+		wp_send_json_error( 'Nonce value cannot be verified.' );
+		wp_die();
+	}
+	// This does nothing yet
+	if ( ! isset($_POST['type'] ) ) {
+		wp_send_json_error( 'Type is not set.' );
+		wp_die();
+	} else {
+		$type = sanitize_text_field( $_POST['type'] );
+	}
+
+	if ( isset($_POST['userInput'] ) ) {
+		$userInput = sanitize_text_field( $_POST['userInput'] ); 
+	}
+
+	if ($type === 'keywords') {
+		//$terms = get_terms('asiasanat');
+	}
+
+	$args = array(
+		'taxonomy' 		=> array('asiasanat'),
+		'orderby'		=> 'title',
+		'order'			=> 'DESC',
+		'name__like'	=> $userInput,
+	);
+
+	$terms = get_terms($args);
+	
+
+	if($terms) {
+		$list = [];
+		foreach ($terms as $index => $term) {
+			$list[$index]['label'] = $term->name;
+			$list[$index]['value'] = $term->term_id;
+		}
+
+	} else {
+		$list = [];
+	}
+	wp_send_json_success($list);
+	wp_die();
+}
+
+add_action( 'wp_ajax_topten_fetch_suggestions', 'topten_fetch_suggestions' );
+add_action( 'wp_ajax_nopriv_topten_fetch_suggestions', 'topten_fetch_suggestions' );
+
+function topten_fetch_terms() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
+		wp_send_json_error( 'Nonce value cannot be verified.' );
+		wp_die();
+	}
+	// This does nothing yet
+	if ( ! isset($_POST['type'] ) ) {
+		wp_send_json_error( 'Type is not set.' );
+		wp_die();
+	} else {
+		$type = sanitize_text_field( $_POST['type'] );
+	}
+
+	if ( isset($_POST['keywords'] ) ) {
+
+		// Sanitize array of keyword IDs
+		$keywords = array_map( 'intval', $_POST['keywords'] );
+		if ( ! $keywords ) {
+			$keywords = '';
+			wp_die();
+		}
+	}
+	
+	$args = array(
+		'taxonomy' 		=> array('asiasanat'),
+		'orderby'		=> 'title',
+		'order'			=> 'DESC',
+		'include'		=> $keywords,
+	);
+	$terms = get_terms($args);
+
+	if($terms) {
+		$list = [];
+		foreach ($terms as $index => $term) {
+			$list[$index]['label'] = $term->name;
+			$list[$index]['value'] = $term->term_id;
+		}
+
+	} else {
+		$list = [];
+	}
+	wp_send_json_success($list);
+	
+	wp_die();
+}
+
+add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
+add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );

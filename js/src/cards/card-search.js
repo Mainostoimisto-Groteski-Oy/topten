@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 /* global Ajax */
 jQuery(document).ready(($) => {
+	
 	function cardSearch() {
 		const freeText = $('#freeText').val();
-		const cardKeywords = $('#cardKeywords').val();
-		const keywordArray = cardKeywords.split(',');
+		const cardKeywords = JSON.parse(localStorage.getItem('keywords'));
 		const cardMunicipality = $('#cardMunicipality').val();
 		const municipalityArray = cardMunicipality.split(',');
 		const cardLaw = $('#cardLaw').val();
@@ -21,7 +23,7 @@ jQuery(document).ready(($) => {
 			data: {
 				action: 'topten_card_search',
 				freeText,
-				keywordArray,
+				cardKeywords,
 				municipalityArray,
 				cardLaw,
 				cardCategory,
@@ -70,15 +72,136 @@ jQuery(document).ready(($) => {
 					}
 				});
 				
-
+				
 			},
 			error(errorThrown) {
+				
 				console.log(errorThrown);
 			},
 		});
+	} 
+
+	function updateKeywords() {
+		const words = JSON.parse(localStorage.getItem('keywords'));
+		
+		if(words) {
+			
+			$.ajax({
+				url: Ajax.url,
+				method: 'POST',
+				data: {
+					action: 'topten_fetch_terms',
+					nonce: Ajax.nonce,
+					keywords : words,
+					type : 'asiasanat',
+				},
+				success(data) {
+					const terms = data.data;
+					if(terms.length > 0) {
+						jQuery(terms).each(function() {
+							$('#selectedKeywords').append(`<div class="keyword" data-id="${this.value}">${this.label} <button class="removeKeyword" data-id="${this.value}">x</button></div>`);
+						});
+					}
+				},
+				error(errorThrown) {
+					console.log(errorThrown);
+				},
+			})
+		}
 	}
+
 	$('#searchCards button.searchTrigger').on('click', () => {
 		cardSearch();
 	});
+	if($('#searchCards').length > 0) {
+		$('#cardKeywords').autocomplete({
+			source(request, response) {
+				const userInput = $('#cardKeywords').val();
+				$.ajax({
+					url: Ajax.url,
+					method: 'POST',
+					data: {
+						action: 'topten_fetch_suggestions',
+						nonce: Ajax.nonce,
+						userInput,
+						type : 'asiasanat',
+					},
+					success(data) {
+						response( $.map( data.data, ( item ) => ({
+							label: item.label,
+							value: item.value,
+						})));
+					},
+					error(errorThrown) {
+						console.log(errorThrown);
+					},
+				})
+				
+			},
+			select(e, ui) {
+				$("#cardKeywords").val(ui.item.label);
+				$('#cardKeywordsValue').val(ui.item.value);
+				return false;
+			},
+			minLength: 3,
+		}).data( 'ui-autocomplete' )._renderItem = function( ul, item ) {
+			return $( '<li></li>' )
+				.data( 'item.autocomplete', item.label )
+				.append(`<div data-id="${item.value}">${item.label}</div>`)
+				.appendTo( ul );
+		};
 
+		$('#keywordSearch').on('click', () => {
+			const keyword = $('#cardKeywordsValue').val();
+			//  localStorage.setItem('checkedBoxes', JSON.stringify(this.indexes)); 
+			if(localStorage.getItem('keywords')) {
+				const storage = JSON.parse(localStorage.getItem('keywords'));
+				if(storage.indexOf(keyword) === -1) {
+					storage.push(keyword);
+					localStorage.setItem('keywords', JSON.stringify(storage));
+				}
+			} else {
+				const storage = [];
+				storage.push(keyword);
+				localStorage.setItem('keywords', JSON.stringify(storage));
+			}
+			if($('#selectedKeywords').children().length > 0) {
+				$('#selectedKeywords').children().each(function() {
+					if($(this).attr('data-id') !== keyword) {
+						$('#selectedKeywords').append(`<div class="keyword" data-id="${keyword}">${$('#cardKeywords').val()} <button class="removeKeyword" data-id="${keyword}">x</button></div>`);	
+					} 
+				});
+			} else {
+				$('#selectedKeywords').append(`<div class="keyword" data-id="${keyword}">${$('#cardKeywords').val()} <button class="removeKeyword" data-id="${keyword}">x</button></div>`);
+			}
+			
+		});
+		// If this div exists
+		if($('#selectedKeywords').length > 0) {
+			updateKeywords();
+		} 
+		$(document).on('click', '.removeKeyword', function() {
+			
+			const id = $(this).attr('data-id').toString();
+			// remove keyword div with this data-id attribute
+			$(`div.keyword[data-id="${id}"]`).remove();
+			console.log($(`div.keyword[data-id${id}]`));
+			const storage = JSON.parse(localStorage.getItem('keywords'));
+			$(storage).each(function() {
+				const storedItem = this.toString();
+				if (storedItem === id) {
+					// remove this id from the array
+					storage.splice(storage.indexOf(id), 1);
+					// push back to localstorage
+					if(storage.length <= 0) {
+						localStorage.removeItem('keywords');
+					} else {
+						localStorage.setItem('keywords', JSON.stringify(storage));
+					}
+				}
+			});
+		});
+		
+	}
+	
 });

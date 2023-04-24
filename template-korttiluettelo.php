@@ -101,17 +101,16 @@ $categories = get_terms(
 									name="cardKeywords"
 									id="cardKeywords"
 									placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
-
+								<input type="hidden"
+									name="cardKeywordsValue"
+									id="cardKeywordsValue"
+									/>
 								<button type="submit"
 									name="keywordSearch"
 									id="keywordSearch" >
 									<?php esc_html_e( 'Lisää', 'topten' ); ?>
 								</button>
 							</div>
-
-							<small class="small">
-								<?php esc_html_e( 'Erota asiasanat pilkulla', 'topten' ); ?>
-							</small>
 						</div>
 
 						
