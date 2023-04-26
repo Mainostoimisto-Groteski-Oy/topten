@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Pluginin pääluokka
+ * Topten main class
  */
 class Topten {
 	/**
@@ -17,7 +17,7 @@ class Topten {
 	}
 
 	/**
-	 * Lataa textdomainin
+	 * Load textdomain
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'topten', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );

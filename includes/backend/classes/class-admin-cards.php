@@ -30,6 +30,9 @@ class Topten_Admin_Cards extends Topten_Admin {
 		// Approve card for municipality
 		add_filter( 'admin_action_tt_approve_card_for_municipality', array( $this, 'approve_card_for_municipality' ) );
 
+		// Disapprove card for municipality
+		add_filter( 'admin_action_tt_disapprove_card_for_municipality', array( $this, 'disapprove_card_for_municipality' ) );
+
 		// reorder_columns filters
 		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
 		add_filter( 'manage_ohjekortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
@@ -485,6 +488,69 @@ class Topten_Admin_Cards extends Topten_Admin {
 		}
 
 		$set_term = wp_set_object_terms( $post_id, $user_municipality, 'kunta', true );
+
+		$redirect_url = wp_get_referer();
+
+		if ( is_wp_error( $set_term ) ) {
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'success' => 0,
+					),
+					$redirect_url
+				)
+			);
+		} else {
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'success' => 1,
+					),
+					$redirect_url
+				)
+			);
+		}
+	}
+
+	/**
+	 * Disapprove card for municipality
+	 */
+	public function disapprove_card_for_municipality() {
+		// Check if user is logged in
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
+		// Check if we have a post ID and action tt_disapprove_card
+		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'tt_disapprove_card_for_municipality' !== $_GET['action'] ) ) {
+			wp_die( esc_html__( 'Jotain meni vikaan. Yritä uudestaan', 'topten' ) );
+		}
+
+		$post_id = intval( $_GET['post'] );
+
+		// Check nonce
+		check_admin_referer( 'tt_disapprove_card_for_municipality_' . $post_id );
+
+		// Check if user has permission to approve the card
+		if ( ! current_user_can( 'approve_for_municipality' ) ) {
+			wp_die( esc_html__( 'Sinulla ei ole oikeuksia aktivoida kortteja', 'topten' ) );
+		}
+
+		$post = get_post( $post_id );
+
+		// Check if card exists
+		if ( ! $post ) {
+			wp_die( esc_html__( 'Korttia ei löytynyt', 'topten' ) );
+		}
+
+		// Get user municipality
+		$user_municipality = get_field( 'user_municipality', 'user_' . get_current_user_id() );
+
+		if ( ! $user_municipality ) {
+			wp_die( esc_html__( 'Käyttäjällesi ei ole asetettu kuntaa. Ota yhteys ylläpitoon.', 'topten' ) );
+		}
+
+		$set_term = wp_remove_object_terms( $post_id, $user_municipality, 'kunta' );
 
 		$redirect_url = wp_get_referer();
 
