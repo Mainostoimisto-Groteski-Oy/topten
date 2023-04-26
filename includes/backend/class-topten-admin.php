@@ -6,21 +6,21 @@ defined( 'ABSPATH' ) || exit;
  */
 class Topten_Admin {
 	/**
-	 * Kortit
+	 * Cards class instance
 	 *
 	 * @var \Topten_Admin_Cards
 	 */
 	protected $cards = null;
 
 	/**
-	 * Käyttäjät
+	 * Users class instance
 	 *
 	 * @var \Topten_Admin_Users
 	 */
 	protected $users = null;
 
 	/**
-	 * Korttityypit
+	 * Card types
 	 *
 	 * @var array
 	 */
@@ -48,14 +48,14 @@ class Topten_Admin {
 	}
 
 	/**
-	 * Lataa textdomainin
+	 * Load textdomain
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'topten', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
-	 * Rekisteröi CPT:t
+	 * Register custom post types
 	 */
 	public function register_cpts() {
 		/**
@@ -151,9 +151,12 @@ class Topten_Admin {
 	}
 
 	/**
-	 * Rekisteröi omat post statukset
+	 * Register custom post statuses
 	 */
 	public function register_post_statuses() {
+		// Status: deleted
+		// Used for soft deleting posts, doesn't actually delete anything
+		// Basically just a different name for draft
 		register_post_status(
 			'deleted',
 			array(
@@ -169,10 +172,10 @@ class Topten_Admin {
 	}
 
 	/**
-	 * Lisää postin statuksen muokkausnäkymään
+	 * Add post status to WP admin post list
 	 *
-	 * @param string[] $states Postin statukset
-	 * @param WP_Post  $post Posti
+	 * @param string[] $states Existing post states
+	 * @param WP_Post  $post Post object
 	 */
 	public function display_post_states( $states, $post ) {
 		if ( ! $this->cards->is_card( $post->post_type ) ) {

@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Käyttäjäroolit
+ * User roles
  */
 class Topten_Admin_Users extends Topten_Admin {
 	/**
@@ -15,11 +15,11 @@ class Topten_Admin_Users extends Topten_Admin {
 	}
 
 	/**
-	 * Lisää käyttäjäroolit
+	 * Add custom user roles
 	 */
 	public function add_roles() {
 		$administrator = get_role( 'administrator' );
-		$administrator->add_cap( 'activate_for_municipality' );
+		$administrator->add_cap( 'approve_for_municipality' );
 
 		// $administrator->add_cap( 'edit_tulkintakorttis' );
 		// $administrator->add_cap( 'read_tulkintakortti' );
@@ -30,9 +30,9 @@ class Topten_Admin_Users extends Topten_Admin {
 			'kuntahyvaksyja',
 			__( 'Kuntahyväksyjä', 'topten' ),
 			array(
-				'read'                      => true,
-				'edit'                      => true,
-				'activate_for_municipality' => true,
+				'read'                     => true,
+				'edit'                     => true,
+				'approve_for_municipality' => true,
 			// 'edit_tulkintakorttis' => true,
 			// 'read_tulkintakortti'  => true,
 			)
@@ -40,7 +40,7 @@ class Topten_Admin_Users extends Topten_Admin {
 	}
 
 	/**
-	 * Piilotetaan valikot käyttäjäroolin mukaan
+	 * Hide menu items based on user role
 	 */
 	public function hide_menu_items() {
 		$user = wp_get_current_user();
@@ -70,14 +70,14 @@ class Topten_Admin_Users extends Topten_Admin {
 	}
 
 	/**
-	 * Lisää valikkosivut
+	 * Add menu pages
 	 */
 	public function add_menu_pages() {
-		// Hyväksyntäsivu
+		// Page for municipality approval
 		add_menu_page(
 			'Hyväksyntä',
 			'Hyväksyntä',
-			'activate_for_municipality', // todo: Vaihda oikea oikeus
+			'approve_for_municipality', // todo: Change to correct capability
 			'hyvaksynta',
 			array( $this, 'render_approval_page' ),
 		);
@@ -87,7 +87,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'hyvaksynta',
 			'Tulkintakortit',
 			'Tulkintakortit',
-			'activate_for_municipality', // todo: Vaihda oikea oikeus
+			'approve_for_municipality', // todo: Change to correct capability
 			'hyvaksynta-tulkintakortit',
 			array( $this, 'render_approval_page' ),
 		);
@@ -97,7 +97,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'hyvaksynta',
 			'Ohjekortit',
 			'Ohjekortit',
-			'activate_for_municipality', // todo: Vaihda oikea oikeus
+			'approve_for_municipality', // todo: Change to correct capability
 			'hyvaksynta-ohjekortti',
 			array( $this, 'render_approval_page' ),
 		);
@@ -107,14 +107,14 @@ class Topten_Admin_Users extends Topten_Admin {
 			'hyvaksynta',
 			'Lomakekortit',
 			'Lomakekortit',
-			'activate_for_municipality', // todo: Vaihda oikea oikeus
+			'approve_for_municipality', // todo: Change to correct capability
 			'hyvaksynta-lomakekortti',
 			array( $this, 'render_approval_page' ),
 		);
 	}
 
 	/**
-	 * Renderöi sivun
+	 * Render approval page
 	 */
 	public function render_approval_page() {
 		include_once 'pages/approval-page.php';

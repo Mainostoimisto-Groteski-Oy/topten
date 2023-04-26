@@ -1,7 +1,9 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 /**
- * Topten lokiluokka
+ * Topten logger
+ *
+ * MAYBE NOT ACTUALLY REQUIRED
  */
 class Topten_Logger extends Topten {
 	/**
