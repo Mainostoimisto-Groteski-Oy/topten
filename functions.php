@@ -758,24 +758,22 @@ function topten_card_search() {
 				'compare' => '=',
 			),
 		),
+		'tax_query'		=> array(
+
+		),
 	);
 
 	// Card types
 	$post_types = array();
 
-	// Tulkintakortti
-	if ( isset( $_POST['cardTulkinta'] ) && sanitize_text_field( $_POST['cardTulkinta'] ) ) {
-		$post_types[] = 'tulkintakortti';
-	}
-
-	// Ohjekortti
-	if ( isset( $_POST['cardOhje'] ) && sanitize_text_field( $_POST['cardOhje'] ) ) {
-		$post_types[] = 'ohjekortti';
-	}
-
-	// Lomakekortti
-	if ( isset( $_POST['cardLomake'] ) && sanitize_text_field( $_POST['cardLomake'] ) ) {
-		$post_types[] = 'lomakekortti';
+	// sanitize array and set post types
+	if ( isset($_POST['cardTypes']) ) {
+		if ( !empty($_POST['cardTypes']) ) {
+			$post_types = array_map( 'sanitize_text_field', $_POST['cardTypes'] );
+		}
+		if ( ! $post_types ) {
+			$post_types = '';
+		}
 	}
 
 	$args['post_type'] = $post_types;
@@ -788,11 +786,11 @@ function topten_card_search() {
 	}
 
 	// Municipality (multiple values)
-	if ( isset( $_POST['cardMunicipality'] ) ) {
-		
-		// sanitize array integer values
-		$municipality = array_map( 'intval', $_POST['cardMunicipality'] );
-		
+	if ( isset( $_POST['cardmunicipalities'] ) ) {
+		if ( !empty($_POST['cardmunicipalities']) ) {
+		// sanitize array values
+			$municipality = array_map( 'intval', $_POST['cardmunicipalities'] );
+		}
 		if ( ! $municipality ) {
 			$municipality = '';
 		}
@@ -800,13 +798,13 @@ function topten_card_search() {
 
 	if ( $municipality ) {
 
-		$args['tax_query'] = array(
+		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'kunta',
 				'field'    => 'term_id',
 				'terms'    => $municipality,
-			),
-		);
+			);
+
 	}
 
 	// Law article (single value)
@@ -819,12 +817,11 @@ function topten_card_search() {
 
 	if ( $law ) {
 		
-		$args['tax_query'] = array(
+		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'laki',
 				'field'    => 'term_id',
 				'terms'    => $law,
-			),
 		);
 		
 	}
@@ -839,37 +836,38 @@ function topten_card_search() {
 
 	if ( $category ) {
 
-		$args['tax_query'] = array(
+		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'kortin_kategoria',
 				'field'    => 'term_id',
 				'terms'    => $category,
-			),
 		);
 	}
 
-	// Keywords (multiple), TODO: jatka tästä
-	if ( isset( $_POST['cardKeywords'] ) && is_array( $_POST['cardKeywords'])) {
+	// Keywords (multiple)
+
+	if ( isset( $_POST['cardkeywords'] ) && is_array( $_POST['cardkeywords'])) {
+
 		// Sanitize array
-		$keywords = array_map( 'intval', $_POST['cardKeywords'] );
+		$keywords = array_map( 'intval', $_POST['cardkeywords'] );
 		
 		if( !$keywords ) {
 			$keywords = '';
 		}
-		
-	}
-	
 
+	}
+
+	$keywords = $_POST['cardkeywords'];
+	
 	if ( $keywords ) {
 		
-		$args['tax_query'] = array(
+		$args['tax_query'][] =
 			array(
 				'taxonomy' 		=> 'asiasanat',
 				'field'			=> 'term_id',
 				'terms'			=> $keywords,
-			),
 		);
-	} */
+	} 
 
 	// Card publish date. User can filter by either starting from, ending at or both.
 	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
@@ -970,7 +968,8 @@ function topten_card_search() {
 		$results = topten_card_list($card_array);
 	}
 	// Send back as json
-	wp_send_json_success($results);
+	var_dump($results);
+	//wp_send_json_success($results);
 	
 	// You need to use wp_die for ajax calls
 	wp_die();
@@ -984,24 +983,32 @@ function topten_fetch_suggestions() {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 		wp_die();
 	}
-	// This does nothing yet
+	// Get type
 	if ( ! isset($_POST['type'] ) ) {
 		wp_send_json_error( 'Type is not set.' );
 		wp_die();
 	} else {
 		$type = sanitize_text_field( $_POST['type'] );
 	}
-
+	
+	// Get input
 	if ( isset($_POST['userInput'] ) ) {
 		$userInput = sanitize_text_field( $_POST['userInput'] ); 
+		if(!$type) {
+			wp_die();
+		} else {
+
+			if ('asiasanat' === $type) {
+				$tax = array('asiasanat');
+			} else if ('kunta' === $type) {
+				$tax = array('kunta');
+			}
+		}
 	}
 
-	if ($type === 'keywords') {
-		//$terms = get_terms('asiasanat');
-	}
 
 	$args = array(
-		'taxonomy' 		=> array('asiasanat'),
+		'taxonomy' 		=> $tax,
 		'orderby'		=> 'title',
 		'order'			=> 'DESC',
 		'name__like'	=> $userInput,
@@ -1038,6 +1045,16 @@ function topten_fetch_terms() {
 		wp_die();
 	} else {
 		$type = sanitize_text_field( $_POST['type'] );
+		if(!$type) {
+			wp_die();
+		} else {
+
+			if ('asiasanat' === $type) {
+				$tax = array('asiasanat');
+			} else if ('kunta' === $type) {
+				$tax = array('kunta');
+			}
+		}
 	}
 
 	if ( isset($_POST['keywords'] ) ) {
@@ -1051,13 +1068,13 @@ function topten_fetch_terms() {
 	}
 	
 	$args = array(
-		'taxonomy' 		=> array('asiasanat'),
+		'taxonomy' 		=> $tax,
 		'orderby'		=> 'title',
 		'order'			=> 'DESC',
 		'include'		=> $keywords,
 	);
 	$terms = get_terms($args);
-
+	
 	if($terms) {
 		$list = [];
 		foreach ($terms as $index => $term) {
@@ -1068,6 +1085,7 @@ function topten_fetch_terms() {
 	} else {
 		$list = [];
 	}
+	
 	wp_send_json_success($list);
 	
 	wp_die();

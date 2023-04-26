@@ -53,6 +53,7 @@ $categories = get_terms(
 ?>
 
 <main id="primary" class="site-main">
+	<div id="ajaxSpinner"></div>
 	<section class="page-title">
 		<div class="grid">
 			<h1 class="entry-title h3">
@@ -92,22 +93,22 @@ $categories = get_terms(
 
 					<div class="full">
 						<div class="input-wrapper keywords">
-							<label for="cardKeywords">
+							<label for="cardkeywords">
 								<?php esc_html_e( 'Suodata kortteja asiasanan mukaan', 'topten' ); ?>
 							</label>
 
 							<div class="inner-wrapper">
 								<input type="text"
-									name="cardKeywords"
-									id="cardKeywords"
+									name="cardkeywords"
+									id="cardkeywords"
 									placeholder="<?php esc_html_e( 'Alkaa kirjaimilla...', 'topten' ); ?>" />
 								<input type="hidden"
-									name="cardKeywordsValue"
-									id="cardKeywordsValue"
+									name="cardkeywordsValue"
+									id="cardkeywordsValue"
 									/>
 								<button type="submit"
-									name="keywordSearch"
-									id="keywordSearch" >
+									name="keywordssearch"
+									id="keywordssearch" >
 									<?php esc_html_e( 'Lisää', 'topten' ); ?>
 								</button>
 							</div>
@@ -120,19 +121,22 @@ $categories = get_terms(
 
 					<div class="full">
 						<div class="input-wrapper keywords">
-							<label for="cardMunicipality">
+							<label for="cardmunicipalities">
 								<?php esc_html_e( 'Suodata kortteja kunnan mukaan', 'topten' ); ?>
 							</label>
 
 							<div class="inner-wrapper">
 								<input type="text"
-									name="cardMunicipality"
-									id="cardMunicipality"
+									name="cardmunicipalities"
+									id="cardmunicipalities"
 									placeholder="<?php esc_html_e( 'Kirjoita kuntasi nimi tähän', 'topten' ); ?>" />
-
+								<input type="hidden"
+									name="cardmunicipalitiesValue"
+									id="cardmunicipalitiesValue"
+									/>
 								<button type="submit"
-									name="municipalitySearch"
-									id="municipalitySearch">
+									name="municipalitiessearch"
+									id="municipalitiessearch">
 									<?php esc_html_e( 'Lisää', 'topten' ); ?>
 								</button>
 							</div>
@@ -206,8 +210,19 @@ $categories = get_terms(
 			</div> <!-- end content area -->
 			
 			<div class="sidebar" id="cardSidebar">
-				<ul class="keywords" id="selectedKeywords"></ul>
-				<ul class="keywords" id="selectedMunicipalities"></ul>
+
+				<ul class="keywords" id="selectedText"></ul>
+				<ul class="keywords" id="selectedkeywords"></ul>
+				<ul class="keywords" id="selectedmunicipalities"></ul>
+				<ul class="keywords" id="selectedDateRange"></ul>
+				<ul class="keywords" id="selectedCategory"></ul>
+				<ul class="keywords" id="selectedLaw"></ul>
+
+				<button type="submit"
+					class="resetFilters"
+					name="resetFilters"
+					id="resetFilters">
+					<?php esc_html_e( 'Tyhjennä suodattimet', 'topten' ); ?>
 			</div>
 			<div id="test" style="grid-column: 1 / -1"></div>
 		</div><!-- end top grid -->
@@ -245,7 +260,7 @@ $categories = get_terms(
 						<label for="cardTulkinta" class="inner-wrapper">
 							<input class="filterTrigger"
 								type="checkbox"
-								name="cardTulkinta"
+								name="cardTypeFilter"
 								id="cardTulkinta"
 								value="tulkintakortti"
 								checked />
@@ -256,7 +271,7 @@ $categories = get_terms(
 						<label for="cardOhje" class="inner-wrapper">
 							<input class="filterTrigger"
 								type="checkbox"
-								name="cardOhje"
+								name="cardTypeFilter"
 								id="cardOhje"
 								value="ohjekortti"
 								checked />
@@ -267,7 +282,7 @@ $categories = get_terms(
 						<label for="cardLomake" class="inner-wrapper">
 							<input class="filterTrigger"
 								type="checkbox"
-								name="cardLomake"
+								name="cardTypeFilter"
 								id="cardLomake"
 								value="lomakekortti"
 								checked />
