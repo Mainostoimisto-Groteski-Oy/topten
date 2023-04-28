@@ -10,14 +10,49 @@ jQuery(document).ready(($) => {
 	});
 	// Fetch cards from database via query
 	function cardSearch() {
-		const freeText = $('#freeText').val();
+		// if value is in localstorage, use it instead of form value
+		let freeText = '';
+		if(localStorage.getItem('freeText')) {
+			freeText = localStorage.getItem('freeText');
+		} else {
+			freeText = $('#freeText').val(); 
+		}
+		let cardLaw = '';
+		if(localStorage.getItem('cardLaw')) {
+			cardLaw = localStorage.getItem('cardLaw');
+		} else {
+			cardLaw = $('#cardLaw').val();
+		}
+
+		let cardCategory = '';
+		if(localStorage.getItem('cardCategory')) {
+			cardCategory = localStorage.getItem('cardCategory');
+		} else {
+			cardCategory = $('#cardCategory').val();
+		}
+		let filterOrder = '';
+		if(localStorage.getItem('filterOrder')) {
+			filterOrder = localStorage.getItem('filterOrder');
+		} else {
+			filterOrder = $('#filterOrder').val();
+		}
+		let cardDateStart = '';
+		if(localStorage.getItem('cardDateStart')) {
+			cardDateStart = localStorage.getItem('cardDateStart');
+		} else {
+			cardDateStart = $('#dateStart').val();
+		}
+		let cardDateEnd = '';
+		if(localStorage.getItem('dateEnd')) {
+			cardDateEnd = localStorage.getItem('dateEnd');
+		} else {
+			cardDateEnd = $('#cardDateEnd').val();
+		}
+		
+		// if these are not in locaLstorage they're not in use at all
 		const cardkeywords = JSON.parse(localStorage.getItem('keywords'));
 		const cardmunicipalities = JSON.parse(localStorage.getItem('municipalities'));
-		const cardLaw = $('#cardLaw').val();
-		const cardCategory = $('#cardCategory').val();
-		const filterOrder = $('#filterOrder').val();
-		const cardDateStart = $('#cardDateStart').val();
-		const cardDateEnd = $('#cardDateEnd').val();
+
 		// get checked checkboxes values and push them to array
 		const cardTypes = [];
 		$('input[name="cardTypeFilter"]:checked').each(function() {
@@ -43,7 +78,7 @@ jQuery(document).ready(($) => {
 			success(data) {
 				// PHP code handles the data so we just need to append it to the DOM
 				$('#listCards').html(data);
-				
+				console.log(data);
 				// Hide empty categories
 				// Tulkintakortti post type has three levels of categories, the others two
 				$('#tulkintakortit ul.children').each(function() {
@@ -122,22 +157,16 @@ jQuery(document).ready(($) => {
 		}
 	}
 
-	function sgimm() {
-		/*
-					<ul class="keywords" id="selectedText"></ul>
-				<ul class="keywords" id="selectedkeywords"></ul>
-				<ul class="keywords" id="selectedmunicipalities"></ul>
-				<ul class="keywords" id="selectedDateRange"></ul>
-				<ul class="keywords" id="selectedCategory"></ul>
-				<ul class="keywords" id="selectedLaw"></ul>
-				*/
+	function showFilters() {
+
 		// Get items from local storage
-		/*
+
 		const freeText = localStorage.getItem('freeText');
 		const cardLaw = localStorage.getItem('cardLaw');
-		const cardCategory = JSON.parse(localStorage.getItem('cardCategory'));
+		console.log(`öä${  freeText}`);
+		/* const cardCategory = JSON.parse(localStorage.getItem('cardCategory'));
 		const cardDateStart = JSON.parse(localStorage.getItem('cardDateStart'));
-		const cardDateEnd = JSON.parse(localStorage.getItem('cardDateEnd'));
+		const cardDateEnd = JSON.parse(localStorage.getItem('cardDateEnd')); */
 		if (freeText) {
 			$('#selectedText').html('');
 			$('#selectedText').append(`<li class="keyword" data-id="${freeText}">${freeText} <button class="removekeyword" data-type="freeText" data-id="${freeText}">x</button></li>`);
@@ -146,7 +175,7 @@ jQuery(document).ready(($) => {
 			$('#selectedLaw').html('');
 			$('#selectedLaw').append(`<li class="keyword" data-id="${cardLaw}">${cardLaw} <button class="removekeyword" data-type="cardLaw" data-id="${cardLaw}">x</button></li>`);
 		}
-		*/
+	
 	}
 	function applyFilters(type) {
 		// Get chosen items from hidden input field
@@ -270,7 +299,7 @@ jQuery(document).ready(($) => {
 		// Search & filter button events
 		$('#searchCards button.searchTrigger').on('click', () => {
 			cardSearch();
-			sgimm();
+			showFilters();
 			if($('#freeText').val() !== '') {
 				localStorage.setItem('freeText', $('#freeText').val());
 			}
@@ -287,7 +316,21 @@ jQuery(document).ready(($) => {
 				localStorage.setItem('cardCategory', $('#cardCategory').val());
 			}
 		});
-		
+		if(localStorage.getItem('dateStart') !== null) {
+			$('#cardDateStart').val(localStorage.getItem('dateStart'));
+		}
+		if(localStorage.getItem('dateEnd') !== null) {
+			$('#cardDateEnd').val(localStorage.getItem('dateEnd'));
+		}
+		if(localStorage.getItem('cardLaw') !== null) {
+			$('#cardLaw').val(localStorage.getItem('cardLaw'));
+		}
+		if(localStorage.getItem('cardCategory') !== null) {
+			$('#cardCategory').val(localStorage.getItem('cardCategory'));
+		}
+		if(localStorage.getItem('freeText') !== null) {
+			$('#freeText').val(localStorage.getItem('freeText'));
+		}
 		$('#keywordssearch').on('click', () => {
 			applyFilters('keywords');
 		});

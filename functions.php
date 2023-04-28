@@ -959,17 +959,17 @@ function topten_card_search() {
 	// If nothing is found, return notice to user
 	if(empty($tulkinta_array) && empty($ohje_array) && empty($lomake_array)) {
 		$results = '<div class="noResults">';
-		$results .= '<p>'.esc_html('Ei hakutuloksia','topten').'</p>';
+		$results .= '<p>'.esc_html('Ei hakutuloksia.','topten').'</p>';
 		$results .= '</div>';
+		// return results and die
+		echo $results;
+		wp_die();
 	} else {
 		// Create array of arrays
 		$card_array = array('tulkinta' => $tulkinta_array, 'ohje' => $ohje_array, 'lomake' => $lomake_array);
 		// Run function to get the results
-		$results = topten_card_list($card_array);
+		topten_card_list($card_array);
 	}
-	// Send back as json
-	var_dump($results);
-	//wp_send_json_success($results);
 	
 	// You need to use wp_die for ajax calls
 	wp_die();
