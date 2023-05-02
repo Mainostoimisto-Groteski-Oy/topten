@@ -81,7 +81,7 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 		$type = get_post_type( $post_id );
 
 		// Check if post type is card
-		if ( ! $this->cards->is_card( $type ) ) {
+		if ( ! $this->is_card( $type ) ) {
 			return;
 		}
 

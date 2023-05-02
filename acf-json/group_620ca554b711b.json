@@ -141,6 +141,11 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/liitteet"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/tekstikentta"
             }
         ]
     ],
@@ -153,5 +158,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681972922
+    "modified": 1683031259
 }

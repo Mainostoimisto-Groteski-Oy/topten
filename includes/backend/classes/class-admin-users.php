@@ -19,13 +19,14 @@ class Topten_Admin_Users extends Topten_Admin {
 	 */
 	public function add_roles() {
 		$administrator = get_role( 'administrator' );
-		$administrator->add_cap( 'approve_for_municipality' );
 
-		// $administrator->add_cap( 'edit_tulkintakorttis' );
-		// $administrator->add_cap( 'read_tulkintakortti' );
+		// Add custom capabilities to administrator role (WP doesn't add them automatically)
+		$administrator->add_cap( 'approve_for_municipality' );
+		$administrator->add_cap( 'approve_for_profession' );
 
 		remove_role( 'kuntahyvaksyja' );
 
+		// Kuntahyväksyjä
 		add_role(
 			'kuntahyvaksyja',
 			__( 'Kuntahyväksyjä', 'topten' ),
@@ -33,6 +34,18 @@ class Topten_Admin_Users extends Topten_Admin {
 				'read'                     => true,
 				'edit'                     => true,
 				'approve_for_municipality' => true,
+			)
+		);
+
+		// Ammattihyväksyjä (?)
+		// Todo: Figure out better name for this role
+		add_role(
+			'ammattihyvaksyja',
+			__( 'Ammattihyväksyjä', 'topten' ),
+			array(
+				'read'                   => true,
+				'edit'                   => true,
+				'approve_for_profession' => true,
 			// 'edit_tulkintakorttis' => true,
 			// 'read_tulkintakortti'  => true,
 			)

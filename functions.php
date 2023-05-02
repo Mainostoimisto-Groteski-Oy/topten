@@ -251,6 +251,7 @@ $card_allowed_blocks = array(
 	'acf/taulukko',
 	'acf/linkkilista',
 	'acf/liitteet',
+	'acf/tekstikentta',
 );
 
 /**
@@ -650,6 +651,20 @@ function topten_acf() {
 		$block_name  = 'Liitteet';
 		$block_slug  = 'card-attachments';
 		$description = 'Liitetiedosto';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Tekstikenttä';
+		$block_slug  = 'card-input-text';
+		$description = 'Tekstikenttä';
 
 		acf_register_block_type(
 			array(
