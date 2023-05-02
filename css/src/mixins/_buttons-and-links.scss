@@ -1,23 +1,24 @@
 @use "variables/breakpoints" as *;
 @use "variables/colors" as *;
 
+
 /// Mixin yksittäiselle napille
 @mixin button {
 	a.button {
 		border-radius: 5px;
 		padding: 10px 20px;
-		background-color: $red;
-		border: 1px solid $red;
+		background-color: $black;
+		border: 1px solid $black;
 		color: $white;
 		text-decoration: none;
 		display: inline-block;
 		transition: ease-in-out 0.25s;
 		outline: none;
-		font-weight: 700;
+		font-weight: 600;
 
 		&:hover {
-			background-color: $darkred;
-			color: $white;
+			background-color: $white;
+			color: $black;
 		}
 	}
 }
@@ -36,7 +37,7 @@
 /// Mixin yksittäiselle linkille
 @mixin link {
 	a {
-		color: $black;
+		color: $red;
 		text-decoration: none;
 		transition: all 0.25s;
 		position: relative;
@@ -44,9 +45,9 @@
 
 		&::after {
 			content: "";
-			background-color: $black;
+			background-color: $red;
 			position: absolute;
-			bottom: -3px;
+			bottom: 0px;
 			left: 0;
 			width: 0;
 			height: 1px;
@@ -61,6 +62,44 @@
 	}
 }
 
+// Linkki nuolella
+@mixin arrowlink {
+	a {
+		display: inline-flex;
+		align-items: center;
+		color: $red;
+		position: relative;
+		text-decoration: none;
+		margin-right: auto;
+		&::before {
+			content: '';
+			width: 0px;
+			height: 1px;
+			background-color: $red;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			transition: all 0.25s;
+		}
+		&::after {
+			position: relative;
+			font-family: 'Material Icons';
+			content: '\eac9';
+			transition: all 0.25s;
+			right: -2px;
+			top: 1px;
+		}
+		&:hover {
+			&::after {
+				transform: translate(5px, 0);
+			}
+			&::before {
+				width: calc(100% - 15px);
+			}
+		}
+	}
+}
+
 /// Mixin joka sisältää .links wrapperin ja kutsuu yksittäisen linkin suoraan
 @mixin links {
 	.links {
@@ -70,5 +109,18 @@
 		gap: 10px;
 
 		@include link;
+	}
+}
+
+// sama mutta nuolille
+
+@mixin arrowlinks {
+	.links {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+
+		@include arrowlink;
 	}
 }

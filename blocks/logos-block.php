@@ -1,7 +1,3 @@
-<?php
-	$columns = get_field( 'columns' );
-	$columns = $columns . '-columns';
-?>
 <section <?php topten_block_id(); ?> class="logos-block">
 	<div class="grid">
 		<div class="text-block">
@@ -11,13 +7,17 @@
 				<?php the_field( 'text' ); ?>
 			<?php endif; ?>
 		</div>
-
+				
 		<?php if ( have_rows( 'logos' ) ) : ?>
-			<div class="logos-grid <?php echo esc_attr( $columns ); ?>">
+			<?php $i = 0; ?>
+			<div class="logos-grid">
 
 				<?php
 				while ( have_rows( 'logos' ) ) :
+					
 					the_row();
+
+					
 
 					$logo = get_sub_field( 'logo' );
 
@@ -39,6 +39,10 @@
 							echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
 						endif;
 					endif;
+					// empty div after every logo to get desired layout
+					?>
+					<div class="blank" aria-hidden="true"></div>
+					<?php
 				endwhile;
 				?>
 			</div>

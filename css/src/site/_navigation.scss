@@ -1,10 +1,31 @@
 @use "mixins/all" as *;
+.logoheader {
+	.grid {
+		grid-template-columns: minmax(0, 1fr);
+		padding: 15px;
+		.logos {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.site-branding {
+				img {
+					max-width: 200px;
+				}
+			}
+			.rty-branding {
+				img {
+					max-width: 125px;
+				}
+			}
+		}
 
+	}
+}
 .site-header {
 	z-index: 9999;
 	position: sticky;
 	max-width: 100vw;
-	background-color: $white;
+	background-color: $black;
 	top: 0;
 	filter: drop-shadow(0 0 2px rgba($black, 0.2));
 
@@ -14,9 +35,9 @@
 	}
 
 	.grid {
-		grid-template-columns: 125px minmax(0, 1fr);
+		grid-template-columns: minmax(0, 1fr);
 		padding: 0 15px;
-		align-items: center;
+		align-items: flex-start;
 	}
 
 	.site-branding {
@@ -37,6 +58,8 @@
 		height: 100%;
 		display: flex;
 		align-content: center;
+		width: 100%;
+		padding: 15px 0px;
 
 		.menu-container {
 			width: 100%;
@@ -47,7 +70,7 @@
 				margin: 0;
 				list-style: none;
 				display: flex;
-				justify-content: space-evenly;
+				justify-content: space-between;
 				align-items: center;
 
 				li.menu-item {
@@ -57,16 +80,28 @@
 
 					a {
 						text-decoration: none;
-						color: $red;
-						font-size: 2rem;
+						color: $white;
+						font-size: 1.8rem;
 
 						> span {
 							position: relative;
+							&::after {
+								width: 0px;
+								height: 1px;
+								content: '';
+								background-color: $white;
+								position: absolute;
+								bottom: -1px;
+								left: 0;
+								transition: all 0.25s;
+							}
 						}
 
 						&:hover {
 							> span {
-								color: $black;
+								&::after {
+									width: 100%;
+								}
 							}
 						}
 					}
@@ -112,7 +147,7 @@
 								transition: all 0.25s;
 
 								&:hover {
-									background-color: $paper;
+									background-color: $grey;
 								}
 							}
 						}

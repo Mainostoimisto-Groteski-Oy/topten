@@ -83,6 +83,17 @@ function topten_setup() {
  * ACF Options to admin menu
  */
 if ( function_exists( 'acf_add_options_page' ) ) {
+
+	acf_add_options_page(
+		array(
+			'page_title' => 'Header',
+			'menu_title' => 'Header',
+			'menu_slug'  => 'header-settings',
+			'redirect'   => false,
+			'capability' => 'administrator',
+		)
+	);
+
 	acf_add_options_page(
 		array(
 			'page_title' => 'Footer',
@@ -175,6 +186,8 @@ add_filter(
  */
 function topten_scripts() {
 
+	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
+
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' ); // TODO: Tarvitaanko tätä?
@@ -229,6 +242,8 @@ add_action( 'wp_enqueue_scripts', 'topten_scripts' );
  */
 function topten_editor_scripts() {
 
+	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
+
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
@@ -274,8 +289,10 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 			'acf/nosto',
 			'acf/artikkelit',
 			'acf/banneri',
-			// 'acf/kaksi-saraketta',
-			// 'acf/kolme-saraketta',
+			'acf/nostoryhma',
+			'acf/logot',
+			'acf/kaksi-saraketta',
+			'acf/kolme-saraketta',
 			// 'acf/upotus',
 			// 'acf/logot',
 			// 'acf/yhteystiedot',
@@ -431,6 +448,21 @@ function topten_acf() {
 				'render_template' => "blocks/$block_slug.php",
 				'keywords'        => array( $block_name ),
 				'icon'            => 'embed-generic',
+			)
+		);
+
+		$block_name  = 'Nostoryhmä';
+		$block_slug  = 'lift-group-block';
+		$description = 'Lohko nostoryhmälle';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'align-wide',
 			)
 		);
 
@@ -1093,3 +1125,14 @@ function topten_fetch_terms() {
 
 add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
 add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );
+
+
+function topten_excerpt_more( $more ) {
+    return '..';
+}
+add_filter( 'excerpt_more', 'topten_excerpt_more' );
+
+function topten_excerpt_length( $length ) {
+    return 30;
+}
+add_filter( 'excerpt_length', 'topten_excerpt_length' , 999);

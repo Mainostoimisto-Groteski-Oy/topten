@@ -29,11 +29,24 @@
 		<?php esc_html_e( 'Skip to content', 'topten' ); ?>
 	</a>
 
+	<header id="logoheader" class="logoheader">
+		<div class="grid">
+			<div class="logos">
+				<div class="site-branding">
+					<?php the_custom_logo(); ?>
+				</div>
+				<?php if(get_field('show_rty_logo', 'options')) : ?>
+					<div class="rty-branding">
+						<?php $logo = get_field('rty_logo', 'options'); ?>
+						<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</header>
+
 	<header id="masthead" class="site-header">
 		<div class="grid">
-			<div class="site-branding">
-				<?php the_custom_logo(); ?>
-			</div>
 
 			<nav id="site-navigation" class="main-navigation">
 				<?php

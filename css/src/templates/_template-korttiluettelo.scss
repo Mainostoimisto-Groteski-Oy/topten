@@ -174,7 +174,7 @@ body.page-template-template-korttiluettelo {
                                         li.child {
                                             >p.name {
                                                 color: $black;
-                                                background-color: $paper;
+                                                background-color: $grey;
                                                 border-radius: 5px;
                                                 border: 1px solid $white;
                                                 margin: 0;
@@ -199,7 +199,7 @@ body.page-template-template-korttiluettelo {
                                 li.parent {
                                     >p.name {
                                         color: $black;
-                                        background-color: $paper;
+                                        background-color: $grey;
                                         border-radius: 5px;
                                         border: 1px solid $white;
                                         margin: 0;
@@ -223,7 +223,7 @@ body.page-template-template-korttiluettelo {
                         display: block;
                         padding: 15px;
                         margin: 0!important;
-                        background-color: $red;
+                        background-color: $black;
                         color: $white;
                         font-weight: 500;
                         font-size: 2.4rem;
