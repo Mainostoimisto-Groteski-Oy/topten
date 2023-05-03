@@ -2,7 +2,7 @@
 
 /// _multi-column-block.scss löytyy sellaiset arvot, jotka vaikuttaa sekä kahden että kolmen kolumnin lohkoon
 section.three-column-block {
-	.grid {
+	.grid, .grid-full {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 }

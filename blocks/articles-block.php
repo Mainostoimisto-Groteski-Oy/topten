@@ -130,11 +130,19 @@ if ( 'newest' === $articles_type ) {
 				<?php wp_reset_postdata(); ?>
 			<?php else : ?>
 				<?php foreach ( $postslist as $post ) : ?>
-					<?php setup_postdata( $post ); ?>
+					<?php setup_postdata( $post ); 
+					if (get_the_post_thumbnail_url($post->ID, 'medium')) {
+						$src = esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) );
+						$class = '';
+					} else {
+						$src = home_url().'/wp-content/themes/topten/assets/dist/images/placeholder.png';
+						$class = 'placeholder';
+					}
+					?>
 						<div class="single-post" id="post-<?php echo esc_attr( $post->ID ); ?>">
 
-						<div class="image">
-							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) ); ?>" alt=""/>
+						<div class="image <?php echo esc_attr($class); ?> ">
+							<img src="<?php echo esc_url($src); ?>" alt=""/>
 						</div>
 
 						<div class="content">
@@ -142,21 +150,17 @@ if ( 'newest' === $articles_type ) {
 								<?php echo esc_html( date( 'd.m.Y', strtotime( $post->post_date ) ) ); ?>
 							</div>
 
-							<h4 class="title h4">
+							<h3 class="title h4">
 								<?php echo esc_html( get_the_title( $post->ID ) ); ?>
-							</h4>
+							</h3>
 
-							<div class="text">
+							<p class="text">
 								<?php echo wp_kses_post( get_the_excerpt( $post->ID ) ); ?>
-							</div>
+							</p>
 
-							<div class="buttons">
-								<a class="button" href="<?php the_permalink( $post->ID ); ?>">
-									<span class="button-text">
-										<?php esc_html_e( 'Lue koko juttu', 'topten' ); ?>
-									</span>
-								</a>
-							</div>
+							<a class="link" href="<?php the_permalink( $post->ID ); ?>">
+								<?php esc_html_e( 'Lue koko juttu', 'topten' ); ?>
+							</a>
 						</div>
 					</div>
 				<?php endforeach; ?>

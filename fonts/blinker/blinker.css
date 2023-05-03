@@ -1,0 +1,63 @@
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 100;
+	font-display: swap;
+	src: url("Blinker-Thin.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 200;
+	font-display: swap;
+	src: url("Blinker-ExtraLight.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: url("Blinker-Light.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("Blinker-Regular.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("Blinker-SemiBold.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("Blinker-Bold.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url("Blinker-ExtraBold.ttf") format("opentype");
+}
+
+@font-face {
+	font-family: Blinker;
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+	src: url("Blinker-Black.ttf") format("opentype");
+}

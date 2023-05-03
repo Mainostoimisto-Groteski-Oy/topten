@@ -1,6 +1,6 @@
 {
     "key": "taxonomy_643fca065374c",
-    "title": "Kategoriat",
+    "title": "Ammattialat (kategoriat)",
     "menu_order": 0,
     "active": true,
     "taxonomy": "kortin_kategoria",
@@ -13,8 +13,8 @@
     "import_source": "",
     "import_date": "",
     "labels": {
-        "name": "Kategoriat",
-        "singular_name": "Kategoria",
+        "name": "Ammattialat (kategoriat)",
+        "singular_name": "Ammattiala (kategoria)",
         "menu_name": "Kategoriat",
         "all_items": "All Kategoriat",
         "edit_item": "Edit Kategoria",
@@ -67,5 +67,5 @@
     "meta_box": "default",
     "meta_box_cb": "",
     "meta_box_sanitize_cb": "",
-    "modified": 1681966659
+    "modified": 1681991351
 }

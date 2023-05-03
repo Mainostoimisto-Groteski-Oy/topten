@@ -32,12 +32,13 @@
                         "class": "",
                         "id": ""
                     },
+                    "relevanssi_exclude": 0,
                     "choices": {
                         "transparent": "Läpinäkyvä",
-                        "black": "Musta",
-                        "white": "Valkoinen",
-                        "red": "Punainen",
-                        "green": "Vihreä"
+                        "blue": "Sininen",
+                        "yellow": "Keltainen",
+                        "green": "Vihreä",
+                        "white": "Valkoinen"
                     },
                     "default_value": "transparent",
                     "return_format": "value",
@@ -58,11 +59,10 @@
                         "class": "",
                         "id": ""
                     },
+                    "relevanssi_exclude": 0,
                     "choices": {
                         "black": "Musta",
-                        "white": "Valkoinen",
-                        "red": "Punainen",
-                        "green": "Vihreä"
+                        "white": "Valkoinen"
                     },
                     "default_value": "transparent",
                     "return_format": "value",
@@ -181,12 +181,13 @@
                         "class": "",
                         "id": ""
                     },
+                    "relevanssi_exclude": 0,
                     "choices": {
                         "transparent": "Läpinäkyvä",
-                        "black": "Musta",
-                        "white": "Valkoinen",
-                        "red": "Punainen",
-                        "green": "Vihreä"
+                        "blue": "Sininen",
+                        "yellow": "Keltainen",
+                        "green": "Vihreä",
+                        "white": "Valkoinen"
                     },
                     "default_value": "transparent",
                     "return_format": "value",
@@ -207,16 +208,15 @@
                         "class": "",
                         "id": ""
                     },
+                    "relevanssi_exclude": 0,
                     "choices": {
                         "black": "Musta",
-                        "white": "Valkoinen",
-                        "red": "Punainen",
-                        "green": "Vihreä"
+                        "white": "Valkoinen"
                     },
                     "default_value": "transparent",
-                    "return_format": "",
+                    "return_format": "value",
                     "allow_null": 0,
-                    "layout": ""
+                    "layout": "horizontal"
                 },
                 {
                     "key": "field_63a0693553846",
@@ -319,5 +319,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1683098907
 }

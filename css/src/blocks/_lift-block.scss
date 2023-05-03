@@ -20,7 +20,7 @@ section.lift-block {
 				left: 0;
 				height: calc(100% + 60px);
 				width: 100%;
-				background-color: $paper-transparent;
+				background-color: $grey;
 				display: block;
 				z-index: 1;
 			}
@@ -32,7 +32,7 @@ section.lift-block {
 			}
 
 			.title {
-				color: $red;
+				color: $black;
 				position: relative;
 				z-index: 999;
 			}

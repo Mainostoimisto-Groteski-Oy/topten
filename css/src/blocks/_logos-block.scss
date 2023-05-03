@@ -12,8 +12,56 @@ section.logos-block {
 
 	.logos-grid {
 		display: grid;
-		gap: 100px;
+		margin: 0 auto;
+		gap: 25px;
+		justify-content: center;
+		align-items: center;
+		grid-template-columns: repeat(9, minmax(0, 1fr));
+		@media(max-width:$max-xl) {
+			grid-template-columns: repeat(7, minmax(0, 1fr));
+		}
+		@media(max-width:$max-l) {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+		@media(max-width:$max-s) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			margin: unset;
+		}
+		@media(max-width:$max-xs) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.logo {
+			
+			img {
+				max-width: 150px;
+				@media(max-width:$max-xxl) {
+					max-width: 100px;
+				}
+				@media(max-width:$max-l) {
+					max-width: 125px;
+				}
+				@media(max-width:$max-xs) {
+					max-width: 100px;
+				}
+			}
+			@media(max-width:$max-s) {
+				margin: 0 auto;
+			}
+		}
+		.blank {
+			@media(max-width:$max-s) {
+				display: none;
+			}
+		}
 
+		// alternating rows of 5 and 4 items
+		/*
+		&:nth-child(even) {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+		&:nth-child(odd) {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
 		&.three-columns {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
@@ -29,5 +77,6 @@ section.logos-block {
 		&.six-columns {
 			grid-template-columns: repeat(6, minmax(0, 1fr));
 		}
+		*/
 	}
 }

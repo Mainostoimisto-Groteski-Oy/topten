@@ -3,6 +3,27 @@
     "title": "Lohko: Logot",
     "fields": [
         {
+            "key": "field_64511268c4368",
+            "label": "Lyhyt kuvausteksti",
+            "name": "description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
             "key": "field_61dd8739b9615",
             "label": "Logot",
             "name": "logos",
@@ -67,31 +88,6 @@
                     "parent_repeater": "field_61dd8739b9615"
                 }
             ]
-        },
-        {
-            "key": "field_63c78f0d0a722",
-            "label": "Sarakkeiden määrä?",
-            "name": "columns",
-            "aria-label": "",
-            "type": "button_group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "three": "Kolme",
-                "four": "Neljä",
-                "five": "Viisi",
-                "six": "Kuusi"
-            },
-            "default_value": "four : Neljä",
-            "return_format": "value",
-            "allow_null": 0,
-            "layout": "horizontal"
         }
     ],
     "location": [
@@ -112,5 +108,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1683098811
 }

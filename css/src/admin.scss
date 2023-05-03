@@ -1,0 +1,25 @@
+@use "admin/page-approval";
+
+.fixed {
+	th.column-version,
+	th.column-language {
+		width: 5em;
+	}
+
+	th.column-other_languages,
+	th.column-modified,
+	th.column-status {
+		width: 10em;
+	}
+
+	th.column-modified_author {
+		width: 10%;
+	}
+}
+
+.wp-list-table {
+	td[class*="column-language_"],
+	th[class*="column-language_"] {
+		display: none !important;
+	}
+}

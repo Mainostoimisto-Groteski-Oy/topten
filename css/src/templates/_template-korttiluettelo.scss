@@ -2,16 +2,67 @@
 
 body.page-template-template-korttiluettelo {
     main {
+        position: relative;
+        #ajaxSpinner {
+            
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            content: '';
+            width: 50px;
+            height: 50px;
+            background-color: $black;
+            display: none;
+        }
         section.cards {
             .grid {
+                &.top {
+                    grid-template-columns: 8fr 4fr;
+                    .content-area {
+                        grid-column: 1;
+                    }
+                    .sidebar {
+                        grid-column: 2;
+                        background-color: $grey;
+                        padding: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        .title {
+                            padding: 0;
+                            margin: 0 0 15px 0;
+                            font-weight: 600;
+                        }
+                        button.resetFilters {
+                            background-color: transparent;
+                            color: $black;
+                            border: 1px solid $black;
+                            transition: all 0.15s;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            margin-top: auto;
+                            margin-right: auto;
+                            display: inline-block;
+                            font-weight: 400;
+                            &:hover {
+                                background-color: $black;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+                &:not(.top) {
+                    grid-template-columns: minmax(0, 1fr);
+                }
                 input[type="checkbox"], select {
                     cursor: pointer;
                 }
                 .search {
+                   
                     display: grid;
                     grid-template-columns: repeat(3, minmax(0, 1fr));
-                    gap: 30px;
-                    label, span.small {
+                    gap: 15px 30px;
+                    label, small.small {
                         font-size: 1.4rem;
                         font-style: italic;
                         margin: 5px 0px;
@@ -19,12 +70,10 @@ body.page-template-template-korttiluettelo {
                     }
                     .full {
                         grid-column: 1 / -1;
+                        margin-bottom: 25px;
                     }
                     .one-third {
                         grid-column: auto;
-                        &:last-child {
-                            margin-left: auto;
-                        }
                     }
                     .input-wrapper {
                         display: flex;
@@ -37,13 +86,14 @@ body.page-template-template-korttiluettelo {
                                 flex-grow: 1;
                             }
                             &.date {
-                                gap: 50px;
+                                gap: 10px;
                                 align-items: center;
+                                font-size: 1.4rem;
                             }
 
                         }
                         button {
-                            min-width: 140px;
+                            padding: 0px 30px;
                         }
 
                     }
@@ -54,12 +104,29 @@ body.page-template-template-korttiluettelo {
                         padding: 10px;
                         max-width: 100%;
                     }
+                    #cardmunicipalities, #cardkeywords, #freeText {
+                        border-right: none;
+                        background-color: $dim;
+                        border-left: 1px solid $black;
+                        border-top: 1px solid $black;
+                        border-bottom: 1px solid $black;
+                        border-radius: 5px 0px 0px 5px;
+                    }
+                    button {
+                        background-color: $black;
+                        color: $white;
+                        border: 1px solid $black;
+                        outline: none;
+                        
+                        border-radius: 0px 5px 5px 0px;
+                    }
                 }
                 .filters {
                     display: grid;
                     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
                     gap: 30px;
-                    label,  span.small {
+                    margin: 30px 0px;
+                    label, small.small {
                         font-size: 1.4rem;
                         font-style: italic;
                         margin: 5px 0px;
@@ -111,7 +178,7 @@ body.page-template-template-korttiluettelo {
                 }
                 .list {
                     position: relative;
-
+                    
 
                     .cardlist {
                         position: relative;
@@ -132,22 +199,26 @@ body.page-template-template-korttiluettelo {
                                 margin: 0;
                                 padding: 0;
                                 li.parent {
-                                    >span.name {
-                                        background-color: $red;
-                                        color: $white;
+                                    >p.name {
+                                        background-color: $blue;
+                                        color: $black;
                                         border-radius: 5px;
                                         border: 1px solid $white;
-                                        font-weight: 700;
+                                        font-weight: 600;
+                                        margin: 0;
+                                        padding: 15px;
                                     }
                                     ul.children {
                                         margin: 0;
                                         padding: 0;
                                         li.child {
-                                            >span.name {
+                                            >p.name {
                                                 color: $black;
-                                                background-color: $paper;
+                                                background-color: $grey;
                                                 border-radius: 5px;
                                                 border: 1px solid $white;
+                                                margin: 0;
+                                                padding: 15px;
                                             }
                                             ul.grandchildren {
                                                 padding: 0 15px;
@@ -166,11 +237,13 @@ body.page-template-template-korttiluettelo {
                                 margin: 0;
                                 padding: 0;
                                 li.parent {
-                                    >span.name {
+                                    >p.name {
                                         color: $black;
-                                        background-color: $paper;
+                                        background-color: $grey;
                                         border-radius: 5px;
                                         border: 1px solid $white;
+                                        margin: 0;
+                                        padding: 15px;
                                     }
                                     ul.children {
                                         padding: 0 15px;
@@ -190,7 +263,7 @@ body.page-template-template-korttiluettelo {
                         display: block;
                         padding: 15px;
                         margin: 0!important;
-                        background-color: $red;
+                        background-color: $black;
                         color: $white;
                         font-weight: 500;
                         font-size: 2.4rem;
