@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import gulp from 'gulp';
 import autoprefixer from 'autoprefixer';
 import browserSync from 'browser-sync';
@@ -50,7 +51,12 @@ const config = {
 	js: {
 		dest: './js/dist',
 		src: ['./js/src/*.js', './js/src/**/*.js'],
-		watch: ['./js/src/*.js', './js/src/**/*.js'],
+		watch: ['./js/src/*.js', './js/src/**/*.js', '!./js/src/admin/*.js', '!./js/src/admin/**/*.js'],
+		admin: {
+			dest: './js/dist',
+			src: ['./js/src/admin/*.js', './js/src/admin/**/*.js'],
+			watch: ['./js/src/admin/*.js', './js/src/admin/**/*.js'],
+		},
 	},
 	rename: {
 		suffix: '.min',
@@ -60,7 +66,7 @@ const config = {
 	},
 	styles: {
 		dest: './css/dist',
-		src: ['./css/src/site.scss', './css/src/gutenberg.scss'],
+		src: ['./css/src/site.scss', './css/src/gutenberg.scss', './css/src/admin.scss'],
 		watch: ['./css/src/*.scss', './css/src/**/*.scss'],
 	},
 	uglify: {
@@ -113,6 +119,24 @@ function js() {
 		.pipe(browserSync.stream());
 }
 
+function adminJs() {
+	const wpConfig = _.clone(webpackConfig);
+	wpConfig.mode = 'development';
+	wpConfig.devtool = 'source-map';
+	wpConfig.output.filename = 'admin.min.js';
+
+	return src(config.js.admin.src)
+		.pipe(webpack(wpConfig, compiler))
+
+		.on('error', function () {
+			this.emit('end');
+		})
+
+		.pipe(dest(config.js.admin.dest))
+
+		.pipe(browserSync.stream());
+}
+
 function productionJs() {
 	webpackConfig.mode = 'production';
 	webpackConfig.devtool = false;
@@ -125,6 +149,24 @@ function productionJs() {
 		})
 
 		.pipe(dest(config.js.dest))
+
+		.pipe(browserSync.stream());
+}
+
+function adminProductionJs() {
+	const wpConfig = _.clone(webpackConfig);
+	wpConfig.mode = 'production';
+	wpConfig.devtool = false;
+	wpConfig.output.filename = 'admin.min.js';
+
+	return src(config.js.admin.src)
+		.pipe(webpack(wpConfig, compiler))
+
+		.on('error', function () {
+			this.emit('end');
+		})
+
+		.pipe(dest(config.js.admin.dest))
 
 		.pipe(browserSync.stream());
 }
@@ -224,6 +266,8 @@ function initBrowserSync() {
 
 	watch(config.js.watch, js);
 
+	watch(config.js.admin.watch, adminJs);
+
 	watch(config.assets.watch, optimizeAssets);
 }
 
@@ -232,12 +276,20 @@ function watchFiles() {
 
 	watch(config.js.watch, js);
 
+	watch(config.js.admin.watch, adminJs);
+
 	watch(config.assets.watch, optimizeAssets);
 }
 
-export const prod = series(cleanDist, parallel(optimizeAssets, productionStyles, productionJs));
+export const prod = series(
+	cleanDist,
+	parallel(optimizeAssets, productionStyles, productionJs, adminProductionJs)
+);
 
-export const generate = series(cleanDist, parallel(optimizeAssets, productionStyles, productionJs));
+export const generate = series(
+	cleanDist,
+	parallel(optimizeAssets, productionStyles, productionJs, adminProductionJs)
+);
 
 export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor, bumpPackageMinor);
 
@@ -249,6 +301,7 @@ export const gitProd = series(
 		optimizeAssets,
 		productionStyles,
 		productionJs,
+		adminProductionJs,
 		bumpFunctions,
 		bumpStylesheet,
 		bumpPackage

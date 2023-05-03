@@ -1,9 +1,9 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
-require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
-
 define( 'FPDF_FONTPATH', get_template_directory() . '/fonts/fpdf' ); // phpcs:ignore
+
+require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
 
 /**
  * Class createPDF
@@ -76,6 +76,12 @@ class Topten_PDF extends FPDFA {
 	 * @var int Line height
 	 */
 	protected $line_height_mm = 6.35;
+
+	/**
+	 * Class constructor
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * Muuttaa HTML-koodin PDF-tiedostoksi

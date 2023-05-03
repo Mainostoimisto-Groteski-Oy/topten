@@ -64,7 +64,7 @@ class Topten_REST extends Topten {
 
 		array_walk_recursive( $data, 'sanitize_text_field' );
 
-		require_once get_template_directory() . '/includes/backend/class-pdf.php';
+		require_once 'class-pdf.php';
 
 		$pdf = new Topten_PDF( 'P', 'mm', 'A4', $title, $article_url );
 

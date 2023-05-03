@@ -182,11 +182,25 @@ add_filter(
 );
 
 /**
+ * Ylläpitopuolen skriptit ja tyylit
+ */
+function topten_admin_scripts() {
+	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array(), TOPTEN_VERSION, true );
+	wp_enqueue_style( 'topten-admin', get_template_directory_uri() . '/css/dist/admin.min.css', array(), TOPTEN_VERSION );
+
+	// Datatables
+	wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js', array(), '1.13.4', true );
+	wp_enqueue_style( 'datatables', '//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css', array(), '1.13.4' );
+}
+
+add_action( 'admin_enqueue_scripts', 'topten_admin_scripts' );
+
+/**
  * Enqueue scripts and styles.
  */
 function topten_scripts() {
 
-	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
+	wp_enqueue_style( 'blinker', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
@@ -242,7 +256,7 @@ add_action( 'wp_enqueue_scripts', 'topten_scripts' );
  */
 function topten_editor_scripts() {
 
-	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
+	wp_enqueue_style( 'blinker', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
@@ -264,6 +278,9 @@ $card_allowed_blocks = array(
 	'acf/teksti',
 	'acf/rivi',
 	'acf/taulukko',
+	'acf/linkkilista',
+	'acf/liitteet',
+	'acf/tekstikentta',
 );
 
 /**
@@ -652,6 +669,48 @@ function topten_acf() {
 		$block_name  = 'Taulukko';
 		$block_slug  = 'card-table';
 		$description = 'Taulukko';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Linkkilista';
+		$block_slug  = 'card-link-list';
+		$description = 'Linkkilista';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Liitteet';
+		$block_slug  = 'card-attachments';
+		$description = 'Liitetiedosto';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+		$block_name  = 'Tekstikenttä';
+		$block_slug  = 'card-input-text';
+		$description = 'Tekstikenttä';
 
 		acf_register_block_type(
 			array(
