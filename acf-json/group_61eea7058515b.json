@@ -16,10 +16,10 @@
                 "class": "",
                 "id": ""
             },
+            "relevanssi_exclude": 0,
             "choices": {
                 "image": "Kuva",
-                "video": "Video",
-                "carousel": "Kuvakaruselli"
+                "image-text": "Kuva ja teksti"
             },
             "default_value": "image : Kuva",
             "return_format": "value",
@@ -58,155 +58,6 @@
             "max_size": "",
             "mime_types": "",
             "preview_size": "medium"
-        },
-        {
-            "key": "field_63a1656e92c36",
-            "label": "Taustavideo",
-            "name": "background_video",
-            "aria-label": "",
-            "type": "group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_63a1652892c35",
-                        "operator": "==",
-                        "value": "video"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_63a165b292c37",
-                    "label": "Video (webm)",
-                    "name": "webm",
-                    "aria-label": "",
-                    "type": "file",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_size": "",
-                    "max_size": "",
-                    "mime_types": ""
-                },
-                {
-                    "key": "field_63a165c792c38",
-                    "label": "Video (mp4)",
-                    "name": "mp4",
-                    "aria-label": "",
-                    "type": "file",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_size": "",
-                    "max_size": "",
-                    "mime_types": ""
-                },
-                {
-                    "key": "field_63a165db92c39",
-                    "label": "Kuva",
-                    "name": "image",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "preview_size": "medium"
-                }
-            ]
-        },
-        {
-            "key": "field_63bd074052ec6",
-            "label": "Kuvakaruselli",
-            "name": "slides",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_63a1652892c35",
-                        "operator": "==",
-                        "value": "carousel"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Lisää rivi",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_63bd075f52ec7",
-                    "label": "Kuva",
-                    "name": "image",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "preview_size": "medium",
-                    "parent_repeater": "field_63bd074052ec6"
-                }
-            ]
         },
         {
             "key": "field_633ea7b6488ad",
@@ -248,6 +99,164 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_6450e871541e9",
+            "label": "Kuva",
+            "name": "hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6450ec967337f",
+            "label": "Logo",
+            "name": "hero_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6450e895541ea",
+            "label": "Järjestys",
+            "name": "hero_order",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "image-left": "Kuva vasemmalla, teksti oikealla",
+                "image-right": "Teksti vasemmalla, kuva oikealla"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_6450e8e7bf344",
+            "label": "Ingressi",
+            "name": "hero_ingress",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_6450e70d347d4",
+            "label": "Teksti",
+            "name": "hero_text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_63bd15cf80b58",
@@ -309,5 +318,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679318578
+    "modified": 1683025058
 }

@@ -17,12 +17,14 @@
 @use "blocks/text-and-card-block";
 @use "blocks/embed-block";
 @use "blocks/lift-block";
+@use "blocks/lift-group-block";
 @use "blocks/logos-block";
 @use "blocks/contacts-block";
 @use "blocks/multi-column-blocks";
 @use "blocks/sidebar-and-content-block";
 @use "blocks/buttons-block";
 @use "blocks/banner-block";
+
 
 // Card blocks
 @use "blocks/card-blocks/card-column";

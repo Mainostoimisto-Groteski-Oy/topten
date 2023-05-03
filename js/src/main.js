@@ -2,10 +2,44 @@ jQuery(document).ready(($) => {
 	/**
 	 * Mobiilimenun avaus
 	 */
-	$('#open-mobile-menu').on('click', () => {
-		$('#mobile-navigation').fadeIn(300);
-
-		$('body').addClass('disable-scroll');
+	$(document).on('click', '#toggleMenu', () => {
+		if($('#toggleMenu').hasClass('open')) {
+			$('#mobile-navigation').fadeOut(300);
+			$('body').removeClass('disable-scroll');
+			$('#toggleMenu').removeClass('open');
+		} else {
+			$('#mobile-navigation').fadeIn(300);
+			$('body').addClass('disable-scroll');
+			$('#toggleMenu').addClass('open');
+			// Set top value based on header items height and scroll position
+			const logoheader = $('#logoheader').height();
+			const masthead = $('#masthead').height();
+			const checkBar = $('#wpadminbar');
+			let adminbar = 0;
+			let top = 0;
+			let check = 0;
+			// check adminbar exists
+			if(checkBar.length > 0) {
+				adminbar = $('#wpadminbar').height();
+			}
+			if(adminbar > 0) {
+				check = masthead + adminbar;
+				top = logoheader + masthead + adminbar;
+			} else {
+				check = masthead;
+				top = logoheader + masthead;
+			}
+			// If scrolltop value is bigger than top value, use check value
+			if($(window).scrollTop() > top) {
+				$('#mobile-navigation').css('top', check);
+			} else {
+				// in other case use top value minus scrolltop value
+				const scrollvalue = top - $(window).scrollTop();
+				$('#mobile-navigation').css('top', scrollvalue);
+				
+			}
+		}
+		
 	});
 
 	/**

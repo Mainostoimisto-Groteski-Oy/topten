@@ -7,7 +7,7 @@
 	h1,
 	.h1 {
 		@include font-size(4rem, 7.2rem);
-
+		
 		font-family: $font-heading;
 	}
 
