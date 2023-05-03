@@ -26,13 +26,9 @@
 
 // Card blocks
 @use "blocks/card-blocks/card-column";
-
-// @use "blocks/card-blocks/card-image";
 @use "blocks/card-blocks/card-row";
 @use "blocks/card-blocks/card-table";
-
-// @use "blocks/card-blocks/card-text";
-// @use "blocks/card-blocks/card-title";
+@use "blocks/card-blocks/card-inputs";
 
 // Templates
 @use "templates/template-korttiluettelo";

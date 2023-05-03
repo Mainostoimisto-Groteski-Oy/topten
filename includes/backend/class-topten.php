@@ -11,9 +11,9 @@ class Topten {
 	public function __construct() {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 
-		require_once 'classes/class-rest.php';
+		require_once 'classes/class-ajax.php';
 
-		new Topten_REST();
+		new Topten_Ajax();
 	}
 
 	/**

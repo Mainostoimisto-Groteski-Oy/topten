@@ -146,6 +146,16 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/tekstikentta"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/tekstialue"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/valintaruudut"
             }
         ]
     ],
@@ -158,5 +168,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683031259
+    "modified": 1683095166
 }
