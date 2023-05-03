@@ -16,18 +16,63 @@ body.page-template-template-korttiluettelo {
             display: none;
         }
         section.cards {
+            &.filters {
+                background-color: $white;
+            }
+            &.list {
+                background-color: $grey;
+            }
             .grid {
                 &.top {
-                    grid-template-columns: 8fr 4fr;
+                    padding: 30px 15px 0px 15px;
+                    gap: 0;
+                    .title-wrapper {
+                        grid-column: 1 / -1;
+                        position: relative;
+                        border-bottom: 1px solid $black;
+                        .title {
+                            font-weight: 600;
+                            margin: 15px 0px;
+                        }
+                        .toggler {
+                            font-family: $font-icons;
+                            font-size: 3rem;
+                            background: none;
+                            outline: none;
+                            border: none;
+                            position: absolute;
+                            right: 0;
+                            top: 50%;
+                            transform: translate(0, -50%);
+                            transition: all 0.15s;
+                            &:hover {
+                                transform: translate(0, -50%) scale(1.2);
+                            }
+                            &.active {
+                                transform: translate(0, -50%) rotate(90deg);
+                                &:hover {
+                                    transform: translate(0, -50%) rotate(90deg) scale(1.2);
+                                }
+                            }
+                          
+                        }
+                    }
                     .content-area {
-                        grid-column: 1;
+                        display: grid;
+                        grid-template-columns: 8fr 4fr;
+                        gap: 0px 15px;
+                        
+                       
                     }
                     .sidebar {
-                        grid-column: 2;
-                        background-color: $grey;
-                        padding: 30px;
-                        display: flex;
-                        flex-direction: column;
+                        display: none;
+                        &.active {
+                            grid-column: 2;
+                            background-color: $grey;
+                            padding: 30px;
+                            display: flex;
+                            flex-direction: column;
+                        }
                         .title {
                             padding: 0;
                             margin: 0 0 15px 0;
@@ -58,10 +103,13 @@ body.page-template-template-korttiluettelo {
                     cursor: pointer;
                 }
                 .search {
-                   
+                    display: none;
+                    &.active {
+                    padding: 30px 0px;
                     display: grid;
                     grid-template-columns: repeat(3, minmax(0, 1fr));
                     gap: 15px 30px;
+                    }
                     label, small.small {
                         font-size: 1.4rem;
                         font-style: italic;
@@ -126,9 +174,8 @@ body.page-template-template-korttiluettelo {
                     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
                     gap: 30px;
                     margin: 30px 0px;
-                    label, small.small {
-                        font-size: 1.4rem;
-                        font-style: italic;
+                    label, small.small, .label {
+                        font-size: 1.6rem;
                         margin: 5px 0px;
                         display: block;
                     }
@@ -146,7 +193,9 @@ body.page-template-template-korttiluettelo {
                                 margin-left: auto;
                                 height: 100%;
                                 gap: 15px;
-
+                                &.no-margin {
+                                    margin-left: 0;
+                                }
                                 label {
                                     margin-left: auto;
                                 }
@@ -203,7 +252,7 @@ body.page-template-template-korttiluettelo {
                                         background-color: $blue;
                                         color: $black;
                                         border-radius: 5px;
-                                        border: 1px solid $white;
+                                        border: 1px solid transparent;
                                         font-weight: 600;
                                         margin: 0;
                                         padding: 15px;
@@ -216,14 +265,15 @@ body.page-template-template-korttiluettelo {
                                                 color: $black;
                                                 background-color: $grey;
                                                 border-radius: 5px;
-                                                border: 1px solid $white;
+                                                border: 1px solid transparent;
                                                 margin: 0;
                                                 padding: 15px;
                                             }
                                             ul.grandchildren {
-                                                padding: 0 15px;
+                                                padding: 0;
                                                 li.card {
-                                                    padding: 15px;
+                                                    padding: 15px 30px;
+                                                    border: 1px solid $grey;
 
                                                 }
                                             }
@@ -241,14 +291,16 @@ body.page-template-template-korttiluettelo {
                                         color: $black;
                                         background-color: $grey;
                                         border-radius: 5px;
-                                        border: 1px solid $white;
+                                        border: 1px solid $grey;
                                         margin: 0;
                                         padding: 15px;
                                     }
                                     ul.children {
-                                        padding: 0 15px;
+                                        padding: 0;
                                         li.card {
-                                            padding: 15px;
+                                            padding: 15px 30px;
+                                            border: 1px solid $grey;
+
                                         }
                                     }
                                 }

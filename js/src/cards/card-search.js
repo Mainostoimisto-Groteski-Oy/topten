@@ -8,6 +8,17 @@ jQuery(document).ready(($) => {
 	}).ajaxStop(() => {
 		$(ajaxSpinner).hide();
 	});
+	$('#toggleFilters').on('click', function() {
+		$(this).toggleClass('active');
+		// toggle aria expanded
+		if($(this).attr('aria-expanded') === 'false') {
+			$(this).attr('aria-expanded', 'true');
+		} else {
+			$(this).attr('aria-expanded', 'false');
+		}
+		$('#searchCards').toggleClass('active');
+		$('#cardSidebar').toggleClass('active');
+	});
 	// Fetch cards from database via query
 	function cardSearch() {
 		// if value is in localstorage, use it instead of form value

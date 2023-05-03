@@ -912,6 +912,8 @@ function topten_card_search() {
 	}
 
 	// Municipality (multiple values)
+	// Not in use due to customer request
+	/*
 	if ( isset( $_POST['cardmunicipalities'] ) ) {
 		if ( ! empty( $_POST['cardmunicipalities'] ) ) {
 			// sanitize array values
@@ -932,7 +934,7 @@ function topten_card_search() {
 			);
 
 	}
-
+	*/
 	// Law article (single value)
 	if ( isset( $_POST['cardLaw'] ) ) {
 		$law = intval( $_POST['cardLaw'] );

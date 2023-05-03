@@ -57,10 +57,14 @@ $categories = get_terms(
 
 	<?php topten_breadcrumbs(); ?>
 
-	<section class="cards">
+	<section class="cards filters">
 		<div class="grid top">
-			<div class="content-area">
+			<div class="title-wrapper">
+				<h2 class="title h3"><?php esc_html_e( 'Suodata kortteja', 'topten' ); ?></h2><button id="toggleFilters" class="toggler" aria-expanded="false" aria-controls="searchAndFilters">keyboard_double_arrow_right</button>
+			</div>
+			<div class="content-area" id="searchAndFilters">
 				<div class="search" id="searchCards" role="search">
+						
 					<div class="full">
 						<div class="input-wrapper freeText">
 							<label for="freeText">
@@ -105,38 +109,6 @@ $categories = get_terms(
 									<?php esc_html_e( 'Lisää', 'topten' ); ?>
 								</button>
 							</div>
-						</div>
-
-
-
-					</div>
-
-
-					<div class="full">
-						<div class="input-wrapper keywords">
-							<label for="cardmunicipalities">
-								<?php esc_html_e( 'Suodata kortteja kunnan mukaan', 'topten' ); ?>
-							</label>
-
-							<div class="inner-wrapper">
-								<input type="text"
-									name="cardmunicipalities"
-									id="cardmunicipalities"
-									placeholder="<?php esc_html_e( 'Kirjoita kuntasi nimi tähän', 'topten' ); ?>" />
-								<input type="hidden"
-									name="cardmunicipalitiesValue"
-									id="cardmunicipalitiesValue"
-									/>
-								<button type="submit"
-									name="municipalitiessearch"
-									id="municipalitiessearch">
-									<?php esc_html_e( 'Lisää', 'topten' ); ?>
-								</button>
-							</div>
-
-							<small class="small">
-								<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
-							</small>
 						</div>
 
 
@@ -199,31 +171,37 @@ $categories = get_terms(
 							</div>
 						</div>
 					<?php endif; ?>
-				</div>
+					</div>
+
+					<div class="sidebar" id="cardSidebar">
+						<h3 class="h4 title"><?php esc_html_e( 'Käytössä olevat suodattimet', 'topten' ); ?></h3>
+
+						<ul class="keywords" id="selectedkeywords"></ul>
+						<!-- <ul class="keywords" id="selectedmunicipalities"></ul> -->
+						<ul class="keywords" id="selectedDateRange"></ul>
+						<ul class="keywords" id="selectedCategory"></ul>
+						<ul class="keywords" id="selectedLaw"></ul>
+
+						<button type="submit"
+							class="resetFilters"
+							name="resetFilters"
+							id="resetFilters">
+							
+						<?php esc_html_e( 'Tyhjennä kaikki valinnat', 'topten' ); ?>
+					</div>
+				
+
 			</div> <!-- end content area -->
 
-			<div class="sidebar" id="cardSidebar">
-				<h3 class="h4 title"><?php esc_html_e( 'Käytössä olevat suodattimet', 'topten' ); ?></h3>
-
-				<ul class="keywords" id="selectedkeywords"></ul>
-				<!-- <ul class="keywords" id="selectedmunicipalities"></ul> -->
-				<ul class="keywords" id="selectedDateRange"></ul>
-				<ul class="keywords" id="selectedCategory"></ul>
-				<ul class="keywords" id="selectedLaw"></ul>
-
-				<button type="submit"
-					class="resetFilters"
-					name="resetFilters"
-					id="resetFilters">
-					<?php esc_html_e( 'Tyhjennä kaikki valinnat', 'topten' ); ?>
-			</div>
-			<div id="test" style="grid-column: 1 / -1"></div>
+			
+			
 		</div><!-- end top grid -->
-
+	</section>
+	<section class="cards list">
 		<div class="grid">
 			<div class="filters" id="filterCards" role="search">
 				<div class="half">
-					<div class="input-wrapper">
+					<div class="input-wrapper horizontal no-margin">
 						<label for="filterOrder">
 							<?php esc_html_e( 'Järjestä korttiluettelo', 'topten' ); ?>
 						</label>
@@ -246,8 +224,8 @@ $categories = get_terms(
 
 				<div class="half">
 					<div class="input-wrapper horizontal">
-						<p for="filterType">
-							<?php esc_html_e( 'Näytä vain', 'topten' ); ?>
+						<p for="filterType" class="label">
+							<?php esc_html_e( 'Näytä', 'topten' ); ?>
 						</p>
 
 						<label for="cardTulkinta" class="inner-wrapper">
