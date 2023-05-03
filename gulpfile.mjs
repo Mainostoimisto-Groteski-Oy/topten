@@ -50,7 +50,7 @@ const config = {
 	},
 	js: {
 		dest: './js/dist',
-		src: ['./js/src/*.js', './js/src/**/*.js'],
+		src: ['./js/src/*.js', './js/src/**/*.js', '!./js/src/admin/*.js', '!./js/src/admin/**/*.js'],
 		watch: ['./js/src/*.js', './js/src/**/*.js', '!./js/src/admin/*.js', '!./js/src/admin/**/*.js'],
 		admin: {
 			dest: './js/dist',

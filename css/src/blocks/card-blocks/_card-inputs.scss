@@ -1,0 +1,31 @@
+@use "mixins/all" as *;
+
+.input-wrapper {
+	&.checkboxes-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.checkboxes {
+			display: flex;
+			gap: 50px;
+		}
+	}
+
+	textarea {
+		resize: none;
+	}
+
+	label {
+		&.text-field,
+		&.textarea-field, {
+			display: flex;
+			flex-direction: column;
+		}
+
+		&.checkbox-field {
+			display: flex;
+			gap: 5px;
+		}
+	}
+}

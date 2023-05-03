@@ -19,7 +19,7 @@
             "relevanssi_exclude": 0,
             "default_value": 1,
             "min": 1,
-            "max": 3,
+            "max": 4,
             "placeholder": "",
             "step": "",
             "prepend": "",
@@ -44,5 +44,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679058855
+    "modified": 1683092565
 }

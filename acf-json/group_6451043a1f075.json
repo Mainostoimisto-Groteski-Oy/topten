@@ -4,8 +4,8 @@
     "fields": [
         {
             "key": "field_6451043a2aec1",
-            "label": "Kentät",
-            "name": "fields",
+            "label": "Valinnat",
+            "name": "checkboxes",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -27,8 +27,8 @@
             "sub_fields": [
                 {
                     "key": "field_6451043a2d624",
-                    "label": "Kuvaus",
-                    "name": "description",
+                    "label": "Nimike",
+                    "name": "label",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -46,35 +46,6 @@
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_6451043a2aec1"
-                },
-                {
-                    "key": "field_6451043a2d65a",
-                    "label": "Kentän tyyppi",
-                    "name": "type",
-                    "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "text": "Teksti (yksi rivi)",
-                        "textarea": "Teksti (useampi rivi)",
-                        "checkbox": "Valintaruutu"
-                    },
-                    "default_value": "text",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "parent_repeater": "field_6451043a2aec1"
                 }
             ]
         }
@@ -84,7 +55,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/kentta"
+                "value": "acf\/valintaruudut"
             }
         ]
     ],
@@ -97,5 +68,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683031165
+    "modified": 1683094952
 }

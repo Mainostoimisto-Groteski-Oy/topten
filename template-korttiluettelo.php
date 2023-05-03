@@ -54,7 +54,7 @@ $categories = get_terms(
 
 <main id="primary" class="site-main">
 	<div id="ajaxSpinner"></div>
-	
+
 	<?php topten_breadcrumbs(); ?>
 
 	<section class="cards">
@@ -107,10 +107,10 @@ $categories = get_terms(
 							</div>
 						</div>
 
-						
+
 
 					</div>
-					
+
 
 					<div class="full">
 						<div class="input-wrapper keywords">
@@ -138,9 +138,9 @@ $categories = get_terms(
 								<?php esc_html_e( 'Erota kunnat pilkulla', 'topten' ); ?>
 							</small>
 						</div>
-							
-				
-					
+
+
+
 					</div>
 
 					<div class="one-third">
@@ -201,9 +201,9 @@ $categories = get_terms(
 					<?php endif; ?>
 				</div>
 			</div> <!-- end content area -->
-			
+
 			<div class="sidebar" id="cardSidebar">
-				<h3 class="h4 title"><?php esc_html_e('Käytössä olevat suodattimet', 'topten'); ?></h3>
+				<h3 class="h4 title"><?php esc_html_e( 'Käytössä olevat suodattimet', 'topten' ); ?></h3>
 
 				<ul class="keywords" id="selectedkeywords"></ul>
 				<!-- <ul class="keywords" id="selectedmunicipalities"></ul> -->
@@ -301,27 +301,29 @@ $categories = get_terms(
 							$children = get_term_children( $term->term_id, 'laki' );
 							?>
 
-							<li class="parent" data-id="<?php echo esc_html($term->term_id); ?>">
+							<li class="parent" data-id="<?php echo esc_html( $term->term_id ); ?>">
 								<p class="name">
 									<?php echo esc_html( $term->name ); ?>
 								</p>
 
-								<ul class="children" data-parent="<?php echo esc_html($term->term_id); ?>">
+								<ul class="children" data-parent="<?php echo esc_html( $term->term_id ); ?>">
 									<?php foreach ( $children as $child ) : ?>
 										<?php $child = get_term( $child ); ?>
 
-										<li class="child" data-id="<?php echo esc_html($child->term_id); ?>">
+										<li class="child" data-id="<?php echo esc_html( $child->term_id ); ?>">
 											<p class="name">
 												<?php echo esc_html( $child->name ); ?>
 											</p>
 
-											<ul class="grandchildren" data-parent="<?php echo esc_html($child->term_id); ?>" data-grandparent="<?php echo esc_html($term->term_id); ?>">
-												<?php foreach ( $cards as $card ) {
+											<ul class="grandchildren" data-parent="<?php echo esc_html( $child->term_id ); ?>" data-grandparent="<?php echo esc_html( $term->term_id ); ?>">
+												<?php
+												foreach ( $cards as $card ) {
 													if ( 'tulkintakortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'laki', $child->name ) ) {
 														continue;
 													}
-													topten_get_card( $card, 'echo');
-												} ?>
+													topten_get_card( $card, 'echo' );
+												}
+												?>
 											</ul>
 										</li>
 									<?php endforeach; ?>
@@ -350,8 +352,9 @@ $categories = get_terms(
 										if ( 'ohjekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) {
 											continue;
 										}
-										topten_get_card( $card, 'echo');
-									} ?>
+										topten_get_card( $card, 'echo' );
+									}
+									?>
 								</ul>
 							</li>
 						<?php endforeach; ?>
@@ -376,15 +379,16 @@ $categories = get_terms(
 										if ( 'lomakekortti' !== get_post_type( $card->ID ) || ! is_object_in_term( $card->ID, 'kortin_kategoria', $category->name ) ) {
 											continue;
 										}
-										topten_get_card( $card, 'echo');
-									} ?>
+										topten_get_card( $card, 'echo' );
+									}
+									?>
 								</ul>
 							</li>
 						<?php endforeach; ?>
 					</ul>
 				</div>
 			</div>
-			
+
 		</div>
 	</section>
 

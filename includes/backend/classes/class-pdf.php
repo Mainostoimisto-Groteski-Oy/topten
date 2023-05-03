@@ -1,22 +1,22 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
-define( 'FPDF_FONTPATH', get_template_directory() . '/fonts/fpdf' ); // phpcs:ignore
+require_once get_template_directory() . '/includes/tfpdf/fpdfa.php';
 
-require_once get_template_directory() . '/includes/fpdf/fpdfa.php';
+// define( 'FPDF_FONTPATH', get_template_directory() . '/fonts/fpdf' ); // phpcs:ignore
 
 /**
  * Class createPDF
  *
- * Perustuu http://www.fpdf.org/en/script/script53.php
+ * Based on http://www.fpdf.org/en/script/script53.php
  */
 class Topten_PDF extends FPDFA {
 	/**
-	 * Sallitut tagit
+	 * Whitelisted tags
 	 *
 	 * @var string[]
 	 */
-	protected $allowed_tags = array(
+	protected $tag_whitelist = array(
 		'section',
 		'a',
 		'b',
@@ -40,31 +40,31 @@ class Topten_PDF extends FPDFA {
 	);
 
 	/**
-	 * Kielletyt tagit
+	 * Blacklisted tags
 	 *
 	 * @var array
 	 */
-	protected $disallowed_values = array(
+	protected $tag_blacklist = array(
 		'\n',
 		'\t',
 	);
 
 	/**
-	 * Fontin koko
+	 * Font size (px)
 	 *
-	 * @var int Fontin koko (px)
+	 * @var int Font size (px)
 	 */
 	protected $font_size = 16;
 
 	/**
-	 * Fontin tyyli
+	 * Font style
 	 *
-	 * @var string Fontin tyyli (B = bold, I = italic, U = underline, tyhjä = normaali)
+	 * @var string Font style (B = bold, I = italic, U = underline, empty = normal)
 	 */
 	protected $font_style = '';
 
 	/**
-	 * Line height (px) (1.5 * font size), asetetaan set_size-metodissa
+	 * Line height (px) (1.5 * font size), set in set_size-method
 	 *
 	 * @var int Line height
 	 */
@@ -78,21 +78,18 @@ class Topten_PDF extends FPDFA {
 	protected $line_height_mm = 6.35;
 
 	/**
-	 * Class constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
-	 * Muuttaa HTML-koodin PDF-tiedostoksi
+	 * Converts HTML to PDF
 	 *
-	 * @param array $data HTML-koodi
+	 * @param array $data HTML data
 	 */
 	public function generate_pdf( $data ) {
-		// Luodaan PDF
-		$this->AddFont( 'Roboto', '', 'Roboto-Regular.php' );
-		$this->AddFont( 'Roboto', 'B', 'Roboto-Bold.php' );
-		$this->AddFont( 'Roboto', 'I', 'Roboto-Italic.php' );
+		// $this->AddFont( 'Roboto', '', 'Roboto-Regular.php' );
+		// $this->AddFont( 'Roboto', 'B', 'Roboto-Bold.php' );
+		// $this->AddFont( 'Roboto', 'I', 'Roboto-Italic.php' );
+
+		$this->AddFont( 'Roboto', '', 'Roboto-Regular.ttf', true );
+		$this->AddFont( 'Roboto', 'B', 'Roboto-Bold.ttf', true );
+		$this->AddFont( 'Roboto', 'I', 'Roboto-Italic.ttf', true );
 
 		$this->SetFont( 'Roboto', $this->font_style, $this->font_size );
 
@@ -104,7 +101,7 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Muuttaa pikselit millimetreiksi
+	 * Convert px to mm
 	 *
 	 * @param int $px Pikselit
 	 */
@@ -113,96 +110,136 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Luodaan sarakkeet
+	 * Get string width (mm)
 	 *
-	 * @param array $row Rivi
+	 * @param array $data Data
+	 */
+	private function get_string_width( $data ) {
+		$width       = 0;
+		$child_count = count( $data['children'] );
+
+		foreach ( $data['children'] as $index => $datum ) {
+			// If child is not last, add space, so words don't stick together
+			$space = $index < $child_count - 1 ? true : false;
+
+			// If value is not allowed (like \n), remove it
+			$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
+
+			$tag = sanitize_text_field( $datum['tag'] );
+
+			$this->set_style( $tag );
+
+			$string = sanitize_text_field( $value );
+
+			if ( $space ) {
+				$string .= ' ';
+			}
+
+			$width += $this->GetStringWidth( $string );
+		}
+
+		return $width;
+	}
+
+	/**
+	 * Create columns
+	 *
+	 * @param array $row Row data
 	 */
 	private function write_columns( $row ) {
-		// Sarakkeiden määrä
+		// Columns count
 		$columns = $row['columns'] ?? array();
-		$count   = count( $columns );
+		$count   = $row['count'] ?? 0;
 
-		// Lasketaan yksittäisen sarakkeen leveys (sivun leveys - vasen ja oikea marginaali / sarakkeiden määrä)
+		// Calculate column width (page width - left and right margin / columns count)
 		$column_width = ( $this->GetPageWidth() - $this->lMargin - $this->rMargin ) / $count;
 
-		// Sarakkeen alkupiste (Y-akseli)
+		// Column start point (Y-axis)
 		$y = $this->GetY();
 
-		// Kerätään sarakkeiden korkeudet, jotta voidaan määrittää sarakkeen reunusten korkeus
+		// Collect column heights to determine column border height
 		$column_height = array();
 
-		// Rivin sarakkeet
-		foreach ( $columns as $index => $column ) {
-			// Sarakkeen alkupiste (X-akseli)
-			$x = $this->lMargin + ( $column_width * $index );
+		// Row columns
+		for ( $i = 0; $i < $count; $i++ ) {
+			$column = $columns[ $i ] ?? array();
+
+			// Column start point (X-axis)
+			$x = $this->lMargin + ( $column_width * $i );
 
 			$this->SetXY( $x, $y );
 
-			// Muuttuja sarakkeen korkeuden laskemista varten
-			$column_height = 0;
-
-			// Sarakkaeen lapsielementit
+			// Column children
 			foreach ( $column as $column_children ) {
 				$tag = $column_children['tag'];
 
-				// Asetetaan parentin tagi
+				// Set parent tag
 				$this->set_size( $tag );
 				$this->set_style( $tag );
 
-				// Siirretään Y-koordinaattia rivin korkeuden verran, otetaan aluksi talteen nykyinen pos
+				// Move Y-axis by line height, save current position
 				$child_y_position = $this->GetY();
 
-				// Jos tagi on lista, ei lisätä rivin korkeutta, koska se lisätään myöhemmin
+				// If tag is list, don't add line height, because it will be added later
 				if ( 'ul' === $tag || 'ol' === $tag ) {
-					$column_child_height = 0;
-
-					$this->write_list( $column_children, $column_child_height );
+					// $this->write_list( $column_children, $column_child_height );
 				} elseif ( 'img' === $tag || 'picture' === $tag ) {
-					$this->write_image( $column_children );
+					// $this->write_image( $column_children );
 				} else {
-					$column_child_height = $this->line_height_mm;
+					// Get total string width
+					$string_width = $this->get_string_width( $column_children );
+
+					// How many lines string takes
+					$lines = $column_width / $string_width;
+
+					// Calculate column child height
+					$column_height = $this->line_height_mm * $lines;
+
+					error_log( $column_height );
 
 					$this->write_text( $column_children );
 				}
 
-				$column_height += $column_child_height;
-
-				// Asetetaan XY-koordinaatit seuraavan lapsen alkuun. X-koordinaatti ei muutu, Y-koordinaattiin lisätään rivin korkeuden verran
-				$next_child_position = $child_y_position + $column_child_height;
+				// Set XY-coordinates to next child start. X-coordinate doesn't change, Y-coordinate is increased by line height
+				$next_child_position = $child_y_position + $column_height;
 
 				$this->SetXY( $x, $next_child_position );
+
+				// $column_heights[] = $column_height;
 			}
-
-			$column_heights[] = $column_height;
 		}
 
-		// Kirjoitetaan sarakkeen reunat
-		foreach ( $columns as $index => $column ) {
-			// Sarakkeen alkupiste (X-akseli)
-			$x = $this->lMargin + ( $column_width * $index );
+		// $max_column_height = max( $column_heights );
 
-			// Asetetaan alkupiste
-			$this->SetXY( $x, $y );
+		// // Write column borders
+		// for ( $i = 0; $i < $count; $i++ ) {
+		// $x = $this->lMargin + ( $column_width * $i );
 
-			// Kirjoitetaan sarake, korkeus = suurin sarakkeen korkeus
-			$this->Cell( $column_width, max( $column_heights ), '', 1 );
-		}
+		// Set start point
+		// $this->SetXY( $x, $y );
+
+		// Write column, height = highest column height
+		// $this->Cell( $column_width, $max_column_height, '', 'TR' );
+		// }
+
+		// Set Y-axis to highest column height
+		// $this->SetXY( $this->lMargin, $y + $max_column_height );
 	}
 
 	/**
-	 * Kirjoittaa kuvan
+	 * Write image
 	 *
-	 * @param array $data Data, jossa on tagi ja arvo (esim. array( 'tag' => 'h1', 'value' => 'Otsikko' )
+	 * @param array $data Data, where is tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
 	 */
 	private function write_image( $data ) {
 		$tag = $data['tag'];
 	}
 
 	/**
-	 * Kirjoittaa listan
+	 * Write list
 	 *
-	 * @param array $data Data, jossa on tagi ja arvo (esim. array( 'tag' => 'h1', 'value' => 'Otsikko' )
-	 * @param int   $column_height Sarakkeen korkeus
+	 * @param array $data Data, where is tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
+	 * @param int   $column_height Column height
 	 */
 	private function write_list( $data, &$column_height ) {
 		$list_type = $data['tag'];
@@ -214,22 +251,21 @@ class Topten_PDF extends FPDFA {
 				continue;
 			}
 
-			// Jos arvo ei ole sallittu (kuten \n), poistetaan se
-			$value = str_replace( $this->disallowed_values, '', $datum['value'] );
+			// If value is not allowed (like \n), remove it
+			$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
 
 			$this->set_style( $tag );
 
-			// Todo: Lisää numeroitu lista
+			// Todo: Add ordered list
 			if ( 'ol' === $list_type ) {
-				// Jos listan tyyppi on numeroitu, lisätään numero
+				// If list type is ordered, add number
 				$char = '1.'; // todo
 			} else {
-				// Muuten lisätään bullet
+				// Otherwise add bullet
 				$char = chr( 149 );
 			}
 
 			$this->Write( $this->line_height_mm, $char . ' ' );
-
 			$this->Write( $this->line_height_mm, sanitize_text_field( $value ) );
 
 			$this->Ln();
@@ -239,21 +275,24 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Kirjoittaa dataa PDF-tiedostoon
+	 * Write data to PDF-file
 	 *
-	 * @param array $data Data, jossa on tagi ja arvo (esim. array( 'tag' => 'h1', 'value' => 'Otsikko' )
+	 * @param array $data Data, containing tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
 	 */
 	private function write_text( $data ) {
-		// Lapsielementtien määrä
+		// Children count
 		$child_count = count( $data['children'] );
 
+		json_log( $data );
+
 		foreach ( $data['children'] as $index => $datum ) {
-			// Jos lapsi ei ole viimeinen, lisätään välilyönti, jotta sanat eivät liity toisiinsa
+			// If child is not last, add space, so words don't stick together
 			$space = $index < $child_count - 1 ? true : false;
 
-			// Jos arvo ei ole sallittu (kuten \n), poistetaan se
-			$value = str_replace( $this->disallowed_values, '', $datum['value'] );
-			$tag   = sanitize_text_field( $datum['tag'] );
+			// If value is not allowed (like \n), remove it
+			$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
+
+			$tag = sanitize_text_field( $datum['tag'] );
 
 			$this->set_style( $tag );
 
@@ -266,9 +305,9 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Asettaa fontin tagin mukaan
+	 * Set font size by tag
 	 *
-	 * @param string $tag Tagi
+	 * @param string $tag Element tag (for example h1, h2, h3, p)
 	 */
 	private function set_size( $tag ) {
 		switch ( $tag ) {
@@ -287,9 +326,9 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Asettaa fontin tyylin tagin mukaan
+	 * Set font style by tag
 	 *
-	 * @param string $tag Tagi
+	 * @param string $tag Tag
 	 */
 	private function set_style( $tag ) {
 		switch ( $tag ) {
