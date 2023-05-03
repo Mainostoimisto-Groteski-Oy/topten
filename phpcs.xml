@@ -28,6 +28,7 @@
 	<exclude-pattern>/includes/fpdf/*</exclude-pattern>
 	<exclude-pattern>/fonts/*</exclude-pattern>
 	<exclude-pattern>/includes/fpdf</exclude-pattern>
+	<exclude-pattern>/includes/tfpdf</exclude-pattern>
 
 	<rule ref="WordPress">
 		<!-- Generic excludes -->
@@ -39,6 +40,7 @@
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda" />
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash" />
+		<exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase" />
 
 		<!-- Exclude some of the rules related to commenting -->
 		<exclude name="Squiz.Commenting.FileComment.Missing" />

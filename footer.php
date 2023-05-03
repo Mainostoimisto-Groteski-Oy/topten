@@ -30,9 +30,9 @@ $columns = array( 'left', 'middle', 'right' );
 			<div class="site-branding">
 				<?php the_custom_logo(); ?>
 			</div>
-			<?php if(get_field('show_rty_logo', 'options')) : ?>
+			<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
 				<div class="rty-branding">
-					<?php $logo = get_field('rty_logo', 'options'); ?>
+					<?php $logo = get_field( 'rty_logo', 'options' ); ?>
 					<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
 				</div>
 			<?php endif; ?>

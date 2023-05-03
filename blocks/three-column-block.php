@@ -8,7 +8,7 @@ $right_block  = get_field( 'right_block' );
 	<div class="grid-full">
 		<?php topten_block_title(); ?>
 
-		<div class="left-block bg-<?php echo esc_attr($left_block['generated_background_color']); ?> color-<?php  echo esc_attr($left_block['generated_text_color']); ?>">
+		<div class="left-block bg-<?php echo esc_attr( $left_block['generated_background_color'] ); ?> color-<?php  echo esc_attr( $left_block['generated_text_color'] ); ?>">
 			<div class="wrapper">
 				<?php if ( ! empty( $left_block['title'] ) ) : ?>
 					<h3 class="block-title h3">
@@ -24,7 +24,7 @@ $right_block  = get_field( 'right_block' );
 			</div>
 		</div>
 
-		<div class="center-block bg-<?php echo esc_attr($center_block['generated_background_color']); ?> color-<?php  echo esc_attr($center_block['generated_text_color']); ?>">
+		<div class="center-block bg-<?php echo esc_attr( $center_block['generated_background_color'] ); ?> color-<?php  echo esc_attr( $center_block['generated_text_color'] ); ?>">
 			<div class="wrapper">
 				<?php if ( ! empty( $center_block['title'] ) ) : ?>
 					<h3 class="block-title h3">
@@ -40,7 +40,7 @@ $right_block  = get_field( 'right_block' );
 			</div>
 		</div>
 
-		<div class="right-block bg-<?php echo esc_attr($right_block['generated_background_color']); ?> color-<?php  echo esc_attr($right_block['generated_text_color']); ?>">
+		<div class="right-block bg-<?php echo esc_attr( $right_block['generated_background_color'] ); ?> color-<?php  echo esc_attr( $right_block['generated_text_color'] ); ?>">
 			<div class="wrapper">
 				<?php if ( ! empty( $right_block['title'] ) ) : ?>
 					<h3 class="block-title h3">

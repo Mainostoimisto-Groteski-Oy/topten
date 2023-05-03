@@ -130,19 +130,20 @@ if ( 'newest' === $articles_type ) {
 				<?php wp_reset_postdata(); ?>
 			<?php else : ?>
 				<?php foreach ( $postslist as $post ) : ?>
-					<?php setup_postdata( $post ); 
-					if (get_the_post_thumbnail_url($post->ID, 'medium')) {
-						$src = esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) );
+					<?php 
+					setup_postdata( $post ); 
+					if ( get_the_post_thumbnail_url( $post->ID, 'medium' ) ) {
+						$src   = esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) );
 						$class = '';
 					} else {
-						$src = home_url().'/wp-content/themes/topten/assets/dist/images/placeholder.png';
+						$src   = home_url() . '/wp-content/themes/topten/assets/dist/images/placeholder.png';
 						$class = 'placeholder';
 					}
 					?>
 						<div class="single-post" id="post-<?php echo esc_attr( $post->ID ); ?>">
 
-						<div class="image <?php echo esc_attr($class); ?> ">
-							<img src="<?php echo esc_url($src); ?>" alt=""/>
+						<div class="image <?php echo esc_attr( $class ); ?> ">
+							<img src="<?php echo esc_url( $src ); ?>" alt=""/>
 						</div>
 
 						<div class="content">
