@@ -1,8 +1,17 @@
 @use "mixins/all" as *;
 
 section.lift-group-block {
+    @media(min-width:$qhd) {
+        height: 1080px;
+    }
+    @media(max-width:$max-xxxl) {
+        height: 800px;
+    }
+    @media(max-width:$max-xxl) {
+        height: 700px;
+    }
     @media(max-width:$max-m) {
-        height: unset!important;    
+        height: unset;
     }
     .grid-full {
         grid-template-columns: 8fr 4fr;
@@ -56,7 +65,7 @@ section.lift-group-block {
                     margin-bottom: 15px;
                     font-weight: 600;
                 }
-                @include arrowlink;
+                @include arrowlink($red, 400);
             }
         }
     }

@@ -161,16 +161,10 @@ jQuery(document).ready(($) => {
 
 		// Get items from local storage
 
-		const freeText = localStorage.getItem('freeText');
 		const cardLaw = localStorage.getItem('cardLaw');
-		console.log(`öä${  freeText}`);
 		/* const cardCategory = JSON.parse(localStorage.getItem('cardCategory'));
 		const cardDateStart = JSON.parse(localStorage.getItem('cardDateStart'));
 		const cardDateEnd = JSON.parse(localStorage.getItem('cardDateEnd')); */
-		if (freeText) {
-			$('#selectedText').html('');
-			$('#selectedText').append(`<li class="keyword" data-id="${freeText}">${freeText} <button class="removekeyword" data-type="freeText" data-id="${freeText}">x</button></li>`);
-		}
 		if (cardLaw) {
 			$('#selectedLaw').html('');
 			$('#selectedLaw').append(`<li class="keyword" data-id="${cardLaw}">${cardLaw} <button class="removekeyword" data-type="cardLaw" data-id="${cardLaw}">x</button></li>`);
@@ -300,9 +294,6 @@ jQuery(document).ready(($) => {
 		$('#searchCards button.searchTrigger').on('click', () => {
 			cardSearch();
 			showFilters();
-			if($('#freeText').val() !== '') {
-				localStorage.setItem('freeText', $('#freeText').val());
-			}
 			if($('#cardDateStart').val() !== '') {
 				localStorage.setItem('dateStart', $('#cardDateStart').val());
 			}
@@ -327,9 +318,6 @@ jQuery(document).ready(($) => {
 		}
 		if(localStorage.getItem('cardCategory') !== null) {
 			$('#cardCategory').val(localStorage.getItem('cardCategory'));
-		}
-		if(localStorage.getItem('freeText') !== null) {
-			$('#freeText').val(localStorage.getItem('freeText'));
 		}
 		$('#keywordssearch').on('click', () => {
 			applyFilters('keywords');

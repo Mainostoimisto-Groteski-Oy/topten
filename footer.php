@@ -25,7 +25,19 @@ $columns = array( 'left', 'middle', 'right' );
 				</div>
 			</section>
 		<?php endif; ?>
-
+		
+		<div class="grid logos">
+			<div class="site-branding">
+				<?php the_custom_logo(); ?>
+			</div>
+			<?php if(get_field('show_rty_logo', 'options')) : ?>
+				<div class="rty-branding">
+					<?php $logo = get_field('rty_logo', 'options'); ?>
+					<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+				</div>
+			<?php endif; ?>
+		</div>
+		
 		<div class="grid">
 			<?php foreach ( $columns as $column ) : ?>
 				<div class="footer <?php echo esc_attr( $column ); ?>">
@@ -34,10 +46,10 @@ $columns = array( 'left', 'middle', 'right' );
 						the_field( 'footer_' . $column, 'options' );
 					}
 
-					if ( have_rows( 'footer_buttons_' . $column ) ) {
+					if ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
 						echo '<div class="buttons">';
 
-						while ( have_rows( 'footer_buttons_' . $column ) ) {
+						while ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
 							the_row();
 
 							$button = get_sub_field( 'button' );

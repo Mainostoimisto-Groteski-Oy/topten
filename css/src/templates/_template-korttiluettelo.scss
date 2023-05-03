@@ -25,6 +25,30 @@ body.page-template-template-korttiluettelo {
                     .sidebar {
                         grid-column: 2;
                         background-color: $grey;
+                        padding: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        .title {
+                            padding: 0;
+                            margin: 0 0 15px 0;
+                            font-weight: 600;
+                        }
+                        button.resetFilters {
+                            background-color: transparent;
+                            color: $black;
+                            border: 1px solid $black;
+                            transition: all 0.15s;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            margin-top: auto;
+                            margin-right: auto;
+                            display: inline-block;
+                            font-weight: 400;
+                            &:hover {
+                                background-color: $black;
+                                color: $white;
+                            }
+                        }
                     }
                 }
                 &:not(.top) {
@@ -79,6 +103,22 @@ body.page-template-template-korttiluettelo {
                     input, textarea, button, select {
                         padding: 10px;
                         max-width: 100%;
+                    }
+                    #cardmunicipalities, #cardkeywords, #freeText {
+                        border-right: none;
+                        background-color: $dim;
+                        border-left: 1px solid $black;
+                        border-top: 1px solid $black;
+                        border-bottom: 1px solid $black;
+                        border-radius: 5px 0px 0px 5px;
+                    }
+                    button {
+                        background-color: $black;
+                        color: $white;
+                        border: 1px solid $black;
+                        outline: none;
+                        
+                        border-radius: 0px 5px 5px 0px;
                     }
                 }
                 .filters {
@@ -160,11 +200,11 @@ body.page-template-template-korttiluettelo {
                                 padding: 0;
                                 li.parent {
                                     >p.name {
-                                        background-color: $red;
-                                        color: $white;
+                                        background-color: $blue;
+                                        color: $black;
                                         border-radius: 5px;
                                         border: 1px solid $white;
-                                        font-weight: 700;
+                                        font-weight: 600;
                                         margin: 0;
                                         padding: 15px;
                                     }

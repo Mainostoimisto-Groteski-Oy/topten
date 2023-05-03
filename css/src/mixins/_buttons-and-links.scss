@@ -12,7 +12,7 @@
 		color: $white;
 		text-decoration: none;
 		display: inline-block;
-		transition: ease-in-out 0.25s;
+		transition: all 0.15s;
 		outline: none;
 		font-weight: 600;
 
@@ -39,7 +39,7 @@
 	a {
 		color: $red;
 		text-decoration: none;
-		transition: all 0.25s;
+		transition: all 0.15s;
 		position: relative;
 		display: inline-block;
 
@@ -63,35 +63,37 @@
 }
 
 // Linkki nuolella
-@mixin arrowlink {
-	a {
+@mixin arrowlink($color, $weight) {
+	a:not(.button) {
 		display: inline-flex;
 		align-items: center;
-		color: $red;
+		color: $color;
 		position: relative;
 		text-decoration: none;
 		margin-right: auto;
+		font-weight: $weight;
 		&::before {
 			content: '';
 			width: 0px;
 			height: 1px;
-			background-color: $red;
+			background-color: $color;
 			position: absolute;
 			bottom: 0;
 			left: 0;
-			transition: all 0.25s;
+			transition: all 0.15s;
 		}
 		&::after {
 			position: relative;
 			font-family: 'Material Icons';
 			content: '\eac9';
-			transition: all 0.25s;
+			transition: all 0.15s;
 			right: -2px;
 			top: 1px;
+			font-size: 2rem;
 		}
 		&:hover {
 			&::after {
-				transform: translate(5px, 0);
+				transform: translate(5px, 0px);
 			}
 			&::before {
 				width: calc(100% - 15px);
@@ -121,6 +123,6 @@
 		align-items: flex-start;
 		gap: 10px;
 
-		@include arrowlink;
+		@include arrowlink($red, 400);
 	}
 }

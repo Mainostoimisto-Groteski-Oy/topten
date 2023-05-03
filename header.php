@@ -62,7 +62,7 @@
 				?>
 			</nav>
 
-			<button class="menu-toggle" id="open-mobile-menu" aria-label="Avaa valikko" aria-controls="mobile-menu" aria-expanded="false">
+			<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="mobile-menu" aria-expanded="false">
 				<span class="material-icons" aria-hidden="true">
 					menu
 				</span>
@@ -71,9 +71,6 @@
 	</header>
 
 	<nav id="mobile-navigation" class="mobile-menu">
-		<div class="site-branding-mobile">
-			<?php the_custom_logo(); ?>
-		</div>
 		<?php
 		wp_nav_menu(
 			array(
@@ -84,9 +81,4 @@
 		);
 		?>
 
-		<button class="menu-close" id="close-mobile-menu" aria-label="Sulje valikko" aria-controls="mobile-menu" aria-expanded="true">
-			<span class="material-icons" aria-hidden="true">
-				close
-			</span>
-		</button>
 	</nav>

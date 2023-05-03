@@ -38,6 +38,9 @@
 		grid-template-columns: minmax(0, 1fr);
 		padding: 0 15px;
 		align-items: flex-start;
+		@media(max-width:$max-l) {
+			padding: 10px 15px;
+		}
 	}
 
 	.site-branding {
@@ -178,7 +181,7 @@
 	align-self: center;
 
 	> span {
-		font-size: 2.5rem;
+		font-size: 4rem;
 	}
 }
 
@@ -194,13 +197,14 @@
 	}
 }
 
-@media (max-width: $max-m) {
-	.main-navigation {
+@media (max-width: $max-l) {
+	.site-header .main-navigation {
 		display: none;
 	}
 
 	.menu-toggle {
 		display: flex;
+		color: $white;
 	}
 }
 
@@ -209,11 +213,12 @@
 	position: fixed;
 	height: 100%;
 	width: 100%;
-	top: 0;
+	top: auto;
 	left: 0;
-	background-color: black;
+	background-color: $black;
 	z-index: 999999;
 	overflow: auto;
+	margin: 0;
 
 	.site-branding-mobile {
 		width: 100px;
@@ -224,7 +229,7 @@
 		pointer-events: none;
 	}
 
-	.main-navigation {
+	.menu-container {
 		ul.menu {
 			display: flex;
 			flex-direction: column;
@@ -232,14 +237,16 @@
 			justify-content: flex-start;
 			gap: 0;
 			list-style: none;
-			margin: 150px 0 50px;
 			padding: 0;
-
+			margin: 0;
 			li {
 				width: 100%;
 				height: auto;
 				position: relative;
-				font-weight: bold;
+				font-weight: 600;
+				&:first-child {
+					border-top: 1px solid white;
+				}
 
 				&.current_page_item::before {
 					content: "";
@@ -248,7 +255,7 @@
 					position: absolute;
 					left: 0;
 					bottom: 0;
-					background: $black;
+					background: $white;
 				}
 
 				&::after {
@@ -283,6 +290,7 @@
 					height: 100%;
 					padding: 25px;
 					padding-left: 50px;
+					color: $white;
 
 					@media (max-width: $max-xs) {
 						font-size: 1.8rem;

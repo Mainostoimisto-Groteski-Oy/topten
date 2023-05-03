@@ -1,17 +1,4 @@
-<?php
- if(have_rows('lift_group')) {
-    while(have_rows('lift_group')) {
-        the_row();
-        if(get_row_index() === 1) {
-            $first = get_sub_field( 'image' );
-            $block_height = ' height: '. esc_attr($first['sizes']['large-height']).'px';
-        }
-    }
-}
-
-?>
-
-<section class="lift-group-block" style="<?php echo $block_height; ?>">
+<section class="lift-group-block">
     <div class="grid-full">
         <?php if(have_rows('lift_group')) : ?>
             <?php while(have_rows('lift_group')) : the_row(); 

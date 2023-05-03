@@ -86,7 +86,7 @@ section.articles-block {
 					bottom: 25px;
 					left: 25px;
 				}
-				@include arrowlink;
+				@include arrowlink($red, 400);
 			}
 		}
 

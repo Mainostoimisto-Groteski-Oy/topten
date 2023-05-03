@@ -54,14 +54,7 @@ $categories = get_terms(
 
 <main id="primary" class="site-main">
 	<div id="ajaxSpinner"></div>
-	<section class="page-title">
-		<div class="grid">
-			<h1 class="entry-title h3">
-				<?php the_title(); ?>
-			</h1>
-		</div>
-	</section>
-
+	
 	<?php topten_breadcrumbs(); ?>
 
 	<section class="cards">
@@ -210,10 +203,10 @@ $categories = get_terms(
 			</div> <!-- end content area -->
 			
 			<div class="sidebar" id="cardSidebar">
+				<h3 class="h4 title"><?php esc_html_e('Käytössä olevat suodattimet', 'topten'); ?></h3>
 
-				<ul class="keywords" id="selectedText"></ul>
 				<ul class="keywords" id="selectedkeywords"></ul>
-				<ul class="keywords" id="selectedmunicipalities"></ul>
+				<!-- <ul class="keywords" id="selectedmunicipalities"></ul> -->
 				<ul class="keywords" id="selectedDateRange"></ul>
 				<ul class="keywords" id="selectedCategory"></ul>
 				<ul class="keywords" id="selectedLaw"></ul>
@@ -222,7 +215,7 @@ $categories = get_terms(
 					class="resetFilters"
 					name="resetFilters"
 					id="resetFilters">
-					<?php esc_html_e( 'Tyhjennä suodattimet', 'topten' ); ?>
+					<?php esc_html_e( 'Tyhjennä kaikki valinnat', 'topten' ); ?>
 			</div>
 			<div id="test" style="grid-column: 1 / -1"></div>
 		</div><!-- end top grid -->
