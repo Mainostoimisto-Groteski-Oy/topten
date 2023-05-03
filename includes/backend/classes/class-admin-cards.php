@@ -143,8 +143,6 @@ class Topten_Admin_Cards extends Topten_Admin {
 	 * @param string[] $columns Columns
 	 */
 	public function reorder_columns( $columns ) {
-		json_log( $columns );
-
 		$hidden_columns = array(
 			'wpseo-score',
 			'wpseo-score-readability',

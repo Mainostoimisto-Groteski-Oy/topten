@@ -54,12 +54,15 @@ jQuery(document).ready(($) => {
 			data.count += 1;
 
 			const rowData = {
+				count: 0,
 				columns: [],
 			};
 
 			$(row)
 				.find('.column')
 				.each((columnIndex, column) => {
+					rowData.count += 1;
+
 					const columnData = [];
 
 					$(column)
@@ -87,8 +90,6 @@ jQuery(document).ready(($) => {
 
 		// Get card content
 		const data = generatePDFdata(cardContent);
-
-		console.log(data);
 
 		$.ajax({
 			url: Ajax.url,

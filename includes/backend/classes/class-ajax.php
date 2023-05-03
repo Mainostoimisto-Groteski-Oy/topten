@@ -37,9 +37,7 @@ class Topten_Ajax extends Topten {
 
 		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 		$article_url = isset( $_POST['article_url'] ) ? esc_url( sanitize_text_field( $_POST['article_url'] ) ) : '';
-		// $data        = isset( $_POST['data'] ) ? json_decode( stripslashes( $_POST['data'] ), true ) : array();
-
-		$data = isset( $_POST['data'] ) ? $this->sanitize_array( $_POST['data'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$data        = isset( $_POST['data'] ) ? $this->sanitize_array( $_POST['data'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		require_once 'class-pdf.php';
 

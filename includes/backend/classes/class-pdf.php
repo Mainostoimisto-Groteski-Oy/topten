@@ -110,6 +110,38 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
+	 * Get string width (mm)
+	 *
+	 * @param array $data Data
+	 */
+	private function get_string_width( $data ) {
+		$width       = 0;
+		$child_count = count( $data['children'] );
+
+		foreach ( $data['children'] as $index => $datum ) {
+			// If child is not last, add space, so words don't stick together
+			$space = $index < $child_count - 1 ? true : false;
+
+			// If value is not allowed (like \n), remove it
+			$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
+
+			$tag = sanitize_text_field( $datum['tag'] );
+
+			$this->set_style( $tag );
+
+			$string = sanitize_text_field( $value );
+
+			if ( $space ) {
+				$string .= ' ';
+			}
+
+			$width += $this->GetStringWidth( $string );
+		}
+
+		return $width;
+	}
+
+	/**
 	 * Create columns
 	 *
 	 * @param array $row Row data
@@ -117,7 +149,7 @@ class Topten_PDF extends FPDFA {
 	private function write_columns( $row ) {
 		// Columns count
 		$columns = $row['columns'] ?? array();
-		$count   = count( $columns );
+		$count   = $row['count'] ?? 0;
 
 		// Calculate column width (page width - left and right margin / columns count)
 		$column_width = ( $this->GetPageWidth() - $this->lMargin - $this->rMargin ) / $count;
@@ -129,14 +161,13 @@ class Topten_PDF extends FPDFA {
 		$column_height = array();
 
 		// Row columns
-		foreach ( $columns as $index => $column ) {
+		for ( $i = 0; $i < $count; $i++ ) {
+			$column = $columns[ $i ] ?? array();
+
 			// Column start point (X-axis)
-			$x = $this->lMargin + ( $column_width * $index );
+			$x = $this->lMargin + ( $column_width * $i );
 
 			$this->SetXY( $x, $y );
-
-			// Variable for calculating column height
-			$column_height = 0;
 
 			// Column children
 			foreach ( $column as $column_children ) {
@@ -151,44 +182,48 @@ class Topten_PDF extends FPDFA {
 
 				// If tag is list, don't add line height, because it will be added later
 				if ( 'ul' === $tag || 'ol' === $tag ) {
-					$column_child_height = 0;
-
-					$this->write_list( $column_children, $column_child_height );
+					// $this->write_list( $column_children, $column_child_height );
 				} elseif ( 'img' === $tag || 'picture' === $tag ) {
-					$this->write_image( $column_children );
+					// $this->write_image( $column_children );
 				} else {
-					$column_child_height = $this->line_height_mm;
+					// Get total string width
+					$string_width = $this->get_string_width( $column_children );
+
+					// How many lines string takes
+					$lines = $column_width / $string_width;
+
+					// Calculate column child height
+					$column_height = $this->line_height_mm * $lines;
+
+					error_log( $column_height );
 
 					$this->write_text( $column_children );
 				}
 
-				$column_height += $column_child_height;
-
 				// Set XY-coordinates to next child start. X-coordinate doesn't change, Y-coordinate is increased by line height
-				$next_child_position = $child_y_position + $column_child_height;
+				$next_child_position = $child_y_position + $column_height;
 
 				$this->SetXY( $x, $next_child_position );
+
+				// $column_heights[] = $column_height;
 			}
-
-			$column_heights[] = $column_height;
 		}
 
-		$max_column_height = max( $column_heights );
+		// $max_column_height = max( $column_heights );
 
-		// Write column borders
-		foreach ( $columns as $index => $column ) {
-			// Column start point (X-axis)
-			$x = $this->lMargin + ( $column_width * $index );
+		// // Write column borders
+		// for ( $i = 0; $i < $count; $i++ ) {
+		// $x = $this->lMargin + ( $column_width * $i );
 
-			// Set start point
-			$this->SetXY( $x, $y );
+		// Set start point
+		// $this->SetXY( $x, $y );
 
-			// Write column, height = highest column height
-			$this->Cell( $column_width, $max_column_height, '', 1 );
-		}
+		// Write column, height = highest column height
+		// $this->Cell( $column_width, $max_column_height, '', 'TR' );
+		// }
 
 		// Set Y-axis to highest column height
-		$this->SetXY( $this->lMargin, $y + $max_column_height );
+		// $this->SetXY( $this->lMargin, $y + $max_column_height );
 	}
 
 	/**
@@ -242,11 +277,13 @@ class Topten_PDF extends FPDFA {
 	/**
 	 * Write data to PDF-file
 	 *
-	 * @param array $data Data, where is tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
+	 * @param array $data Data, containing tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
 	 */
 	private function write_text( $data ) {
 		// Children count
 		$child_count = count( $data['children'] );
+
+		json_log( $data );
 
 		foreach ( $data['children'] as $index => $datum ) {
 			// If child is not last, add space, so words don't stick together
