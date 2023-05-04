@@ -2,25 +2,10 @@
 /* eslint-disable no-underscore-dangle */
 /* global Ajax */
 jQuery(document).ready(($) => {
-	const ajaxSpinner = $('#ajaxSpinner');
-	$(document).ajaxStart(() => {
-		$(ajaxSpinner).show();
-	}).ajaxStop(() => {
-		$(ajaxSpinner).hide();
-	});
-	$('#toggleFilters').on('click', function() {
-		$(this).toggleClass('active');
-		// toggle aria expanded
-		if($(this).attr('aria-expanded') === 'false') {
-			$(this).attr('aria-expanded', 'true');
-		} else {
-			$(this).attr('aria-expanded', 'false');
-		}
-		$('#searchCards').toggleClass('active');
-		$('#cardSidebar').toggleClass('active');
-	});
+	
 	// Fetch cards from database via query
-	function cardSearch() {
+	// cardStatusType is an acf field set in korttiluettelo template that determines which cards are shown (valid, expired or 2025 law)
+	function cardSearch(cardStatusType = 'valid') {
 		// if value is in localstorage, use it instead of form value
 		let freeText = '';
 		if(localStorage.getItem('freeText')) {
@@ -75,6 +60,7 @@ jQuery(document).ready(($) => {
 			method: 'POST',
 			data: {
 				action: 'topten_card_search',
+				cardStatusType,
 				freeText,
 				cardkeywords,
 				cardmunicipalities,
@@ -293,6 +279,26 @@ jQuery(document).ready(($) => {
 		$('#cardSidebar ul').html('');
 		cardSearch();
 	}
+
+	const ajaxOverlay = $('#ajaxOverlay');
+	$(document).ajaxStart(() => {
+		$(ajaxOverlay).fadeIn(200);
+	}).ajaxStop(() => {
+		$(ajaxOverlay).fadeOut(200);
+	});
+	const cardStatusType = $('#primary').attr('data-template');
+	cardSearch(cardStatusType);
+	$('#toggleFilters').on('click', function() {
+		$(this).toggleClass('active');
+		// toggle aria expanded
+		if($(this).attr('aria-expanded') === 'false') {
+			$(this).attr('aria-expanded', 'true');
+		} else {
+			$(this).attr('aria-expanded', 'false');
+		}
+		$('#searchCards').toggleClass('active');
+		$('#cardSidebar').toggleClass('active');
+	});
 
 	// If there is a search form on the page
 	if($('#searchCards').length > 0) {

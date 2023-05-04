@@ -4,8 +4,17 @@ section.two-column-block,
 section.three-column-block {
 	.grid-full {
 		.left-block, .center-block, .right-block {
-			aspect-ratio: 1 / 1;
-			padding: 100px;
+			
+			padding: 75px 50px;
+			@media(max-width:$max-xxl) {
+				padding: 50px 30px;
+			}
+			@media(max-width:$max-xl) {
+				padding: 30px;
+			}
+			@media(max-width:$max-l) {
+				padding: 30px 15px;
+			}
 			.buttons {
 				margin-top: 50px;
 			}
@@ -36,32 +45,82 @@ section.three-column-block {
 	.center-block,
 	.right-block {
 
-		&.color-black {
-			color: $black;
-		}
-		&.color-white {
-			color: $white;
-		}
 		&.bg-blue {
 			background-color: $blue;
+			color: $black;
 		}
 		&.bg-yellow {
 			background-color: $yellow;
+			color: $black;
 		}
 		&.bg-green {
 			background-color: $green;
+			color: $black;
 		}
 		&.bg-white {
 			background-color: $white;
+			border: 1px solid $black;
+			color: $black;
 		}
-		&.bg-transparent {
-			background: transparent;
+		&.bg-brown {
+			background-color: $brown;
+			color: $white;
+			a, a.link {
+				color: $white!important;
+				span {
+					color: $white!important;
+					&::after {
+						color: $white!important;
+					}
+					&::before {
+						background-color: $white!important;
+					}
+				}
+			}
+			.buttons {
+				.button {
+					border: 1px solid $white!important;
+					&:hover {
+						color:$black!important;
+					}
+				}
+			}
+		}
+		&.bg-black {
+			background-color: $black;
+			color: $white;
+			a, a.link {
+				color: $white!important;
+				span {
+					color: $white!important;
+					&::after {
+						color: $white!important;
+					}
+					&::before {
+						background-color: $white!important;
+					}
+				}
+			}
+			.buttons {
+				.button {
+					border: 1px solid $white!important;
+					&:hover {
+						color:$black!important;
+					}
+				}
+			}
 		}
 
 		.block-title {
 			margin-top: 0;
 		}
-		@include arrowlink($black, 600);
+		.links {
+			
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		@include arrowlink($black, 400);
 	}
 
 	@include buttons;

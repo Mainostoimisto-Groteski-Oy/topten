@@ -1,6 +1,6 @@
 {
     "key": "group_61c45a376378e",
-    "title": "Lohko: Teksti",
+    "title": "Lohko: Tekstilohko",
     "fields": [
         {
             "key": "field_63bd17ae1ed18",
@@ -101,5 +101,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1679318595
+    "modified": 1683183195
 }

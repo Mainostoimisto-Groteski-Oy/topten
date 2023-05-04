@@ -69,3 +69,9 @@ body {
 		height: 48px;
 	}
 }
+
+// Make wysiwyg editor smaller for ingress field
+#editor .acf-field[data-name="ingress"] iframe {
+    min-height: 0!important;
+    height: 175px!important;
+}

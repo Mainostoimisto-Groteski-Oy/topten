@@ -1,0 +1,50 @@
+{
+    "key": "group_6453948cd97f5",
+    "title": "Korttisivun lisävalinnat",
+    "fields": [
+        {
+            "key": "field_6453948ecd921",
+            "label": "Näytä kortit ryhmästä",
+            "name": "card_status_type",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "valid": "Voimassa olevat",
+                "future": "2025",
+                "past": "Vanhentuneet ja kumotut"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_template",
+                "operator": "==",
+                "value": "template-korttiluettelo.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1683199247
+}

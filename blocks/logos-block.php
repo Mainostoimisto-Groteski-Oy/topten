@@ -3,14 +3,14 @@
 		<div class="text-block">
 			<?php topten_block_title(); ?>
 
-			<?php if ( get_field( 'text' ) ) : ?>
-				<?php the_field( 'text' ); ?>
+			<?php if ( get_field( 'description' ) ) : ?>
+				<p><?php the_field( 'description' ); ?></p>
 			<?php endif; ?>
 		</div>
 				
 		<?php if ( have_rows( 'logos' ) ) : ?>
-			<?php $i = 0; ?>
-			<div class="logos-grid">
+			
+			<div class="logos">
 
 				<?php
 				while ( have_rows( 'logos' ) ) :
@@ -39,9 +39,8 @@
 							echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
 						endif;
 					endif;
-					// empty div after every logo to get desired layout
 					?>
-					<div class="blank" aria-hidden="true"></div>
+					
 					<?php
 				endwhile;
 				?>

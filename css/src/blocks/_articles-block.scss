@@ -67,7 +67,8 @@ section.articles-block {
 			}
 
 			.date {
-				
+				font-size: 1.8rem;
+				margin-top: 0;
 			}
 
 			.content {
@@ -114,7 +115,7 @@ section.articles-block {
 			.top {
 				display: flex;
 				justify-content: space-between;
-				font-weight: 600;
+				font-weight: 400;
 
 				.version {
 					margin-right: 30px;

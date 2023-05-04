@@ -1,0 +1,29 @@
+@use "mixins/all" as *;
+
+section.list-block {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        .text {
+            grid-column: 1;
+        }
+        
+            
+            ul.list {
+                grid-column: 2;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                li {
+                    border-left: 2px solid $brown;
+                    list-style-type: none;
+                    margin-bottom: 25px;
+                    padding: 0px 10px;
+                    span.title {
+                        font-weight: 400;
+                    }
+                    @include arrowlink($brown, 400);
+                }
+            }
+        
+    }
+}

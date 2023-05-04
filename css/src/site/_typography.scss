@@ -6,19 +6,47 @@ html {
 
 body {
 	font-family: $font-main;
-	font-size: 1.8rem;
-	font-weight: 400;
+	font-size: 1.6rem;
+	font-weight: 300;
 }
 
 .ingress {
-	font-size: 2rem;
+	font-size: 2.8rem;
+	color: $brown;
+	> p {
+		font-weight: 400;
+	}
 }
 
 p,
 li,
-a {
-	line-height: 1.5;
+a,
+i,
+s,
+u,
+span,
+del,
+ins,
+sub,
+sup {
+	font-size: 2.2rem;
+	font-weight: 300;
+	line-height: 1.7;
+	letter-spacing: 0.2px;
+	@media(max-width:$max-xl) {
+		font-size: 2rem;
+	}
+}
+input,
+select,
+button,
+textarea {
 	font-size: 1.8rem;
+	letter-spacing: 0.2px;
+}
+
+p {
+	margin: 16px 0px;
 }
 
 a {

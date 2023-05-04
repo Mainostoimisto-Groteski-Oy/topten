@@ -56,7 +56,7 @@
 				$title            = $card->post_title;
 				$type             = get_post_type( $id );
 				$version          = get_field( 'version', $id );
-				$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
+				$post_date         = date( 'j.n.Y', strtotime( $card->post_date ) );
 				$link             = get_permalink( $id );
 				$summary          = get_field( 'edit_summary', $id );
 				?>

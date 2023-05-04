@@ -80,7 +80,7 @@ if ( 'newest' === $articles_type ) {
 						$title            = $post->post_title;
 						$type             = get_post_type( $id );
 						$version          = get_field( 'version', $id );
-						$modified         = date( 'j.n.Y', strtotime( $post->post_modified ) );
+						$post_date         = date( 'j.n.Y', strtotime( $post->post_date ) );
 						$link             = get_permalink( $id );
 						$summary          = get_field( 'edit_summary', $id );
 						?>
@@ -147,9 +147,9 @@ if ( 'newest' === $articles_type ) {
 						</div>
 
 						<div class="content">
-							<div class="date">
+							<p class="date">
 								<?php echo esc_html( date( 'd.m.Y', strtotime( $post->post_date ) ) ); ?>
-							</div>
+							</p>
 
 							<h3 class="title h4">
 								<?php echo esc_html( get_the_title( $post->ID ) ); ?>
@@ -160,7 +160,7 @@ if ( 'newest' === $articles_type ) {
 							</p>
 
 							<a class="link" href="<?php the_permalink( $post->ID ); ?>">
-								<?php esc_html_e( 'Lue koko juttu', 'topten' ); ?>
+								<span><?php esc_html_e( 'Lue koko juttu', 'topten' ); ?></span>
 							</a>
 						</div>
 					</div>

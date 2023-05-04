@@ -43,7 +43,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$title            = get_the_title( $card );
 	$type             = get_post_type( $id );
 	$version          = get_field( 'version', $id );
-	$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
+	$post_date         = date( 'j.n.Y', strtotime( $card->post_date ) );
 	$link             = get_permalink( $id );
 
 	$html  = '<li class="card">';
@@ -52,6 +52,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '<span class="end"> ' . esc_html( $identifier_end ) . '</span>';
 	$html .= '</div>';
 	$html .= '<span class="version">' . esc_html( $version ) . '</span>';
+	$html .= '<span class="date">' . esc_html( $post_date ) . '</span>';
 	$html .= '<span class="card-title">' . esc_html( $title ) . '</span>';
 	$html .= '<div class="languages">';
 	$html .= '<a href="" class="fi">Fi</a>';

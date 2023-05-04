@@ -1,6 +1,7 @@
 @use "variables/breakpoints" as *;
 @use "mixins/typography" as *;
 @use "variables/typography" as *;
+@use "variables/colors" as *;
 
 /// h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
 @mixin headings {
@@ -9,6 +10,9 @@
 		@include font-size(4rem, 7.2rem);
 		
 		font-family: $font-heading;
+		margin: 15px 0px;
+		font-weight: 400;
+		color: $brown;
 	}
 
 	h2,
@@ -16,6 +20,9 @@
 		@include font-size(3.6rem, 6rem);
 
 		font-family: $font-heading;
+		margin: 15px 0px;
+		font-weight: 400;
+		color: $brown;
 	}
 
 	h3,
@@ -23,6 +30,9 @@
 		@include font-size(3rem, 4.2rem);
 
 		font-family: $font-heading;
+		margin: 15px 0px;
+		font-weight: 400;
+		color: $brown;
 	}
 
 	h4,
@@ -30,6 +40,9 @@
 		@include font-size(2.2rem, 3rem);
 
 		font-family: $font-heading;
+		margin: 15px 0px;
+		font-weight: 400;
+		color: $brown;
 	}
 
 	h5,
@@ -37,5 +50,8 @@
 		@include font-size(1.8rem, 2rem);
 
 		font-family: $font-heading;
+		margin: 15px 0px;
+		font-weight: 400;
+		color: $brown;
 	}
 }

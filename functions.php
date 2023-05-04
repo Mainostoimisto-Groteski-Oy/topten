@@ -309,7 +309,7 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 	if ( 'page' === $editor_context->post->post_type ) {
 		$allowed_blocks = array(
 			'acf/hero',
-			'acf/teksti',
+			'acf/tekstilohko',
 			'acf/teksti-ja-kuva',
 			'acf/teksti-ja-kortti',
 			'acf/nosto',
@@ -319,6 +319,7 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 			'acf/logot',
 			'acf/kaksi-saraketta',
 			'acf/kolme-saraketta',
+			'acf/lista',
 			// 'acf/upotus',
 			// 'acf/logot',
 			// 'acf/yhteystiedot',
@@ -474,6 +475,21 @@ function topten_acf() {
 				'render_template' => "blocks/$block_slug.php",
 				'keywords'        => array( $block_name ),
 				'icon'            => 'embed-generic',
+			)
+		);
+
+		$block_name  = 'Lista';
+		$block_slug  = 'list-block';
+		$description = 'Lohko listaelementille';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'list',
 			)
 		);
 
@@ -876,18 +892,68 @@ function topten_card_search() {
 		'meta_query'     => array(
 			'relation' => 'AND',
 			array(
-				'key'     => 'card_status',
-				'value'   => 'publish',
-				'compare' => '=',
-			),
-			array(
-				'key'     => 'card_status_publish',
-				'value'   => 'valid',
-				'compare' => '=',
-			),
+				'relation' => 'AND',
+				array(
+					'key'     => 'card_status',
+					'value'   => 'publish',
+					'compare' => '=',
+				),
+			)
 		),
 		'tax_query'      => array(),
 	);
+
+	if ( isset( $_POST['cardStatusType'] ) ) {
+		$card_status_type = sanitize_text_field( wp_unslash( $_POST['cardStatusType'] ) );
+		if ('valid' !== $card_status_type && 'future' !== $card_status_type && 'past' !== $card_status_type) {
+			wp_die('Invalid card status type');
+		} else {
+			if ('past' === $card_status_type) {
+				$args['meta_query'][] =
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'card_status_publish',
+						'value'   => 'expired',
+						'compare' => '=',
+					),
+					array(
+						'key'     => 'card_status_publish',
+						'value'   => 'repealed',
+						'compare' => '=',
+					),
+				);
+				
+			} else if ('valid' === $card_status_type) {
+				$args['meta_query'][] =
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'card_status_publish',
+						'value'   => 'valid',
+						'compare' => '=',
+					),
+					array(
+						'key'     => 'card_status_publish',
+						'value'   => 'approved_for_repeal',
+						'compare' => '=',
+					),
+				);
+			} else if ('future' === $card_status_type) {
+				$args['meta_query'][] =
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'card_status_publish',
+						'value'   => 'future',
+						'compare' => '=',
+					),
+				);
+			}
+		}
+	} 
+
+
 
 	// Card types
 	$post_types = array();
@@ -1231,3 +1297,7 @@ function topten_excerpt_length( $length ) {
 	return 30;
 }
 add_filter( 'excerpt_length', 'topten_excerpt_length', 999 );
+
+
+	
+add_filter( 'wp_lazy_loading_enabled', '__return_true' );

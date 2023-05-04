@@ -12,7 +12,7 @@ $identifier_start = get_field( 'identifier_start', $id );
 $identifier_end   = get_field( 'identifier_end', $id );
 $type             = get_post_type( $id );
 $version          = get_field( 'version', $id );
-$modified         = date( 'j.n.Y', strtotime( $post->post_modified ) );
+$post_date         = date( 'j.n.Y', strtotime( $post->post_date ) );
 $keywords         = get_the_terms( $id, 'asiasanat' );
 ?>
 

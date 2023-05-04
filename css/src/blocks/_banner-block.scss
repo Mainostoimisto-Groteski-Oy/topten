@@ -9,36 +9,12 @@ footer {
 section.banner-block {
 	margin: 50px 0;
 
-	&.brown {
-		background-color: $grey;
-		color: $red;
-		border-top: 1px solid $red;
-		border-bottom: 1px solid $red;
-	}
-
-	&.red {
-		background-color: $red;
-		color: $white;
-	}
-
-	&.black {
-		background-color: $black;
-		color: $white;
-		font-weight: 600;
-
-		.grid {
-			.content {
-				.text {
-					p {
-						font-style: normal;
-						font-size: 2rem;
-					}
-				}
-			}
-		}
-	}
+	background-color: $white;
+	border-top: 1px solid $black;
+	border-bottom: 1px solid $black;
 
 	.grid {
+		padding: 0px 15px;
 		.content {
 			&.with-text {
 				.title {
@@ -50,9 +26,10 @@ section.banner-block {
 				margin: 15px 0;
 			}
 
-			.text {
-				font-style: italic;
-				font-size: 2rem;
+			.text p {
+				font-size: 2.4rem;
+				font-weight: 400;
+				color: $brown;
 				text-align: center;
 			}
 		}
