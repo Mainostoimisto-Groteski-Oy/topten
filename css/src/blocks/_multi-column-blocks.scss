@@ -2,6 +2,13 @@
 
 section.two-column-block,
 section.three-column-block {
+	margin: 50px 0px;
+	@media(max-width:$max-m) {
+		margin: 30px 0px;
+	}
+	@media(max-width:$max-xs) {
+		margin: 15px 0px;
+	}
 	.grid-full {
 		.left-block, .center-block, .right-block {
 			
@@ -65,6 +72,9 @@ section.three-column-block {
 		&.bg-brown {
 			background-color: $brown;
 			color: $white;
+			.block-title {
+				color: $white!important;
+			}
 			a, a.link {
 				color: $white!important;
 				span {
@@ -80,8 +90,9 @@ section.three-column-block {
 			.buttons {
 				.button {
 					border: 1px solid $white!important;
+					color: $black!important;
 					&:hover {
-						color:$black!important;
+						color:$white!important;
 					}
 				}
 			}
@@ -89,6 +100,9 @@ section.three-column-block {
 		&.bg-black {
 			background-color: $black;
 			color: $white;
+			.block-title {
+				color: $white!important;
+			}
 			a, a.link {
 				color: $white!important;
 				span {
@@ -104,8 +118,9 @@ section.three-column-block {
 			.buttons {
 				.button {
 					border: 1px solid $white!important;
+					color: $black!important;
 					&:hover {
-						color:$black!important;
+						color:$white!important;
 					}
 				}
 			}

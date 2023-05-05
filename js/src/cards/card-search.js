@@ -47,7 +47,7 @@ jQuery(document).ready(($) => {
 		
 		// if these are not in locaLstorage they're not in use at all
 		const cardkeywords = JSON.parse(localStorage.getItem('keywords'));
-		const cardmunicipalities = JSON.parse(localStorage.getItem('municipalities'));
+		// const cardmunicipalities = JSON.parse(localStorage.getItem('municipalities'));
 
 		// get checked checkboxes values and push them to array
 		const cardTypes = [];
@@ -63,7 +63,7 @@ jQuery(document).ready(($) => {
 				cardStatusType,
 				freeText,
 				cardkeywords,
-				cardmunicipalities,
+				// cardmunicipalities,
 				cardLaw,
 				cardCategory,
 				cardDateStart,
@@ -75,7 +75,6 @@ jQuery(document).ready(($) => {
 			success(data) {
 				// PHP code handles the data so we just need to append it to the DOM
 				$('#listCards').html(data);
-				console.log(data);
 				// Hide empty categories
 				// Tulkintakortti post type has three levels of categories, the others two
 				$('#tulkintakortit ul.children').each(function() {
@@ -142,8 +141,9 @@ jQuery(document).ready(($) => {
 					const terms = data.data;
 					if(terms.length > 0) {
 						$(`#selected${type}`).html('');
+						$(`#selected${type}`).parent('figure').show();
 						jQuery(terms).each(function() {
-							$(`#selected${type}`).append(`<li class="keyword" data-id="${this.value}">${this.label} <button class="removekeyword" data-type="${type}" data-id="${this.value}">x</button></li>`);
+							$(`#selected${type}`).append(`<li class="keyword" data-id="${this.value}"><button class="removekeyword" data-type="${type}" data-id="${this.value}"></button><span>${this.label}</span></li>`);
 						});
 					}
 				},
@@ -158,13 +158,16 @@ jQuery(document).ready(($) => {
 
 		// Get items from local storage
 
-		const cardLaw = localStorage.getItem('cardLaw');
+		const cardLaw = JSON.parse(localStorage.getItem('cardLaw'));
+
 		/* const cardCategory = JSON.parse(localStorage.getItem('cardCategory'));
 		const cardDateStart = JSON.parse(localStorage.getItem('cardDateStart'));
 		const cardDateEnd = JSON.parse(localStorage.getItem('cardDateEnd')); */
 		if (cardLaw) {
+			const splitLaw = cardLaw.split('|');
 			$('#selectedLaw').html('');
-			$('#selectedLaw').append(`<li class="keyword" data-id="${cardLaw}">${cardLaw} <button class="removekeyword" data-type="cardLaw" data-id="${cardLaw}">x</button></li>`);
+			$(`#selectedLaw`).parent('figure').show();
+			$('#selectedLaw').append(`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"></button><span>${splitLaw[1]}</span></li>`);
 		}
 	
 	}
@@ -193,31 +196,47 @@ jQuery(document).ready(($) => {
 			});
 			// If not, append it
 			if (existingChildren.indexOf(keyword) === -1) {
-				$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}">${$(`#card${type}`).val()} <button class="removekeyword" data-type="${type}" data-id="${keyword}">x</button></li>`);	
+				$(`#selected${type}`).parent('figure').show();
+				$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(`#card${type}`).val()}</span></li>`);	
 			} 
 		} else {
 			// If there are no items in DOM, append it
-			$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}">${$(`#card${type}`).val()} <button class="removekeyword" data-type="${type}" data-id="${keyword}">x</button></li>`);
+			$(`#selected${type}`).parent('figure').show();
+			$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(`#card${type}`).val()}</span></li>`);
 		}
 	}
 	
 	function removeFilters(id, type) {
-		// Remove keyword div with this data-id attribute
-		$(`li.keyword[data-id="${id}"]`).remove();
+
 		const storage = JSON.parse(localStorage.getItem(type));
-		$(storage).each(function() {
-			const storedItem = this.toString();
-			if (storedItem === id) {
-				// Remove this id from the array
-				storage.splice(storage.indexOf(id), 1);
-				// Push back to localstorage
-				if(storage.length <= 0) {
-					localStorage.removeItem(type);
-				} else {
-					localStorage.setItem(type, JSON.stringify(storage));
+		if(type === 'keywords') {
+			$(storage).each(function() {
+				const storedItem = this.toString();
+				if (storedItem === id) {
+					// Remove this id from the array
+					storage.splice(storage.indexOf(id), 1);
+					// Push back to localstorage
+					if(storage.length <= 0) {
+						localStorage.removeItem(type);
+						// If it is the last item, hide the whole figure
+						$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+						
+					} else {
+						localStorage.setItem(type, JSON.stringify(storage));
+					}
 				}
+			});
+			// Remove keyword div with this data-id attribute
+			$(`li.keyword[data-id="${id}"]`).remove();
+		} else if (type === 'cardLaw') {
+			const splitLaw = storage.split('|');
+			if (splitLaw[0] === id) {
+				localStorage.removeItem(type);
+				$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+				$(`li.keyword[data-id=${id}]`).remove();
+				
 			}
-		});
+		}
 	}
 	
 	
@@ -302,10 +321,10 @@ jQuery(document).ready(($) => {
 
 	// If there is a search form on the page
 	if($('#searchCards').length > 0) {
-
+		showFilters();
 		// Init autocomplete fields
 		autoCompleteField('keywords', 3);
-		autoCompleteField('municipalities', 2);
+		// autoCompleteField('municipalities', 2);
 
 		// Search & filter button events
 		$('#searchCards button.searchTrigger').on('click', () => {
@@ -318,7 +337,10 @@ jQuery(document).ready(($) => {
 				localStorage.setItem('dateEnd', $('#cardDateEnd').val());
 			}
 			if($('#cardLaw').val() !== '') {
-				localStorage.setItem('cardLaw', $('#cardLaw').val());
+				const cardLawID = $('#cardLaw').val();
+				const cardLawName = $('#cardLaw').find(':selected').attr('data-name');
+				const toStore = `${cardLawID}|${cardLawName}`;
+				localStorage.setItem('cardLaw', JSON.stringify(toStore));
 			}
 			if($('#cardCategory').val() !== '') {
 				localStorage.setItem('cardCategory', $('#cardCategory').val());
@@ -339,20 +361,23 @@ jQuery(document).ready(($) => {
 		$('#keywordssearch').on('click', () => {
 			applyFilters('keywords');
 		});
-
+		/*
 		$('#municipalitiessearch').on('click', () => {
 			applyFilters('municipalities');
 		});
-
-		// If there are keywords or municipalities in localstorage, fetch them and display them
+*/
+		// If there are keywords in localstorage, fetch them and display them
 		if($('#selectedkeywords').length > 0) {
 			updateFilters('keywords');
 		} 
 
-		if($('#selectedmunicipalities').length > 0) {
+		/*	if($('#selectedmunicipalities').length > 0) {
 			updateFilters('municipalities');
-		} 
-
+		}  */
+		$('#cardLaw').on('change', () => {
+			showFilters();
+		});
+		
 		if($('#resetFilters').length > 0) {
 			$('#resetFilters').on('click', () => {
 				resetAllFilters();

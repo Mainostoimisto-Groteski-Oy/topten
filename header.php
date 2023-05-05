@@ -30,7 +30,7 @@
 	</a>
 
 	<header id="logoheader" class="logoheader">
-		<div class="grid-full">
+		<div class="grid">
 			<div class="logos">
 				<div class="site-branding">
 					<?php the_custom_logo(); ?>
@@ -46,7 +46,7 @@
 	</header>
 
 	<header id="masthead" class="site-header">
-		<div class="grid-full">
+		<div class="grid">
 
 			<nav id="site-navigation" class="main-navigation">
 				<?php

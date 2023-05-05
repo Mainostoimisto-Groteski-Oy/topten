@@ -2,7 +2,8 @@
 
 section.list-block {
     .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 5fr 7fr;
+        gap: 30px;
         .text {
             grid-column: 1;
         }
@@ -11,13 +12,15 @@ section.list-block {
             ul.list {
                 grid-column: 2;
                 list-style: none;
-                margin: 0;
+                margin: 15px 0 0 0;
                 padding: 0;
                 li {
                     border-left: 2px solid $brown;
                     list-style-type: none;
                     margin-bottom: 25px;
                     padding: 0px 10px;
+                    display: flex;
+                    flex-direction: column;
                     span.title {
                         font-weight: 400;
                     }

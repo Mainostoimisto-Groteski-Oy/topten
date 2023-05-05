@@ -1,11 +1,23 @@
 @use "mixins/all" as *;
 
 section.logos-block {
-
+	margin: 50px 0px;
+	@media(max-width:$max-m) {
+		margin: 30px 0px;
+	}
+	@media(max-width:$max-xs) {
+		margin: 15px 0px;
+	}
 	.grid {
 		border: 1px solid $black;
-		padding: 30px;
+		padding: 50px;
 		grid-template-columns: minmax(0, 1fr);
+		@media(max-width:$max-m) {
+			padding: 30px;
+		}
+		@media(max-width:$max-xs) {
+			padding: 30px 15px;
+		}
 	}
 
 	.text-block {
@@ -19,6 +31,7 @@ section.logos-block {
 		gap: 50px;
 		flex-wrap: wrap;
 		justify-content: center;
+		align-items: center;
 		@media(max-width:$max-xl) {
 			gap: 25px;
 		}

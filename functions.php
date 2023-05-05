@@ -1149,7 +1149,7 @@ function topten_card_search() {
 	}
 	// If nothing is found, return notice to user
 	if ( empty( $tulkinta_array ) && empty( $ohje_array ) && empty( $lomake_array ) ) {
-		$results  = '<div class="noResults">';
+		$results  = '<div class="no-results">';
 		$results .= '<p>' . esc_html( 'Ei hakutuloksia.', 'topten' ) . '</p>';
 		$results .= '</div>';
 		// return results and die
