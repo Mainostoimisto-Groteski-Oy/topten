@@ -2,7 +2,7 @@
 
 <?php $text = get_field( 'text' ); ?>
 
-<div class="text-wrapper">
+<div class="text-wrapper pdf-skip">
 	<?php
 	echo wp_kses(
 		$text,
