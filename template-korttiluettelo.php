@@ -79,12 +79,7 @@ $categories = get_terms(
 										id="freeText"
 										placeholder="<?php esc_html_e( 'Avoin tekstihaku', 'topten' ); ?>" />
 
-									<button type="submit"
-										class="searchTrigger"
-										name="textSearch"
-										id="textSearch">
-										<?php esc_html_e( 'Hae', 'topten' ); ?>
-									</button>
+									
 								</div>
 
 							</div>
@@ -166,7 +161,7 @@ $categories = get_terms(
 										</option>
 
 										<?php foreach ( $categories as $category ) : ?>
-											<option value="<?php echo esc_attr( $category->term_id ); ?>">
+											<option value="<?php echo esc_attr( $category->term_id ); ?>" data-name="<?php echo esc_attr( $category->name ); ?>">
 											<?php echo esc_html( $category->name ); ?>
 										</option>
 										<?php endforeach; ?>
@@ -174,6 +169,15 @@ $categories = get_terms(
 								</div>
 							</div>
 						<?php endif; ?>
+					
+						<div class="submit">
+							<button type="submit"
+								class="searchTrigger"
+								name="textSearch"
+								id="textSearch">
+								<?php esc_html_e( 'Suodata hakutuloksia', 'topten' ); ?>
+							</button>
+						</div>
 					</div> <!-- close wrapper -->
 				</div>
 
@@ -189,10 +193,14 @@ $categories = get_terms(
 						</figure>
 						<figure>
 							<figcaption class="small"><?php esc_html_e('Kortit ajanjaksolta'); ?></figcaption>
-							<ul class="keywords" id="selectedDateRange"></ul>
+							<ul class="keywords" id="selectedDateRange">
+								<li id="selectedDateStart"></li>
+								<li id="divider">-</li>
+								<li id="selectedDateEnd"></li>
+							</ul>
 						</figure>
 						<figure>
-							<figcaption class="small"><?php esc_html_e('Valitut vastuuryhmät'); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e('Valittu vastuuryhmä'); ?></figcaption>
 							<ul class="keywords" id="selectedCategory"></ul>
 						</figure>
 						<figure>

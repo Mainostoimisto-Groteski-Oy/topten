@@ -7,6 +7,7 @@ jQuery(document).ready(($) => {
 	// cardStatusType is an acf field set in korttiluettelo template that determines which cards are shown (valid, expired or 2025 law)
 	function cardSearch(cardStatusType = 'valid') {
 		// if value is in localstorage, use it instead of form value
+
 		let freeText = '';
 		if(localStorage.getItem('freeText')) {
 			freeText = localStorage.getItem('freeText');
@@ -16,6 +17,8 @@ jQuery(document).ready(($) => {
 		let cardLaw = '';
 		if(localStorage.getItem('cardLaw')) {
 			cardLaw = localStorage.getItem('cardLaw');
+			const splitLaw = cardLaw.split('|');
+			$('#cardLaw').val(splitLaw[0]);	
 		} else {
 			cardLaw = $('#cardLaw').val();
 		}
@@ -23,6 +26,8 @@ jQuery(document).ready(($) => {
 		let cardCategory = '';
 		if(localStorage.getItem('cardCategory')) {
 			cardCategory = localStorage.getItem('cardCategory');
+			const splitCategory = cardCategory.split('|');
+			jQuery('#cardCategory').val(splitCategory[0]);
 		} else {
 			cardCategory = $('#cardCategory').val();
 		}
@@ -39,8 +44,8 @@ jQuery(document).ready(($) => {
 			cardDateStart = $('#dateStart').val();
 		}
 		let cardDateEnd = '';
-		if(localStorage.getItem('dateEnd')) {
-			cardDateEnd = localStorage.getItem('dateEnd');
+		if(localStorage.getItem('cardDateEnd')) {
+			cardDateEnd = localStorage.getItem('cardDateEnd');
 		} else {
 			cardDateEnd = $('#cardDateEnd').val();
 		}
@@ -54,7 +59,7 @@ jQuery(document).ready(($) => {
 		$('input[name="cardTypeFilter"]:checked').each(function() {
 			cardTypes.push($(this).val());
 		});
-
+		
 		$.ajax({
 			url: Ajax.url,
 			method: 'POST',
@@ -117,6 +122,7 @@ jQuery(document).ready(($) => {
 	} 
 	
 	function updateFilters(type) {
+		// For items with array type localstorage
 		// Get items from local storage
 		const words = JSON.parse(localStorage.getItem(`${type}`));
 		let typeName = '';
@@ -154,23 +160,70 @@ jQuery(document).ready(($) => {
 		}
 	}
 
-	function showFilters() {
-
+	function showFilters(type) {
+		// For items with singular type localstorage
 		// Get items from local storage
 
-		const cardLaw = JSON.parse(localStorage.getItem('cardLaw'));
+		
 
-		/* const cardCategory = JSON.parse(localStorage.getItem('cardCategory'));
+		
+		/*
 		const cardDateStart = JSON.parse(localStorage.getItem('cardDateStart'));
 		const cardDateEnd = JSON.parse(localStorage.getItem('cardDateEnd')); */
-		if (cardLaw) {
-			const splitLaw = cardLaw.split('|');
-			$('#selectedLaw').html('');
-			$(`#selectedLaw`).parent('figure').show();
-			$('#selectedLaw').append(`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"></button><span>${splitLaw[1]}</span></li>`);
+		if (type === 'cardLaw') {
+			const cardLaw = localStorage.getItem('cardLaw');
+			if(cardLaw) {
+				const splitLaw = cardLaw.split('|');
+				$('#selectedLaw').html('');
+				$(`#selectedLaw`).parent('figure').show();
+				$('#selectedLaw').append(`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"></button><span>${splitLaw[1]}</span></li>`);
+			}
 		}
-	
+		if(type === 'cardCategory') {
+			const cardCategory = localStorage.getItem('cardCategory'); 
+			if (cardCategory) {
+				const splitCategory = cardCategory.split('|');
+				$('#selectedCategory').html('');
+				$(`#selectedCategory`).parent('figure').show();
+				$('#selectedCategory').append(`<li class="keyword" data-id="${splitCategory[0]}"><button class="removekeyword" data-type="cardCategory" data-id="${splitCategory[0]}"></button><span>${splitCategory[1]}</span></li>`);
+			}
+		}
+		if(type === 'cardDateStart') {
+			const cardDateStart = localStorage.getItem('cardDateStart');
+			if (cardDateStart) {
+				const date = new Date(cardDateStart);
+				const day = date.getDate();
+				const month = date.getMonth()+1;
+				const year = date.getFullYear();
+				const dateString = `${day}.${month}.${year}`;
+				$('#selectedDateStart').html('');
+				$(`#selectedDateStart`).parent('ul').parent('figure').show();
+				$('#selectedDateStart').append(`<li class="keyword" data-id="dateStart"><button class="removekeyword" data-type="cardDateStart" data-time="${cardDateStart}" data-id="dateStart"></button><span>${dateString}</span></li>`);
+			}
+		}
+		if(type === 'cardDateEnd') {
+			const cardDateEnd = localStorage.getItem('cardDateEnd');
+			if (cardDateEnd) {
+				$('#selectedDateEnd').html('');
+				$(`#selectedDateEnd`).parent('ul').parent('figure').show();
+				const date = new Date(cardDateEnd);
+				const day = date.getDate();
+				const month = date.getMonth()+1;
+				const year = date.getFullYear();
+				const dateString = `${day}.${month}.${year}`;
+				$('#selectedDateEnd').append(`<li class="keyword" data-id="dateEnd"><button class="removekeyword" data-type="cardDateEnd" data-time="${cardDateEnd}" data-id="dateEnd"></button><span>${dateString}</span></li>`);
+			}
+		}
+
 	}
+
+	function updateSingularFilters() {
+		showFilters('cardLaw');
+		showFilters('cardCategory');
+		showFilters('cardDateStart');
+		showFilters('cardDateEnd');
+	}
+
 	function applyFilters(type) {
 		// Get chosen items from hidden input field
 		const keyword = $(`#card${type}Value`).val();
@@ -208,8 +261,9 @@ jQuery(document).ready(($) => {
 	
 	function removeFilters(id, type) {
 
-		const storage = JSON.parse(localStorage.getItem(type));
+		
 		if(type === 'keywords') {
+			const storage = JSON.parse(localStorage.getItem(type));
 			$(storage).each(function() {
 				const storedItem = this.toString();
 				if (storedItem === id) {
@@ -229,6 +283,7 @@ jQuery(document).ready(($) => {
 			// Remove keyword div with this data-id attribute
 			$(`li.keyword[data-id="${id}"]`).remove();
 		} else if (type === 'cardLaw') {
+			const storage = localStorage.getItem(type);
 			const splitLaw = storage.split('|');
 			if (splitLaw[0] === id) {
 				localStorage.removeItem(type);
@@ -236,10 +291,36 @@ jQuery(document).ready(($) => {
 				$(`li.keyword[data-id=${id}]`).remove();
 				
 			}
+		} else if (type === 'cardCategory') {
+			const storage = localStorage.getItem(type);
+			const splitCategory = storage.split('|');
+			if (splitCategory[0] === id) {
+				localStorage.removeItem(type);
+				$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+				$(`li.keyword[data-id=${id}]`).remove();
+			}
+		} else if (type === 'cardDateStart' || type === 'cardDateEnd') {
+			if (type === 'cardDateStart') {
+				$('#cardDateStart').val('');
+				localStorage.removeItem('cardDateStart');
+				// if cardDateEnd is empty, hide the whole figure
+				if(localStorage.getItem('cardDateEnd') === null) {
+					$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+				}
+				$(`li.keyword[data-id=${id}]`).remove();
+			} else if (type === 'cardDateEnd') {
+				// do the same thing in reverse
+				$('#cardDateEnd').val('');
+				localStorage.removeItem('cardDateEnd');
+				if(localStorage.getItem('cardDateStart') === null) {
+					$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+				}
+				$(`li.keyword[data-id=${id}]`).remove();
+			}
 		}
+		cardSearch();
 	}
-	
-	
+
 	function autoCompleteField(type, minLen) {
 		// match the type to the correct taxonomy
 		let typeName = '';
@@ -321,42 +402,54 @@ jQuery(document).ready(($) => {
 
 	// If there is a search form on the page
 	if($('#searchCards').length > 0) {
-		showFilters();
+		if(localStorage.getItem('keywords') || localStorage.getItem('cardLaw') || localStorage.getItem('cardCategory') || localStorage.getItem('cardDateStart') || localStorage.getItem('cardDateEnd')) {
+			$('.toggler').addClass('active');
+			$('.search').addClass('active');
+			$('.sidebar').addClass('active');
+		}
+		updateSingularFilters();
 		// Init autocomplete fields
 		autoCompleteField('keywords', 3);
 		// autoCompleteField('municipalities', 2);
 
 		// Search & filter button events
 		$('#searchCards button.searchTrigger').on('click', () => {
-			cardSearch();
-			showFilters();
 			if($('#cardDateStart').val() !== '') {
-				localStorage.setItem('dateStart', $('#cardDateStart').val());
+				localStorage.setItem('cardDateStart', $('#cardDateStart').val());
 			}
 			if($('#cardDateEnd').val() !== '') {
-				localStorage.setItem('dateEnd', $('#cardDateEnd').val());
+				localStorage.setItem('cardDateEnd', $('#cardDateEnd').val());
 			}
 			if($('#cardLaw').val() !== '') {
 				const cardLawID = $('#cardLaw').val();
 				const cardLawName = $('#cardLaw').find(':selected').attr('data-name');
 				const toStore = `${cardLawID}|${cardLawName}`;
-				localStorage.setItem('cardLaw', JSON.stringify(toStore));
+				localStorage.setItem('cardLaw', toStore);
 			}
 			if($('#cardCategory').val() !== '') {
-				localStorage.setItem('cardCategory', $('#cardCategory').val());
+				const cardCategoryID = $('#cardCategory').val();
+				const cardCategoryName = $('#cardCategory').find(':selected').attr('data-name');
+				const toStore = `${cardCategoryID}|${cardCategoryName}`;
+				localStorage.setItem('cardCategory', toStore);
 			}
+			cardSearch();
+			updateSingularFilters();
 		});
-		if(localStorage.getItem('dateStart') !== null) {
-			$('#cardDateStart').val(localStorage.getItem('dateStart'));
+		if(localStorage.getItem('cardDateStart') !== null) {
+			$('#cardDateStart').val(localStorage.getItem('cardDateStart'));
 		}
-		if(localStorage.getItem('dateEnd') !== null) {
-			$('#cardDateEnd').val(localStorage.getItem('dateEnd'));
+		if(localStorage.getItem('cardDateEnd') !== null) {
+			$('#cardDateEnd').val(localStorage.getItem('cardDateEnd'));
 		}
 		if(localStorage.getItem('cardLaw') !== null) {
-			$('#cardLaw').val(localStorage.getItem('cardLaw'));
+			const cardLaw = localStorage.getItem('cardLaw');
+			const splitLaw = cardLaw.split('|');
+			$('#cardLaw').val(splitLaw[0]);	
 		}
 		if(localStorage.getItem('cardCategory') !== null) {
-			$('#cardCategory').val(localStorage.getItem('cardCategory'));
+			const cardCategory = localStorage.getItem('cardCategory');
+			const splitCategory = cardCategory.split('|');
+			jQuery('#cardCategory').val(splitCategory[0]);
 		}
 		$('#keywordssearch').on('click', () => {
 			applyFilters('keywords');
@@ -374,9 +467,6 @@ jQuery(document).ready(($) => {
 		/*	if($('#selectedmunicipalities').length > 0) {
 			updateFilters('municipalities');
 		}  */
-		$('#cardLaw').on('change', () => {
-			showFilters();
-		});
 		
 		if($('#resetFilters').length > 0) {
 			$('#resetFilters').on('click', () => {

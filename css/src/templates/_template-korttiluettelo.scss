@@ -121,6 +121,9 @@ body.page-template-template-korttiluettelo {
                                 display: flex;
                                 flex-wrap: wrap;
                                 gap: 10px;
+                                &#selectedDateRange {
+                                    align-items: center;
+                                }
                                 li.keyword {
                                     display: flex;
                                     gap: 5px;
@@ -271,7 +274,7 @@ body.page-template-template-korttiluettelo {
                         max-width: 100%;
                     }
 
-                    #cardmunicipalities, #cardkeywords, #freeText {
+                    #cardmunicipalities, #cardkeywords {
                         border-right: none;
                         background-color: $dim;
                         border-left: 1px solid $black;
@@ -279,13 +282,28 @@ body.page-template-template-korttiluettelo {
                         border-bottom: 1px solid $black;
                         border-radius: 5px 0px 0px 5px;
                     }
+                    #freeText {
+                        border: 1px solid $black;
+                        background-color: $dim;
+                        border-radius: 5px;
+                    }
                     button {
                         background-color: $black;
                         color: $white;
                         border: 1px solid $black;
                         outline: none;
-                        
+                        transition: all 0.15s; 
                         border-radius: 0px 5px 5px 0px;
+                        &.searchTrigger {
+                            margin-top: 30px;
+                            border-radius: 5px;
+                            font-size: 2rem;
+
+                        }
+                        &:hover {
+                            color: $black;
+                            background-color: $white;
+                        }
                     }
                 }
                 .filters {
