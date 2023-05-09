@@ -11,29 +11,6 @@
 
 get_header();
 
-// Querytaan kaikki julkaistut kortit joiden tila on Julkaistu - Voimassa
-// Haetaan kaikki yhdessä queryssa ja tulostellaan niistä tarpeelliset myöhemmin ettei tarvita useampia meta_queryja
-/*$cards = get_posts(
-	array(
-		'post_type'      => array( 'ohjekortti', 'tulkintakortti', 'lomakekortti' ),
-		'posts_per_page' => -1,
-		'post_status'    => 'publish',
-		'meta_query'     => array(
-			'relation' => 'AND',
-			array(
-				'key'     => 'card_status',
-				'value'   => 'publish',
-				'compare' => '=',
-			),
-			array(
-				'key'     => 'card_status_publish',
-				'value'   => 'valid',
-				'compare' => '=',
-			),
-		),
-	),
-); */
-
 // Haetaan kaikki lait
 $laws = get_terms(
 	'laki',
@@ -49,6 +26,13 @@ $categories = get_terms(
 		'hide_empty' => false,
 	)
 );
+
+$cardClasses = get_terms(
+	'luokka',
+	array(
+		'hide_empty' => false,
+	)
+)
 
 ?>
 
@@ -133,7 +117,7 @@ $categories = get_terms(
 								</label>
 
 								<div class="inner-wrapper">
-									<select class="searchTrigger" name="cardLaw" id="cardLaw">
+									<select name="cardLaw" id="cardLaw">
 										<option value="" selected>
 											<?php esc_html_e( 'Valitse', 'topten' ); ?>
 										</option>
@@ -155,7 +139,7 @@ $categories = get_terms(
 								</label>
 
 								<div class="inner-wrapper">
-									<select class="searchTrigger" name="cardCategory" id="cardCategory">
+									<select name="cardCategory" id="cardCategory">
 										<option value="" selected>
 											<?php esc_html_e( 'Valitse', 'topten' ); ?>
 										</option>
@@ -169,7 +153,34 @@ $categories = get_terms(
 								</div>
 							</div>
 						<?php endif; ?>
-					
+
+						<?php if( $cardClasses ) : ?>
+							<div class="full checkboxes" id="classCheckboxes">
+								<p for="cardClass" class="label">
+									<?php esc_html_e('Näytä kortit luokasta'); ?>
+								</p>
+							
+									<?php foreach ( $cardClasses as $class ) : ?>
+									<div class="input-wrapper horizontal">	
+										<div class="checkbox-wrapper">
+											<label for="class-<?php echo esc_html($class->slug); ?>" class="inner-wrapper">
+												<input class=""
+													type="checkbox"
+													name="cardclassfilter"
+													data-name="<?php echo esc_html_e( $class->name, 'topten' ); ?>"
+													id="class-<?php echo esc_html($class->slug); ?>"
+													value="<?php echo esc_html($class->term_id); ?>"
+													checked />
+												<span class="checkmark"></span>
+											</label>
+										</div>
+										<span class="check" data-name="cardclassfilter" data-id="<?php echo esc_html($class->term_id); ?>"><?php esc_html_e( $class->name, 'topten' ); ?></span>
+									</div>
+									<?php endforeach; ?>
+								
+							</div>
+						<?php endif; ?>
+
 						<div class="submit">
 							<button type="submit"
 								class="searchTrigger"
@@ -183,6 +194,10 @@ $categories = get_terms(
 
 					<div class="sidebar" id="cardSidebar">
 						<h3 class="h4 title"><?php esc_html_e( 'Käytössä olevat suodattimet', 'topten' ); ?></h3>
+						<figure>
+							<figcaption class="small"><?php esc_html_e('Avoin tekstihaku'); ?></figcaption>
+							<ul class="keywords" id="selectedFreeText"></ul>
+						</figure>
 						<figure>
 							<figcaption class="small"><?php esc_html_e('Valitut asiasanat'); ?></figcaption>
 							<ul class="keywords" id="selectedkeywords"></ul>
@@ -203,9 +218,9 @@ $categories = get_terms(
 							<figcaption class="small"><?php esc_html_e('Valittu vastuuryhmä'); ?></figcaption>
 							<ul class="keywords" id="selectedCategory"></ul>
 						</figure>
-						<figure>
+						<figure class="classes">
 							<figcaption class="small"><?php esc_html_e('Näytä kortit luokasta'); ?></figcaption>
-							<ul class="keywords" id="selectedCardClass"></ul>
+							<ul class="keywords" id="selectedCardClasses"></ul>
 						</figure>
 						<button type="submit"
 							class="resetFilters"
@@ -227,7 +242,7 @@ $categories = get_terms(
 		<div class="grid">
 			<div class="filters" id="filterCards" role="search">
 				<div class="half">
-					<div class="input-wrapper horizontal no-margin">
+					<div class="input-wrapper">
 						<label for="filterOrder">
 							<?php esc_html_e( 'Järjestä korttiluettelo', 'topten' ); ?>
 						</label>
@@ -249,46 +264,48 @@ $categories = get_terms(
 				</div>
 
 				<div class="half">
-					<div class="input-wrapper horizontal boxes">
+					<div class="input-wrapper">
 						<p for="filterType" class="label">
 							<?php esc_html_e( 'Näytä', 'topten' ); ?>
 						</p>
-						<div class="checkbox-wrapper">
-							<label for="cardTulkinta" class="inner-wrapper">
-								<input class="filterTrigger"
-									type="checkbox"
-									name="cardTypeFilter"
-									id="cardTulkinta"
-									value="tulkintakortti"
-									checked />
-								<span class="checkmark"></span>
-							</label>
+						<div class="boxes">
+							<div class="checkbox-wrapper">
+								<label for="cardTulkinta" class="inner-wrapper">
+									<input class="filterTrigger"
+										type="checkbox"
+										name="cardTypeFilter"
+										id="cardTulkinta"
+										value="tulkintakortti"
+										checked />
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<span class="check" data-name="cardTypeFilter" data-id="tulkintakortti"><?php esc_html_e( 'Tulkintakortit', 'topten' ); ?></span>
+							<div class="checkbox-wrapper">
+								<label for="cardOhje" class="inner-wrapper">
+									<input class="filterTrigger"
+										type="checkbox"
+										name="cardTypeFilter"
+										id="cardOhje"
+										value="ohjekortti"
+										checked />
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<span class="check" data-name="cardTypeFilter" data-id="ohjekortti"><?php esc_html_e( 'Ohjekortit', 'topten' ); ?></span>
+							<div class="checkbox-wrapper">
+								<label for="cardLomake" class="">
+									<input class="filterTrigger"
+										type="checkbox"
+										name="cardTypeFilter"
+										id="cardLomake"
+										value="lomakekortti"
+										checked />
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<span class="check" data-name="cardTypeFilter" data-id="lomakekortti"><?php esc_html_e( 'Lomakekortit', 'topten' ); ?></span>
 						</div>
-						<span class="check"><?php esc_html_e( 'Tulkintakortit', 'topten' ); ?></span>
-						<div class="checkbox-wrapper">
-							<label for="cardOhje" class="inner-wrapper">
-								<input class="filterTrigger"
-									type="checkbox"
-									name="cardTypeFilter"
-									id="cardOhje"
-									value="ohjekortti"
-									checked />
-								<span class="checkmark"></span>
-							</label>
-						</div>
-						<span class="check"><?php esc_html_e( 'Ohjekortit', 'topten' ); ?></span>
-						<div class="checkbox-wrapper">
-							<label for="cardLomake" class="">
-								<input class="filterTrigger"
-									type="checkbox"
-									name="cardTypeFilter"
-									id="cardLomake"
-									value="lomakekortti"
-									checked />
-								<span class="checkmark"></span>
-							</label>
-						</div>
-						<span class="check"><?php esc_html_e( 'Lomakekortit', 'topten' ); ?></span>
 					</div>
 				</div>
 			</div>

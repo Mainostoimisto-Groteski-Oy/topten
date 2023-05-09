@@ -977,6 +977,27 @@ function topten_card_search() {
 		$args['s'] = $s;
 	}
 
+	if ( isset( $_POST['cardClasses'] ) ) {
+		if ( !empty($_POST['cardClasses'] ) ) {
+			// sanitize array values
+			$card_classes = array_map( 'intval', $_POST['cardClasses'] );
+		}
+		if( !$card_classes ) {
+			$card_classes = '';
+		}
+	}
+	json_log($card_classes);
+	if ( !empty( $card_classes ) && isset ( $card_classes )) {
+		
+		$args['tax_query'][] =
+			array(
+				'taxonomy' => 'luokka',
+				'field'    => 'term_id',
+				'terms'    => $card_classes,
+			);
+		
+	}
+
 	// Municipality (multiple values)
 	// Not in use due to customer request
 	/*
@@ -1050,9 +1071,7 @@ function topten_card_search() {
 		}   
 	}
 
-	$keywords = $_POST['cardkeywords'];
-	
-	if ( $keywords ) {
+	if ( isset( $keywords ) && !empty( $keywords )) {
 		
 		$args['tax_query'][] =
 			array(

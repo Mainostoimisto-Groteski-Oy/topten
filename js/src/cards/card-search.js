@@ -50,16 +50,24 @@ jQuery(document).ready(($) => {
 			cardDateEnd = $('#cardDateEnd').val();
 		}
 		
-		// if these are not in locaLstorage they're not in use at all
+		// if these are not in localstorage they're not in use at all
 		const cardkeywords = JSON.parse(localStorage.getItem('keywords'));
 		// const cardmunicipalities = JSON.parse(localStorage.getItem('municipalities'));
-
+		
 		// get checked checkboxes values and push them to array
 		const cardTypes = [];
 		$('input[name="cardTypeFilter"]:checked').each(function() {
 			cardTypes.push($(this).val());
 		});
-		
+		let cardClasses = '';
+		if(localStorage.getItem('cardclassfilter')) {
+			cardClasses = JSON.parse(localStorage.getItem('cardclassfilter'));
+		} else {
+			cardClasses = [];
+			$('input[name="cardclassfilter"]:checked').each(function() {
+				cardClasses.push($(this).val());
+			});
+		}
 		$.ajax({
 			url: Ajax.url,
 			method: 'POST',
@@ -75,6 +83,7 @@ jQuery(document).ready(($) => {
 				cardDateEnd,
 				filterOrder,
 				cardTypes,
+				cardClasses,
 				nonce: Ajax.nonce,
 			},
 			success(data) {
@@ -147,7 +156,7 @@ jQuery(document).ready(($) => {
 					const terms = data.data;
 					if(terms.length > 0) {
 						$(`#selected${type}`).html('');
-						$(`#selected${type}`).parent('figure').show();
+						$(`#selected${type}`).parent('figure').addClass('active');
 						jQuery(terms).each(function() {
 							$(`#selected${type}`).append(`<li class="keyword" data-id="${this.value}"><button class="removekeyword" data-type="${type}" data-id="${this.value}"></button><span>${this.label}</span></li>`);
 						});
@@ -175,7 +184,7 @@ jQuery(document).ready(($) => {
 			if(cardLaw) {
 				const splitLaw = cardLaw.split('|');
 				$('#selectedLaw').html('');
-				$(`#selectedLaw`).parent('figure').show();
+				$(`#selectedLaw`).parent('figure').addClass('active');
 				$('#selectedLaw').append(`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"></button><span>${splitLaw[1]}</span></li>`);
 			}
 		}
@@ -184,7 +193,7 @@ jQuery(document).ready(($) => {
 			if (cardCategory) {
 				const splitCategory = cardCategory.split('|');
 				$('#selectedCategory').html('');
-				$(`#selectedCategory`).parent('figure').show();
+				$(`#selectedCategory`).parent('figure').addClass('active');
 				$('#selectedCategory').append(`<li class="keyword" data-id="${splitCategory[0]}"><button class="removekeyword" data-type="cardCategory" data-id="${splitCategory[0]}"></button><span>${splitCategory[1]}</span></li>`);
 			}
 		}
@@ -197,7 +206,7 @@ jQuery(document).ready(($) => {
 				const year = date.getFullYear();
 				const dateString = `${day}.${month}.${year}`;
 				$('#selectedDateStart').html('');
-				$(`#selectedDateStart`).parent('ul').parent('figure').show();
+				$(`#selectedDateStart`).parent('ul').parent('figure').addClass('active');
 				$('#selectedDateStart').append(`<li class="keyword" data-id="dateStart"><button class="removekeyword" data-type="cardDateStart" data-time="${cardDateStart}" data-id="dateStart"></button><span>${dateString}</span></li>`);
 			}
 		}
@@ -205,13 +214,21 @@ jQuery(document).ready(($) => {
 			const cardDateEnd = localStorage.getItem('cardDateEnd');
 			if (cardDateEnd) {
 				$('#selectedDateEnd').html('');
-				$(`#selectedDateEnd`).parent('ul').parent('figure').show();
+				$(`#selectedDateEnd`).parent('ul').parent('figure').addClass('active');
 				const date = new Date(cardDateEnd);
 				const day = date.getDate();
 				const month = date.getMonth()+1;
 				const year = date.getFullYear();
 				const dateString = `${day}.${month}.${year}`;
 				$('#selectedDateEnd').append(`<li class="keyword" data-id="dateEnd"><button class="removekeyword" data-type="cardDateEnd" data-time="${cardDateEnd}" data-id="dateEnd"></button><span>${dateString}</span></li>`);
+			}
+		}
+		if(type === 'freeText') {
+			const freeText = localStorage.getItem('freeText');
+			if (freeText) {
+				$('#selectedFreeText').html('');
+				$(`#selectedFreeText`).parent('figure').addClass('active');
+				$('#selectedFreeText').append(`<li class="keyword" data-id="freeText"><button class="removekeyword" data-type="freeText" data-id="freeText"></button><span>${freeText}</span></li>`);
 			}
 		}
 
@@ -222,41 +239,70 @@ jQuery(document).ready(($) => {
 		showFilters('cardCategory');
 		showFilters('cardDateStart');
 		showFilters('cardDateEnd');
+		showFilters('freeText');
 	}
 
 	function applyFilters(type) {
 		// Get chosen items from hidden input field
-		const keyword = $(`#card${type}Value`).val();
-		
-		// Check if item is already in local storage
-		if(localStorage.getItem(type)) {
-			const storage = JSON.parse(localStorage.getItem(type));
-			if(storage.indexOf(keyword) === -1) {
+		let keyword = '';
+		if(type === 'keyword') {
+			keyword = $(`#card${type}Value`).val();
+			// Check if item is already in local storage
+			if(localStorage.getItem(type)) {
+				const storage = JSON.parse(localStorage.getItem(type));
+				if(storage.indexOf(keyword) === -1) {
+					storage.push(keyword);
+					localStorage.setItem(type, JSON.stringify(storage));
+				}
+			} else {
+				const storage = [];
 				storage.push(keyword);
 				localStorage.setItem(type, JSON.stringify(storage));
 			}
-		} else {
-			const storage = [];
-			storage.push(keyword);
-			localStorage.setItem(type, JSON.stringify(storage));
-		}
-		// Update filters to DOM
-		if($(`#selected${type}`).children().length > 0) {
-			const existingChildren = [];
-			// Check if item is already in DOM
-			$(`#selected${type}`).children().each(function() {
-				existingChildren.push($(this).attr('data-id'));
+			// Update filters to DOM
+			if($(`#selected${type}`).children().length > 0) {
+				const existingChildren = [];
+				// Check if item is already in DOM
+				$(`#selected${type}`).children().each(function() {
+					existingChildren.push($(this).attr('data-id'));
+				});
+				// If not, append it
+				if (existingChildren.indexOf(keyword) === -1) {
+					$(`#selected${type}`).parent('figure').addClass('active');
+					$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(`#card${type}`).val()}</span></li>`);	
+				} 
+			} else {
+				// If there are no items in DOM, append it
+				$(`#selected${type}`).parent('figure').addClass('active');
+				$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(`#card${type}`).val()}</span></li>`);
+			}
+			$('#cardkeywords').val('');
+		} else if (type === 'cardclassfilter') {
+			// there's always at least of one these checked to so we don't need a check for 0
+			const cardClasses = [];
+			
+
+			// get the checked card classes
+			$(`input[name="cardclassfilter"]:checked`).each(function() {
+				cardClasses.push(`${$(this).val()}|${$(this).attr('data-name')}`);
 			});
-			// If not, append it
-			if (existingChildren.indexOf(keyword) === -1) {
-				$(`#selected${type}`).parent('figure').show();
-				$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(`#card${type}`).val()}</span></li>`);	
-			} 
-		} else {
-			// If there are no items in DOM, append it
-			$(`#selected${type}`).parent('figure').show();
-			$(`#selected${type}`).append(`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(`#card${type}`).val()}</span></li>`);
+			localStorage.setItem(type, JSON.stringify(cardClasses));
+			// Update filters to DOM
+			if($('#selectedCardClasses').length > 0) {
+				const storage = JSON.parse(localStorage.getItem(type));
+				
+				$('#selectedCardClasses').html('');
+				$('#selectedCardClasses').parent('figure').addClass('active');
+				
+				$(storage).each(function() {
+					// split the string into an array
+					const split = this.toString().split('|');
+					$('#selectedCardClasses').append(`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" data-type="cardclassfilter" data-id="${split[0]}"></button><span>${split[1]}</span></li>`);
+				});
+			}
+
 		}
+
 	}
 	
 	function removeFilters(id, type) {
@@ -273,7 +319,7 @@ jQuery(document).ready(($) => {
 					if(storage.length <= 0) {
 						localStorage.removeItem(type);
 						// If it is the last item, hide the whole figure
-						$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+						$(`li.keyword[data-id=${id}]`).parents('figure').removeClass('active');
 						
 					} else {
 						localStorage.setItem(type, JSON.stringify(storage));
@@ -287,8 +333,9 @@ jQuery(document).ready(($) => {
 			const splitLaw = storage.split('|');
 			if (splitLaw[0] === id) {
 				localStorage.removeItem(type);
-				$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+				$(`li.keyword[data-id=${id}]`).parents('figure').removeClass('active');
 				$(`li.keyword[data-id=${id}]`).remove();
+				$('#cardLaw').val('');
 				
 			}
 		} else if (type === 'cardCategory') {
@@ -296,8 +343,9 @@ jQuery(document).ready(($) => {
 			const splitCategory = storage.split('|');
 			if (splitCategory[0] === id) {
 				localStorage.removeItem(type);
-				$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+				$(`li.keyword[data-id=${id}]`).parents('figure').removeClass('active');
 				$(`li.keyword[data-id=${id}]`).remove();
+				$('#cardCategory').val('');
 			}
 		} else if (type === 'cardDateStart' || type === 'cardDateEnd') {
 			if (type === 'cardDateStart') {
@@ -305,7 +353,7 @@ jQuery(document).ready(($) => {
 				localStorage.removeItem('cardDateStart');
 				// if cardDateEnd is empty, hide the whole figure
 				if(localStorage.getItem('cardDateEnd') === null) {
-					$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+					$(`li.keyword[data-id=${id}]`).parents('figure').removeClass('active');
 				}
 				$(`li.keyword[data-id=${id}]`).remove();
 			} else if (type === 'cardDateEnd') {
@@ -313,9 +361,50 @@ jQuery(document).ready(($) => {
 				$('#cardDateEnd').val('');
 				localStorage.removeItem('cardDateEnd');
 				if(localStorage.getItem('cardDateStart') === null) {
-					$(`li.keyword[data-id=${id}]`).parents('figure').hide();
+					$(`li.keyword[data-id=${id}]`).parents('figure').removeClass('active');
 				}
 				$(`li.keyword[data-id=${id}]`).remove();
+			}
+		} else if (type === 'freeText') {
+			$('#freeText').val('');
+			localStorage.removeItem('freeText');
+			$(`li.keyword[data-id=${id}]`).parents('figure').removeClass('active');
+			$(`li.keyword[data-id=${id}]`).remove();
+		} else if (type === 'cardclassfilter') {
+			
+			const storage = JSON.parse(localStorage.getItem(type));
+			// We want at least one to be selected and shown at all times
+			if(storage.length > 1) {
+				console.log(storage.length);
+				$(`ul#selectedCardClasses li.keyword`).removeClass('disabled');
+				$(storage).each(function() {
+					const storedItem = this.toString().split('|')[0];
+
+			
+					if (storedItem === id) {
+						console.log(storage.length);
+						// I Fucking hate javascript
+						// Remove this id from the array
+						storage.splice(storage.indexOf(id), 1);
+						// Push back to localstorage
+
+						localStorage.setItem(type, JSON.stringify(storage));
+						$('input[name="cardclassfilter"]').each(function() {
+							if($(this).val() === id) {
+								$(this).prop('checked', false);
+							}
+						});
+						
+					}
+				});
+				// Remove keyword element with this data-id attribute
+				$(`li.keyword[data-id="${id}"]`).remove();
+				if(storage.length > 1) {
+					$(`ul#selectedCardClasses li.keyword[data-id="${id}"]`).addClass('disabled');
+					
+				} 
+			} else {
+				$(`ul#selectedCardClasses li.keyword[data-id="${id}"]`).addClass('disabled');
 			}
 		}
 		cardSearch();
@@ -368,6 +457,27 @@ jQuery(document).ready(($) => {
 				.appendTo( ul );
 		};
 	}
+	function cardTypeFilters(id, name) {
+		// These exist
+		if($(`input[name=${name}]`).length > 0) {
+			// At least one of these is checked
+			if (name === 'cardclassfilter') {
+				if($(`input[name=${name}]:checked`).length > 0) {
+					// nothing here
+				} else {
+					// If no checkboxes are checked, prevent unchecking the last one
+					$(`input[name=${name}][value=${id}]`).prop('checked', true);
+				}
+			} else if (name === 'cardTypeFilter') {
+				if($(`input[name=${name}]:checked`).length > 0) {
+					cardSearch();
+				} else {
+					// If no checkboxes are checked, prevent unchecking the last one
+					$(`input[name=${name}][value=${id}]`).prop('checked', true);
+				}
+			}
+		}
+	}
 
 	function resetAllFilters() {
 		localStorage.clear();
@@ -376,7 +486,16 @@ jQuery(document).ready(($) => {
 		$('#cardCategory').val('');
 		$('#cardDateStart').val('');
 		$('#cardDateEnd').val('');
-		$('#cardSidebar ul').html('');
+		$('#cardkeywords').val('');
+		$('#cardkeywordsValue').val('');
+		$('#classCheckboxes').find('input[type=checkbox]').each(function() {
+			$(this).prop('checked', true);
+		});
+		$('#cardSidebar ul#selectedkeywords li').each(function() {
+			$(this).remove();
+		})
+		$('#cardSidebar figure').not('.classes').removeClass('active');
+		
 		cardSearch();
 	}
 
@@ -390,6 +509,12 @@ jQuery(document).ready(($) => {
 	cardSearch(cardStatusType);
 	$('#toggleFilters').on('click', function() {
 		$(this).toggleClass('active');
+		
+		if($('ul#selectedCardClasses li').length === 1) {
+			$('ul#selectedCardClasses li').addClass('disabled');
+		} else {
+			$('ul#selectedCardClasses li').removeClass('disabled');
+		}
 		// toggle aria expanded
 		if($(this).attr('aria-expanded') === 'false') {
 			$(this).attr('aria-expanded', 'true');
@@ -402,18 +527,35 @@ jQuery(document).ready(($) => {
 
 	// If there is a search form on the page
 	if($('#searchCards').length > 0) {
-		if(localStorage.getItem('keywords') || localStorage.getItem('cardLaw') || localStorage.getItem('cardCategory') || localStorage.getItem('cardDateStart') || localStorage.getItem('cardDateEnd')) {
+		if ($('#classCheckboxes').length > 0) {
+			// push all checked boxes to array and add to localstorage
+			const checkedBoxes = [];
+			$('#classCheckboxes input:checked').each(function() {
+				checkedBoxes.push($(this).val());
+			});
+			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
+		}
+		let cardClassFilterLength = $('#classCheckboxes input').length;
+		if (JSON.parse(localStorage.getItem('cardclassfilter')).length > 0) {
+			cardClassFilterLength = JSON.parse(localStorage.getItem('cardclassfilter')).length;
+		}
+		 
+		if(localStorage.getItem('keywords') || localStorage.getItem('cardLaw') || localStorage.getItem('cardCategory') || localStorage.getItem('cardDateStart') || localStorage.getItem('cardDateEnd') || localStorage.getItem('freeText') || (cardClassFilterLength < $('#classCheckboxes input').length)) {
 			$('.toggler').addClass('active');
 			$('.search').addClass('active');
 			$('.sidebar').addClass('active');
 		}
 		updateSingularFilters();
+	
 		// Init autocomplete fields
 		autoCompleteField('keywords', 3);
 		// autoCompleteField('municipalities', 2);
 
 		// Search & filter button events
 		$('#searchCards button.searchTrigger').on('click', () => {
+			if($('#freeText').val() !== '') {
+				localStorage.setItem('freeText', $('#freeText').val());
+			}
 			if($('#cardDateStart').val() !== '') {
 				localStorage.setItem('cardDateStart', $('#cardDateStart').val());
 			}
@@ -432,9 +574,18 @@ jQuery(document).ready(($) => {
 				const toStore = `${cardCategoryID}|${cardCategoryName}`;
 				localStorage.setItem('cardCategory', toStore);
 			}
+			const checkedBoxes = [];
+			$('#classCheckboxes input:checked').each(function() {
+				checkedBoxes.push($(this).val());
+			});
+			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
+			applyFilters('cardclassfilter');
 			cardSearch();
 			updateSingularFilters();
 		});
+		if(localStorage.getItem('freeText') !== null) {
+			$('#freeText').val(localStorage.getItem('freeText'));
+		}
 		if(localStorage.getItem('cardDateStart') !== null) {
 			$('#cardDateStart').val(localStorage.getItem('cardDateStart'));
 		}
@@ -453,6 +604,12 @@ jQuery(document).ready(($) => {
 		}
 		$('#keywordssearch').on('click', () => {
 			applyFilters('keywords');
+		});
+		// cardkeywords on enter press applyfilters keywords
+		$('#cardkeywords').on('keypress', (e) => {
+			if(e.which === 13) {
+				applyFilters('keywords');
+			}
 		});
 		/*
 		$('#municipalitiessearch').on('click', () => {
@@ -479,13 +636,21 @@ jQuery(document).ready(($) => {
 				cardSearch();
 			});
 		}
-		if($('input[name="cardTypeFilter"]').length > 0) {
-			$('input[name="cardTypeFilter"]').on('change', function() {
-				// if this checked length is greater than 0
-				if($('input[name="cardTypeFilter"]:checked').length > 0) {
-					cardSearch();
+
+		if($('ul#selectedCardClasses li').length === 1) {
+			$('ul#selectedCardClasses li').addClass('disabled');
+		} else {
+			$('ul#selectedCardClasses li').removeClass('disabled');
+		}
+		
+
+		if($('input[name="cardclassfilter"]').length > 0) {
+			// Do this immediately on page load 
+			applyFilters('cardclassfilter');
+			$('input[name="cardclassfilter"]').on('change', function() {
+				if($('input[name="cardclassfilter"]:checked').length > 0 ) {
+					// nothing to do
 				} else {
-					// If no checkboxes are checked, prevent unchecking the last one
 					$(this).prop('checked', true);
 				}
 			});
@@ -498,8 +663,41 @@ jQuery(document).ready(($) => {
 			removeFilters(id, type);
 			
 		});
+		// freetext on enter press set localstorage value and execute search
+		$('#freeText').on('keypress', function(e) {
+			if(e.which === 13) {
+				e.preventDefault();
+				localStorage.setItem('freeText', $(this).val());
+				cardSearch();
+			}
+		});
+		$('input[name="cardTypeFilter"]').on('change', function() {
+			const id = $(this).val();
+			cardTypeFilters(id, 'cardTypeFilter');
+		});
 		
-
+		$('.boxes span.check').on('click', function() {
+			const id = $(this).attr('data-id');
+			$('.boxes input[name=cardTypeFilter]').each(function() {
+				
+				if($(this).val() === id) {
+					// check or uncheck the checkbox with same value depending on whether it's checked or not
+					$(this).prop('checked', !$(this).prop('checked'));
+					cardTypeFilters(id, 'cardTypeFilter');
+				}
+			});
+		});
+		$('#classCheckboxes span.check').on('click', function() {
+			const id = $(this).attr('data-id');
+			$('#classCheckboxes input[name=cardclassfilter]').each(function() {
+				if($(this).val() === id) {
+					// check or uncheck the checkbox with same value depending on whether it's checked or not
+					$(this).prop('checked', !$(this).prop('checked'));
+					cardTypeFilters(id, 'cardclassfilter');
+				}
+			});
+			
+		});
 	}
-	
+
 });
