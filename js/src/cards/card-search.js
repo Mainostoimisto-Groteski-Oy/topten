@@ -131,7 +131,7 @@ jQuery(document).ready(($) => {
 	} 
 	
 	function updateFilters(type) {
-		// For items with array type localstorage
+		// For keywords and municipalities, municipalities are not in use as of 09/05/2023 due to customer request
 		// Get items from local storage
 		const words = JSON.parse(localStorage.getItem(`${type}`));
 		let typeName = '';
@@ -172,16 +172,10 @@ jQuery(document).ready(($) => {
 	function showFilters(type) {
 		// For items with singular type localstorage
 		// Get items from local storage
-
-		
-
-		
-		/*
-		const cardDateStart = JSON.parse(localStorage.getItem('cardDateStart'));
-		const cardDateEnd = JSON.parse(localStorage.getItem('cardDateEnd')); */
 		if (type === 'cardLaw') {
 			const cardLaw = localStorage.getItem('cardLaw');
 			if(cardLaw) {
+				// localstorage doesn't take array values so we need to split the string
 				const splitLaw = cardLaw.split('|');
 				$('#selectedLaw').html('');
 				$(`#selectedLaw`).parent('figure').addClass('active');
@@ -234,6 +228,7 @@ jQuery(document).ready(($) => {
 
 	}
 
+	// Just a collection of functions to run on page load
 	function updateSingularFilters() {
 		showFilters('cardLaw');
 		showFilters('cardCategory');
@@ -242,6 +237,7 @@ jQuery(document).ready(($) => {
 		showFilters('freeText');
 	}
 
+	// Handles keywords and card classes
 	function applyFilters(type) {
 		// Get chosen items from hidden input field
 		let keyword = '';
@@ -280,8 +276,6 @@ jQuery(document).ready(($) => {
 		} else if (type === 'cardclassfilter') {
 			// there's always at least of one these checked to so we don't need a check for 0
 			const cardClasses = [];
-			
-
 			// get the checked card classes
 			$(`input[name="cardclassfilter"]:checked`).each(function() {
 				cardClasses.push(`${$(this).val()}|${$(this).attr('data-name')}`);
@@ -400,8 +394,8 @@ jQuery(document).ready(($) => {
 				// Remove keyword element with this data-id attribute
 				$(`li.keyword[data-id="${id}"]`).remove();
 				if(storage.length > 1) {
+					// TODO: check why this is fucky
 					$(`ul#selectedCardClasses li.keyword[data-id="${id}"]`).addClass('disabled');
-					
 				} 
 			} else {
 				$(`ul#selectedCardClasses li.keyword[data-id="${id}"]`).addClass('disabled');
@@ -409,7 +403,8 @@ jQuery(document).ready(($) => {
 		}
 		cardSearch();
 	}
-
+	
+	// jquery autocomplete for keywords (and municipalities, but not in use)
 	function autoCompleteField(type, minLen) {
 		// match the type to the correct taxonomy
 		let typeName = '';
@@ -457,6 +452,8 @@ jQuery(document).ready(($) => {
 				.appendTo( ul );
 		};
 	}
+
+	// handle checking / unchecking checkboxes from another element press 
 	function cardTypeFilters(id, name) {
 		// These exist
 		if($(`input[name=${name}]`).length > 0) {
@@ -478,7 +475,8 @@ jQuery(document).ready(($) => {
 			}
 		}
 	}
-
+	
+	// Reset everything to defaults
 	function resetAllFilters() {
 		localStorage.clear();
 		$('#freeText').val('');
@@ -498,15 +496,21 @@ jQuery(document).ready(($) => {
 		
 		cardSearch();
 	}
-
+	
+	// Applies ajax overlay when ajax is running
 	const ajaxOverlay = $('#ajaxOverlay');
 	$(document).ajaxStart(() => {
 		$(ajaxOverlay).fadeIn(200);
 	}).ajaxStop(() => {
 		$(ajaxOverlay).fadeOut(200);
 	});
+
+	// ACF Field that tells code what kind of cards we want to search for
 	const cardStatusType = $('#primary').attr('data-template');
+	// Get the cards
 	cardSearch(cardStatusType);
+
+	// Opens and closes the filters 
 	$('#toggleFilters').on('click', function() {
 		$(this).toggleClass('active');
 		
@@ -527,6 +531,8 @@ jQuery(document).ready(($) => {
 
 	// If there is a search form on the page
 	if($('#searchCards').length > 0) {
+
+		// Immediately set the class checkboxes since we want these to be checked by default. I just now realized this could be done in fucking html
 		if ($('#classCheckboxes').length > 0) {
 			// push all checked boxes to array and add to localstorage
 			const checkedBoxes = [];
@@ -535,6 +541,8 @@ jQuery(document).ready(($) => {
 			});
 			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
 		}
+
+		// it was being a bitch about this 
 		let cardClassFilterLength = $('#classCheckboxes input').length;
 		if (JSON.parse(localStorage.getItem('cardclassfilter')).length > 0) {
 			cardClassFilterLength = JSON.parse(localStorage.getItem('cardclassfilter')).length;
@@ -545,6 +553,7 @@ jQuery(document).ready(($) => {
 			$('.search').addClass('active');
 			$('.sidebar').addClass('active');
 		}
+		// Refresh filters on page load
 		updateSingularFilters();
 	
 		// Init autocomplete fields
@@ -553,6 +562,7 @@ jQuery(document).ready(($) => {
 
 		// Search & filter button events
 		$('#searchCards button.searchTrigger').on('click', () => {
+			// Set localstorage values if input not empty
 			if($('#freeText').val() !== '') {
 				localStorage.setItem('freeText', $('#freeText').val());
 			}
@@ -579,10 +589,12 @@ jQuery(document).ready(($) => {
 				checkedBoxes.push($(this).val());
 			});
 			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
+			// Execute
 			applyFilters('cardclassfilter');
 			cardSearch();
 			updateSingularFilters();
 		});
+		// Set the fields values from localstorage if they exist
 		if(localStorage.getItem('freeText') !== null) {
 			$('#freeText').val(localStorage.getItem('freeText'));
 		}
@@ -602,10 +614,12 @@ jQuery(document).ready(($) => {
 			const splitCategory = cardCategory.split('|');
 			jQuery('#cardCategory').val(splitCategory[0]);
 		}
+		// Applies keyword filters to sidebar
 		$('#keywordssearch').on('click', () => {
 			applyFilters('keywords');
 		});
-		// cardkeywords on enter press applyfilters keywords
+
+		// Do the same thing on enter press
 		$('#cardkeywords').on('keypress', (e) => {
 			if(e.which === 13) {
 				applyFilters('keywords');
@@ -625,11 +639,13 @@ jQuery(document).ready(($) => {
 			updateFilters('municipalities');
 		}  */
 		
+		// Demolish all filters
 		if($('#resetFilters').length > 0) {
 			$('#resetFilters').on('click', () => {
 				resetAllFilters();
 			});
 		} 
+
 		// Sort order / display post types immediately on change 
 		if($('#filterOrder').length > 0) {
 			$('#filterOrder').on('change', () => {
@@ -637,13 +653,14 @@ jQuery(document).ready(($) => {
 			});
 		}
 
+		// Adds a class to the wrapping li element when there is only one filter which disables the remove button // TODO - this doesn't seem to work properly
 		if($('ul#selectedCardClasses li').length === 1) {
 			$('ul#selectedCardClasses li').addClass('disabled');
 		} else {
 			$('ul#selectedCardClasses li').removeClass('disabled');
 		}
 		
-
+		// Applies card class filters to sidebar and prevents the user from removing the last filter
 		if($('input[name="cardclassfilter"]').length > 0) {
 			// Do this immediately on page load 
 			applyFilters('cardclassfilter');
@@ -671,11 +688,14 @@ jQuery(document).ready(($) => {
 				cardSearch();
 			}
 		});
+
+		// Card type filter checkbox change
 		$('input[name="cardTypeFilter"]').on('change', function() {
 			const id = $(this).val();
 			cardTypeFilters(id, 'cardTypeFilter');
 		});
 		
+		// Make spans fire the checkbox change event
 		$('.boxes span.check').on('click', function() {
 			const id = $(this).attr('data-id');
 			$('.boxes input[name=cardTypeFilter]').each(function() {
@@ -687,6 +707,7 @@ jQuery(document).ready(($) => {
 				}
 			});
 		});
+		// same as above but for card classes
 		$('#classCheckboxes span.check').on('click', function() {
 			const id = $(this).attr('data-id');
 			$('#classCheckboxes input[name=cardclassfilter]').each(function() {
