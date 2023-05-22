@@ -195,8 +195,6 @@ class Topten_PDF extends FPDFA {
 					// Calculate column child height
 					$column_height = $this->line_height_mm * $lines;
 
-					error_log( $column_height );
-
 					$this->write_text( $column_children );
 				}
 

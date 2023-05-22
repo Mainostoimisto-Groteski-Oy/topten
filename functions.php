@@ -211,8 +211,8 @@ function topten_scripts() {
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'jquery' );
-	
-	wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js', array(), TOPTEN_VERSION );
+
+	wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js', array( 'jquery' ), '1.13.2', true );
 
 	wp_enqueue_script( 'topten', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
@@ -238,10 +238,10 @@ function topten_scripts() {
 			array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( 'nonce' ),
-			) 
+			)
 		);
 	}
-	
+
 	wp_localize_script(
 		'topten',
 		'REST',
@@ -942,14 +942,14 @@ function topten_card_search() {
 	}
 
 	if ( $law ) {
-		
+
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'laki',
 				'field'    => 'term_id',
 				'terms'    => $law,
 			);
-		
+
 	}
 
 	// Category (single value)
@@ -976,58 +976,58 @@ function topten_card_search() {
 
 		// Sanitize array
 		$keywords = array_map( 'intval', $_POST['cardkeywords'] );
-		
+
 		if ( ! $keywords ) {
 			$keywords = '';
-		}   
+		}
 	}
 
 	$keywords = $_POST['cardkeywords'];
-	
+
 	if ( $keywords ) {
-		
+
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'asiasanat',
 				'field'    => 'term_id',
 				'terms'    => $keywords,
 			);
-	} 
+	}
 
 	// Card publish date. User can filter by either starting from, ending at or both.
 	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
 	$cardDateEnd   = isset( $_POST['cardDateEnd'] ) ? sanitize_text_field( $_POST['cardDateEnd'] ) : '';
-	
-	
+
+
 	if ( $cardDateStart && ! $cardDateEnd ) {
-		
+
 		$args['date_query'] = array(
 			array(
 				'after' => $cardDateStart,
-				
+
 			),
 		);
-	
+
 	} elseif ( ! $cardDateStart && $cardDateEnd ) {
-		
+
 		$args['date_query'] = array(
 			array(
 				'before' => $cardDateEnd,
-				
+
 			),
 		);
-	
+
 	} elseif ( $cardDateStart && $cardDateEnd ) {
-		
+
 		$args['date_query'] = array(
 			array(
 				'after'  => $cardDateStart,
 				'before' => $cardDateEnd,
-				
+
 			),
 		);
 
-	} 
+	}
 
 	// Display order of cards
 	$filterOrder = isset( $_POST['filterOrder'] ) ? sanitize_text_field( $_POST['filterOrder'] ) : '';
@@ -1046,9 +1046,9 @@ function topten_card_search() {
 		} elseif ( $filterOrder === 'title' ) {
 			$args['orderby'] = 'title';
 			$args['order']   = 'ASC';
-		}   
+		}
 	}
-	
+
 
 	$the_query = new WP_Query();
 	json_log( $args );
@@ -1060,8 +1060,8 @@ function topten_card_search() {
 	} else {
 		$the_query->query( $args );
 	}
-	
-	
+
+
 	// If posts are found, save them to their own arrays from which one array is created
 
 	if ( $the_query->have_posts() ) {
@@ -1076,7 +1076,7 @@ function topten_card_search() {
 				$lomake_array[] = $post_id;
 			} else {
 				// Nothing here.
-			}       
+			}
 		}
 	}
 	// If nothing is found, return notice to user
@@ -1097,7 +1097,7 @@ function topten_card_search() {
 		// Run function to get the results
 		topten_card_list( $card_array );
 	}
-	
+
 	// You need to use wp_die for ajax calls
 	wp_die();
 }
@@ -1117,10 +1117,10 @@ function topten_fetch_suggestions() {
 	} else {
 		$type = sanitize_text_field( $_POST['type'] );
 	}
-	
+
 	// Get input
 	if ( isset( $_POST['userInput'] ) ) {
-		$userInput = sanitize_text_field( $_POST['userInput'] ); 
+		$userInput = sanitize_text_field( $_POST['userInput'] );
 		if ( ! $type ) {
 			wp_die();
 		} else {
@@ -1142,14 +1142,14 @@ function topten_fetch_suggestions() {
 	);
 
 	$terms = get_terms( $args );
-	
+
 
 	if ( $terms ) {
 		$list = array();
 		foreach ( $terms as $index => $term ) {
 			$list[ $index ]['label'] = $term->name;
 			$list[ $index ]['value'] = $term->term_id;
-		}   
+		}
 	} else {
 		$list = array();
 	}
@@ -1192,7 +1192,7 @@ function topten_fetch_terms() {
 			wp_die();
 		}
 	}
-	
+
 	$args  = array(
 		'taxonomy' => $tax,
 		'orderby'  => 'title',
@@ -1200,19 +1200,19 @@ function topten_fetch_terms() {
 		'include'  => $keywords,
 	);
 	$terms = get_terms( $args );
-	
+
 	if ( $terms ) {
 		$list = array();
 		foreach ( $terms as $index => $term ) {
 			$list[ $index ]['label'] = $term->name;
 			$list[ $index ]['value'] = $term->term_id;
-		}   
+		}
 	} else {
 		$list = array();
 	}
-	
+
 	wp_send_json_success( $list );
-	
+
 	wp_die();
 }
 
