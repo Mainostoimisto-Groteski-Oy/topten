@@ -19,7 +19,10 @@
 			margin: 0;
 			line-height: 1.5;
 			font-weight: 400;
-			font-style: italic;
+
+			strong {
+				font-style: normal;
+			}
 		}
 
 		p.identifier-text,

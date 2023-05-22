@@ -33,7 +33,7 @@ class Topten_Ajax extends Topten {
 	 * PDF Ajax endpoint
 	 */
 	public function generate_pdf_ajax() {
-		check_ajax_referer( 'ajax_nonce', 'nonce' );
+		check_ajax_referer( 'nonce', 'nonce' );
 
 		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 		$article_url = isset( $_POST['article_url'] ) ? esc_url( sanitize_text_field( $_POST['article_url'] ) ) : '';

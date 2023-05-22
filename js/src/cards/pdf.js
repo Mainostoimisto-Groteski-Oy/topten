@@ -1,38 +1,60 @@
 /* global Ajax */
 
 jQuery(document).ready(($) => {
+	function getChild(node) {
+		const nodeData = {
+			tag: node.nodeName.toLowerCase(),
+			value: node.textContent,
+			children: [],
+			attributes: {
+				class: node.className,
+			},
+		};
+
+		if (node.childNodes.length > 0) {
+			nodeData.value = null;
+
+			node.childNodes.forEach((child) => {
+				nodeData.children.push(getChild(child));
+			});
+		} else {
+			nodeData.value = node.textContent;
+		}
+
+		return nodeData;
+	}
+
 	/**
 	 * Get child data
 	 */
 	function getChildData(child) {
-		console.log(child);
+		const data = getChild(child);
+		// const tag = child.tagName.toLowerCase();
 
-		const tag = child.tagName.toLowerCase();
+		// const data = {
+		// 	tag,
+		// 	children: [],
+		// 	attributes: {
+		// 		class: child.className,
+		// 	},
+		// };
 
-		const data = {
-			tag,
-			children: [],
-			attributes: {},
-		};
+		// if (tag === 'picture') {
+		// 	const image = child.querySelector('img');
 
-		if (tag === 'picture') {
-			const image = child.querySelector('img');
+		// 	data.tag = 'img';
+		// 	data.attributes = {
+		// 		src: image.src,
+		// 		alt: image.alt,
+		// 		class: image.className,
+		// 	};
+		// }
 
-			data.tag = 'img';
-			data.attributes.src = image.src;
-		}
+		// child.childNodes.forEach((node) => {
+		// 	const nodeData = getChild(node, data);
 
-		child.childNodes.forEach((node) => {
-			const nodeData = {
-				tag: node.nodeName.toLowerCase(),
-				value: node.textContent,
-				attributes: {},
-			};
-
-			data.children.push(nodeData);
-		});
-
-		console.log(data);
+		// 	data.children.push(nodeData);
+		// });
 
 		return data;
 	}
@@ -76,6 +98,8 @@ jQuery(document).ready(($) => {
 
 			data.rows.push(rowData);
 		});
+
+		console.log(data);
 
 		return data;
 	}

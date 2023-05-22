@@ -36,10 +36,10 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 					<div class="column date">
 						<p class="small-title">
 							<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
-						</p>
 
-						<p class="strong">
-							<?php echo esc_html( $modified ); ?>
+							<strong>
+								<?php echo esc_html( $modified ); ?>
+							</strong>
 						</p>
 					</div>
 
@@ -48,32 +48,32 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 					<div class="column identifier">
 						<p class="small-title">
 							<?php esc_html_e( 'Tunniste', 'topten' ); ?>
-						</p>
 
-						<?php if ( 'tulkintakortti' === $type ) : ?>
-							<p class="identifier-text">
-								<?php echo esc_html( $identifier_start ); ?>
+							<?php if ( 'tulkintakortti' === $type ) : ?>
+								<strong>
+									<?php echo esc_html( $identifier_start ); ?>
 
-								<sup>
+									<sup>
+										<?php echo esc_html( $identifier_end ); ?>
+									</sup>
+								</strong>
+							<?php else : ?>
+								<strong>
+									<?php echo esc_html( $identifier_start ); ?>
+
 									<?php echo esc_html( $identifier_end ); ?>
-								</sup>
-							</p>
-						<?php else : ?>
-							<p class="identifier-text">
-								<?php echo esc_html( $identifier_start ); ?>
-
-								<?php echo esc_html( $identifier_end ); ?>
-							</p>
-						<?php endif; ?>
+								</strong>
+							<?php endif; ?>
+						</p>
 					</div>
 
 					<div class="column version">
 						<p class="small-title">
 							<?php echo esc_html_e( 'Muutos', 'topten' ); ?>
-						</p>
 
-						<p class="version-text">
-							<?php echo esc_html( $version ); ?>
+							<strong>
+								<?php echo esc_html( $version ); ?>
+							</strong>
 						</p>
 					</div>
 				</div>
