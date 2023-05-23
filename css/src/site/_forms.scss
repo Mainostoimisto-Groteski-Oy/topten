@@ -1,0 +1,127 @@
+@use "mixins/all" as *;
+.gform_wrapper {
+    font-family: $font-main;
+    .gform_fields {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 10px;
+        .gfield {
+            margin-top: auto;
+            
+            &.gfield--width-full {
+                grid-column: 1 / -1;
+            }
+            &.gfield--width-half {
+                grid-column: span 6;
+            }
+            input:not([type='file']):not([type='checkbox']):not([type='radio']), textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid $black;
+                border-radius: 3px;
+            }
+            textarea {
+                &.large {
+                    height: 300px;
+                }
+                &.medium {
+                    height: 200px;
+                }
+                &.small {
+                    height: 100px;
+                }
+            }
+            .gfield_label {
+                font-size: 1.4rem;
+                text-transform: uppercase;
+                font-weight: 400;
+                margin: 4px 0px 2px 0px;
+                display: block;
+                .gfield_required {
+                    font-size: 1.4rem;
+                }
+            }
+            .gfield_description {
+                font-size: 1.8rem;
+                font-weight: 400;
+                &.gform_fileupload_rules {
+                    display: block;
+                    font-size: 1.6rem;
+                    margin-top: 5px;
+                }
+            }
+            .ginput_container {
+                &.ginput_container_fileupload {
+                    padding: 15px 15px 10px 15px;
+                    border: 1px solid $black;
+                    border-radius: 3px;
+                    input {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+    .gform_footer {
+        margin-top: 15px;
+        input[type='submit'] {
+            background-color: $black;
+            color: $white;
+            border: 1px solid $black;
+            border-radius: 3px;
+            transition: all 0.15s;
+            text-transform: uppercase;
+            padding: 10px;
+            &:hover {
+                color: $black;
+                background-color: $white;
+          
+            }
+        }
+    }
+    .gform_confirmation_wrapper {
+        .gform_confirmation_message {
+            font-size: 1.8rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.text-and-form-block {
+    .gform_confirmation_wrapper {
+        background-color: $grey;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .gform_confirmation_message {
+            font-size: 2.2rem;
+            font-weight: 300;
+            text-align: center;
+        }
+    }
+}
+
+.single-tulkintakortti, .single-lomakekortti, .single-ohjekortti {
+    .gform_wrapper {
+        .gform_fields {
+            .gfield {
+                &.card-name {
+                    textarea {
+                        position: relative;
+                        cursor: not-allowed;
+
+                    }
+                }
+            }
+        }
+    }
+    .gform_confirmation_message {
+        font-size: 1.8rem;
+        font-weight: 300;
+    }
+}

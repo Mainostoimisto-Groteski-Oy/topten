@@ -15,10 +15,13 @@
 			text-decoration: underline;
 		}
 	}
+	.site {
+		overflow: hidden;
+	}
 
 	.sidebar-grid {
-		grid-template-columns: minmax(0, 9fr) minmax(0, 3fr);
-		gap: 50px;
+		grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+		gap: 30px;
 	}
 
 	article {
@@ -28,6 +31,7 @@
 			}
 		}
 	}
+	
 
 	article,
 	aside {
@@ -55,17 +59,117 @@
 		.h5 {
 			font-size: 2rem;
 		}
-
-		.red {
-			color: $red;
+		@include button;
+		button.button {
+			margin-top: 15px;
+			font-weight: 600;
+			
 		}
-
-		.desc {
-			font-size: 1.4rem;
-			font-style: italic;
-			font-weight: 400;
-			margin-top: 0;
-			scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
+		
+	}
+	aside.sidebar {
+		background-color: $lightgrey;
+		position: relative;
+		padding: 0px 30px;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		&::before{
+			background-color: $lightgrey;
+			position: absolute;
+			top: -30px;
+			left: 0;
+			content: "";
+			width: 300%;
+			height: calc(100% + 60px);
+			z-index: 1;
+		}
+		.box {
+			z-index: 999;
+			position: relative;
+			transition: all 0.15s;
+			.box-title {
+				border-bottom: 1px solid $black;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				cursor: pointer;
+				margin-bottom: 15px;
+				h2, h3 {
+					margin-bottom: 5px;
+				}
+				button {
+					background: unset;
+					border: unset;
+					margin-top: auto;
+					margin-bottom: 10px;
+					transition: all 0.15s;
+				}
+			}
+			.box-content {
+				display: none;
+				transition: all 0.15s;
+				&.active {
+					display: block;
+				}
+			}
+			&.open {
+				.box-content {
+					display: block;
+				}
+				.box-title {
+					button {
+						transform: rotate(90deg);
+					}
+				}
+			}
+		}
+		ul.keywords {
+			padding: 0;
+			margin: 0;
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+			gap: 10px;
+			li {
+				background-color: $white;
+				border-radius: 100px;
+				/* border: 1px solid $black; */
+				/* Trying to get rid of aliasing */
+				box-shadow: 0 0 1px 1px black;
+				padding: 0px 10px;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+				span, a {
+					font-size: 1.8rem;
+				}
+				a.keyword-link {
+					text-decoration: none;
+					margin-left: 5px;
+					margin-top: 2px;
+					color: $green;
+					transition: all 0.15s;
+					&:hover {
+						color: $lightgreen;
+					}
+					
+				}
+			}
+		}
+		ol.table-of-contents {
+			margin-left: 0;
+			padding-left: 15px;
+			li {
+				font-size: 2rem;
+				font-weight: 300;
+				a {
+					font-size: 2rem;
+					font-weight: 300;	
+				}
+			}
 		}
 	}
 }

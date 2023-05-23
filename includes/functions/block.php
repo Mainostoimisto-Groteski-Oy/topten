@@ -109,7 +109,7 @@ function topten_focal_point( $sub_field = false, $block = array(), $selector = '
  *
  * @param array|boolean $block ACF ryhmä (left_block tms), default tyhjä array
  */
-function topten_buttons( $block = array() ) {
+function topten_buttons( $block = array(), $background = '') {
 	if ( $block ) {
 		if ( ! empty( $block['buttons'] ) ) {
 			echo '<div class="buttons">';
@@ -120,8 +120,8 @@ function topten_buttons( $block = array() ) {
 					$href   = $button['url'];
 					$title  = $button['title'];
 					$target = $button['target'];
-
-					echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+					
+					echo sprintf( '<a class="button background-%s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 				}
 			}
 
@@ -140,7 +140,7 @@ function topten_buttons( $block = array() ) {
 				$title  = esc_attr( $button['title'] );
 				$target = esc_attr( $button['target'] );
 
-				echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+				echo sprintf( '<a class="button background-%s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 			}
 		}
 

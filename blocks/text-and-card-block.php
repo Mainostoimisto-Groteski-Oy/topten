@@ -91,7 +91,7 @@
 
 				<div class="buttons">
 					<a class="button" href="<?php echo esc_url( $link ); ?>">
-						<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
+						<?php esc_html_e( 'Siirry kortille', 'topten' ); ?>
 					</a>
 				</div>
 

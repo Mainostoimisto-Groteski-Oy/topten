@@ -34,11 +34,11 @@ $right_block  = get_field( 'right_block' );
 							}
 						}
 
-						echo '</li>';
+						echo '</ul>';
 					}
 				?>
 				
-				<?php topten_buttons( $left_block, 'buttons' ); ?>
+				<?php topten_buttons( $left_block, esc_attr( $left_block['generated_background_color'] ) ); ?>
 			</div>
 		</div>
 
@@ -68,10 +68,10 @@ $right_block  = get_field( 'right_block' );
 							}
 						}
 
-						echo '</li>';
+						echo '</ul>';
 					}
 				?>
-				<?php topten_buttons( $center_block ); ?>
+				<?php topten_buttons( $center_block, esc_attr( $center_block['generated_background_color'] ) ); ?>
 			</div>
 		</div>
 
@@ -101,10 +101,10 @@ $right_block  = get_field( 'right_block' );
 							}
 						}
 
-						echo '</li>';
+						echo '</ul>';
 					}
 				?>
-				<?php topten_buttons( $right_block ); ?>
+				<?php topten_buttons( $right_block,  esc_attr( $right_block['generated_background_color'] ) ); ?>
 			</div>
 		</div>
 	</div>

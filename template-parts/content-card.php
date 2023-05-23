@@ -14,6 +14,7 @@ $type             = get_post_type( $id );
 $version          = get_field( 'version', $id );
 $post_date         = date( 'j.n.Y', strtotime( $post->post_date ) );
 $keywords         = get_the_terms( $id, 'asiasanat' );
+$full_name = $identifier_start.' '.$identifier_end.' '.$version.' '.get_the_title($id);
 ?>
 
 <?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
@@ -81,45 +82,64 @@ $keywords         = get_the_terms( $id, 'asiasanat' );
 
 			<?php the_content(); // Kortin sisältölohkot ?>
 
-			<?php if ( ! empty( $keywords ) ) : // Kortin asiasanat ?>
-				<section class="row-block">
-					<div class="grid">
-						<div class="column">
-							<?php topten_get_desc( __( 'Asiasanat', 'topten' ) ); ?>
-
-							<p class="keywords">
-								<?php $keywords_count = count( $keywords ) - 1; ?>
-
-								<?php foreach ( $keywords as $index => $keyword ) : ?>
-									<?php if ( $index !== $keywords_count ) : ?>
-										<?php echo esc_html( $keyword->name ) . ', '; ?>
-									<?php else : ?>
-										<?php echo esc_html( $keyword->name ); ?>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							</p>
-						</div>
-					</div>
-				</section>
-			<?php endif; ?>
+			
 		</div>
 
-		<button type="button" class="save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
-			<?php esc_html_e( 'Tulosta sivu', 'topten' ); ?>
+		<button type="button" class="button inverted save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
+			<?php esc_html_e( 'Tulosta kortti', 'topten' ); ?>
 		</button>
 	</article>
 
-	<aside class="feedback">
-		<?php topten_get_table_of_contents(); ?>
+	<aside class="sidebar">
+		<div class="box open">
+			<div class="box-title">
+				<h3 class="h2">
+					<?php esc_html_e('Sisällysluettelo', 'topten'); ?>
+				</h3>
+				<button class="material-icons" aria-expanded="true">double_arrow</button>
+			</div>
+			<div class="box-content" aria-expanded="true">
+				<?php topten_get_table_of_contents(); ?>
+			</div>
+		</div>
+		<?php if ( ! empty( $keywords ) ) : // Kortin asiasanat ?>
+		<div class="box">
+			<div class="box-title">
+				<h3 class="h2">
+					<?php esc_html_e('Asiasanat', 'topten'); ?>
+				</h3>
+				<button class="material-icons" aria-expanded="false">double_arrow</button>
+			</div>
+			<div class="box-content">
+				<ul class="keywords" aria-expanded="false">
+					<?php $keywords_count = count( $keywords ) - 1; ?>
 
-		<h2 class="h4 red">
-			<strong>
-				<?php esc_html_e( 'Palaute', 'topten' ); ?>
-			</strong>
-		</h2>
-
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat porttitor erat pharetra facilisis. Duis rutrum suscipit ex at sodales. Nullam mollis auctor justo sed accumsan. Nam ac metus feugiat, viverra est eget, tempus lectus.
-		</p>
+					<?php foreach ( $keywords as $index => $keyword ) : ?>
+						<li class="keyword">
+							<span class="name"><?php echo esc_html( $keyword->name ); ?></span>
+						
+							<?php if( get_field('link', $keyword->taxonomy. '_' .$keyword->term_id ) ) : ?>
+								<a href="<?php echo esc_url( get_field('link', $keyword->taxonomy. '_' .$keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
+									info
+								</a>
+							<?php endif; ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+		<?php endif; ?>
+		<div class="box">
+			<div class="box-title">
+				<h3 class="h2">
+					<?php esc_html_e( 'Palaute', 'topten' ); ?>
+				</h3>
+				<button class="material-icons" aria-expanded="false">double_arrow</button>
+			</div>
+			<div class="box-content">
+				<?php echo do_shortcode('[gravityform id="2" field_values="card_title='.$full_name.'" title="false" description="false" ajax="true"]'); ?>
+			</div>
+		</div>
+		
 	</aside>
 </div>

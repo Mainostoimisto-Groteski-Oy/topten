@@ -115,7 +115,7 @@ if ( 'newest' === $articles_type ) {
 
 						<div class="buttons">
 							<a class="button" href="<?php echo esc_url( $link ); ?>">
-								<?php esc_html_e( 'Siirry korttiin', 'topten' ); ?>
+								<?php esc_html_e( 'Siirry kortille', 'topten' ); ?>
 							</a>
 						</div>
 
@@ -136,7 +136,7 @@ if ( 'newest' === $articles_type ) {
 						$src   = esc_url( get_the_post_thumbnail_url( $post->ID, 'medium' ) );
 						$class = '';
 					} else {
-						$src   = home_url() . '/wp-content/themes/topten/assets/dist/images/placeholder.png';
+						$src   = get_template_directory_uri() . '/assets/dist/images/placeholder.png';
 						$class = 'placeholder';
 					}
 					?>

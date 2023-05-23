@@ -19,7 +19,9 @@ body.disable-scroll {
 html {
 	scroll-behavior: smooth;
 }
-
+main {
+	margin-top: 85px;
+}
 .grid,
 .grid-full {
 	grid-template-columns: minmax(0, 1fr);

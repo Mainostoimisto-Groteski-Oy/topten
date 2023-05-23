@@ -65,7 +65,7 @@ section.lift-group-block {
                     margin-bottom: 15px;
                     font-weight: 400;
                 }
-                @include arrowlink($red, 400);
+                @include arrowlink($black, 400);
             }
         }
     }

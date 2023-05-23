@@ -60,7 +60,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '">';
-	$html .= esc_html( 'Siirry korttiin', 'topten' );
+	$html .= esc_html( 'Siirry kortille', 'topten' );
 	$html .= '</a>';
 	$html .= '</div>';
 	$html .= '</li>';
@@ -98,7 +98,7 @@ function topten_card_list( $card_array ) {
 		
 		<?php if ( ! empty( $card_array['tulkinta'] ) ) : ?>
 			<div class="cardlist" id="tulkintakortit">
-				<h2 class="h4 title">
+				<h2 class="h3 title">
 					<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
 				</h2>
 
@@ -147,7 +147,7 @@ function topten_card_list( $card_array ) {
 			<?php endif; ?>
 			<?php if ( ! empty( $card_array['ohje'] ) ) : ?>
 			<div class="cardlist" id="ohjekortit">
-				<h2 class="h4 title">
+				<h2 class="h3 title">
 					<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
 				</h2>
 
@@ -177,7 +177,7 @@ function topten_card_list( $card_array ) {
 			<?php endif; ?>
 			<?php if ( ! empty( $card_array['lomake'] ) ) : ?>
 			<div class="cardlist" id="lomakekortit">
-				<h2 class="h4 title">
+				<h2 class="h3 title">
 					<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
 				</h2>
 

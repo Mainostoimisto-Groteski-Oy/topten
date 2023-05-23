@@ -34,14 +34,11 @@
                     },
                     "relevanssi_exclude": 0,
                     "choices": {
-                        "blue": "Sininen",
-                        "yellow": "Keltainen",
-                        "green": "Vihreä",
                         "white": "Valkoinen",
-                        "brown": "Ruskea",
-                        "black": "Musta"
+                        "cream": "Kerma",
+                        "green": "Vihreä"
                     },
-                    "default_value": "transparent",
+                    "default_value": "white",
                     "return_format": "value",
                     "allow_null": 0,
                     "layout": "horizontal"
@@ -203,14 +200,11 @@
                     },
                     "relevanssi_exclude": 0,
                     "choices": {
-                        "blue": "Sininen",
-                        "yellow": "Keltainen",
-                        "green": "Vihreä",
                         "white": "Valkoinen",
-                        "brown": "Ruskea",
-                        "black": "Musta"
+                        "cream": "Kerma",
+                        "green": "Vihreä"
                     },
-                    "default_value": "transparent",
+                    "default_value": "white",
                     "return_format": "value",
                     "allow_null": 0,
                     "layout": "horizontal"
@@ -373,14 +367,11 @@
                     },
                     "relevanssi_exclude": 0,
                     "choices": {
-                        "blue": "Sininen",
-                        "yellow": "Keltainen",
-                        "green": "Vihreä",
                         "white": "Valkoinen",
-                        "brown": "Ruskea",
-                        "black": "Musta"
+                        "cream": "Kerma",
+                        "green": "Vihreä"
                     },
-                    "default_value": "transparent",
+                    "default_value": "white",
                     "return_format": "value",
                     "allow_null": 0,
                     "layout": "horizontal"
@@ -529,5 +520,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683207248
+    "modified": 1684750146
 }

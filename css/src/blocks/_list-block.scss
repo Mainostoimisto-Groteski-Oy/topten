@@ -15,7 +15,7 @@ section.list-block {
                 margin: 15px 0 0 0;
                 padding: 0;
                 li {
-                    border-left: 2px solid $brown;
+                    border-left: 2px solid $green;
                     list-style-type: none;
                     margin-bottom: 25px;
                     padding: 0px 10px;
@@ -24,7 +24,7 @@ section.list-block {
                     span.title {
                         font-weight: 400;
                     }
-                    @include arrowlink($brown, 400);
+                    @include arrowlink($black, 400);
                 }
             }
         

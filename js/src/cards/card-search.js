@@ -120,6 +120,7 @@ jQuery(document).ready(($) => {
 						$(this).parent('li.parent').hide();
 					}
 				});
+				 
 				
 				
 			},

@@ -7,14 +7,14 @@
         <div class="text">
             <?php topten_block_title(); ?>
             <?php if(get_field('description')) : ?>
-                <p><?php the_field('description'); ?></p>
+                <div class="description"><?php the_field('description'); ?></div>
             <?php endif; ?>
         </div>
         <?php if(have_rows('list')) : ?>
             <ul class="list">
                 <?php while(have_rows('list')) : the_row(); ?>
                     <li>
-                        <span class="title"><?php the_sub_field('name'); ?></span>
+                        <h3 class="title h4"><?php the_sub_field('name'); ?></h3>
                         <?php if(get_sub_field('link')) :
                         
                             $link   = get_sub_field('link');

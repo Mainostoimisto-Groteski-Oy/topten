@@ -21,7 +21,7 @@
             "maxlength": "",
             "rows": "",
             "placeholder": "",
-            "new_lines": ""
+            "new_lines": "wpautop"
         },
         {
             "key": "field_61dd8739b9615",
@@ -86,6 +86,28 @@
                     },
                     "return_format": "array",
                     "parent_repeater": "field_61dd8739b9615"
+                },
+                {
+                    "key": "field_64676728331a9",
+                    "label": "Nimi",
+                    "name": "name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Näytetään ainoastaan jos kuvaa ei ole asetettu. Rivit joilla on logo näytetään ennen pelkkiä nimiä.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_61dd8739b9615"
                 }
             ]
         }
@@ -108,5 +130,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683098811
+    "modified": 1684752936
 }

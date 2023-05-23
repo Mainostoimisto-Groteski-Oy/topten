@@ -1,0 +1,62 @@
+@use "mixins/all" as *;
+body.blog {
+    main {
+        .grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 50px 25px;
+            @media(max-width:$max-m) {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 30px 15px;
+            }
+            @media(max-width:$max-xs) {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 15px;
+            }
+        
+            article {
+                display: flex;
+                flex-direction: column;
+                .entry-title {
+                    @include text-clamp(3);
+                }
+                .image {
+                    img {
+                        height: 250px;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                    &.placeholder {
+                        border: 1px solid $red;
+                        display: flex;
+                        flex-direction: column;
+                        height: 250px;
+                        justify-content: center;
+                        width: 100%;
+                        img {
+                            object-fit: contain;
+                            height: 100px;
+                        }   
+                    }
+                }
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    .entry-content {
+                        @include text-clamp(3);
+                    }
+                    @include arrowlinks;
+                    .links {
+                        margin-top: auto;
+                    }
+                    .excerpt {
+                        margin-bottom: 15px;
+                        p {
+                            font-size: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -86,17 +86,13 @@ body.page-template-template-korttiluettelo {
                         position: relative;
                         flex-direction: column;
                         padding: 30px;
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            top: 30px;
-                            left: 0;
-                            width: 1px;
-                            height: calc(100% - 60px);
-                            background-color: $brown;
-                        }
+                        border-left: 1px solid $black;
+                        border-right: 1px solid $black;
+                        border-bottom: 1px solid $black;
+                        background-color: $green-lightest;
                         @media(max-width:$max-xl) {
                             grid-column: auto;
+                            border: 1px solid $black;
                         }
                         &.active {
                             display: flex;
@@ -122,25 +118,31 @@ body.page-template-template-korttiluettelo {
                                 margin: 10px 0 0 0;
                                 padding: 0;
                                 display: flex;
+                                flex-direction: column;
                                 flex-wrap: wrap;
-                                gap: 10px;
+                                gap: 0px;
                                 &#selectedDateRange {
                                     align-items: center;
+                                }
+                                @media(max-width:$max-l) {
+                                    gap: 10px;
+                                    flex-direction: row;
                                 }
                                 li.keyword {
                                     display: flex;
                                     gap: 5px;
                                     align-items: center;
-                                   
+                                    position: relative;
                                     button {
                                         border-radius: 100px;
-                                        background-color: $brown;
+                                        background-color: $green;
                                         color: $white;
                                         font-size: 1.8rem;
                                         border: none;
                                         width: 16px;
                                         height: 16px;
-                                        position: relative;
+                                        position: absolute;
+                                        top: 8px;
                                         &::after {
                                             position: absolute;
                                             content: '\e5cd';
@@ -155,6 +157,8 @@ body.page-template-template-korttiluettelo {
                                     }
                                     span {
                                         font-size: 1.8rem;
+                                        margin-left: 22px;
+                                        font-weight: 400;
                                     }
                                     &.disabled {
                                         button {
@@ -176,9 +180,10 @@ body.page-template-template-korttiluettelo {
                             color: $black;
                         }
                         button.resetFilters {
-                            background-color: transparent;
+                            background-color: $white;
                             color: $black;
                             border: 1px solid $black;
+                            text-transform: uppercase;
                             transition: all 0.15s;
                             padding: 10px 20px;
                             border-radius: 5px;
@@ -186,6 +191,7 @@ body.page-template-template-korttiluettelo {
                             margin-right: auto;
                             display: inline-block;
                             font-weight: 400;
+                            font-size: 2rem;
                             color: $black;
                             @media(max-width:$max-xl) {
                                 padding: 5px 10px;
@@ -380,6 +386,12 @@ body.page-template-template-korttiluettelo {
                     .half {
                         display: flex;
                         margin-top: auto;
+                        &:first-child {
+                            margin-right: auto;
+                        }
+                        &:last-child {
+                            margin-left: auto;
+                        }
                         .input-wrapper {
                             display: flex;
                             flex-direction: column;
@@ -460,14 +472,14 @@ body.page-template-template-korttiluettelo {
                                     }
                                 }
                                 .version {
-                                    font-weight: 400;
+                                    font-weight: 600;
                                     text-align: center;
                                 }
                                 .date {
-                                    font-weight: 400;
+                                    font-weight: 600;
                                 }
                                 .card-title {
-
+                                    font-weight: 400;
                                 }
                                 .languages {
                                     display: flex;
@@ -504,8 +516,8 @@ body.page-template-template-korttiluettelo {
                                 padding: 0;
                                 li.parent {
                                     >p.name {
-                                        background-color: $brown;
-                                        color: $white;
+                                        background-color: $green-lighter;
+                                        color: $black;
                                         border-bottom: 1px solid $black;
                                         font-weight: 400;
                                         margin: 0;
@@ -514,32 +526,32 @@ body.page-template-template-korttiluettelo {
                                     ul.children {
                                         margin: 0;
                                         padding: 0;
-                                        background-color: $grey;
+                                        background-color: $green-lightest;
                                         li.child {
-                                            background-color: $grey;
+                                            background-color: $green-lightest;
                                             >p.name {
                                                 color: $black;
-                                                background-color: $grey;
+                                                background-color: $green-lightest;
                                                 border-bottom: 1px solid $black;
                                                 margin: 0;
                                                 padding: 10px 15px;
-                                                font-size: 2rem;
-                                                font-weight: 400;
+                                                font-size: 2.4rem;
+                                                font-weight: 600;
                                             }
                                             ul.grandchildren {
                                                 padding: 0;
-                                                background-color: $grey;
+                                                background-color: $green-lightest;
                                                 li.card {
                                                     padding: 15px 30px;
                                                     border-bottom: 1px solid $black;
                                                     background-color: $white;
                                                     >span, >p, >a {
-                                                        font-size: 2rem;
+                                                        font-size: 1.8rem;
                                                     }
                                                     .ident {
                                                         span {
-                                                            font-size: 2rem;
-                                                            font-weight: 400;
+                                                            font-size: 1.8rem;
+                                                            font-weight: 600;
                                                         }
                                                     }
                                                 }
@@ -556,12 +568,12 @@ body.page-template-template-korttiluettelo {
                                 li.parent {
                                     >p.name {
                                         color: $black;
-                                        background-color: $grey;
+                                        background-color: $green-lightest;
                                         border-bottom: 1px solid $black;
                                         margin: 0;
                                         padding: 15px;
-                                        font-size: 2rem;
-                                        font-weight: 400;
+                                        font-size: 2.4rem;
+                                        font-weight: 600;
                                     }
                                     ul.children {
                                         padding: 0;
@@ -570,12 +582,12 @@ body.page-template-template-korttiluettelo {
                                             border-bottom: 1px solid $black;
                                             background-color: $white;
                                             >span, >p, >a {
-                                                font-size: 2rem;
+                                                font-size: 1.8rem;
                                             }
                                             .ident {
                                                 span {
-                                                    font-size: 2rem;
-                                                    font-weight: 400;
+                                                    font-size: 1.8rem;
+                                                    font-weight: 600;
                                                 }
                                             }
                                         }
@@ -592,9 +604,9 @@ body.page-template-template-korttiluettelo {
                         display: block;
                         padding: 15px;
                         margin: 0!important;
-                        background-color: $black;
+                        background-color: $green;
                         color: $white;
-                        font-weight: 500;
+                        font-weight: 600;
                     }
                     .parent {
 
@@ -606,12 +618,8 @@ body.page-template-template-korttiluettelo {
                         a.button {
                             font-size: 2rem;
                             padding: 5px 10px;
-                            color: $white;
-                            background-color: $black;
-                            &:hover {
-                                color: $black;
-                                background-color: $white;
-                            }
+                            font-weight: 600;
+                            text-transform: uppercase;
                         }
                     }
                 }

@@ -4,8 +4,8 @@
 
 /// Mixin yksittäiselle napille
 @mixin button {
-	a.button {
-		border-radius: 5px;
+	a.button, button.button {
+		border-radius: 10px;
 		padding: 10px 20px;
 		background-color: $white;
 		border: 1px solid $black;
@@ -23,6 +23,30 @@
 			background-color: $black;
 			color: $white;
 		}
+		&.inverted {
+			background-color: $black;
+			color: $white;
+			border: 1px solid $black;
+			&:hover {
+				background-color: $white;
+				color: $black;
+			}
+		}
+		&.background-green {
+			background-color: $green;
+			color: $white;
+			border: 1px solid $white;
+			&:hover {
+				background-color: $white;
+				color: $green;
+			}
+		}
+		&.background-cream {
+			background-color: $cream;
+			&:hover {
+				background-color: $black;
+			}
+		}
 	}
 }
 
@@ -30,7 +54,6 @@
 @mixin buttons {
 	.buttons {
 		@include button;
-
 		display: flex;
 		flex-wrap: wrap;
 		gap: 15px;
@@ -81,7 +104,7 @@
 			display: inline-block;
 			&::before {
 				content: '';
-				width: 0px;
+				width: 100%;
 				height: 1px;
 				background-color: $color;
 				position: absolute;
@@ -93,19 +116,20 @@
 				font-family: 'Material Icons';
 				content: '\eac9';
 				transition: all 0.15s;
-				position: relative;
-				right: -10px;
-				top: 4px;
-				transform: translate(0, -50%);
+				position: absolute;
+				right: 0px;
+				top: calc(50% + 2px);
+				transform: translate(25px, -50%);
 				font-size: 2rem;
 			}
-			&:hover {
+			
+		}
+		&:hover {
+			span {
 				&::after {
-					transform: translate(5px, -50%);
+					transform: translate(30px, -50%);
 				}
-				&::before {
-					width: 100%;
-				}
+				
 			}
 		}
 	}
@@ -132,7 +156,7 @@
 		align-items: flex-start;
 		gap: 10px;
 
-		@include arrowlink($red, 400);
+		@include arrowlink($black, 400);
 	}
 }
 

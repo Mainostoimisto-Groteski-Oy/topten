@@ -9,9 +9,7 @@ footer {
 section.banner-block {
 	margin: 50px 0;
 
-	background-color: $white;
-	border-top: 1px solid $black;
-	border-bottom: 1px solid $black;
+	background-color: $green;
 
 	.grid {
 		padding: 0px 15px;
@@ -29,7 +27,7 @@ section.banner-block {
 			.text p {
 				font-size: 2.4rem;
 				font-weight: 400;
-				color: $brown;
+				color: $white;
 				text-align: center;
 			}
 		}

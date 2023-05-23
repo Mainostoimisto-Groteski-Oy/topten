@@ -312,6 +312,7 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 			'acf/tekstilohko',
 			'acf/teksti-ja-kuva',
 			'acf/teksti-ja-kortti',
+			'acf/teksti-ja-lomake',
 			'acf/nosto',
 			'acf/artikkelit',
 			'acf/banneri',
@@ -447,6 +448,21 @@ function topten_acf() {
 			)
 		);
 
+		$block_name  = 'Teksti ja lomake';
+		$block_slug  = 'text-and-form-block';
+		$description = 'Lohko tekstipaikalla ja lomakkeella';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'feedback',
+			)
+		);
+
 
 		$block_name  = 'Artikkelit';
 		$block_slug  = 'articles-block';
@@ -489,7 +505,7 @@ function topten_acf() {
 				'description'     => $description,
 				'render_template' => "blocks/$block_slug.php",
 				'keywords'        => array( $block_name ),
-				'icon'            => 'list',
+				'icon'            => 'list-view',
 			)
 		);
 
@@ -1313,10 +1329,13 @@ function topten_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'topten_excerpt_more' );
 
 function topten_excerpt_length( $length ) {
-	return 30;
+	return 20;
 }
 add_filter( 'excerpt_length', 'topten_excerpt_length', 999 );
 
 
 	
 add_filter( 'wp_lazy_loading_enabled', '__return_true' );
+
+// Everyone knows what asterisk means in forms so we don't need to display this
+add_filter( 'gform_required_legend', '__return_empty_string' );

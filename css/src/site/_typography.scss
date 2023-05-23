@@ -12,7 +12,7 @@ body {
 
 .ingress {
 	font-size: 2.8rem;
-	color: $brown;
+	color: $black;
 	> p {
 		font-weight: 400;
 	}
@@ -52,7 +52,12 @@ p {
 a {
 	color: $black;
 }
-
+sup {
+	top: -5px; 
+}
+sub {
+	bottom: -5px; 
+}
 // h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
 // mixins/_headings.scss
 @include headings;
