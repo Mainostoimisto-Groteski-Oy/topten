@@ -137,7 +137,7 @@ $full_name = $identifier_start.' '.$identifier_end.' '.$version.' '.get_the_titl
 				<button class="material-icons" aria-expanded="false">double_arrow</button>
 			</div>
 			<div class="box-content">
-				<?php echo do_shortcode('[gravityform id="2" field_values="card_title='.$full_name.'" title="false" description="false" ajax="true"]'); ?>
+				<?php echo do_shortcode('[gravityform id="2" field_values="card_title='.esc_html($full_name).'" title="false" description="false" ajax="true"]'); ?>
 			</div>
 		</div>
 		
