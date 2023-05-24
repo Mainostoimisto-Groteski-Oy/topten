@@ -242,7 +242,7 @@ jQuery(document).ready(($) => {
 	function applyFilters(type) {
 		// Get chosen items from hidden input field
 		let keyword = '';
-		if(type === 'keyword') {
+		if(type === 'keywords') {
 			keyword = $(`#card${type}Value`).val();
 			// Check if item is already in local storage
 			if(localStorage.getItem(type)) {
@@ -377,8 +377,6 @@ jQuery(document).ready(($) => {
 
 			
 					if (storedItem === id) {
-						console.log(storage.length);
-						// I Fucking hate javascript
 						// Remove this id from the array
 						storage.splice(storage.indexOf(id), 1);
 						// Push back to localstorage
@@ -494,7 +492,7 @@ jQuery(document).ready(($) => {
 			$(this).remove();
 		})
 		$('#cardSidebar figure').not('.classes').removeClass('active');
-		
+	
 		cardSearch();
 	}
 	
@@ -509,6 +507,23 @@ jQuery(document).ready(($) => {
 	// ACF Field that tells code what kind of cards we want to search for
 	const cardStatusType = $('#primary').attr('data-template');
 	// Get the cards
+	// if we have keyword as query string via urlsearchparams
+	const urlParams = new URLSearchParams(window.location.search);
+	const keyword = urlParams.get('keyword');
+	if(keyword) {
+		localStorage.clear();
+		if ($('#classCheckboxes').length > 0) {
+			// push all checked boxes to array and add to localstorage
+			const checkedBoxes = [];
+			$('#classCheckboxes input:checked').each(function() {
+				checkedBoxes.push($(this).val());
+			});
+			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
+		}
+		$(`#cardkeywordsValue`).val(keyword);
+		applyFilters('keywords');
+	}
+	
 	cardSearch(cardStatusType);
 
 	// Opens and closes the filters 
@@ -533,7 +548,7 @@ jQuery(document).ready(($) => {
 	// If there is a search form on the page
 	if($('#searchCards').length > 0) {
 
-		// Immediately set the class checkboxes since we want these to be checked by default. I just now realized this could be done in fucking html
+		// Immediately set the class checkboxes since we want these to be checked by default
 		if ($('#classCheckboxes').length > 0) {
 			// push all checked boxes to array and add to localstorage
 			const checkedBoxes = [];
@@ -543,7 +558,6 @@ jQuery(document).ready(($) => {
 			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
 		}
 
-		// it was being a bitch about this 
 		let cardClassFilterLength = $('#classCheckboxes input').length;
 		if (JSON.parse(localStorage.getItem('cardclassfilter')).length > 0) {
 			cardClassFilterLength = JSON.parse(localStorage.getItem('cardclassfilter')).length;

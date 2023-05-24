@@ -32,11 +32,13 @@ $cardClasses = get_terms(
 	array(
 		'hide_empty' => false,
 	)
-)
+);
 
 ?>
 
 <main id="primary" class="site-main" data-template="<?php echo esc_html(get_field('card_status_type')); ?>">
+
+
 
 
 	<?php topten_breadcrumbs(); ?>

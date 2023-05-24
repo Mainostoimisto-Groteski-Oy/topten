@@ -29,6 +29,79 @@
 			.title {
 				margin-bottom: 0;
 			}
+			.tulkinta {
+				span {
+					position: relative;
+					display: flex;
+					align-items: center;
+					margin-top: 15px;
+					margin-bottom: 10px;
+					padding-left: 40px;
+					text-transform: uppercase;
+					font-size: 1.8rem;
+					font-weight: 400;
+					&::before {
+						font-family: $font-icons;
+						text-transform: none;
+						width: 30px;
+						height: 30px;
+						color: $white;
+						position: absolute;
+						top: 0;
+						left: 0;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						border-radius: 60px;
+						font-weight: 400;
+						font-size: 2.2rem;
+					}
+					&.mrl {
+						&::before {
+							font-family: $font-main;
+							background-color: $tulkinta-blue;
+							content: '§';
+						}
+					}
+					&.ymp {
+						&::before {
+							font-family: $font-main;
+							background-color: $tulkinta-green;
+							content: 'i';
+						}
+					}
+					&.rak {
+						&::before {
+							background-color: $tulkinta-red;
+							content: '\ea3d';
+						}
+					}
+					&.muu {
+						&::before {
+							background-color: $tulkinta-lightblue;
+							content: '\e876';
+						}
+					}
+				}
+			}
+			.text-wrapper {
+				&.mrl, &.ymp, &.rak, &.muu {
+					padding: 12px 15px;
+					border-radius: 15px;
+				}
+				&.mrl {
+					background-color: $tulkinta-blue-transparent;
+				}
+				&.ymp {
+					background-color: $tulkinta-green-transparent;
+				}
+				&.rak {
+					background-color: $tulkinta-red-transparent;
+				}
+				&.muu {
+					background-color: $tulkinta-lightblue-transparent;
+				}
+			}
 		}
 	}
 	
@@ -142,20 +215,46 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				
-				span, a {
+				cursor: pointer;
+				transition: all 0.15s;
+				a {
 					font-size: 1.8rem;
-				}
-				a.keyword-link {
 					text-decoration: none;
-					margin-left: 5px;
-					margin-top: 2px;
-					color: $green;
-					transition: all 0.15s;
-					&:hover {
-						color: $lightgreen;
+					span {
+						position: relative;
+						font-size: 1.8rem;
+						&::after {
+							width: 0;
+							height: 1px;
+							background-color: $black;
+							content: '';
+							position: absolute;
+							bottom: 0px;
+							left: 0;
+							transition: all 0.15s;
+						}
 					}
-					
+					&:hover {
+						span {
+							&::after {
+								width: 100%;
+							}
+						}
+					}
+					&.keyword-link {
+						text-decoration: none;
+						margin-left: 5px;
+						margin-top: 2px;
+						color: $green;
+						transition: all 0.15s;
+						&:hover {
+							color: $lightgreen;
+							background-color: unset;
+						}
+						&::after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -163,11 +262,11 @@
 			margin-left: 0;
 			padding-left: 15px;
 			li {
-				font-size: 2rem;
-				font-weight: 300;
+				font-size: 1.8rem;
+				font-weight: 400;
 				a {
-					font-size: 2rem;
-					font-weight: 300;	
+					font-size: 1.8rem;
+					font-weight: 400;	
 				}
 			}
 		}

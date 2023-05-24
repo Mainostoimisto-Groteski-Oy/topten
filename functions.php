@@ -1141,7 +1141,7 @@ function topten_card_search() {
 			$args['orderby']  = 'meta_value';
 			$args['meta_key'] = 'identifier_start';
 			$args['order']    = 'ASC';
-			// Publish date, descending order // TODO: Should this be modified time instead?
+			// Publish date, descending order 
 		} elseif ( $filterOrder === 'publishDate' ) {
 			$args['orderby'] = 'date';
 			$args['order']   = 'DESC';
