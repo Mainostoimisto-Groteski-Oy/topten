@@ -2,7 +2,7 @@
 
 <?php if ( have_rows( 'link_list' ) ) : ?>
 	<ul class="link-list">
-		<?php 
+		<?php
 		while ( have_rows( 'link_list' ) ) :
 			the_row();
 

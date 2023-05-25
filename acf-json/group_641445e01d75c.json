@@ -9,7 +9,7 @@
             "aria-label": "",
             "type": "number",
             "instructions": "",
-            "required": 0,
+            "required": 1,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -24,6 +24,79 @@
             "step": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_646f3ad520c16",
+            "label": "Sarakkeen leveydet",
+            "name": "2_column_width",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64144fbf5ffe9",
+                        "operator": "==",
+                        "value": "2"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "[50,50]": "50 \/ 50",
+                "[66,33]": "66 \/ 33",
+                "[33,66]": "33 \/ 66"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_646f3be4ed183",
+            "label": "Sarakkeen leveydet",
+            "name": "3_column_width",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64144fbf5ffe9",
+                        "operator": "==",
+                        "value": "3"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "33 \/ 33 \/ 33": "33 \/ 33 \/ 33",
+                "50 \/ 25 \/ 25": "50 \/ 25 \/ 25",
+                "25 \/ 50 \/ 25": "25 \/ 50 \/ 25",
+                "25 \/ 25 \/ 50": "25 \/ 25 \/ 50"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -44,5 +117,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683092565
+    "modified": 1685013705
 }

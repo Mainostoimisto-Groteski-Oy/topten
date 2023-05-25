@@ -1,9 +1,9 @@
 @use "mixins/all" as *;
-@use sass:color;
+@use "sass:color";
 
 .acf-block-preview {
 	.row-block {
-		background-color: color.adjust($white, -5%);
+		background-color: color.adjust($white, $lightness: -10%);
 
 		.grid {
 			display: unset;
@@ -20,6 +20,14 @@
 				}
 			}
 		}
+
+		.wp-block {
+			background-color: $white;
+
+			&.wp-block-acf-sarake {
+				background-color: color.adjust($white, $lightness: -5%);
+			}
+		}
 	}
 }
 
@@ -33,7 +41,7 @@
 	}
 
 	.grid {
-		grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+		// grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
 		padding: 0;
 	}
 

@@ -1002,7 +1002,7 @@ function topten_card_search() {
 			$card_classes = '';
 		}
 	}
-	json_log( $card_classes );
+
 	if ( ! empty( $card_classes ) && isset( $card_classes ) ) {
 
 		$args['tax_query'][] =
@@ -1155,7 +1155,7 @@ function topten_card_search() {
 
 
 	$the_query = new WP_Query();
-	json_log( $args );
+
 	$the_query->parse_query( $args );
 
 		// If Relevanssi is installed, use it

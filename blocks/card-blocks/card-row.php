@@ -10,6 +10,21 @@ for ( $i = 0; $i < $columns; $i++ ) {
 $allowed_blocks = array(
 	'acf/sarake',
 );
+
+$width_selector = $columns . '_column_width';
+
+$column_widths = get_field( $width_selector );
+$column_widths = json_decode( $column_widths );
+
+$css_vars = '';
+
+foreach ( $column_widths as $index => $column_width ) {
+	++$index;
+	$css_vars .= '--column-' . $index . ': ' . $column_width . ';';
+}
+
+echo $css_vars;
+
 ?>
 
 <section class="row-block">
