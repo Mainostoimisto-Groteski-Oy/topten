@@ -6,9 +6,7 @@ footer {
 	background-position: center;
 
 	@include links;
-	strong {
-		font-weight: 600;
-	}
+
 	.grid:not(.banner) {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		&:not(.logos) {
@@ -57,7 +55,7 @@ footer {
 			gap: 10px;
 			text-decoration: none;
 		}
-
+		
 		> a {
 			.link-text {
 				text-decoration: underline;

@@ -3,6 +3,36 @@
     "title": "Korttilohko: Teksti",
     "fields": [
         {
+            "key": "field_646dfcd3dedba",
+            "label": "Tulkinta",
+            "name": "tulkinta",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "none": "Ei tulkintaa",
+                "mrl": "Säännökset (mrl tai asetus)",
+                "ymp": "Ympäristöministeriön ohje",
+                "rak": "Rakennusvalvonnan tulkinta",
+                "muu": "Otteet perustelumuistioista \/ muu"
+            },
+            "default_value": false,
+            "return_format": "array",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_64146a36091ab",
             "label": "Teksti",
             "name": "text",
@@ -42,5 +72,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681805185
+    "modified": 1684930192
 }

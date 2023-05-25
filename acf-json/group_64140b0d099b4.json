@@ -94,7 +94,8 @@
                 "valid": "Voimassa oleva",
                 "expired": "Vanhentunut",
                 "approved_for_repeal": "Hyväksytty kumottavaksi",
-                "repealed": "Kumottu"
+                "repealed": "Kumottu",
+                "future": "2025"
             },
             "default_value": false,
             "return_format": "array",
@@ -137,5 +138,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681900273
+    "modified": 1683200574
 }

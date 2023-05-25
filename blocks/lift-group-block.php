@@ -25,7 +25,7 @@
 								$href   = esc_url( $link['url'] );
 								$title  = esc_attr( $link['title'] );
 								$target = esc_attr( $link['target'] );
-								echo sprintf( '<a class="link" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+								echo sprintf( '<a class="link" href="%s" title="%s" target="%s"><span>%s</span></a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 							?>
 						<?php endif; ?>
 					</div>

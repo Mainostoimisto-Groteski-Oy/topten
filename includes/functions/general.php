@@ -43,7 +43,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$title            = get_the_title( $card );
 	$type             = get_post_type( $id );
 	$version          = get_field( 'version', $id );
-	$modified         = date( 'j.n.Y', strtotime( $card->post_modified ) );
+	$post_date         = date( 'j.n.Y', strtotime( $card->post_date ) );
 	$link             = get_permalink( $id );
 
 	$html  = '<li class="card">';
@@ -52,6 +52,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '<span class="end"> ' . esc_html( $identifier_end ) . '</span>';
 	$html .= '</div>';
 	$html .= '<span class="version">' . esc_html( $version ) . '</span>';
+	$html .= '<span class="date">' . esc_html( $post_date ) . '</span>';
 	$html .= '<span class="card-title">' . esc_html( $title ) . '</span>';
 	$html .= '<div class="languages">';
 	$html .= '<a href="" class="fi">Fi</a>';
@@ -59,7 +60,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '">';
-	$html .= esc_html( 'Siirry korttiin', 'topten' );
+	$html .= esc_html( 'Siirry kortille', 'topten' );
 	$html .= '</a>';
 	$html .= '</div>';
 	$html .= '</li>';
@@ -94,10 +95,10 @@ function topten_card_list( $card_array ) {
 	);
 	// TODO: Comment this shit
 	?>
-		<div class="list" id="listCards">
+		
 		<?php if ( ! empty( $card_array['tulkinta'] ) ) : ?>
 			<div class="cardlist" id="tulkintakortit">
-				<h2 class="h4 title">
+				<h2 class="h3 title">
 					<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
 				</h2>
 
@@ -146,7 +147,7 @@ function topten_card_list( $card_array ) {
 			<?php endif; ?>
 			<?php if ( ! empty( $card_array['ohje'] ) ) : ?>
 			<div class="cardlist" id="ohjekortit">
-				<h2 class="h4 title">
+				<h2 class="h3 title">
 					<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
 				</h2>
 
@@ -176,7 +177,7 @@ function topten_card_list( $card_array ) {
 			<?php endif; ?>
 			<?php if ( ! empty( $card_array['lomake'] ) ) : ?>
 			<div class="cardlist" id="lomakekortit">
-				<h2 class="h4 title">
+				<h2 class="h3 title">
 					<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
 				</h2>
 
@@ -203,6 +204,6 @@ function topten_card_list( $card_array ) {
 				</ul>
 			</div>
 			<?php endif; ?>
-		</div>
+		
 	<?php
 }

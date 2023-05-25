@@ -6,25 +6,56 @@ html {
 
 body {
 	font-family: $font-main;
-	font-size: 1.8rem;
-	font-weight: 400;
+	font-size: 1.6rem;
+	font-weight: 300;
 }
 
 .ingress {
-	font-size: 2rem;
+	font-size: 2.8rem;
+	color: $black;
+	> p {
+		font-weight: 400;
+	}
 }
 
 p,
 li,
-a {
-	line-height: 1.5;
+a,
+i,
+s,
+u,
+span,
+del,
+ins,
+sub,
+sup {
 	font-size: 1.8rem;
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0.2px;
+
+}
+input,
+select,
+button,
+textarea {
+	font-size: 1.8rem;
+	letter-spacing: 0.2px;
+}
+
+p {
+	margin: 16px 0px;
 }
 
 a {
 	color: $black;
 }
-
+sup {
+	top: -5px; 
+}
+sub {
+	bottom: -5px; 
+}
 // h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
 // mixins/_headings.scss
 @include headings;

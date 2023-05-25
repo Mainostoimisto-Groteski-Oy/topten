@@ -63,9 +63,9 @@ section.lift-group-block {
                 .title {
                     margin-top: 0;
                     margin-bottom: 15px;
-                    font-weight: 600;
+                    font-weight: 400;
                 }
-                @include arrowlink($red, 400);
+                @include arrowlink($black, 400);
             }
         }
     }

@@ -3,7 +3,8 @@
 body.page {
 	main {
 		.page-breadcrumbs {
-			background-color: $grey;
+			background-color: $cream-transparent;
+			border-bottom: 1px solid $black;
 
 			.grid {
 				padding: 10px 15px;
@@ -11,6 +12,14 @@ body.page {
 				a {
 					color: $red;
 					text-decoration: underline;
+					font-size: 1.8rem;
+					color: $black;
+				}
+				p#breadcrumbs {
+					margin: 5px 0;
+					span {
+						font-size: 1.8rem;
+					}
 				}
 			}
 		}

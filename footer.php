@@ -33,7 +33,7 @@ $columns = array( 'left', 'middle', 'right' );
 			<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
 				<div class="rty-branding">
 					<?php $logo = get_field( 'rty_logo', 'options' ); ?>
-					<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+					<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" width="<?php echo $logo['sizes']['medium-width']; ?>" height="<?php echo $logo['sizes']['medium-height']; ?>" />
 				</div>
 			<?php endif; ?>
 		</div>

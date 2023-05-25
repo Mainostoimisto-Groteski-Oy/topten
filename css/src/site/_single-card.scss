@@ -15,10 +15,13 @@
 			text-decoration: underline;
 		}
 	}
+	.site {
+		overflow: hidden;
+	}
 
 	.sidebar-grid {
-		grid-template-columns: minmax(0, 9fr) minmax(0, 3fr);
-		gap: 50px;
+		grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+		gap: 30px;
 	}
 
 	article {
@@ -26,8 +29,82 @@
 			.title {
 				margin-bottom: 0;
 			}
+			.tulkinta {
+				span {
+					position: relative;
+					display: flex;
+					align-items: center;
+					margin-top: 15px;
+					margin-bottom: 10px;
+					padding-left: 40px;
+					text-transform: uppercase;
+					font-size: 1.8rem;
+					font-weight: 400;
+					&::before {
+						font-family: $font-icons;
+						text-transform: none;
+						width: 30px;
+						height: 30px;
+						color: $white;
+						position: absolute;
+						top: 0;
+						left: 0;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						border-radius: 60px;
+						font-weight: 400;
+						font-size: 2.2rem;
+					}
+					&.mrl {
+						&::before {
+							font-family: $font-main;
+							background-color: $tulkinta-blue;
+							content: '§';
+						}
+					}
+					&.ymp {
+						&::before {
+							font-family: $font-main;
+							background-color: $tulkinta-green;
+							content: 'i';
+						}
+					}
+					&.rak {
+						&::before {
+							background-color: $tulkinta-red;
+							content: '\ea3d';
+						}
+					}
+					&.muu {
+						&::before {
+							background-color: $tulkinta-lightblue;
+							content: '\e876';
+						}
+					}
+				}
+			}
+			.text-wrapper {
+				&.mrl, &.ymp, &.rak, &.muu {
+					padding: 12px 15px;
+					border-radius: 15px;
+				}
+				&.mrl {
+					background-color: $tulkinta-blue-transparent;
+				}
+				&.ymp {
+					background-color: $tulkinta-green-transparent;
+				}
+				&.rak {
+					background-color: $tulkinta-red-transparent;
+				}
+				&.muu {
+					background-color: $tulkinta-lightblue-transparent;
+				}
+			}
 		}
 	}
+	
 
 	article,
 	aside {
@@ -55,17 +132,143 @@
 		.h5 {
 			font-size: 2rem;
 		}
-
-		.red {
-			color: $red;
+		@include button;
+		button.button {
+			margin-top: 15px;
+			font-weight: 600;
+			
 		}
-
-		.desc {
-			font-size: 1.4rem;
-			font-style: italic;
-			font-weight: 400;
-			margin-top: 0;
-			scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
+		
+	}
+	aside.sidebar {
+		background-color: $lightgrey;
+		position: relative;
+		padding: 0px 30px;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		&::before{
+			background-color: $lightgrey;
+			position: absolute;
+			top: -30px;
+			left: 0;
+			content: "";
+			width: 300%;
+			height: calc(100% + 60px);
+			z-index: 1;
+		}
+		.box {
+			z-index: 999;
+			position: relative;
+			transition: all 0.15s;
+			.box-title {
+				border-bottom: 1px solid $black;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				cursor: pointer;
+				margin-bottom: 15px;
+				h2, h3 {
+					margin-bottom: 5px;
+				}
+				button {
+					background: unset;
+					border: unset;
+					margin-top: auto;
+					margin-bottom: 10px;
+					transition: all 0.15s;
+				}
+			}
+			.box-content {
+				display: none;
+				transition: all 0.15s;
+				&.active {
+					display: block;
+				}
+			}
+			&.open {
+				.box-content {
+					display: block;
+				}
+				.box-title {
+					button {
+						transform: rotate(90deg);
+					}
+				}
+			}
+		}
+		ul.keywords {
+			padding: 0;
+			margin: 0;
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+			gap: 10px;
+			li {
+				background-color: $white;
+				border-radius: 100px;
+				/* border: 1px solid $black; */
+				/* Trying to get rid of aliasing */
+				box-shadow: 0 0 1px 1px black;
+				padding: 0px 10px;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.15s;
+				a {
+					font-size: 1.8rem;
+					text-decoration: none;
+					span {
+						position: relative;
+						font-size: 1.8rem;
+						&::after {
+							width: 0;
+							height: 1px;
+							background-color: $black;
+							content: '';
+							position: absolute;
+							bottom: 0px;
+							left: 0;
+							transition: all 0.15s;
+						}
+					}
+					&:hover {
+						span {
+							&::after {
+								width: 100%;
+							}
+						}
+					}
+					&.keyword-link {
+						text-decoration: none;
+						margin-left: 5px;
+						margin-top: 2px;
+						color: $green;
+						transition: all 0.15s;
+						&:hover {
+							color: $lightgreen;
+							background-color: unset;
+						}
+						&::after {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+		ol.table-of-contents {
+			margin-left: 0;
+			padding-left: 15px;
+			li {
+				font-size: 1.8rem;
+				font-weight: 400;
+				a {
+					font-size: 1.8rem;
+					font-weight: 400;	
+				}
+			}
 		}
 	}
 }

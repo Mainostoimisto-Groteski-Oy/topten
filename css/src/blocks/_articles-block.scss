@@ -67,7 +67,8 @@ section.articles-block {
 			}
 
 			.date {
-				
+				font-size: 1.8rem;
+				margin-top: 0;
 			}
 
 			.content {
@@ -86,13 +87,13 @@ section.articles-block {
 					bottom: 25px;
 					left: 25px;
 				}
-				@include arrowlink($red, 400);
+				@include arrowlink($black, 400);
 			}
 		}
 
 		.card-container {
 			background-color: $white;
-			border: 1px solid $red;
+			border: 1px solid $green;
 			border-radius: 5px;
 			display: flex;
 			flex-direction: column;
@@ -114,7 +115,7 @@ section.articles-block {
 			.top {
 				display: flex;
 				justify-content: space-between;
-				font-weight: 600;
+				font-weight: 400;
 
 				.version {
 					margin-right: 30px;

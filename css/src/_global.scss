@@ -15,6 +15,7 @@
 @use "blocks/articles-block";
 @use "blocks/text-and-image-block";
 @use "blocks/text-and-card-block";
+@use "blocks/text-and-form-block";
 @use "blocks/embed-block";
 @use "blocks/lift-block";
 @use "blocks/lift-group-block";
@@ -24,6 +25,7 @@
 @use "blocks/sidebar-and-content-block";
 @use "blocks/buttons-block";
 @use "blocks/banner-block";
+@use "blocks/list-block";
 
 
 // Card blocks

@@ -4,21 +4,48 @@
 
 /// Mixin yksittäiselle napille
 @mixin button {
-	a.button {
-		border-radius: 5px;
+	a.button, button.button {
+		border-radius: 10px;
 		padding: 10px 20px;
-		background-color: $black;
+		background-color: $white;
 		border: 1px solid $black;
-		color: $white;
+		color: $black;
 		text-decoration: none;
 		display: inline-block;
 		transition: all 0.15s;
 		outline: none;
-		font-weight: 600;
-
+		font-weight: 400;
+		
+		@media(max-width:$max-xl) {
+			padding: 5px 10px;
+		}
 		&:hover {
-			background-color: $white;
-			color: $black;
+			background-color: $black;
+			color: $white;
+		}
+		&.inverted {
+			background-color: $black;
+			color: $white;
+			border: 1px solid $black;
+			&:hover {
+				background-color: $white;
+				color: $black;
+			}
+		}
+		&.background-green {
+			background-color: $green;
+			color: $white;
+			border: 1px solid $white;
+			&:hover {
+				background-color: $white;
+				color: $green;
+			}
+		}
+		&.background-cream {
+			background-color: $cream;
+			&:hover {
+				background-color: $black;
+			}
 		}
 	}
 }
@@ -27,7 +54,6 @@
 @mixin buttons {
 	.buttons {
 		@include button;
-
 		display: flex;
 		flex-wrap: wrap;
 		gap: 15px;
@@ -68,35 +94,42 @@
 		display: inline-flex;
 		align-items: center;
 		color: $color;
-		position: relative;
 		text-decoration: none;
 		margin-right: auto;
 		font-weight: $weight;
-		&::before {
-			content: '';
-			width: 0px;
-			height: 1px;
-			background-color: $color;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			transition: all 0.15s;
-		}
-		&::after {
+		span {
+			color: $color;
+			font-weight: $weight;
 			position: relative;
-			font-family: 'Material Icons';
-			content: '\eac9';
-			transition: all 0.15s;
-			right: -2px;
-			top: 1px;
-			font-size: 2rem;
+			display: inline-block;
+			&::before {
+				content: '';
+				width: 100%;
+				height: 1px;
+				background-color: $color;
+				position: absolute;
+				bottom: 4px;
+				left: 0;
+				transition: all 0.15s;
+			}
+			&::after {
+				font-family: 'Material Icons';
+				content: '\eac9';
+				transition: all 0.15s;
+				position: absolute;
+				right: 0px;
+				top: calc(50% + 2px);
+				transform: translate(25px, -50%);
+				font-size: 2rem;
+			}
+			
 		}
 		&:hover {
-			&::after {
-				transform: translate(5px, 0px);
-			}
-			&::before {
-				width: calc(100% - 15px);
+			span {
+				&::after {
+					transform: translate(30px, -50%);
+				}
+				
 			}
 		}
 	}
@@ -123,6 +156,66 @@
 		align-items: flex-start;
 		gap: 10px;
 
-		@include arrowlink($red, 400);
+		@include arrowlink($black, 400);
+	}
+}
+
+// custom checkboxes
+
+@mixin checkboxes {
+	.checkbox-wrapper {
+		position: relative;
+		width: 15px;
+		height: 15px;
+		margin: 0;
+		input {
+			position: absolute;
+			top: 3px;
+			left: 3px;
+			height: 0;
+			width: 0;
+			cursor: pointer;
+			&:checked {
+				&~.checkmark {
+						background-color: $black;
+						color: $white;
+					&::after {
+						display: block;
+						border: solid $white;
+						border-width: 0px 3px 3px 0;
+					}
+				}
+			}
+		}
+		.checkmark {
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			height: 15px;
+			width: 15px;
+			background-color: $white;
+			color: $black;
+			border: 1px solid $black;
+			z-index: 9999;
+			transform: translate(0, -50%);
+			&::after {
+				display: none;
+				position: absolute;
+				content: '';
+				left: 4px;
+				top: 2px;
+				width: 5px;
+				height: 10px;
+				font-weight: 300;
+				font-size: 1.8rem;
+				border: solid $black;
+				border-width: 0 2px 2px 0;
+				-webkit-transform: rotate(45deg);
+				transform: rotate(45deg);
+				z-index: 99999;
+			}
+			
+		}
 	}
 }

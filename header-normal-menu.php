@@ -1,6 +1,6 @@
 <?php
 /**
- * The header for our theme that uses hamburger menu and no site branding
+ * The header for our theme
  *
  * This is the template that displays all of the <head> section and everything up until <div id="content">
  *
@@ -29,38 +29,56 @@
 		<?php esc_html_e( 'Skip to content', 'topten' ); ?>
 	</a>
 
-
-	<header id="masthead" class="site-header">
+	<header id="logoheader" class="logoheader">
 		<div class="grid">
-			<div class="container">
-				<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="site-navigation" aria-expanded="false">
-					<span class="material-icons" aria-hidden="true">
-						menu
-					</span>
-				</button>
-
+			<div class="logos">
+				<div class="site-branding">
+					<?php the_custom_logo(); ?>
+				</div>
 				<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
-
 					<div class="rty-branding">
 						<?php $logo = get_field( 'rty_logo', 'options' ); ?>
 						<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
 					</div>
-
 				<?php endif; ?>
 			</div>
 		</div>
 	</header>
 
-	<nav id="site-navigation" class="main-navigation" aria-expanded="false">
+	<header id="masthead" class="site-header">
+		<div class="grid">
+
+			<nav id="site-navigation" class="main-navigation">
+				<?php
+				wp_nav_menu(
+					array(
+						'theme_location'  => 'primary-menu',
+						'menu_id'         => 'primary-menu',
+						'container_class' => 'menu-container',
+						'link_before'     => '<span class="link-text">',
+						'link_after'      => '</span>',
+					)
+				);
+				?>
+			</nav>
+
+			<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="mobile-menu" aria-expanded="false">
+				<span class="material-icons" aria-hidden="true">
+					menu
+				</span>
+			</button>
+		</div>
+	</header>
+
+	<nav id="mobile-navigation" class="mobile-menu">
 		<?php
 		wp_nav_menu(
 			array(
 				'theme_location'  => 'primary-menu',
-				'menu_id'         => 'primary-menu',
-				'container_class' => 'menu-container grid',
-				'link_before'     => '<span class="link-text">',
-				'link_after'      => '</span>',
+				'menu_id'         => 'mobile-menu',
+				'container_class' => 'menu-container',
 			)
 		);
 		?>
+
 	</nav>

@@ -1,9 +1,9 @@
 {
-    "key": "group_61dd86cdc2035",
-    "title": "Lohko: Logot",
+    "key": "group_6453b7fc18dcc",
+    "title": "Lista",
     "fields": [
         {
-            "key": "field_64511268c4368",
+            "key": "field_6453b7fdbce5e",
             "label": "Lyhyt kuvausteksti",
             "name": "description",
             "aria-label": "",
@@ -24,9 +24,9 @@
             "new_lines": "wpautop"
         },
         {
-            "key": "field_61dd8739b9615",
-            "label": "Logot",
-            "name": "logos",
+            "key": "field_6453b815bce5f",
+            "label": "Lista",
+            "name": "list",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -37,63 +37,22 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
+            "relevanssi_exclude": 0,
+            "layout": "table",
+            "pagination": 0,
             "min": 0,
             "max": 0,
-            "layout": "table",
+            "collapsed": "",
             "button_label": "Lisää rivi",
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_61dd874db9616",
-                    "label": "Logo",
-                    "name": "logo",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "parent_repeater": "field_61dd8739b9615"
-                },
-                {
-                    "key": "field_63a1605f32b33",
-                    "label": "Linkki",
-                    "name": "link",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "parent_repeater": "field_61dd8739b9615"
-                },
-                {
-                    "key": "field_64676728331a9",
+                    "key": "field_6453b828bce60",
                     "label": "Nimi",
                     "name": "name",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "Näytetään ainoastaan jos kuvaa ei ole asetettu. Rivit joilla on logo näytetään ennen pelkkiä nimiä.",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -107,7 +66,25 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_61dd8739b9615"
+                    "parent_repeater": "field_6453b815bce5f"
+                },
+                {
+                    "key": "field_6453b82fbce61",
+                    "label": "Linkki",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "return_format": "array",
+                    "parent_repeater": "field_6453b815bce5f"
                 }
             ]
         }
@@ -117,11 +94,11 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/logot"
+                "value": "acf\/lista"
             }
         ]
     ],
-    "menu_order": 12,
+    "menu_order": 0,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -130,5 +107,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684752936
+    "modified": 1684752968
 }

@@ -1,45 +1,70 @@
 @use "mixins/all" as *;
 
 section.logos-block {
+	padding: 50px 0px;
+	background-color: $green-lighter;
+	@media(max-width:$max-m) {
+		margin: 30px 0px;
+	}
+	@media(max-width:$max-xs) {
+		margin: 15px 0px;
+	}
 	.grid {
+		padding: 30px 15px;
 		grid-template-columns: minmax(0, 1fr);
+		&.gap-none {
+			gap: 0px 15px;
+		}
+		&.rows-1 {
+			> div:first-child {
+				border: 1px solid $black;
+				background-color: $white;
+				padding: 50px 0px 25px 0;
+			}
+		}
+		&.rows-2 {
+			> div:first-child {
+				border-top: 1px solid $black;
+				border-left: 1px solid $black;
+				border-right: 1px solid $black;
+				background-color: $white;
+				padding: 50px 0px 25px 0;
+			}
+			> div:nth-child(2) {
+				border-bottom: 1px solid $black;
+				border-left: 1px solid $black;
+				border-right: 1px solid $black;
+				background-color: $white;
+				padding: 0px 0px 30px 0px;
+			}
+		}
 	}
 
 	.text-block {
 		grid-column: 1 / -1;
 		text-align: center;
+		.description {
+			margin-top: 25px;
+		}
 	}
 
-	.logos-grid {
-		display: grid;
+	.logos {
+		display: flex;
 		margin: 0 auto;
-		gap: 25px;
+		gap: 50px;
+		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
-		grid-template-columns: repeat(9, minmax(0, 1fr));
 		@media(max-width:$max-xl) {
-			grid-template-columns: repeat(7, minmax(0, 1fr));
-		}
-		@media(max-width:$max-l) {
-			grid-template-columns: repeat(5, minmax(0, 1fr));
-		}
-		@media(max-width:$max-s) {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			margin: unset;
+			gap: 25px;
 		}
 		@media(max-width:$max-xs) {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 10px;
 		}
 		.logo {
 			
 			img {
 				max-width: 150px;
-				@media(max-width:$max-xxl) {
-					max-width: 100px;
-				}
-				@media(max-width:$max-l) {
-					max-width: 125px;
-				}
 				@media(max-width:$max-xs) {
 					max-width: 100px;
 				}
@@ -47,36 +72,16 @@ section.logos-block {
 			@media(max-width:$max-s) {
 				margin: 0 auto;
 			}
-		}
-		.blank {
-			@media(max-width:$max-s) {
-				display: none;
+			&.text {
+				max-width: 150px;
+				order: 999;
+				font-size: 1.8rem;
+				text-decoration: none;
+				line-height: 1.5;
+				@media(max-width:$max-xs) {
+					max-width: 100px;
+				}
 			}
 		}
-
-		// alternating rows of 5 and 4 items
-		/*
-		&:nth-child(even) {
-			grid-template-columns: repeat(5, minmax(0, 1fr));
-		}
-		&:nth-child(odd) {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-		}
-		&.three-columns {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-
-		&.four-columns {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-		}
-
-		&.five-columns {
-			grid-template-columns: repeat(5, minmax(0, 1fr));
-		}
-
-		&.six-columns {
-			grid-template-columns: repeat(6, minmax(0, 1fr));
-		}
-		*/
 	}
 }
