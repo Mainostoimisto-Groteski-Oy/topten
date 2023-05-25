@@ -109,7 +109,7 @@ function topten_focal_point( $sub_field = false, $block = array(), $selector = '
  *
  * @param array|boolean $block ACF ryhmä (left_block tms), default tyhjä array
  */
-function topten_buttons( $block = array(), $background = '') {
+function topten_buttons( $block = array(), $background = '' ) {
 	if ( $block ) {
 		if ( ! empty( $block['buttons'] ) ) {
 			echo '<div class="buttons">';

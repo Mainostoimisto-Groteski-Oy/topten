@@ -1,10 +1,10 @@
 @use "variables/breakpoints" as *;
 @use "variables/colors" as *;
 
-
 /// Mixin yksittäiselle napille
 @mixin button {
-	a.button, button.button {
+	a.button,
+	button.button {
 		border-radius: 10px;
 		padding: 10px 20px;
 		background-color: $white;
@@ -15,34 +15,41 @@
 		transition: all 0.15s;
 		outline: none;
 		font-weight: 400;
-		
-		@media(max-width:$max-xl) {
+
+		@media (max-width: $max-xl) {
 			padding: 5px 10px;
 		}
+
 		&:hover {
 			background-color: $black;
 			color: $white;
 		}
+
 		&.inverted {
 			background-color: $black;
 			color: $white;
 			border: 1px solid $black;
+
 			&:hover {
 				background-color: $white;
 				color: $black;
 			}
 		}
+
 		&.background-green {
 			background-color: $green;
 			color: $white;
 			border: 1px solid $white;
+
 			&:hover {
 				background-color: $white;
 				color: $green;
 			}
 		}
+
 		&.background-cream {
 			background-color: $cream;
+
 			&:hover {
 				background-color: $black;
 			}
@@ -54,6 +61,7 @@
 @mixin buttons {
 	.buttons {
 		@include button;
+
 		display: flex;
 		flex-wrap: wrap;
 		gap: 15px;
@@ -73,7 +81,7 @@
 			content: "";
 			background-color: $red;
 			position: absolute;
-			bottom: 0px;
+			bottom: 0;
 			left: 0;
 			width: 0;
 			height: 1px;
@@ -97,13 +105,15 @@
 		text-decoration: none;
 		margin-right: auto;
 		font-weight: $weight;
+
 		span {
 			color: $color;
 			font-weight: $weight;
 			position: relative;
 			display: inline-block;
+
 			&::before {
-				content: '';
+				content: "";
 				width: 100%;
 				height: 1px;
 				background-color: $color;
@@ -112,24 +122,24 @@
 				left: 0;
 				transition: all 0.15s;
 			}
+
 			&::after {
-				font-family: 'Material Icons';
-				content: '\eac9';
+				font-family: "Material Icons";
+				content: "\eac9";
 				transition: all 0.15s;
 				position: absolute;
-				right: 0px;
+				right: 0;
 				top: calc(50% + 2px);
 				transform: translate(25px, -50%);
 				font-size: 2rem;
 			}
-			
 		}
+
 		&:hover {
 			span {
 				&::after {
 					transform: translate(30px, -50%);
 				}
-				
 			}
 		}
 	}
@@ -168,6 +178,7 @@
 		width: 15px;
 		height: 15px;
 		margin: 0;
+
 		input {
 			position: absolute;
 			top: 3px;
@@ -175,18 +186,21 @@
 			height: 0;
 			width: 0;
 			cursor: pointer;
+
 			&:checked {
-				&~.checkmark {
-						background-color: $black;
-						color: $white;
+				& ~ .checkmark {
+					background-color: $black;
+					color: $white;
+
 					&::after {
 						display: block;
 						border: solid $white;
-						border-width: 0px 3px 3px 0;
+						border-width: 0 3px 3px 0;
 					}
 				}
 			}
 		}
+
 		.checkmark {
 			cursor: pointer;
 			position: absolute;
@@ -199,10 +213,11 @@
 			border: 1px solid $black;
 			z-index: 9999;
 			transform: translate(0, -50%);
+
 			&::after {
 				display: none;
 				position: absolute;
-				content: '';
+				content: "";
 				left: 4px;
 				top: 2px;
 				width: 5px;
@@ -211,11 +226,9 @@
 				font-size: 1.8rem;
 				border: solid $black;
 				border-width: 0 2px 2px 0;
-				-webkit-transform: rotate(45deg);
 				transform: rotate(45deg);
 				z-index: 99999;
 			}
-			
 		}
 	}
 }

@@ -13,7 +13,8 @@
 		top: 32px;
 	}
 
-	.grid, .grid-full {
+	.grid,
+	.grid-full {
 		grid-template-columns: minmax(0, 1fr);
 		padding: 0 15px;
 		align-items: flex-start;
@@ -22,7 +23,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			padding: 15px 0px;
+			padding: 15px 0;
+
 			.menu-toggle {
 				background-color: transparent;
 				border: none;
@@ -34,15 +36,16 @@
 					font-size: 4rem;
 				}
 			}
+
 			.rty-branding {
 				margin-left: auto;
+
 				img {
 					max-width: 125px;
 				}
 			}
 		}
 	}
-
 }
 
 #site-navigation {
@@ -61,52 +64,62 @@
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		background-color: transparent;
 		height: 100vh;
-		@media(max-width:$max-l) {
+
+		@media (max-width: $max-l) {
 			grid-template-columns: 2fr 1fr 1fr;
 		}
-		@media(max-width:$max-m) {
+
+		@media (max-width: $max-m) {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
-		@media(max-width:$max-s) {
+
+		@media (max-width: $max-s) {
 			grid-template-columns: minmax(0, 1fr);
 		}
+
 		#primary-menu {
 			background-color: $white;
 			height: 100%;
 			margin: 0;
-			padding: 30px 0 0 0;
+			padding: 30px 0 0;
 			list-style: none;
 			position: relative;
 			z-index: 999;
+
 			&::before {
 				width: 100vw;
 				height: 100%;
 				z-index: 1;
-				background-color: $white; 
-				content: '';
+				background-color: $white;
+				content: "";
 				position: absolute;
 				top: 0;
 				left: -100vw;
 			}
+
 			li.menu-item {
 				padding: 15px;
 				position: relative;
+
 				a {
 					transition: all 0.15s;
 					text-decoration: none;
 					position: relative;
+
 					span.link-text {
 						font-size: 2.4rem;
 						font-weight: 600;
 						transition: all 0.15s;
 						display: block;
-						@media(max-width:$max-m) {
-							font-size: 2.2rem
+
+						@media (max-width: $max-m) {
+							font-size: 2.2rem;
 						}
 					}
 				}
+
 				&::before {
-					content: '';
+					content: "";
 					position: absolute;
 					top: 0;
 					left: 0;
@@ -115,10 +128,13 @@
 					background-color: $green;
 					transition: all 0.15s;
 				}
-				&.current-menu-item, &:hover {
+
+				&.current-menu-item,
+				&:hover {
 					&::before {
 						width: 15px;
 					}
+
 					a {
 						span {
 							margin-left: 15px;
@@ -128,12 +144,12 @@
 			}
 		}
 	}
+
 	.admin-bar & {
 		top: 106px;
 		height: calc(100vh - 106px);
 	}
 }
-
 
 .pagination {
 	grid-column: 1 / -1;

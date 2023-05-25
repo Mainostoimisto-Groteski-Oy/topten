@@ -9,9 +9,11 @@ footer {
 
 	.grid:not(.banner) {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
+
 		&:not(.logos) {
 			padding-top: 0;
 		}
+
 		@media (max-width: $max-m) {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
@@ -27,14 +29,18 @@ footer {
 
 	.logos {
 		padding-bottom: 0;
+
 		.site-branding {
 			grid-column: 1;
+
 			img {
 				max-width: 200px;
 			}
 		}
+
 		.rty-branding {
 			grid-column: 3;
+
 			img {
 				max-width: 125px;
 			}
@@ -46,7 +52,7 @@ footer {
 		padding-left: 0;
 		line-height: 2;
 	}
-	
+
 	.contact-info {
 		> a,
 		> span {
@@ -55,7 +61,7 @@ footer {
 			gap: 10px;
 			text-decoration: none;
 		}
-		
+
 		> a {
 			.link-text {
 				text-decoration: underline;
@@ -83,5 +89,6 @@ footer {
 			text-decoration: underline;
 		}
 	}
+
 	@include buttons;
 }

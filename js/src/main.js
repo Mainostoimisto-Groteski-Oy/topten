@@ -3,7 +3,7 @@ jQuery(document).ready(($) => {
 	 * Menun avaus
 	 */
 	$(document).on('click', '#toggleMenu', () => {
-		if($('#toggleMenu').hasClass('open')) {
+		if ($('#toggleMenu').hasClass('open')) {
 			$('#site-navigation').fadeOut(300);
 			$('#masthead').removeClass('open');
 			$('#toggleMenu').removeClass('open');
@@ -17,8 +17,6 @@ jQuery(document).ready(($) => {
 			$('#site-navigation').attr('aria-expanded', 'true');
 		}
 	});
-		
-	
 
 	/**
 	 * Alavalikon avaus

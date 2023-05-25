@@ -211,8 +211,8 @@ function topten_scripts() {
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'jquery' );
-	
-	wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js', array(), TOPTEN_VERSION );
+
+	wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js', array( 'jquery' ), '1.13.2', true );
 
 	wp_enqueue_script( 'topten', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
@@ -238,10 +238,10 @@ function topten_scripts() {
 			array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( 'nonce' ),
-			) 
+			)
 		);
 	}
-	
+
 	wp_localize_script(
 		'topten',
 		'REST',
@@ -914,17 +914,17 @@ function topten_card_search() {
 					'value'   => 'publish',
 					'compare' => '=',
 				),
-			)
+			),
 		),
 		'tax_query'      => array(),
 	);
 
 	if ( isset( $_POST['cardStatusType'] ) ) {
 		$card_status_type = sanitize_text_field( wp_unslash( $_POST['cardStatusType'] ) );
-		if ('valid' !== $card_status_type && 'future' !== $card_status_type && 'past' !== $card_status_type) {
-			wp_die('Invalid card status type');
+		if ( 'valid' !== $card_status_type && 'future' !== $card_status_type && 'past' !== $card_status_type ) {
+			wp_die( 'Invalid card status type' );
 		} else {
-			if ('past' === $card_status_type) {
+			if ( 'past' === $card_status_type ) {
 				$args['meta_query'][] =
 				array(
 					'relation' => 'OR',
@@ -939,8 +939,8 @@ function topten_card_search() {
 						'compare' => '=',
 					),
 				);
-				
-			} else if ('valid' === $card_status_type) {
+
+			} elseif ( 'valid' === $card_status_type ) {
 				$args['meta_query'][] =
 				array(
 					'relation' => 'OR',
@@ -955,7 +955,7 @@ function topten_card_search() {
 						'compare' => '=',
 					),
 				);
-			} else if ('future' === $card_status_type) {
+			} elseif ( 'future' === $card_status_type ) {
 				$args['meta_query'][] =
 				array(
 					'relation' => 'OR',
@@ -967,7 +967,7 @@ function topten_card_search() {
 				);
 			}
 		}
-	} 
+	}
 
 
 
@@ -994,28 +994,29 @@ function topten_card_search() {
 	}
 
 	if ( isset( $_POST['cardClasses'] ) ) {
-		if ( !empty($_POST['cardClasses'] ) ) {
+		if ( ! empty( $_POST['cardClasses'] ) ) {
 			// sanitize array values
 			$card_classes = array_map( 'intval', $_POST['cardClasses'] );
 		}
-		if( !$card_classes ) {
+		if ( ! $card_classes ) {
 			$card_classes = '';
 		}
 	}
-	json_log($card_classes);
-	if ( !empty( $card_classes ) && isset ( $card_classes )) {
-		
+	json_log( $card_classes );
+	if ( ! empty( $card_classes ) && isset( $card_classes ) ) {
+
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'luokka',
 				'field'    => 'term_id',
 				'terms'    => $card_classes,
 			);
-		
+
 	}
 
 	// Municipality (multiple values)
 	// Not in use due to customer request
+
 	/*
 	if ( isset( $_POST['cardmunicipalities'] ) ) {
 		if ( ! empty( $_POST['cardmunicipalities'] ) ) {
@@ -1047,14 +1048,14 @@ function topten_card_search() {
 	}
 
 	if ( $law ) {
-		
+
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'laki',
 				'field'    => 'term_id',
 				'terms'    => $law,
 			);
-		
+
 	}
 
 	// Category (single value)
@@ -1081,56 +1082,56 @@ function topten_card_search() {
 
 		// Sanitize array
 		$keywords = array_map( 'intval', $_POST['cardkeywords'] );
-		
+
 		if ( ! $keywords ) {
 			$keywords = '';
-		}   
+		}
 	}
 
-	if ( isset( $keywords ) && !empty( $keywords )) {
-		
+	if ( isset( $keywords ) && ! empty( $keywords ) ) {
+
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'asiasanat',
 				'field'    => 'term_id',
 				'terms'    => $keywords,
 			);
-	} 
+	}
 
 	// Card publish date. User can filter by either starting from, ending at or both.
 	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
 	$cardDateEnd   = isset( $_POST['cardDateEnd'] ) ? sanitize_text_field( $_POST['cardDateEnd'] ) : '';
-	
-	
+
+
 	if ( $cardDateStart && ! $cardDateEnd ) {
-		
+
 		$args['date_query'] = array(
 			array(
 				'after' => $cardDateStart,
-				
+
 			),
 		);
-	
+
 	} elseif ( ! $cardDateStart && $cardDateEnd ) {
-		
+
 		$args['date_query'] = array(
 			array(
 				'before' => $cardDateEnd,
-				
+
 			),
 		);
-	
+
 	} elseif ( $cardDateStart && $cardDateEnd ) {
-		
+
 		$args['date_query'] = array(
 			array(
 				'after'  => $cardDateStart,
 				'before' => $cardDateEnd,
-				
+
 			),
 		);
 
-	} 
+	}
 
 	// Display order of cards
 	$filterOrder = isset( $_POST['filterOrder'] ) ? sanitize_text_field( $_POST['filterOrder'] ) : '';
@@ -1141,7 +1142,7 @@ function topten_card_search() {
 			$args['orderby']  = 'meta_value';
 			$args['meta_key'] = 'identifier_start';
 			$args['order']    = 'ASC';
-			// Publish date, descending order 
+			// Publish date, descending order
 		} elseif ( $filterOrder === 'publishDate' ) {
 			$args['orderby'] = 'date';
 			$args['order']   = 'DESC';
@@ -1149,9 +1150,9 @@ function topten_card_search() {
 		} elseif ( $filterOrder === 'title' ) {
 			$args['orderby'] = 'title';
 			$args['order']   = 'ASC';
-		}   
+		}
 	}
-	
+
 
 	$the_query = new WP_Query();
 	json_log( $args );
@@ -1163,8 +1164,8 @@ function topten_card_search() {
 	} else {
 		$the_query->query( $args );
 	}
-	
-	
+
+
 	// If posts are found, save them to their own arrays from which one array is created
 
 	if ( $the_query->have_posts() ) {
@@ -1177,15 +1178,13 @@ function topten_card_search() {
 				$ohje_array[] = $post_id;
 			} elseif ( 'lomakekortti' === get_post_type( $post_id ) ) {
 				$lomake_array[] = $post_id;
-			} else {
-				// Nothing here.
-			}       
+			}
 		}
 	}
 	// If nothing is found, return notice to user
 	if ( empty( $tulkinta_array ) && empty( $ohje_array ) && empty( $lomake_array ) ) {
 		$results  = '<div class="no-results">';
-		$results .= '<p>' . esc_html( 'Ei hakutuloksia.', 'topten' ) . '</p>';
+		$results .= '<p>' . esc_html__( 'Ei hakutuloksia.', 'topten' ) . '</p>';
 		$results .= '</div>';
 		// return results and die
 		echo $results;
@@ -1200,7 +1199,7 @@ function topten_card_search() {
 		// Run function to get the results
 		topten_card_list( $card_array );
 	}
-	
+
 	// You need to use wp_die for ajax calls
 	wp_die();
 }
@@ -1220,10 +1219,10 @@ function topten_fetch_suggestions() {
 	} else {
 		$type = sanitize_text_field( $_POST['type'] );
 	}
-	
+
 	// Get input
 	if ( isset( $_POST['userInput'] ) ) {
-		$userInput = sanitize_text_field( $_POST['userInput'] ); 
+		$userInput = sanitize_text_field( $_POST['userInput'] );
 		if ( ! $type ) {
 			wp_die();
 		} else {
@@ -1245,14 +1244,14 @@ function topten_fetch_suggestions() {
 	);
 
 	$terms = get_terms( $args );
-	
+
 
 	if ( $terms ) {
 		$list = array();
 		foreach ( $terms as $index => $term ) {
 			$list[ $index ]['label'] = $term->name;
 			$list[ $index ]['value'] = $term->term_id;
-		}   
+		}
 	} else {
 		$list = array();
 	}
@@ -1295,7 +1294,7 @@ function topten_fetch_terms() {
 			wp_die();
 		}
 	}
-	
+
 	$args  = array(
 		'taxonomy' => $tax,
 		'orderby'  => 'title',
@@ -1303,19 +1302,19 @@ function topten_fetch_terms() {
 		'include'  => $keywords,
 	);
 	$terms = get_terms( $args );
-	
+
 	if ( $terms ) {
 		$list = array();
 		foreach ( $terms as $index => $term ) {
 			$list[ $index ]['label'] = $term->name;
 			$list[ $index ]['value'] = $term->term_id;
-		}   
+		}
 	} else {
 		$list = array();
 	}
-	
+
 	wp_send_json_success( $list );
-	
+
 	wp_die();
 }
 
@@ -1334,7 +1333,7 @@ function topten_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'topten_excerpt_length', 999 );
 
 
-	
+
 add_filter( 'wp_lazy_loading_enabled', '__return_true' );
 
 // Everyone knows what asterisk means in forms so we don't need to display this

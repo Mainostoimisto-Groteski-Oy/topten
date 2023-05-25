@@ -10,13 +10,14 @@ body.page {
 				padding: 10px 15px;
 
 				a {
-					color: $red;
 					text-decoration: underline;
 					font-size: 1.8rem;
 					color: $black;
 				}
+
 				p#breadcrumbs {
 					margin: 5px 0;
+
 					span {
 						font-size: 1.8rem;
 					}
