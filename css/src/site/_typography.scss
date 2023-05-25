@@ -13,6 +13,7 @@ body {
 .ingress {
 	font-size: 2.8rem;
 	color: $black;
+
 	> p {
 		font-weight: 400;
 	}
@@ -33,8 +34,8 @@ sup {
 	font-weight: 400;
 	line-height: 1.7;
 	letter-spacing: 0.2px;
-
 }
+
 input,
 select,
 button,
@@ -44,18 +45,21 @@ textarea {
 }
 
 p {
-	margin: 16px 0px;
+	margin: 16px 0;
 }
 
 a {
 	color: $black;
 }
+
 sup {
-	top: -5px; 
+	top: -5px;
 }
+
 sub {
-	bottom: -5px; 
+	bottom: -5px;
 }
+
 // h1, h2 jne on nyt mixiniä, jotta ne saadaan järkevästi myös editoriin
 // mixins/_headings.scss
 @include headings;

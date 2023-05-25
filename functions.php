@@ -914,17 +914,17 @@ function topten_card_search() {
 					'value'   => 'publish',
 					'compare' => '=',
 				),
-			)
+			),
 		),
 		'tax_query'      => array(),
 	);
 
 	if ( isset( $_POST['cardStatusType'] ) ) {
 		$card_status_type = sanitize_text_field( wp_unslash( $_POST['cardStatusType'] ) );
-		if ('valid' !== $card_status_type && 'future' !== $card_status_type && 'past' !== $card_status_type) {
-			wp_die('Invalid card status type');
+		if ( 'valid' !== $card_status_type && 'future' !== $card_status_type && 'past' !== $card_status_type ) {
+			wp_die( 'Invalid card status type' );
 		} else {
-			if ('past' === $card_status_type) {
+			if ( 'past' === $card_status_type ) {
 				$args['meta_query'][] =
 				array(
 					'relation' => 'OR',
@@ -940,7 +940,7 @@ function topten_card_search() {
 					),
 				);
 
-			} else if ('valid' === $card_status_type) {
+			} elseif ( 'valid' === $card_status_type ) {
 				$args['meta_query'][] =
 				array(
 					'relation' => 'OR',
@@ -955,7 +955,7 @@ function topten_card_search() {
 						'compare' => '=',
 					),
 				);
-			} else if ('future' === $card_status_type) {
+			} elseif ( 'future' === $card_status_type ) {
 				$args['meta_query'][] =
 				array(
 					'relation' => 'OR',
@@ -994,16 +994,16 @@ function topten_card_search() {
 	}
 
 	if ( isset( $_POST['cardClasses'] ) ) {
-		if ( !empty($_POST['cardClasses'] ) ) {
+		if ( ! empty( $_POST['cardClasses'] ) ) {
 			// sanitize array values
 			$card_classes = array_map( 'intval', $_POST['cardClasses'] );
 		}
-		if( !$card_classes ) {
+		if ( ! $card_classes ) {
 			$card_classes = '';
 		}
 	}
-	json_log($card_classes);
-	if ( !empty( $card_classes ) && isset ( $card_classes )) {
+	json_log( $card_classes );
+	if ( ! empty( $card_classes ) && isset( $card_classes ) ) {
 
 		$args['tax_query'][] =
 			array(
@@ -1016,6 +1016,7 @@ function topten_card_search() {
 
 	// Municipality (multiple values)
 	// Not in use due to customer request
+
 	/*
 	if ( isset( $_POST['cardmunicipalities'] ) ) {
 		if ( ! empty( $_POST['cardmunicipalities'] ) ) {
@@ -1087,7 +1088,7 @@ function topten_card_search() {
 		}
 	}
 
-	if ( isset( $keywords ) && !empty( $keywords )) {
+	if ( isset( $keywords ) && ! empty( $keywords ) ) {
 
 		$args['tax_query'][] =
 			array(
@@ -1177,15 +1178,13 @@ function topten_card_search() {
 				$ohje_array[] = $post_id;
 			} elseif ( 'lomakekortti' === get_post_type( $post_id ) ) {
 				$lomake_array[] = $post_id;
-			} else {
-				// Nothing here.
 			}
 		}
 	}
 	// If nothing is found, return notice to user
 	if ( empty( $tulkinta_array ) && empty( $ohje_array ) && empty( $lomake_array ) ) {
 		$results  = '<div class="no-results">';
-		$results .= '<p>' . esc_html( 'Ei hakutuloksia.', 'topten' ) . '</p>';
+		$results .= '<p>' . esc_html__( 'Ei hakutuloksia.', 'topten' ) . '</p>';
 		$results .= '</div>';
 		// return results and die
 		echo $results;

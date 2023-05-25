@@ -1,20 +1,20 @@
 <?php 
-if(empty(topten_block_title(false)) && empty(get_field('description')) || empty(get_field('logos'))) {
+if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) ) || empty( get_field( 'logos' ) ) ) {
 	$rows = 1;
-	$gap = 'auto';
+	$gap  = 'auto';
 } else {
 	$rows = 2;
-	$gap = 'none';
+	$gap  = 'none';
 }
 
 ?>
 <section <?php topten_block_id(); ?> class="logos-block">
-	<div class="grid rows-<?php echo esc_attr($rows); ?> gap-<?php echo esc_attr($gap); ?>">
-		<?php if(!empty(topten_block_title(false)) || !empty(get_field('description'))) : ?>
+	<div class="grid rows-<?php echo esc_attr( $rows ); ?> gap-<?php echo esc_attr( $gap ); ?>">
+		<?php if ( ! empty( topten_block_title( false ) ) || ! empty( get_field( 'description' ) ) ) : ?>
 			
 			<div class="text-block">
 
-				<?php if(!empty(topten_block_title(false))) : ?>
+				<?php if ( ! empty( topten_block_title( false ) ) ) : ?>
 					<?php topten_block_title(); ?>
 				<?php endif; ?>
 
@@ -58,7 +58,7 @@ if(empty(topten_block_title(false)) && empty(get_field('description')) || empty(
 						else :
 							echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
 						endif;
-					elseif ( $name && !$logo ) :
+					elseif ( $name && ! $logo ) :
 						$text = get_sub_field( 'name' );
 						$link = get_sub_field( 'link' );
 						if ( $link ) :
@@ -68,7 +68,7 @@ if(empty(topten_block_title(false)) && empty(get_field('description')) || empty(
 
 							echo sprintf( '<a class="logo text" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $text ) );
 						else :
-							echo sprintf( '<div class="logo text">%s</div>', wp_kses_post( $text ) );	
+							echo sprintf( '<div class="logo text">%s</div>', wp_kses_post( $text ) );   
 						endif;
 					endif;
 				endwhile;

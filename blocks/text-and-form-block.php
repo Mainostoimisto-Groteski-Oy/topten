@@ -1,6 +1,6 @@
 <?php
-$text_block  = get_field( 'text_block' );
-$order = get_field('order');
+$text_block = get_field( 'text_block' );
+$order      = get_field( 'order' );
 
 ?>
 
@@ -17,9 +17,9 @@ $order = get_field('order');
 		</div>
 
 		<div class="form-block <?php echo esc_attr( $order ); ?>">
-			<?php if ( ! empty( get_field('form') ) ) : ?>
-				<?php $formID = get_field('form'); ?>
-				<?php echo do_shortcode('[gravityform id="' . esc_attr($formID) . '" title="false" description="false" ajax="true"]'); ?>
+			<?php if ( ! empty( get_field( 'form' ) ) ) : ?>
+				<?php $formID = get_field( 'form' ); ?>
+				<?php echo do_shortcode( '[gravityform id="' . esc_attr( $formID ) . '" title="false" description="false" ajax="true"]' ); ?>
 			<?php endif; ?>
 		</div>
 	</div>

@@ -80,7 +80,7 @@ if ( 'newest' === $articles_type ) {
 						$title            = $post->post_title;
 						$type             = get_post_type( $id );
 						$version          = get_field( 'version', $id );
-						$post_date         = date( 'j.n.Y', strtotime( $post->post_date ) );
+						$post_date        = date( 'j.n.Y', strtotime( $post->post_date ) );
 						$link             = get_permalink( $id );
 						$summary          = get_field( 'edit_summary', $id );
 						?>

@@ -36,11 +36,7 @@ $cardClasses = get_terms(
 
 ?>
 
-<main id="primary" class="site-main" data-template="<?php echo esc_html(get_field('card_status_type')); ?>">
-
-
-
-
+<main id="primary" class="site-main" data-template="<?php echo esc_html( get_field( 'card_status_type' ) ); ?>">
 	<?php topten_breadcrumbs(); ?>
 
 	<?php the_content(); ?>
@@ -65,7 +61,7 @@ $cardClasses = get_terms(
 										id="freeText"
 										placeholder="<?php esc_html_e( 'Avoin tekstihaku', 'topten' ); ?>" />
 
-									
+
 								</div>
 
 							</div>
@@ -156,30 +152,30 @@ $cardClasses = get_terms(
 							</div>
 						<?php endif; ?>
 
-						<?php if( $cardClasses ) : ?>
+						<?php if ( $cardClasses ) : ?>
 							<div class="full checkboxes" id="classCheckboxes">
 								<p for="cardClass" class="label">
-									<?php esc_html_e('Näytä kortit luokasta'); ?>
+									<?php esc_html_e( 'Näytä kortit luokasta' ); ?>
 								</p>
-							
+
 									<?php foreach ( $cardClasses as $class ) : ?>
-									<div class="input-wrapper horizontal">	
+									<div class="input-wrapper horizontal">
 										<div class="checkbox-wrapper">
-											<label for="class-<?php echo esc_html($class->slug); ?>" class="inner-wrapper">
+											<label for="class-<?php echo esc_html( $class->slug ); ?>" class="inner-wrapper">
 												<input class=""
 													type="checkbox"
 													name="cardclassfilter"
 													data-name="<?php echo esc_html_e( $class->name, 'topten' ); ?>"
-													id="class-<?php echo esc_html($class->slug); ?>"
-													value="<?php echo esc_html($class->term_id); ?>"
+													id="class-<?php echo esc_html( $class->slug ); ?>"
+													value="<?php echo esc_html( $class->term_id ); ?>"
 													checked />
 												<span class="checkmark"></span>
 											</label>
 										</div>
-										<span class="check" data-name="cardclassfilter" data-id="<?php echo esc_html($class->term_id); ?>"><?php esc_html_e( $class->name, 'topten' ); ?></span>
+										<span class="check" data-name="cardclassfilter" data-id="<?php echo esc_html( $class->term_id ); ?>"><?php esc_html_e( $class->name, 'topten' ); ?></span>
 									</div>
 									<?php endforeach; ?>
-								
+
 							</div>
 						<?php endif; ?>
 
@@ -197,19 +193,19 @@ $cardClasses = get_terms(
 					<div class="sidebar" id="cardSidebar">
 						<h3 class="h4 title"><?php esc_html_e( 'Käytössä olevat suodattimet', 'topten' ); ?></h3>
 						<figure>
-							<figcaption class="small"><?php esc_html_e('Avoin tekstihaku'); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e( 'Avoin tekstihaku', 'topten' ); ?></figcaption>
 							<ul class="keywords" id="selectedFreeText"></ul>
 						</figure>
 						<figure>
-							<figcaption class="small"><?php esc_html_e('Valitut asiasanat'); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e( 'Valitut asiasanat', 'topten' ); ?></figcaption>
 							<ul class="keywords" id="selectedkeywords"></ul>
 						</figure>
 						<figure>
-							<figcaption class="small"><?php esc_html_e('Näytä kortit joita koskee pykälä '); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e( 'Näytä kortit joita koskee pykälä ', 'topten' ); ?></figcaption>
 							<ul class="keywords" id="selectedLaw"></ul>
 						</figure>
 						<figure>
-							<figcaption class="small"><?php esc_html_e('Kortit ajanjaksolta'); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e( 'Kortit ajanjaksolta', 'topten' ); ?></figcaption>
 							<ul class="keywords" id="selectedDateRange">
 								<li id="selectedDateStart"></li>
 								<li id="divider">-</li>
@@ -217,26 +213,26 @@ $cardClasses = get_terms(
 							</ul>
 						</figure>
 						<figure>
-							<figcaption class="small"><?php esc_html_e('Valittu vastuuryhmä'); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e( 'Valittu vastuuryhmä', 'topten' ); ?></figcaption>
 							<ul class="keywords" id="selectedCategory"></ul>
 						</figure>
 						<figure class="classes">
-							<figcaption class="small"><?php esc_html_e('Näytä kortit luokasta'); ?></figcaption>
+							<figcaption class="small"><?php esc_html_e( 'Näytä kortit luokasta', 'topten' ); ?></figcaption>
 							<ul class="keywords" id="selectedCardClasses"></ul>
 						</figure>
 						<button type="submit"
 							class="resetFilters"
 							name="resetFilters"
 							id="resetFilters">
-							
+
 						<?php esc_html_e( 'Tyhjennä kaikki valinnat', 'topten' ); ?>
 					</div>
-				
+
 
 			</div> <!-- end content area -->
 
-			
-			
+
+
 		</div><!-- end top grid -->
 	</section>
 	<section class="cards list">
@@ -314,11 +310,11 @@ $cardClasses = get_terms(
 
 			<div class="list" id="listCards">
 				<div class="cardlist" id="tulkintakortit">
-					
+
 				</div>
 
 				<div class="cardlist" id="ohjekortit">
-					
+
 				</div>
 
 				<div class="cardlist" id="lomakekortit">

@@ -14,31 +14,31 @@ $type             = get_post_type( $id );
 $version          = get_field( 'version', $id );
 $post_date        = date( 'j.n.Y', strtotime( $post->post_date ) );
 $keywords         = get_the_terms( $id, 'asiasanat' );
-$full_name = $identifier_start.' '.$identifier_end.' '.$version.' '.get_the_title($id);
-$status = get_field('card_status_publish', $id);
+$full_name        = $identifier_start . ' ' . $identifier_end . ' ' . $version . ' ' . get_the_title( $id );
+$status           = get_field( 'card_status_publish', $id );
 
-if(is_array($status)) {
-	if (in_array('valid', $status) || in_array('approved_for_repeal' === $status)) {
-		$status = 'valid';
-		$target_url = home_url().'/rakentamisen-yhteiset-kaytannot/';
-		$insert = 'Rakentamisen yhteiset käytännöt';
-	} else if (in_array('expired', $status) || in_array('repealed' === $status)) {
-		$status = 'past';
-		$target_url = home_url().'/arkisto/';
-		$insert = 'Arkisto';
-	} else if (in_array('future' === $status)) {
-		$status = 'future';
-		$target_url = home_url().'/rakentamislaki-2025/';
-		$insert = 'Rakentamislaki 2025';
+if ( is_array( $status ) ) {
+	if ( in_array( 'valid', $status ) || in_array( 'approved_for_repeal' === $status ) ) {
+		$status     = 'valid';
+		$target_url = home_url() . '/rakentamisen-yhteiset-kaytannot/';
+		$insert     = 'Rakentamisen yhteiset käytännöt';
+	} elseif ( in_array( 'expired', $status ) || in_array( 'repealed' === $status ) ) {
+		$status     = 'past';
+		$target_url = home_url() . '/arkisto/';
+		$insert     = 'Arkisto';
+	} elseif ( in_array( 'future' === $status ) ) {
+		$status     = 'future';
+		$target_url = home_url() . '/rakentamislaki-2025/';
+		$insert     = 'Rakentamislaki 2025';
 	} else {
-		$status = '';
+		$status     = '';
 		$target_url = '';
-		$insert = '';
+		$insert     = '';
 	}
 } else {
-	$status = '';
+	$status     = '';
 	$target_url = '';
-	$insert = '';
+	$insert     = '';
 }
 	
 
@@ -55,11 +55,8 @@ if(is_array($status)) {
 <h1 class="screen-reader-text">
 	<?php the_title(); ?>
 </h1>
-<?php
-
-?>
 <div class="grid sidebar-grid">
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> data-status="<?php echo esc_attr($status); ?>">
+	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> data-status="<?php echo esc_attr( $status ); ?>">
 		<div class="card-content">
 			<section class="row-block top">
 				<div class="grid">
@@ -123,7 +120,7 @@ if(is_array($status)) {
 		<div class="box open">
 			<div class="box-title">
 				<h3 class="h2">
-					<?php esc_html_e('Sisällysluettelo', 'topten'); ?>
+					<?php esc_html_e( 'Sisällysluettelo', 'topten' ); ?>
 				</h3>
 				<button class="material-icons" aria-expanded="true">double_arrow</button>
 			</div>
@@ -135,7 +132,7 @@ if(is_array($status)) {
 		<div class="box">
 			<div class="box-title">
 				<h3 class="h2">
-					<?php esc_html_e('Asiasanat', 'topten'); ?>
+					<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
 				</h3>
 				<button class="material-icons" aria-expanded="false">double_arrow</button>
 			</div>
@@ -143,14 +140,15 @@ if(is_array($status)) {
 				<ul class="keywords" aria-expanded="false">
 					<?php $keywords_count = count( $keywords ) - 1; ?>
 
-					<?php foreach ( $keywords as $index => $keyword ) : 
-						$redirect_url = $target_url.'?keyword='.$keyword->term_id;
+					<?php 
+					foreach ( $keywords as $index => $keyword ) : 
+						$redirect_url = $target_url . '?keyword=' . $keyword->term_id;
 						?>
 						<li class="keyword">
-							<a class="name" href="<?php echo esc_url($redirect_url); ?>"><span><?php echo esc_html( $keyword->name ); ?></span></a>
+							<a class="name" href="<?php echo esc_url( $redirect_url ); ?>"><span><?php echo esc_html( $keyword->name ); ?></span></a>
 						
-							<?php if( get_field('link', $keyword->taxonomy. '_' .$keyword->term_id ) ) : ?>
-								<a href="<?php echo esc_url( get_field('link', $keyword->taxonomy. '_' .$keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
+							<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
+								<a href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
 									info
 								</a>
 							<?php endif; ?>
@@ -168,7 +166,7 @@ if(is_array($status)) {
 				<button class="material-icons" aria-expanded="false">double_arrow</button>
 			</div>
 			<div class="box-content">
-				<?php echo do_shortcode('[gravityform id="2" field_values="card_title='.esc_html($full_name).'" title="false" description="false" ajax="true"]'); ?>
+				<?php echo do_shortcode( '[gravityform id="2" field_values="card_title=' . esc_html( $full_name ) . '" title="false" description="false" ajax="true"]' ); ?>
 			</div>
 		</div>
 		

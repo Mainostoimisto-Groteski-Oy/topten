@@ -2,77 +2,91 @@
 
 section.hero-block {
 	@include buttons;
+
 	width: 100%;
 	position: relative;
+
 	&.hero-image {
 		background-size: cover;
 		background-repeat: no-repeat;
 		height: 700px;
 		min-height: 700px;
+
 		.hero-content-wrapper {
 			.grid {
 				align-items: end;
 			}
 		}
 	}
-	&.hero-image-text {
 
+	&.hero-image-text {
 		.hero-content-wrapper {
 			.grid-full {
 				grid-template-columns: repeat(2, minmax(0, 1fr));
 				gap: 30px;
-				@media(max-width:$max-m) {
+
+				@media (max-width: $max-m) {
 					grid-template-columns: minmax(0, 1fr);
 				}
+
 				.text-block {
 					display: flex;
 					flex-direction: column;
+
 					.title {
-						margin: 15px 0px;
+						margin: 15px 0;
 					}
+
 					.logo {
 						img {
 							max-width: 250px;
 						}
 					}
+
 					.ingress {
 						p {
 							font-size: 2.2rem;
 						}
 					}
+
 					.buttons {
 						margin-top: auto;
 					}
 				}
+
 				.image-block {
 					min-height: 700px;
 					background-size: cover;
 					background-repeat: no-repeat;
-					@media(max-width:$max-m) {
+
+					@media (max-width: $max-m) {
 						min-height: unset;
 						height: 350px;
 					}
-					@media(max-width:$max-xs) {
+
+					@media (max-width: $max-xs) {
 						height: 300px;
 					}
-					@media(max-width:$min-xxs) {
+
+					@media (max-width: $min-xxs) {
 						height: 250px;
 					}
+
 					&.right {
-						@media(min-width:$min-l) {
+						@media (min-width: $min-l) {
 							order: 1;
 						}
-					
-			
 					}
 				}
 			}
 		}
 	}
+
 	.hero-content-wrapper {
 		position: relative;
 		width: 100%;
 		height: 100%;
+
 		.grid {
 			height: 100%;
 		}

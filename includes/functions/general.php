@@ -43,7 +43,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$title            = get_the_title( $card );
 	$type             = get_post_type( $id );
 	$version          = get_field( 'version', $id );
-	$post_date         = date( 'j.n.Y', strtotime( $card->post_date ) );
+	$post_date        = date( 'j.n.Y', strtotime( $card->post_date ) );
 	$link             = get_permalink( $id );
 
 	$html  = '<li class="card">';
