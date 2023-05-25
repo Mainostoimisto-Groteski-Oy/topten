@@ -1,7 +1,10 @@
 @use "mixins/all" as *;
+@use sass:color;
 
 .acf-block-preview {
 	.row-block {
+		background-color: color.adjust($white, -5%);
+
 		.grid {
 			display: unset;
 
