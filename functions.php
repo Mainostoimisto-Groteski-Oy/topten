@@ -86,9 +86,9 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 
 	acf_add_options_page(
 		array(
-			'page_title' => 'Header',
-			'menu_title' => 'Header',
-			'menu_slug'  => 'header-settings',
+			'page_title' => 'Sivuston asetukset',
+			'menu_title' => 'Sivusto',
+			'menu_slug'  => 'general-settings',
 			'redirect'   => false,
 			'capability' => 'administrator',
 		)
