@@ -26,6 +26,40 @@
             "append": ""
         },
         {
+            "key": "field_64705b1e730a5",
+            "label": "Sarakkeen leveydet",
+            "name": "1_column_width",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64144fbf5ffe9",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "[100]": "100"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_646f3ad520c16",
             "label": "Sarakkeen leveydet",
             "name": "2_column_width",
@@ -85,10 +119,44 @@
             },
             "relevanssi_exclude": 0,
             "choices": {
-                "33 \/ 33 \/ 33": "33 \/ 33 \/ 33",
-                "50 \/ 25 \/ 25": "50 \/ 25 \/ 25",
-                "25 \/ 50 \/ 25": "25 \/ 50 \/ 25",
-                "25 \/ 25 \/ 50": "25 \/ 25 \/ 50"
+                "[33,33,33]": "33 \/ 33 \/ 33",
+                "[50,25,25]": "50 \/ 25 \/ 25",
+                "[25,50,25]": "25 \/ 50 \/ 25",
+                "[25,25,50]": "25 \/ 25 \/ 50"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6470430f26f9c",
+            "label": "Sarakkeen leveydet",
+            "name": "4_column_width",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64144fbf5ffe9",
+                        "operator": "==",
+                        "value": "4"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "[25,25,25,25]": "25 \/ 25 \/ 25 \/ 25"
             },
             "default_value": false,
             "return_format": "value",
@@ -117,5 +185,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1685013705
+    "modified": 1685084984
 }

@@ -28,7 +28,15 @@
 	article {
 		.card-content {
 			.title {
-				margin-bottom: 0;
+				margin: 0;
+			}
+
+			.desc {
+				font-size: 1.4rem;
+				font-style: italic;
+				font-weight: 400;
+				margin-top: 0;
+				scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
 			}
 
 			.tulkinta {
@@ -298,6 +306,7 @@
 		ol.table-of-contents {
 			margin-left: 0;
 			padding-left: 15px;
+			counter-reset: item;
 
 			li {
 				font-size: 1.8rem;
@@ -306,6 +315,26 @@
 				a {
 					font-size: 1.8rem;
 					font-weight: 400;
+				}
+			}
+
+			> li {
+				counter-increment: item;
+			}
+
+			ol.sub-list {
+				list-style-type: none;
+				counter-reset: item;
+				padding-left: 0;
+				margin-left: 0;
+
+				> li {
+					display: block;
+					counter-increment: item;
+
+					&::before {
+						content: counters(item, ".") ". ";
+					}
 				}
 			}
 		}

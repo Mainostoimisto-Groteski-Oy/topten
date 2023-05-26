@@ -5,6 +5,10 @@
 		border-right: 1px solid $red;
 		padding: 15px 30px;
 
+		&:last-of-type {
+			border-right: none;
+		}
+
 		p {
 			margin: 0;
 			line-height: 1.5;
@@ -33,10 +37,6 @@
 			em {
 				font-size: 2rem;
 			}
-		}
-
-		&:last-of-type {
-			border-right: none;
 		}
 	}
 }

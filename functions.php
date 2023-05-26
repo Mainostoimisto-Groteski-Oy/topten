@@ -1321,20 +1321,36 @@ function topten_fetch_terms() {
 add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
 add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );
 
-
 function topten_excerpt_more( $more ) {
 	return '..';
 }
+
 add_filter( 'excerpt_more', 'topten_excerpt_more' );
 
 function topten_excerpt_length( $length ) {
 	return 20;
 }
+
 add_filter( 'excerpt_length', 'topten_excerpt_length', 999 );
-
-
 
 add_filter( 'wp_lazy_loading_enabled', '__return_true' );
 
 // Everyone knows what asterisk means in forms so we don't need to display this
 add_filter( 'gform_required_legend', '__return_empty_string' );
+
+/**
+ * Generate unique ACF block id
+ *
+ * @see https://www.advancedcustomfields.com/resources/whats-new-with-acf-blocks-in-acf-6/#block-id)
+ *
+ * @param array $attributes ACF block attributes
+ */
+function topten_acf_unique_block_id( $attributes ) {
+	if ( empty( $attributes['anchor'] ) ) {
+		$attributes['anchor'] = 'acf-block-' . uniqid();
+	}
+
+	return $attributes;
+}
+
+add_filter( 'acf/pre_save_block', 'topten_acf_unique_block_id' );

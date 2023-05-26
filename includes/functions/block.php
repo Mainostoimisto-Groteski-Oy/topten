@@ -120,7 +120,7 @@ function topten_buttons( $block = array(), $background = '' ) {
 					$href   = $button['url'];
 					$title  = $button['title'];
 					$target = $button['target'];
-					
+
 					echo sprintf( '<a class="button background-%s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 				}
 			}
@@ -154,26 +154,49 @@ function topten_buttons( $block = array(), $background = '' ) {
 function topten_get_table_of_contents() {
 	$blocks = parse_blocks( get_the_content() );
 
-	$table_of_contents = '<ol class="table-of-contents">';
+	$table_of_contents = '<ol class="table-of-contents" role="list">';
+
+	$currently_in_sublist = false;
+	$is_open              = false;
 
 	// Rivit
 	foreach ( $blocks as $row ) {
 		if ( ! empty( $row['innerBlocks'] ) ) {
 
 			// Sarakkeet
-			foreach ( $row['innerBlocks'] as $column ) {
+			foreach ( $row['innerBlocks'] as $index => $column ) {
 				if ( ! empty( $column['innerBlocks'] ) ) {
 
 					// Sarakkeen lohkot
-					foreach ( $column['innerBlocks'] as $block ) {
-						if ( ! empty( $block['attrs']['data']['description'] ) ) {
-							$title = $block['attrs']['data']['description'];
-							$id    = sanitize_title( $block['attrs']['data']['description'] );
+					foreach ( $column['innerBlocks'] as $index => $block ) {
+						if ( 'acf/otsikko' === $block['blockName'] ) {
+							$title = $block['attrs']['data']['title'];
+							$id    = sanitize_title( $block['attrs']['data']['title'] );
 							$href  = sprintf( '#%s', $id );
+							$tag   = $block['attrs']['data']['title_tag'];
+
+							$string = '';
+
+							if ( 'h3' === $tag ) {
+								$currently_in_sublist = true;
+
+								if ( ! $is_open ) {
+									$table_of_contents .= '<ol class="sub-list" role="list">';
+									$is_open            = true;
+								}
+							} else {
+								$currently_in_sublist = false;
+							}
 
 							$link = sprintf( '<a href="%s" aria-label="%s">%s</a>', $href, $title, $title );
 
-							$table_of_contents .= sprintf( '<li>%s</li>', $link );
+							$string .= sprintf( '<li>%s</li>', $link );
+
+							if ( ! $currently_in_sublist && $is_open ) {
+								$table_of_contents .= '</ol>' . $string;
+							} else {
+								$table_of_contents .= $string;
+							}
 						}
 					}
 				}
