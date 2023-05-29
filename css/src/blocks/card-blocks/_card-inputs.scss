@@ -12,6 +12,17 @@
 		}
 	}
 
+	&.radios-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.radios {
+			display: flex;
+			gap: 50px;
+		}
+	}
+
 	textarea {
 		resize: none;
 	}
@@ -23,7 +34,19 @@
 			flex-direction: column;
 		}
 
-		&.checkbox-field {
+		&.text-field {
+			.input-field-wrapper {
+				display: flex;
+				gap: 5px;
+
+				input {
+					width: 100%;
+				}
+			}
+		}
+
+		&.checkbox-field,
+		&.radio-field {
 			display: flex;
 			gap: 5px;
 		}

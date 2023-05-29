@@ -290,6 +290,7 @@ $card_allowed_blocks = array(
 	'acf/tekstikentta',
 	'acf/tekstialue',
 	'acf/valintaruudut',
+	'acf/valintanapit',
 );
 
 /**
@@ -780,6 +781,21 @@ function topten_acf() {
 		$block_name  = 'Valintaruudut';
 		$block_slug  = 'card-input-checkboxes';
 		$description = 'Valintaruudut';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
+
+
+		$block_name  = 'Valintanapit';
+		$block_slug  = 'card-input-radios';
+		$description = 'Valintanapit';
 
 		acf_register_block_type(
 			array(

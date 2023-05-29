@@ -6,7 +6,7 @@ $description = get_field( 'description' );
 $required = get_field( 'required' );
 ?>
 
-<div class="input-wrapper checkboxes-wrapper">
+<div class="input-wrapper radios-wrapper">
 	<?php if ( $description ) : ?>
 		<p class="description">
 			<?php echo esc_html( $description ); ?>
@@ -19,9 +19,9 @@ $required = get_field( 'required' );
 		</p>
 	<?php endif; ?>
 
-	<?php if ( have_rows( 'checkboxes' ) ) : ?>
-		<div class="checkboxes">
-			<?php while ( have_rows( 'checkboxes' ) ) : ?>
+	<?php if ( have_rows( 'radios' ) ) : ?>
+		<div class="radios">
+			<?php while ( have_rows( 'radios' ) ) : ?>
 				<?php
 				the_row();
 
@@ -29,9 +29,10 @@ $required = get_field( 'required' );
 
 				$label = get_sub_field( 'label' );
 				?>
-				<label class="checkbox-field" for="<?php echo esc_attr( $index ); ?>">
+				<label class="radio-field" for="<?php echo esc_attr( $index ); ?>">
 					<input id="<?php echo esc_attr( $index ); ?>"
-						type="checkbox"
+						name="<?php echo esc_attr( $block_id ); ?>"
+						type="radio"
 						value="<?php esc_html( $label ); ?>"
 						<?php echo $required ? 'required' : ''; ?> />
 
