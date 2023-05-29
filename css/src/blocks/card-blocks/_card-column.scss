@@ -4,6 +4,17 @@
 	.column {
 		border-right: 1px solid $red;
 		padding: 15px 30px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		> * {
+			width: 100%;
+		}
+
+		&:last-of-type {
+			border-right: none;
+		}
 
 		p {
 			margin: 0;
@@ -33,10 +44,6 @@
 			em {
 				font-size: 2rem;
 			}
-		}
-
-		&:last-of-type {
-			border-right: none;
 		}
 	}
 }

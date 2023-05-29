@@ -290,6 +290,7 @@ $card_allowed_blocks = array(
 	'acf/tekstikentta',
 	'acf/tekstialue',
 	'acf/valintaruudut',
+	'acf/valintanapit',
 );
 
 /**
@@ -790,6 +791,21 @@ function topten_acf() {
 				'keywords'        => array( $block_name ),
 			)
 		);
+
+
+		$block_name  = 'Valintanapit';
+		$block_slug  = 'card-input-radios';
+		$description = 'Valintanapit';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/card-blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+			)
+		);
 	}
 }
 
@@ -1002,7 +1018,7 @@ function topten_card_search() {
 			$card_classes = '';
 		}
 	}
-	json_log( $card_classes );
+
 	if ( ! empty( $card_classes ) && isset( $card_classes ) ) {
 
 		$args['tax_query'][] =
@@ -1155,7 +1171,7 @@ function topten_card_search() {
 
 
 	$the_query = new WP_Query();
-	json_log( $args );
+
 	$the_query->parse_query( $args );
 
 		// If Relevanssi is installed, use it
@@ -1321,20 +1337,36 @@ function topten_fetch_terms() {
 add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
 add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );
 
-
 function topten_excerpt_more( $more ) {
 	return '..';
 }
+
 add_filter( 'excerpt_more', 'topten_excerpt_more' );
 
 function topten_excerpt_length( $length ) {
 	return 20;
 }
+
 add_filter( 'excerpt_length', 'topten_excerpt_length', 999 );
-
-
 
 add_filter( 'wp_lazy_loading_enabled', '__return_true' );
 
 // Everyone knows what asterisk means in forms so we don't need to display this
 add_filter( 'gform_required_legend', '__return_empty_string' );
+
+/**
+ * Generate unique ACF block id
+ *
+ * @see https://www.advancedcustomfields.com/resources/whats-new-with-acf-blocks-in-acf-6/#block-id)
+ *
+ * @param array $attributes ACF block attributes
+ */
+function topten_acf_unique_block_id( $attributes ) {
+	if ( empty( $attributes['anchor'] ) ) {
+		$attributes['anchor'] = 'acf-block-' . uniqid();
+	}
+
+	return $attributes;
+}
+
+add_filter( 'acf/pre_save_block', 'topten_acf_unique_block_id' );

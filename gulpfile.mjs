@@ -293,19 +293,10 @@ export const generate = series(
 
 export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor, bumpPackageMinor);
 
+export const bumpVersionMajor = series(bumpFunctions, bumpStylesheet, bumpPackage);
+
 export const bs = initBrowserSync;
 
-export const gitProd = series(
-	cleanDist,
-	parallel(
-		optimizeAssets,
-		productionStyles,
-		productionJs,
-		adminProductionJs,
-		bumpFunctions,
-		bumpStylesheet,
-		bumpPackage
-	)
-);
+export const gitProd = series(cleanDist, prod, bumpVersionMajor);
 
 export default watchFiles;

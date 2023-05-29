@@ -255,8 +255,6 @@ class Topten_PDF extends FPDFA {
 	private function handle_column_children( $column, $x ) {
 		// Column children
 		foreach ( $column as $column_children ) {
-			json_log( $column_children );
-
 			// if ( isset( $column_children['children'] ) && $column_children['children'] ) {
 			// foreach ( $column_children['children'] as $child ) {
 			// $this->handle_column_children( $child );

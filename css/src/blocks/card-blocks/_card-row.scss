@@ -1,20 +1,42 @@
 @use "mixins/all" as *;
+@use "sass:color";
 
 .acf-block-preview {
 	.row-block {
+		background-color: color.adjust($white, $lightness: -10%);
+
 		.grid {
 			display: unset;
+
+			@for $i from 1 through 4 {
+				$columns: "";
+
+				&.columns-#{$i} > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					@for $j from 1 through $i {
+						$columns: #{$columns} minmax(0, var(--column-#{$j}));
+					}
+
+					grid-template-columns: $columns;
+				}
+			}
 
 			> .block-editor-inner-blocks {
 				> .block-editor-block-list__layout {
 					display: grid;
-					gap: 15px;
-					grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+					gap: 0;
 
 					> .wp-block {
 						padding: 0 15px;
 					}
 				}
+			}
+		}
+
+		.wp-block {
+			background-color: $white;
+
+			&.wp-block-acf-sarake {
+				background-color: color.adjust($white, $lightness: -5%);
 			}
 		}
 	}
@@ -32,6 +54,19 @@
 	.grid {
 		grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
 		padding: 0;
+		gap: 0;
+
+		@for $i from 1 through 4 {
+			$columns: "";
+
+			&.columns-#{$i} {
+				@for $j from 1 through $i {
+					$columns: #{$columns} minmax(0, var(--column-#{$j}));
+				}
+
+				grid-template-columns: $columns;
+			}
+		}
 	}
 
 	&.top {
