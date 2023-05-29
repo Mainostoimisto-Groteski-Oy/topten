@@ -37,7 +37,7 @@ $right_block  = get_field( 'right_block' );
 					echo '</ul>';
 				}
 				?>
-				
+
 				<?php topten_buttons( $left_block, esc_attr( $left_block['generated_background_color'] ) ); ?>
 			</div>
 		</div>

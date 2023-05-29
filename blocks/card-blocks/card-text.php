@@ -4,12 +4,12 @@
 $text     = get_field( 'text' );
 $tulkinta = get_field( 'tulkinta' );
 
-if ( $tulkinta ) :
+if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	?>
 	<div class="tulkinta">
-		<span class="<?php echo esc_html( $tulkinta['value'] ); ?>">
+		<p class="<?php echo esc_html( $tulkinta['value'] ); ?>">
 			<?php echo esc_html( $tulkinta['label'] ); ?>
-		</span>
+		</p>
 	</div>
 <?php endif; ?>
 

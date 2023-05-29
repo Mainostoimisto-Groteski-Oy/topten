@@ -95,7 +95,7 @@ function topten_card_list( $card_array ) {
 	);
 	// TODO: Comment this shit
 	?>
-		
+
 		<?php if ( ! empty( $card_array['tulkinta'] ) ) : ?>
 			<div class="cardlist" id="tulkintakortit">
 				<h2 class="h3 title">
@@ -204,6 +204,6 @@ function topten_card_list( $card_array ) {
 				</ul>
 			</div>
 			<?php endif; ?>
-		
+
 	<?php
 }

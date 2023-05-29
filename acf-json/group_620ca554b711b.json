@@ -156,6 +156,11 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/valintaruudut"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/valintanapit"
             }
         ]
     ],
@@ -168,5 +173,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683095166
+    "modified": 1685354531
 }

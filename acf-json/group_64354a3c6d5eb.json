@@ -87,6 +87,13 @@
                 "operator": "==",
                 "value": "acf\/valintaruudut"
             }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/valintanapit"
+            }
         ]
     ],
     "menu_order": 0,
@@ -98,5 +105,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683095159
+    "modified": 1685354478
 }

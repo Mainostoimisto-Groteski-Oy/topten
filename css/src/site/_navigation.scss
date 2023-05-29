@@ -1,7 +1,7 @@
 @use "mixins/all" as *;
 
 .site-header {
-	z-index: 99999;
+	z-index: 9999;
 	position: fixed;
 	width: 100%;
 	background-color: $white;
