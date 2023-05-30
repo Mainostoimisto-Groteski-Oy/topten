@@ -57,7 +57,7 @@ $right_block  = get_field( 'right_block' );
 				if ( ! empty( $center_block['links'] ) ) {
 					echo '<ul class="links">';
 
-					foreach ( $left_block['links'] as $link ) {
+					foreach ( $center_block['links'] as $link ) {
 						if ( ! empty( $link['link'] ) ) {
 							$link   = $link['link'];
 							$href   = $link['url'];

@@ -20,10 +20,17 @@ section.text-and-image-block {
 
 	.image-block {
 		text-align: center;
-
-		img {
-			height: 100%;
-			object-fit: cover;
+		&.image-height-normal {
+			img {
+				height: auto;
+				object-fit: contain;
+			}
+		}
+		&.image-height-stretch {
+			img {
+				height: 100%;
+				object-fit: cover;
+			}
 		}
 
 		&.left {

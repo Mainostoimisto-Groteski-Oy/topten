@@ -204,8 +204,6 @@ function topten_scripts() {
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1' ); // TODO: Tarvitaanko tätä?
-
 	wp_enqueue_style( 'topten', get_template_directory_uri() . '/css/dist/site.min.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
@@ -321,6 +319,7 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 			'acf/logot',
 			'acf/kaksi-saraketta',
 			'acf/kolme-saraketta',
+			'acf/nelja-saraketta',
 			'acf/lista',
 			// 'acf/upotus',
 			// 'acf/logot',
@@ -407,6 +406,21 @@ function topten_acf() {
 		$block_name  = 'Kolme saraketta';
 		$block_slug  = 'three-column-block';
 		$description = 'Lohko kolmella sarakkeella';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'layout',
+			)
+		);
+
+		$block_name  = 'Neljä saraketta';
+		$block_slug  = 'four-column-block';
+		$description = 'Lohko neljällä sarakkeella';
 
 		acf_register_block_type(
 			array(
@@ -847,6 +861,34 @@ function topten_acf_cpt( $field ) {
 }
 
 add_filter( 'acf/load_field/name=post_type', 'topten_acf_cpt' );
+
+function topten_acf_guide( $field ) {
+	
+	$field['choices'] = array(
+		'none' => 'Ei tulkintaa',
+	);
+
+	if ( have_rows('guide', 'options') ) {
+		while (have_rows('guide', 'options')) {
+			
+			the_row();
+			
+			$icon = get_sub_field('icon');
+			$color = get_sub_field('color');
+			$name = get_sub_field('name');
+
+			// array key = palautettava arvo ($post_type, esim 'post')
+			// array value = ACFn näyttävä arvo (singular_name, esim 'Artikkeli')
+			// eli sama asia kuin 'post : Artikkeli'
+			$field['choices'][ $icon ] = $name;
+		}
+	}
+
+	return $field;
+}
+
+add_filter( 'acf/load_field/name=tulkinta', 'topten_acf_guide' );
+
 
 /**
  * WP login sivun logo

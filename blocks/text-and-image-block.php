@@ -1,12 +1,20 @@
 <?php
 $text_block  = get_field( 'text_block' );
 $image_block = get_field( 'image_block' );
+$image_height = $image_block['image_height'];
+
+if( $image_height ) :
+	$image_height = 'image-height-' . $image_height;
+else :
+	$image_height = 'image-height-normal';
+endif;
 
 if ( $image_block['order'] ) :
 	$order = 'left';
 else :
 	$order = '';
 endif;
+
 ?>
 
 <section <?php topten_block_id(); ?> class="text-and-image-block">
@@ -21,7 +29,7 @@ endif;
 			<?php topten_buttons( $text_block ); ?>
 		</div>
 
-		<div class="image-block <?php echo esc_attr( $order ); ?>">
+		<div class="image-block <?php echo esc_attr( $order ).' '.esc_attr( $image_height ); ?>">
 			<?php if ( ! empty( $image_block['image'] ) ) : ?>
 				<?php
 				$src = $image_block['image']['sizes']['large'];

@@ -2,7 +2,7 @@
 
 section.logos-block {
 	padding: 50px 0;
-	background-color: $green-lighter;
+	background-color: $green-lightest;
 
 	@media (max-width: $max-m) {
 		margin: 30px 0;
@@ -57,6 +57,7 @@ section.logos-block {
 	}
 
 	.logos {
+		min-width: 100%;
 		display: flex;
 		margin: 0 auto;
 		gap: 50px;
@@ -89,7 +90,6 @@ section.logos-block {
 				max-width: 150px;
 				order: 999;
 				font-size: 1.8rem;
-				text-decoration: none;
 				line-height: 1.5;
 
 				@media (max-width: $max-xs) {

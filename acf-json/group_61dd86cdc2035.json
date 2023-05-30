@@ -24,11 +24,11 @@
             "new_lines": "wpautop"
         },
         {
-            "key": "field_61dd8739b9615",
-            "label": "Logot",
-            "name": "logos",
+            "key": "field_6475df2c290ca",
+            "label": "Tyyppi",
+            "name": "type",
             "aria-label": "",
-            "type": "repeater",
+            "type": "button_group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -37,79 +37,15 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
-            "min": 0,
-            "max": 0,
-            "layout": "table",
-            "button_label": "Lisää rivi",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_61dd874db9616",
-                    "label": "Logo",
-                    "name": "logo",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "parent_repeater": "field_61dd8739b9615"
-                },
-                {
-                    "key": "field_63a1605f32b33",
-                    "label": "Linkki",
-                    "name": "link",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "parent_repeater": "field_61dd8739b9615"
-                },
-                {
-                    "key": "field_64676728331a9",
-                    "label": "Nimi",
-                    "name": "name",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "Näytetään ainoastaan jos kuvaa ei ole asetettu. Rivit joilla on logo näytetään ennen pelkkiä nimiä.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_61dd8739b9615"
-                }
-            ]
+            "relevanssi_exclude": 0,
+            "choices": {
+                "kumppani": "Kumppani",
+                "kunta": "Kunta"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
         }
     ],
     "location": [
@@ -130,5 +66,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684752936
+    "modified": 1685448754
 }

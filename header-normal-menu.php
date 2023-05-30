@@ -9,6 +9,9 @@
  * @package Groteski
  */
 
+
+// TODO: Delete this at some point. It was the menu used until customer wanted changes, still holding on to it in case they want to revert back.
+
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>

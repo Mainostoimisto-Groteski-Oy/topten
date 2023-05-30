@@ -79,6 +79,65 @@
                             "parent_repeater": "field_646c5fe77f45f"
                         }
                     ]
+                },
+                {
+                    "key": "field_64748b2acf482",
+                    "label": "Näytä yhteystietokortti?",
+                    "name": "show_contact",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_6474960011934",
+                    "label": "Liitetty yhteystieto",
+                    "name": "contact",
+                    "aria-label": "",
+                    "type": "relationship",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_64748b2acf482",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "post_type": [
+                        "yhteystieto"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "return_format": "id",
+                    "min": "",
+                    "max": 1,
+                    "elements": ""
                 }
             ]
         },
@@ -144,5 +203,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684824837
+    "modified": 1685362340
 }

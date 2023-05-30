@@ -176,7 +176,7 @@
         },
         {
             "key": "field_646efd549731a",
-            "label": "Yksittäisten korttisivujen selite",
+            "label": "Korttien selitteet",
             "name": "guide",
             "aria-label": "",
             "type": "repeater",
@@ -198,9 +198,69 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
+                    "key": "field_6475ef45be939",
+                    "label": "Ikoni",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "law": "Lakipykälä",
+                        "info": "Info",
+                        "person": "Hahmo",
+                        "check": "Oikein-merkki"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_646efd549731a"
+                },
+                {
                     "key": "field_646efd619731b",
-                    "label": "",
-                    "name": "",
+                    "label": "Väri",
+                    "name": "color",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "blue": "Sininen",
+                        "green": "Vihreä",
+                        "red": "Punainen",
+                        "lightblue": "Turkoosi"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_646efd549731a"
+                },
+                {
+                    "key": "field_6475f012be93a",
+                    "label": "Nimi",
+                    "name": "name",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -618,5 +678,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684995449
+    "modified": 1685450777
 }

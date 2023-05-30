@@ -1,7 +1,7 @@
 <?php topten_get_desc(); ?>
 
 <?php
-$text     = get_field( 'text' );
+// TODO: värit
 $tulkinta = get_field( 'tulkinta' );
 
 if ( $tulkinta && 'none' !== $tulkinta['value'] ) :

@@ -156,6 +156,30 @@
                     "placeholder": ""
                 },
                 {
+                    "key": "field_6475e6dc00d4d",
+                    "label": "Kuvan korkeus",
+                    "name": "image_height",
+                    "aria-label": "",
+                    "type": "button_group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "normal": "Kuvan oma korkeus",
+                        "stretch": "Tekstipalstan korkuinen"
+                    },
+                    "default_value": "normal",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "layout": "horizontal"
+                },
+                {
                     "key": "field_61dd54048b813",
                     "label": "Kuva vasemmalle?",
                     "name": "order",
@@ -196,5 +220,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1677567771
+    "modified": 1685448475
 }

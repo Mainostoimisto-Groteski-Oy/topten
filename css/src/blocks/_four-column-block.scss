@@ -1,0 +1,39 @@
+@use "mixins/all" as *;
+
+/// _multi-column-block.scss löytyy sellaiset arvot, jotka vaikuttaa sekä kahden, kolmen ja neljän palstan lohkoon
+section.four-column-block {
+    padding-bottom: 25px;
+    &.bg-cream {
+        background-color: $cream;
+    }
+    &.bg-grey {
+        background-color: $grey;
+    }
+    &.bg-white {
+        background-color: $white;
+    }
+    &.bg-greenish {
+        background-color: $green-lightest;
+    }
+	.grid,
+	.grid-full {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+        .block-title {
+            grid-column: 1 / -1;
+        }
+        .column {
+            border: 1px solid $black;
+            padding: 15px;
+            &.bg-white {
+                background-color: $white;
+            }
+            &.bg-cream {
+                background-color: $cream;
+            }
+            &.bg-green {
+                background-color: $green;
+                color: $white;
+            }
+        }
+	}
+}

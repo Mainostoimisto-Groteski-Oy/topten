@@ -1,5 +1,22 @@
 <?php 
-if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) ) || empty( get_field( 'logos' ) ) ) {
+if('fi' === get_bloginfo('language')) {
+	$screen_reader = 'Linkki aukeaa uuteen ikkunaan';
+} else if ('sv_SE' === get_bloginfo('language')) {
+	$screen_reader = 'Länken öppnas i ett nytt fönster';
+} else {
+	$screen_reader = 'Link opens in a new window';
+}
+$type = get_field('type');
+$args = array(
+	'post_type' => $type,
+	'posts_per_page' => -1,
+	'orderby' => 'menu_order',
+	'order' => 'ASC',
+	'status' => 'publish',
+);
+$postslist = get_posts( $args );
+
+if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) ) || empty( $postslist ) ) {
 	$rows = 1;
 	$gap  = 'auto';
 } else {
@@ -28,50 +45,42 @@ if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) )
 
 		<?php endif; ?>
 				
-		<?php if ( have_rows( 'logos' ) ) : ?>
+		<?php if ( $postslist ) : ?>
 			
 			<div class="logos">
 
 				<?php
-				while ( have_rows( 'logos' ) ) :
-					
-					the_row();
+				foreach ( $postslist as $post ) :
+					$id = $post->ID;
+					setup_postdata( $post );
+		
+					$logo = get_field( $type.'_logo', $id );
+					$name = get_field( $type.'_nimi', $id );
 
-					
-
-					$logo = get_sub_field( 'logo' );
-					$name = get_sub_field( 'name' );
 					if ( $logo ) :
 						$src = esc_url( $logo['sizes']['medium'] );
 						$alt = esc_attr( $logo['alt'] );
-
 						$img = sprintf( '<img src="%s" alt="%s">', $src, $alt );
 
-						$link = get_sub_field( 'link' );
+						$link = get_field( $type.'_url', $id );
 
 						if ( $link ) :
-							$href   = esc_url( $link['url'] );
-							$title  = esc_attr( $link['title'] );
-							$target = esc_attr( $link['target'] );
-
-							echo sprintf( '<a class="logo" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $img ) );
+							echo sprintf( '<a class="logo" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $img ), esc_html( $screen_reader ) );
 						else :
 							echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
 						endif;
 					elseif ( $name && ! $logo ) :
-						$text = get_sub_field( 'name' );
-						$link = get_sub_field( 'link' );
+						$name = get_field( $type.'_nimi', $id );
+						$link = get_field( $type.'_url', $id );
 						if ( $link ) :
-							$href   = esc_url( $link['url'] );
-							$title  = esc_attr( $link['title'] );
-							$target = esc_attr( $link['target'] );
-
-							echo sprintf( '<a class="logo text" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $text ) );
+							
+							echo sprintf( '<a class="logo text" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $name ), esc_html( $screen_reader ) );
 						else :
-							echo sprintf( '<div class="logo text">%s</div>', wp_kses_post( $text ) );   
+							echo sprintf( '<p class="logo text">%s</p>', wp_kses_post( $name ) );   
 						endif;
 					endif;
-				endwhile;
+				endforeach;
+				wp_reset_postdata();
 				?>
 			</div>
 		<?php endif; ?>

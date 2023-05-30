@@ -36,6 +36,16 @@ function topten_breadcrumbs() {
  * @param string $return_format Return format
  */
 function topten_get_card( $post_id, $return_format = 'echo' ) {
+
+ // TODO: change this to esc_html__ esc_html_e()
+	if('fi' === get_bloginfo('language')) {
+		$screen_reader = 'Linkki aukeaa uuteen ikkunaan';
+	} else if ('sv_SE' === get_bloginfo('language')) {
+		$screen_reader = 'Länken öppnas i ett nytt fönster';
+	} else {
+		$screen_reader = 'Link opens in a new window';
+	}
+
 	$id               = $post_id;
 	$card             = get_post( $id );
 	$identifier_start = get_field( 'identifier_start', $id );
@@ -59,9 +69,9 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '<a href="" class="se">Se</a>';
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
-	$html .= '<a class="button" href="' . esc_url( $link ) . '">';
+	$html .= '<a class="button" href="' . esc_url( $link ) . '" target="_blank">';
 	$html .= esc_html( 'Siirry kortille', 'topten' );
-	$html .= '</a>';
+	$html .= '<span class="screen-reader-text">'. esc_html( $screen_reader ) .'</span></a>';
 	$html .= '</div>';
 	$html .= '</li>';
 

@@ -51,13 +51,13 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
 
 https://cssgridgarden.com/#fi
 
-Jos haluaa käyttää Bootstrap-tyyliin 12-kolumnin systeemiä (leiskat on tehty tämän mukaan), kannattaa se tehdä fr-yksikön avulla.
+Jos haluaa käyttää Bootstrap-tyyliin 12-col systeemiä (leiskat on tehty tämän mukaan), kannattaa se tehdä fr-yksikön avulla.
 
 Esimerkiksi `grid-template-columns: 1fr 10fr 1fr` on sama asia kuin `<div class="offset-1 col-10">`.
 
 Toinen esimerkki: `grid-template-columns: 1fr 5fr 5fr 1fr;` on sama asia kuin `<div class="offset-1 col-5"></div><div class="col-5"></div>`
 
-Jos jostain syystä kolumnien koot on väärin ja esimerkiksi `grid-template-columns: 1fr 1fr` ei ole 50% 50%, kokeile korvata fr-arvot `minmax(0, 1fr)` arvolla.
+Jos jostain syystä palstojen koot on väärin ja esimerkiksi `grid-template-columns: 1fr 1fr` ei ole 50% 50%, kokeile korvata fr-arvot `minmax(0, 1fr)` arvolla.
 
 Eli esimerkiksi:
 

@@ -19,10 +19,10 @@
             "relevanssi_exclude": 0,
             "choices": {
                 "none": "Ei tulkintaa",
-                "mrl": "Säännökset (mrl tai asetus)",
-                "ymp": "Ympäristöministeriön ohje",
-                "rak": "Rakennusvalvonnan tulkinta",
-                "muu": "Otteet perustelumuistioista \/ muu"
+                "law": "Säännökset (mrl tai asetus)",
+                "info": "Ympäristöministeriön ohje",
+                "person": "Rakennusvalvonnan tulkinta",
+                "check": "Otteet perustelumuistioista \/ muu"
             },
             "default_value": false,
             "return_format": "array",
@@ -72,5 +72,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684930192
+    "modified": 1685451421
 }
