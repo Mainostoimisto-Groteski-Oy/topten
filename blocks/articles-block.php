@@ -110,7 +110,7 @@ if ( 'newest' === $articles_type ) {
 						</h2>
 
 						<span class="modified">
-							<?php echo esc_html( $modified ); ?>
+							<?php echo esc_html( $post_date ); ?>
 						</span>
 
 						<div class="buttons">

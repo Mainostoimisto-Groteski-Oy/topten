@@ -9,12 +9,14 @@ jQuery(document).ready(($) => {
 			$('#toggleMenu').removeClass('open');
 			$('#toggleMenu').attr('aria-expanded', 'false');
 			$('#site-navigation').attr('aria-expanded', 'false');
+			$('body').removeClass('no-scroll');
 		} else {
 			$('#site-navigation').fadeIn(300);
 			$('#toggleMenu').addClass('open');
 			$('#masthead').addClass('open');
 			$('#toggleMenu').attr('aria-expanded', 'true');
 			$('#site-navigation').attr('aria-expanded', 'true');
+			$('body').addClass('no-scroll');
 		}
 	});
 

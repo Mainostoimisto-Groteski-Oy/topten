@@ -50,7 +50,7 @@ body.page-template-template-korttiluettelo {
 						border-bottom: 1px solid $black;
 
 						.title {
-							font-weight: 400;
+							font-weight: 600;
 							margin: 15px 0;
 							color: $black;
 						}
@@ -105,6 +105,9 @@ body.page-template-template-korttiluettelo {
 						@media (max-width: $max-xl) {
 							grid-column: auto;
 							border: 1px solid $black;
+						}
+						@media (max-width: $max-m) {
+							padding: 15px;
 						}
 
 						&.active {
@@ -293,11 +296,15 @@ body.page-template-template-korttiluettelo {
 					.full {
 						grid-column: 1 / -1;
 						margin-bottom: 25px;
-
+						@media (max-width: $max-xs) {
+							margin-bottom: 0;
+						}
 						&.checkboxes {
 							display: grid;
 							grid-template-columns: repeat(2, minmax(0, 1fr));
-
+							@media(max-width:$max-xs) {
+								grid-template-columns: minmax(0, 1fr);
+							}
 							p.label {
 								grid-column: 1 / -1;
 								font-size: 1.8rem;
@@ -441,7 +448,7 @@ body.page-template-template-korttiluettelo {
 					gap: 30px;
 					margin: 0 0 15px;
 
-					@media (max-width: $max-xl) {
+					@media (max-width: $max-m) {
 						display: flex;
 						flex-direction: column;
 						gap: 15px;
@@ -462,10 +469,23 @@ body.page-template-template-korttiluettelo {
 
 						&:first-child {
 							margin-right: auto;
+							@media (max-width: $max-m) {
+								margin-right: 0;
+							}
 						}
 
 						&:last-child {
 							margin-left: auto;
+							@media (max-width: $max-m) {
+								margin-left: 0;
+							}
+							.input-wrapper {
+								.boxes {
+									@media (max-width: $max-xs) {
+										flex-direction: column;
+									}
+								}
+							}
 						}
 
 						.input-wrapper {

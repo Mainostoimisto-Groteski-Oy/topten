@@ -105,27 +105,27 @@
 			}
 
 			.text-wrapper {
-				&.mrl,
-				&.ymp,
-				&.rak,
-				&.muu {
-					padding: 12px 15px;
+				&.law,
+				&.info,
+				&.person,
+				&.check {
+					padding: 0 15px;
 					border-radius: 15px;
 				}
 
-				&.mrl {
+				&.bg-blue {
 					background-color: $tulkinta-blue-transparent;
 				}
 
-				&.ymp {
+				&.bg-green {
 					background-color: $tulkinta-green-transparent;
 				}
 
-				&.rak {
+				&.bg-red {
 					background-color: $tulkinta-red-transparent;
 				}
 
-				&.muu {
+				&.bg-lightblue {
 					background-color: $tulkinta-lightblue-transparent;
 				}
 			}
@@ -181,7 +181,7 @@
 			top: -30px;
 			left: 0;
 			content: "";
-			width: 300%;
+			width: 240%;
 			height: calc(100% + 60px);
 			z-index: 1;
 		}
@@ -230,6 +230,26 @@
 				.box-title {
 					button {
 						transform: rotate(90deg);
+					}
+				}
+			}
+			&.return {
+				@include arrowlink($black, 600);
+				a {
+					span {
+						padding-left: 25px;
+						transition: all 0.15s;
+						&::after {
+							right: unset!important;
+							left: 0!important;
+							transform: translate(0, -50%) rotate(180deg)!important;
+						} 
+						&:hover {
+							&::after {
+								transform: translate(0, -50%) rotate(180deg)!important;
+							}
+							padding-left: 30px;
+						}
 					}
 				}
 			}

@@ -2,4 +2,87 @@
 
 section.text-block {
 	@include buttons;
+	&.card {
+		border-bottom: 1px solid $black;
+		.title {
+			margin: 15px 0px 0px 0px;
+		}
+	}
+	.tulkinnat {
+		.tulkinta {
+			p {
+				position: relative;
+				display: flex;
+				align-items: center;
+				margin-top: 15px;
+				margin-bottom: 10px;
+				padding-left: 40px;
+				text-transform: uppercase;
+				font-size: 1.8rem;
+				font-weight: 400;
+
+				&::before {
+					font-family: $font-icons;
+					text-transform: none;
+					width: 30px;
+					height: 30px;
+					color: $white;
+					position: absolute;
+					top: 0;
+					left: 0;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 60px;
+					font-weight: 400;
+					font-size: 2.2rem;
+				}
+				&.green {
+					&::before {
+						background-color: $tulkinta-green;
+					}
+				}
+				&.blue {
+					&::before {
+						background-color: $tulkinta-blue;
+					}
+				}
+				&.red {
+					&::before {
+						background-color: $tulkinta-red;
+					}
+				}
+				&.lightblue {
+					&::before {
+						background-color: $tulkinta-lightblue;
+					}
+				}
+				&.law {
+					&::before {
+						font-family: $font-main;
+						content: "§";
+					}
+				}
+
+				&.info {
+					&::before {
+						font-family: $font-main;
+						content: "i";
+					}
+				}
+
+				&.person {
+					&::before {
+						content: "\ea3d";
+					}
+				}
+
+				&.check {
+					&::before {
+						content: "\e876";
+					}
+				}
+			}
+		}
+	}
 }

@@ -42,6 +42,15 @@ if ( is_array( $status ) ) {
 	$target_url    = '';
 	$target_title  = '';
 }
+if('tulkintakortti' === $type ) {
+	$prefix = 'tulkinta';
+} elseif ('ohjekortti' === $type) {
+	$prefix = 'ohje';
+} elseif ('lomakekortti' === $type) {
+	$prefix = 'lomake';
+} else {
+	$prefix = '';
+}
 ?>
 
 <?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
@@ -55,55 +64,112 @@ if ( is_array( $status ) ) {
 <h1 class="screen-reader-text">
 	<?php the_title(); ?>
 </h1>
+<?php if(get_field($prefix.'_guide', 'options')) : ?>
+	<section class="text-block card">
+		<div class="grid">
+			<h2 class="title h4"><?php the_field($prefix.'_guide_title', 'options'); ?></h2>
+			<div class="text">
+				<?php the_field($prefix.'_guide_before', 'options'); ?>
+				<?php 
+				if ( have_rows('guide', 'options') ) : ?>
+				<div class="tulkinnat">
+					<?php
+					while (have_rows('guide', 'options')) : 
+						
+						the_row();
+						
+						$icon = get_sub_field('icon');
+						$color = get_sub_field('color');
+						$name = get_sub_field('name');
+						?>
+						<div class="tulkinta">
+							<p class="<?php echo esc_html($color).' '.esc_html( $icon ); ?>">
+								<?php echo esc_html( $name ); ?>
+							</p>
+						</div>
+						<?php
+					endwhile; ?>
+				</div>
+				<?php 
+				endif;
+				?>
+				<?php the_field($prefix.'_guide_after', 'options'); ?>
+			</div>
+		</div>
+	</section>
+<?php endif; ?>
+
 <div class="grid sidebar-grid">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div class="card-content">
 			<section class="row-block top">
-				<div class="grid">
-					<div class="column date">
-						<p class="small-title">
-							<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
-
-							<strong>
-								<?php echo esc_html( $modified ); ?>
-							</strong>
-						</p>
-					</div>
-
-					<div class="column"></div>
-
-					<div class="column identifier">
-						<p class="small-title">
-							<?php esc_html_e( 'Tunniste', 'topten' ); ?>
-
-							<?php if ( 'tulkintakortti' === $type ) : ?>
-								<strong>
-									<?php echo esc_html( $identifier_start ); ?>
-
-									<sup>
-										<?php echo esc_html( $identifier_end ); ?>
-									</sup>
-								</strong>
-							<?php else : ?>
-								<strong>
-									<?php echo esc_html( $identifier_start ); ?>
-
-									<?php echo esc_html( $identifier_end ); ?>
-								</strong>
+				<div class="wrapper">
+					<?php if( get_field('rty_logo_cards', 'options') || get_field('topten_logo_cards', 'options') ) : ?>
+					
+						<div class="logos">
+							<?php if( get_field('rty_logo', 'options') && get_field('rty_logo_cards', 'options') ) : 
+								$image = get_field('rty_logo', 'options');
+								$image_url = $image['sizes']['medium'];
+								$image_alt = $image['alt'];
+								?>
+								<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" />
 							<?php endif; ?>
-						</p>
-					</div>
+							<?php if( get_field('topten_logo', 'options') && get_field('topten_logo_cards', 'options') ) : 
+								$image = get_field('topten_logo', 'options');
+								$image_url = $image['sizes']['medium'];
+								$image_alt = $image['alt'];
+								?>
+								<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" />
+							<?php endif; ?>
+						</div>
 
-					<div class="column version">
-						<p class="small-title">
-							<?php echo esc_html_e( 'Muutos', 'topten' ); ?>
+					<?php endif; // end logos ?>
+					<div class="content">
+						<div class="column date">
+							<p class="small-title">
+								<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
 
-							<strong>
-								<?php echo esc_html( $version ); ?>
-							</strong>
-						</p>
-					</div>
-				</div>
+								<strong>
+									<?php echo esc_html( $post_date ); ?>
+								</strong>
+							</p>
+						</div>
+						<div class="inner-wrapper">
+							<div class="column identifier">
+								<p class="small-title">
+									<?php esc_html_e( 'Tunniste', 'topten' ); ?>
+
+									<?php if ( 'tulkintakortti' === $type ) : ?>
+										<strong>
+
+											<?php echo esc_html( $identifier_start ); ?>
+										
+											<?php echo esc_html( $identifier_end ); ?>
+											
+										</strong>
+									<?php else : ?>
+										<strong>
+											<?php echo esc_html( $identifier_start ); ?>
+
+											<?php echo esc_html( $identifier_end ); ?>
+										</strong>
+									<?php endif; ?>
+								</p>
+							</div>
+
+							<div class="column version">
+								<p class="small-title">
+									<?php echo esc_html_e( 'Muutos', 'topten' ); ?>
+
+									<strong>
+										<?php echo esc_html( $version ); ?>
+									</strong>
+								</p>
+							</div>
+						</div>
+
+					</div> <!-- content -->
+				</div> <!-- wrapper -->
 			</section>
 
 			<?php the_content(); // Kortin sisältölohkot ?>
@@ -161,13 +227,18 @@ if ( is_array( $status ) ) {
 		<div class="box">
 			<div class="box-title">
 				<h3 class="h2">
-					<?php esc_html_e( 'Palaute', 'topten' ); ?>
+					<?php esc_html_e( 'Anna palautetta', 'topten' ); ?>
 				</h3>
 				<button class="material-icons" aria-expanded="false">double_arrow</button>
 			</div>
 			<div class="box-content">
 				<?php echo do_shortcode( '[gravityform id="2" field_values="card_title=' . esc_html( $full_name ) . '" title="false" description="true" ajax="true"]' ); ?>
 			</div>
+		</div>
+		<div class="box return">
+			<a href="<?php echo esc_url($target_url); ?>">
+				<span class="h3"><?php esc_html_e('Siirry korttilistaukseen'); ?></span>
+			</a>
 		</div>
 
 	</aside>

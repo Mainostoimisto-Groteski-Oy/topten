@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_646efb331861c",
-            "label": "Header",
+            "label": "Logot",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -22,7 +22,7 @@
         },
         {
             "key": "field_6450e58c592ef",
-            "label": "Näytä RTY:n logo?",
+            "label": "Näytä RTY:n logo headerissa?",
             "name": "show_rty_logo",
             "aria-label": "",
             "type": "true_false",
@@ -42,9 +42,85 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_6476f7e4f4696",
+            "label": "Näytä RTY:n logo korteissa?",
+            "name": "rty_logo_cards",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_6476f7eef4697",
+            "label": "Näytä Toptenin logo korteissa?",
+            "name": "topten_logo_cards",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_6450e5ab592f0",
-            "label": "Logo",
+            "label": "RTY Logo",
             "name": "rty_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6450e58c592ef",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_6476f804f4698",
+            "label": "Topten logo",
+            "name": "topten_logo",
             "aria-label": "",
             "type": "image",
             "instructions": "",
@@ -92,6 +168,25 @@
             "relevanssi_exclude": 0,
             "placement": "top",
             "endpoint": 0
+        },
+        {
+            "key": "field_647710d17fb74",
+            "label": "Ohje",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "Korttien arkistosivut tulee olla määritetty, jotta korttien selaaminen toimii oikein.",
+            "new_lines": "",
+            "esc_html": 0
         },
         {
             "key": "field_646ef8ebf789e",
@@ -678,5 +773,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1685450777
+    "modified": 1685524805
 }

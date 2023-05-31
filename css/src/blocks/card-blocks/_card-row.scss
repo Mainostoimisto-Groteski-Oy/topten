@@ -70,25 +70,65 @@
 	}
 
 	&.top {
-		.grid {
-			grid-template-columns: 250px minmax(0, 1fr) minmax(0, auto) minmax(0, auto);
-			justify-content: space-between;
+		.wrapper {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 			gap: 0;
-		}
-
-		.column {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			border-right: none;
-
-			&.date {
-				flex-direction: row;
+			padding: 15px;
+			.logos {
+				display: flex;
 				align-items: center;
-				justify-content: flex-start;
-				gap: 5px;
+		
+				img {
+					max-width: 125px;
+				}
+			}
+			.content {
+				display: flex;
+				flex-direction: column;
+				margin-left: auto;
+				.column {
+					border: none!important;
+					padding: 5px;
+					text-transform: uppercase;
+					&.date {
+						padding: 5px 5px 0px 5px;
+						.small-title {
+							strong {
+								font-family: $font-alt;
+								margin-left: 5px;
+								font-size: 1.4rem;
+							}
+						}
+					}
+					&.identifier {
+						.small-title {
+							strong {
+								font-family: $font-alt;
+								font-size: 2rem;
+								margin-left: 5px;
+							}
+						}
+					}
+					&.version {
+						.small-title {
+							strong {
+								font-family: $font-alt;
+								font-size: 2rem;
+								margin-left: 5px;
+							}
+						}
+					}
+				}
+				.inner-wrapper {
+					display: flex;
+					flex-direction: row;
+				}
 			}
 		}
+		
+
+		
 
 		p {
 			font-size: 1.4rem;

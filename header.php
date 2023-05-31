@@ -31,7 +31,7 @@
 
 
 	<header id="masthead" class="site-header">
-		<div class="grid">
+		<div class="grid-full">
 			<div class="container">
 				<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="site-navigation" aria-expanded="false">
 					<span class="material-icons" aria-hidden="true">
@@ -57,7 +57,7 @@
 			array(
 				'theme_location'  => 'primary-menu',
 				'menu_id'         => 'primary-menu',
-				'container_class' => 'menu-container grid',
+				'container_class' => 'menu-container grid-full',
 				'link_before'     => '<span class="link-text">',
 				'link_after'      => '</span>',
 			)

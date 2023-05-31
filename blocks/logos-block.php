@@ -1,11 +1,5 @@
 <?php 
-if('fi' === get_bloginfo('language')) {
-	$screen_reader = 'Linkki aukeaa uuteen ikkunaan';
-} else if ('sv_SE' === get_bloginfo('language')) {
-	$screen_reader = 'Länken öppnas i ett nytt fönster';
-} else {
-	$screen_reader = 'Link opens in a new window';
-}
+
 $type = get_field('type');
 $args = array(
 	'post_type' => $type,
@@ -65,7 +59,7 @@ if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) )
 						$link = get_field( $type.'_url', $id );
 
 						if ( $link ) :
-							echo sprintf( '<a class="logo" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $img ), esc_html( $screen_reader ) );
+							echo sprintf( '<a class="logo" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $img ), esc_html__( 'Linkki aukeaa uuteen ikkunaan' ) );
 						else :
 							echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
 						endif;
@@ -74,7 +68,7 @@ if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) )
 						$link = get_field( $type.'_url', $id );
 						if ( $link ) :
 							
-							echo sprintf( '<a class="logo text" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $name ), esc_html( $screen_reader ) );
+							echo sprintf( '<a class="logo text" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $name ), esc_html__( 'Linkki aukeaa uuteen ikkunaan' ) );
 						else :
 							echo sprintf( '<p class="logo text">%s</p>', wp_kses_post( $name ) );   
 						endif;

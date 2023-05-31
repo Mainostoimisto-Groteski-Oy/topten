@@ -225,3 +225,23 @@ function topten_get_desc( $description = false ) {
 		echo sprintf( '<h2 id="%s" class="desc">%s</h2>', esc_attr( $id ), esc_html( $description ) );
 	}
 }
+
+/** 
+ * Hakee värin options sivulta arvon perusteella
+ * 
+ */
+function topten_get_guide_color($value = '') {
+	if(!$value) {
+		return;
+	} else {
+		if ( have_rows('guide', 'options') ) {
+			while (have_rows('guide', 'options')) {
+				the_row();
+				if ( esc_html( $value ) === get_sub_field('icon') ) {
+					$color = get_sub_field('color');
+					return $color;
+				}
+			}
+		}
+	}
+}

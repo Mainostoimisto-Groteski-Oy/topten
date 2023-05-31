@@ -2,18 +2,22 @@
 
 <?php
 // TODO: värit
+$text = get_field('text');
 $tulkinta = get_field( 'tulkinta' );
 
 if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
+
+	$color = topten_get_guide_color($tulkinta['value']);
 	?>
 	<div class="tulkinta">
-		<p class="<?php echo esc_html( $tulkinta['value'] ); ?>">
+		<p class="<?php echo $color ? esc_html( $color ) : ''; ?> <?php echo esc_html( $tulkinta['value'] ); ?>">
 			<?php echo esc_html( $tulkinta['label'] ); ?>
 		</p>
 	</div>
 <?php endif; ?>
 
-<div class="text-wrapper <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
+<div class="text-wrapper <?php echo $color ? esc_html( 'bg-'.$color ) : ''; ?> <? echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
+
 	<?php
 	echo wp_kses(
 		$text,
