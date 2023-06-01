@@ -61,6 +61,8 @@ if('tulkintakortti' === $type ) {
 	</section>
 <?php endif; ?>
 
+<?php topten_card_notification('single'); ?>
+
 <h1 class="screen-reader-text">
 	<?php the_title(); ?>
 </h1>

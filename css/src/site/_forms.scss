@@ -11,6 +11,26 @@
 		.gfield {
 			margin-top: auto;
 
+			&.gfield--type-checkbox {
+				grid-column: 1 / -1;
+				padding: 0;
+				border: 0;
+				legend {
+					margin-bottom: 10px;
+				}
+				.ginput_container_checkbox {
+					.gfield_checkbox {
+						display: flex;
+						flex-direction: column;
+						gap: 10px;
+						.gchoice {
+							font-size: 1.8rem;
+							font-weight: 400;
+						}
+					}
+				}
+			}
+
 			&.gfield--width-full {
 				grid-column: 1 / -1;
 			}
@@ -79,16 +99,17 @@
 	}
 
 	.gform_footer {
-		margin-top: 15px;
+		margin-top: 25px;
 
 		input[type="submit"] {
 			background-color: $black;
 			color: $white;
 			border: 1px solid $black;
-			border-radius: 3px;
+			border-radius: 5px;
 			transition: all 0.15s;
-			text-transform: uppercase;
-			padding: 10px;
+			padding: 10px 25px;
+			font-size: 1.8rem;
+			font-weight: 600;
 
 			&:hover {
 				color: $black;

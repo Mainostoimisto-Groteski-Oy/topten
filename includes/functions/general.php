@@ -208,3 +208,91 @@ function topten_card_list( $card_array ) {
 
 	<?php
 }
+
+
+function topten_card_notification($type = '') {
+	
+	if(!$type) :
+		return;
+	else :
+		$id = get_the_ID(); 
+
+			if( 'archive' === $type ) :
+
+				$status = get_field( 'card_status_type', $id );
+
+				if ( 'future' ===  $status ) :
+
+					$message = get_field('future_card_archive_note', 'options');
+					$class = 'future';
+
+					if(get_field('future_card_archive_link', 'options')) {
+						$link = get_permalink(get_field('main_card_archive', 'options'));
+					} else {
+						$link = '';
+					}
+					
+
+				elseif ( 'past' === $status ) :
+
+					$message = get_field('expired_card_archive_note', 'options');
+					$class = 'expired';
+
+					if(get_field('expired_card_archive_link', 'options')) {
+						$link = get_permalink(get_field('main_card_archive', 'options'));
+					} else {
+						$link = '';
+					}
+
+				endif;
+				
+			elseif ('single' === $type) :
+
+				$status = get_field( 'card_status_publish', $id );
+
+					if ( is_array( $status ) ) :
+		
+						if ( in_array( 'expired', $status ) || in_array( 'repealed', $status ) ) :
+
+							$message = get_field('expired_card_archive_note', 'options');
+							$class = 'expired';
+							
+							if(get_field('expired_card_archive_link', 'options')) {
+								$link = get_permalink(get_field('main_card_archive', 'options'));
+							} else {
+								$link = '';
+							}
+
+						elseif ( in_array( 'future', $status ) ) :
+
+							$message = get_field('future_card_archive_note', 'options');
+							$class = 'future';
+
+							if(get_field('future_card_archive_link', 'options')) {
+								$link = get_permalink(get_field('main_card_archive', 'options'));
+							} else {
+								$link = '';
+							}
+
+						endif;
+					
+					endif;
+
+				endif;
+
+		if(!empty($message)) : ?>
+			<section class="cards-notification <?php echo esc_attr($class); ?>">
+				<div class="grid">
+					<?php if(!empty($link)) : ?>
+						<a href="<?php echo esc_url($link); ?>">
+							<p><?php echo esc_html($message); ?></p>	
+						</a>
+					<?php else : ?>
+						<p><?php echo esc_html($message); ?></p>
+					<?php endif; ?>
+				</div>
+			</section>
+			<?php
+		endif;
+	endif; 	
+}

@@ -113,7 +113,19 @@ function topten_buttons( $block = array(), $background = '' ) {
 	if ( $block ) {
 		if ( ! empty( $block['buttons'] ) ) {
 			echo '<div class="buttons">';
-
+			// if icon sub field exists
+			if ( ! empty( $block['button_icon'] ) && 'none' !== $block['button_icon']) {
+				$class = $block['button_icon'];
+			} else {
+				$class = '';
+			}
+			// if background isn't empty
+			// TODO: check this, seems to be working but..
+			if ( ! empty( $background ) ) {
+				$background = 'background-'.$background;
+			} else {
+				$background = '';
+			}
 			foreach ( $block['buttons'] as $button ) {
 				if ( ! empty( $button['button'] ) ) {
 					$button = $button['button'];
@@ -121,7 +133,7 @@ function topten_buttons( $block = array(), $background = '' ) {
 					$title  = $button['title'];
 					$target = $button['target'];
 
-					echo sprintf( '<a class="button background-%s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+					echo sprintf( '<a class="button %s %s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $class ), esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 				}
 			}
 
@@ -134,13 +146,23 @@ function topten_buttons( $block = array(), $background = '' ) {
 			the_row();
 
 			$button = get_sub_field( 'button' );
-
+			if(get_sub_field( 'button_icon' ) && 'none' !== get_sub_field( 'button_icon' )) {
+				$class = get_sub_field( 'button_icon' );
+			} else {
+				$class = '';
+			}
+			// if background isn't empty
+			if ( ! empty( $background ) ) {
+				$background = 'background-'.$background;
+			} else {
+				$background = '';
+			}
 			if ( $button ) {
 				$href   = esc_url( $button['url'] );
 				$title  = esc_attr( $button['title'] );
 				$target = esc_attr( $button['target'] );
-
-				echo sprintf( '<a class="button background-%s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+		
+				echo sprintf( '<a class="button %s %s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $class ), esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 			}
 		}
 

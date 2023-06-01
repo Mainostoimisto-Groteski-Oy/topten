@@ -38,7 +38,9 @@ $cardClasses = get_terms(
 
 <main id="primary" class="site-main" data-template="<?php echo esc_html( get_field( 'card_status_type' ) ); ?>">
 	<?php topten_breadcrumbs(); ?>
-
+	
+	<?php topten_card_notification('archive'); ?>
+	
 	<?php the_content(); ?>
 
 	<section class="cards filters">

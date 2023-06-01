@@ -243,6 +243,48 @@
             "ui": 1
         },
         {
+            "key": "field_64785e39d10a4",
+            "label": "Vanhentuneiden korttien huomautusteksti",
+            "name": "expired_card_archive_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_647863f4d826c",
+            "label": "Käytä linkkinä rakentamisen yhteiset käytännöt -sivulle?",
+            "name": "expired_card_archive_link",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_646ef93df78a0",
             "label": "Tulevien korttien sivu",
             "name": "future_card_archive",
@@ -268,6 +310,48 @@
             "multiple": 0,
             "allow_null": 0,
             "ui": 1
+        },
+        {
+            "key": "field_64785de9f043a",
+            "label": "Tulevien korttien huomautusteksti",
+            "name": "future_card_archive_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6478640ad826d",
+            "label": "Käytä linkkinä rakentamisen yhteiset käytännöt -sivulle?",
+            "name": "future_card_archive_link",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         },
         {
             "key": "field_646efd549731a",
@@ -773,5 +857,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1685524805
+    "modified": 1685611546
 }

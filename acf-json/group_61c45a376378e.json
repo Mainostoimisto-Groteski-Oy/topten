@@ -79,6 +79,34 @@
                     },
                     "return_format": "array",
                     "parent_repeater": "field_633e8347933d1"
+                },
+                {
+                    "key": "field_6478a0a30c3e2",
+                    "label": "Ikoni",
+                    "name": "button_icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "none": "Ei mitään",
+                        "rss": "RSS-syöte"
+                    },
+                    "default_value": "none",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_633e8347933d1"
                 }
             ]
         }
@@ -101,5 +129,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683183195
+    "modified": 1685627092
 }

@@ -14,39 +14,51 @@
 
 get_header();
 ?>
+	
 
-<div class="grid">
 
 	<main id="primary" class="site-main archive-page">
 
-		<?php if ( have_posts() ) : ?>
+		<?php
+		// get the id of wordpress home archive page and use it to get the gutenberg blocks
+		$home_id = get_option( 'page_for_posts' );
+		$blocks = parse_blocks( get_post_field( 'post_content', $home_id ) );
+		// Loop the blocks and output them
+		foreach ( $blocks as $index => $block ) :
+			echo render_block( $block );
+		endforeach;
+		?>
 
+		<div class="content">
 			<div class="grid post-wrapper">
+				<?php 
+				if ( have_posts() ) : ?>
+			
 
-				<?php
-				/* Start the Loop */
-				while ( have_posts() ) :
-					the_post();
+					<?php
+					/* Start the Loop */
+					while ( have_posts() ) :
+						the_post();
 
-					/*
-					* Include the Post-Type-specific template for the content.
-					* If you want to override this in a child theme, then include a file
-					* called content-___.php (where ___ is the Post Type name) and that will be used instead.
-					*/
-					get_template_part( 'template-parts/content-single-lift' );
+						/*
+						* Include the Post-Type-specific template for the content.
+						* If you want to override this in a child theme, then include a file
+						* called content-___.php (where ___ is the Post Type name) and that will be used instead.
+						*/
+						get_template_part( 'template-parts/content-single-lift' );
 
-				endwhile;
-			else :
+					endwhile;
+				else :
 
-				get_template_part( 'template-parts/content', 'none' );
+					get_template_part( 'template-parts/content', 'none' );
 
-			endif;
-			?>
-
+				endif;
+				?>
+			</div>
 		</div>
 	</main><!-- #main -->
 
-</div>
+
 
 <?php
 // get_sidebar();
