@@ -46,42 +46,17 @@ if ( $image ) {
 				</div><!-- .entry-meta -->
 			<?php endif; ?>
 			
-			<?php
-			if ( is_singular() ) :
-				the_title( '<h1 class="entry-title">', '</h1>' );
-			else :
-				the_title( '<h2 class="entry-title h4">', '</h2>' );
-			endif;
-			?>
+			<?php the_title( '<h2 class="entry-title h4">', '</h2>' ); ?>
 
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
-			<?php
-			if ( is_singular() ) :
-				the_content(
-					sprintf(
-						wp_kses(
-						/* translators: %s: Name of current post. Only visible to screen readers */
-							__( 'Jatka lukemista <span class="screen-reader-text"> "%s"</span>', 'topten' ),
-							array(
-								'span' => array(
-									'class' => array(),
-								),
-							)
-						),
-						wp_kses_post( get_the_title() )
-					)
-				);
-				
-			else :
-				?>
-				<div class="excerpt">
-					<?php the_excerpt(); ?>
-				</div>
-				<?php
-			endif;
-			?>
+
+			
+		<div class="excerpt">
+			<?php the_excerpt(); ?>
+		</div>
+
 		</div><!-- .entry-content -->
 
 		<div class="links">

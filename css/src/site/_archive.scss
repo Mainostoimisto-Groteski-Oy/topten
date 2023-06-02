@@ -16,7 +16,55 @@ body.blog {
 					grid-template-columns: minmax(0, 1fr);
 					gap: 15px;
 				}
-
+				nav.navigation.pagination {
+					display: flex;
+					justify-content: center;
+					.nav-links {
+						border: 1px solid $black;
+						display: flex;
+						flex-wrap: wrap;
+						@media(max-width:$max-xs) {
+							border: none;
+							gap: 5px;
+						}
+						a {
+							text-decoration: none;
+						}
+						a, span {
+							font-size: 2rem;
+							display: inline-block;
+							
+						}
+						.page-numbers {
+							width: 40px;
+							height: 40px;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							border-right: 1px solid $black;
+							transition: all 0.15s;
+							@media(max-width:$max-xs) {
+								border: 1px solid $black;
+							}
+							&.next, &.prev {
+								width: auto;
+								padding: 0 10px;
+							}
+							&:last-child {
+								border-right: none;
+								@media(max-width:$max-xs) {
+									border: 1px solid $black;
+								}
+							}
+							&:hover {
+								background-color: $green-lightest;
+							}
+						}
+						.current {
+							background-color: $green-lightest;
+						}
+					}
+				}
 				article {
 					display: flex;
 					flex-direction: column;
@@ -26,6 +74,11 @@ body.blog {
 					}
 
 					.image {
+						border: 1px solid $black;
+						picture {
+							vertical-align: bottom;
+							line-height: 0;
+						}
 						img {
 							height: 250px;
 							width: 100%;
@@ -33,7 +86,7 @@ body.blog {
 						}
 
 						&.placeholder {
-							border: 1px solid $red;
+							
 							display: flex;
 							flex-direction: column;
 							height: 250px;
@@ -60,6 +113,7 @@ body.blog {
 
 						.links {
 							margin-top: auto;
+							padding-top: 25px;
 						}
 
 						.excerpt {

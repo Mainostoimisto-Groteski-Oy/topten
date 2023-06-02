@@ -1,21 +1,99 @@
 @use "mixins/all" as *;
 
-article {
-	.grid {
-		padding-top: 0;
-
-		.hero-block {
-			width: 100%;
-			height: 700px;
-			background-size: cover;
-			background-repeat: no-repeat;
-			position: relative;
-		}
-
-		.entry-content {
-			p:first-child {
-				font-size: 1.33em;
+body.single-post {
+	article {
+		.grid {
+			grid-template-columns: 1fr 10fr 1fr;
+			@media(max-width:$max-s) {
+				grid-template-columns: minmax(0, 1fr);
 			}
+			.article-image {
+				height: 600px;
+				img {
+					height: 100%;
+					width: 100%;
+					object-fit: cover;
+					object-position: center;
+				}
+			}
+			.entry-meta {
+				margin-bottom: 0;
+				p.date {
+					margin-bottom: 0;
+				}
+			}
+			.article-title {
+				margin: 0;
+			}
+			.article-image, .entry-meta, .article-title, .article-text {
+				grid-column: 2;
+				@media(max-width:$max-s) {
+					grid-column: 1;
+				}
+			}
+		}
+	}
+	section.author-and-sharing {
+		background-color: $green-lightest;
+		&.one {
+			.grid {
+				grid-template-columns: 1fr 10fr 1fr;
+				.social {
+					grid-column: 2;
+					padding-left: 0;
+				}
+			}
+		}
+		&.both {
+			.grid {
+				grid-template-columns: 1fr 5fr 5fr 1fr;
+			}
+		}
+		.grid {
+
+			.author-info {
+				background-color: $white;
+				grid-column: 2;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 30px 15px;
+				border: 1px solid $black;
+				border-radius: 5px;
+				.image {
+					border-radius: 250px;
+					img {
+						border-radius: 250px;
+						width: 100%;
+						height: 100%;
+						max-width: 150px;
+						object-fit: cover;
+					}
+					&.placeholder {
+					   
+					}
+				}
+			}
+			.social {
+				padding-left: 30px;
+				grid-column: 3;
+				.socials {
+					display: flex;
+					gap: 15px;
+					border-bottom: 1px solid black;
+					padding: 15px 0px;
+					img {
+						max-width: 50px;
+					}
+				}
+			}
+			@include buttons;
+		}
+	}
+	section.latest-articles {
+		.grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 }

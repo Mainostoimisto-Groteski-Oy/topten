@@ -1,5 +1,5 @@
 @use "mixins/all" as *;
-
+section.latest-articles,
 section.articles-block {
 	@include buttons;
 
@@ -33,7 +33,7 @@ section.articles-block {
 			grid-template-columns: minmax(0, 1fr);
 		}
 
-		.single-post {
+		.single-post, .post {
 			background-color: $white;
 			border-radius: 5px;
 			display: flex;
@@ -148,7 +148,7 @@ section.articles-block {
 		}
 	}
 }
-
+section.latest-articles .content .grid,
 .content section.articles-block .grid {
 	.post-wrapper {
 		@media (max-width: $max-m) {

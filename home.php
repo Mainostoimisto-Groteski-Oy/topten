@@ -18,7 +18,15 @@ get_header();
 
 
 	<main id="primary" class="site-main archive-page">
-
+		<?php
+			if ( function_exists( 'yoast_breadcrumb' ) ) :
+				?>
+				<div class="page-breadcrumbs">
+					<div class="grid">
+						<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
+					</div>
+				</div>
+			<?php endif; ?>
 		<?php
 		// get the id of wordpress home archive page and use it to get the gutenberg blocks
 		$home_id = get_option( 'page_for_posts' );
@@ -48,6 +56,7 @@ get_header();
 						get_template_part( 'template-parts/content-single-lift' );
 
 					endwhile;
+					the_posts_pagination();
 				else :
 
 					get_template_part( 'template-parts/content', 'none' );
