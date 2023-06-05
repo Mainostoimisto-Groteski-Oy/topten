@@ -37,6 +37,7 @@ $cardClasses = get_terms(
 ?>
 
 <main id="primary" class="site-main" data-template="<?php echo esc_html( get_field( 'card_status_type' ) ); ?>">
+
 	<?php topten_breadcrumbs(); ?>
 	
 	<?php topten_card_notification('archive'); ?>
@@ -87,7 +88,7 @@ $cardClasses = get_terms(
 									<button type="submit"
 										name="keywordssearch"
 										id="keywordssearch" >
-										<?php esc_html_e( 'Lisää', 'topten' ); ?>
+										<?php esc_html_e( 'Lisää asiasana' , 'topten' ); ?>
 									</button>
 								</div>
 							</div>
@@ -103,7 +104,7 @@ $cardClasses = get_terms(
 								</label>
 
 								<div class="inner-wrapper date">
-									<input type="date" name="cardDateStart" id="cardDateStart"/> - <input type="date" name="cardDateEnd" id="cardDateEnd"/>
+									<input type="date" name="cardDateStart" id="cardDateStart"/> <span class="divider">-</span> <input type="date" name="cardDateEnd" id="cardDateEnd"/>
 								</div>
 								<small><?php esc_html_e( 'välisenä ajankohtana', 'topten' ); ?></small>
 							</div>
@@ -269,42 +270,52 @@ $cardClasses = get_terms(
 							<?php esc_html_e( 'Näytä', 'topten' ); ?>
 						</p>
 						<div class="boxes">
-							<div class="checkbox-wrapper">
-								<label for="cardTulkinta" class="inner-wrapper">
-									<input class="filterTrigger"
-										type="checkbox"
-										name="cardTypeFilter"
-										id="cardTulkinta"
-										value="tulkintakortti"
-										checked />
-									<span class="checkmark"></span>
-								</label>
+
+							<div class="box-wrapper">
+								<div class="checkbox-wrapper">
+									<label for="cardTulkinta" class="inner-wrapper">
+										<input class="filterTrigger"
+											type="checkbox"
+											name="cardTypeFilter"
+											id="cardTulkinta"
+											value="tulkintakortti"
+											checked />
+										<span class="checkmark"></span>
+									</label>
+								</div>
+								<span class="check" data-name="cardTypeFilter" data-id="tulkintakortti"><?php esc_html_e( 'Tulkintakortit', 'topten' ); ?></span>
 							</div>
-							<span class="check" data-name="cardTypeFilter" data-id="tulkintakortti"><?php esc_html_e( 'Tulkintakortit', 'topten' ); ?></span>
-							<div class="checkbox-wrapper">
-								<label for="cardOhje" class="inner-wrapper">
-									<input class="filterTrigger"
-										type="checkbox"
-										name="cardTypeFilter"
-										id="cardOhje"
-										value="ohjekortti"
-										checked />
-									<span class="checkmark"></span>
-								</label>
+
+							<div class="box-wrapper">
+								<div class="checkbox-wrapper">
+									<label for="cardOhje" class="inner-wrapper">
+										<input class="filterTrigger"
+											type="checkbox"
+											name="cardTypeFilter"
+											id="cardOhje"
+											value="ohjekortti"
+											checked />
+										<span class="checkmark"></span>
+									</label>
+								</div>
+								<span class="check" data-name="cardTypeFilter" data-id="ohjekortti"><?php esc_html_e( 'Ohjekortit', 'topten' ); ?></span>
 							</div>
-							<span class="check" data-name="cardTypeFilter" data-id="ohjekortti"><?php esc_html_e( 'Ohjekortit', 'topten' ); ?></span>
-							<div class="checkbox-wrapper">
-								<label for="cardLomake" class="">
-									<input class="filterTrigger"
-										type="checkbox"
-										name="cardTypeFilter"
-										id="cardLomake"
-										value="lomakekortti"
-										checked />
-									<span class="checkmark"></span>
-								</label>
+
+							<div class="box-wrapper">
+								<div class="checkbox-wrapper">
+									<label for="cardLomake" class="">
+										<input class="filterTrigger"
+											type="checkbox"
+											name="cardTypeFilter"
+											id="cardLomake"
+											value="lomakekortti"
+											checked />
+										<span class="checkmark"></span>
+									</label>
+								</div>
+								<span class="check" data-name="cardTypeFilter" data-id="lomakekortti"><?php esc_html_e( 'Lomakekortit', 'topten' ); ?></span>
 							</div>
-							<span class="check" data-name="cardTypeFilter" data-id="lomakekortti"><?php esc_html_e( 'Lomakekortit', 'topten' ); ?></span>
+
 						</div>
 					</div>
 				</div>

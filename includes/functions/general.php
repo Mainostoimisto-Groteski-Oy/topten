@@ -46,7 +46,16 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$version          = get_field( 'version', $id );
 	$post_date        = date( 'j.n.Y', strtotime( $card->post_date ) );
 	$link             = get_permalink( $id );
-
+	$languages = topten_get_card_language_versions( $id );
+	if(!empty($languages['fi']['post'])) {
+		$link_fi = get_permalink($languages['fi']['post']->ID);
+	}
+	if(!empty($languages['sv']['post'])) {
+		$link_sv = get_permalink($languages['sv']['post']->ID);
+	}
+	if(!empty($languages['en']['post'])) {
+		$link_en = get_permalink($languages['en']['post']->ID);
+	}
 	$html  = '<li class="card">';
 	$html .= '<div class="ident">';
 	$html .= '<span class="start">' . esc_html( $identifier_start ) . '</span>';
@@ -56,8 +65,15 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '<span class="date">' . esc_html( $post_date ) . '</span>';
 	$html .= '<span class="card-title">' . esc_html( $title ) . '</span>';
 	$html .= '<div class="languages">';
-	$html .= '<a href="" class="fi">Fi</a>';
-	$html .= '<a href="" class="se">Se</a>';
+	if(!empty($link_fi)) {
+	$html .= '<a href="' . esc_url( $link_fi ) . '" class="fi">Fi</a>';
+	}
+	if(!empty($link_se)) {
+		$html .= '<a href="' . esc_url( $link_se ) . '" class="fi">Fi</a>';
+	}
+	if(!empty($link_en)) {
+		$html .= '<a href="' . esc_url( $link_en ) . '" class="fi">Fi</a>';
+	}
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '" target="_blank">';

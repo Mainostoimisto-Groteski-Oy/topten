@@ -38,11 +38,12 @@ section.three-column-block {
 
 	.grid,
 	.grid-full {
-		padding: 20px;
+		padding: 0px 15px;
 		gap: 0 20px;
 
-		@media (max-width: $max-m) {
+		@media (max-width: $max-s) {
 			gap: 20px 0;
+			padding: 0px 15px;
 			grid-template-columns: minmax(0, 1fr);
 			grid-template-rows: minmax(0, 1fr);
 		}
@@ -52,7 +53,7 @@ section.three-column-block {
 		grid-column: 1 / -1;
 		text-align: center;
 
-		@media (max-width: $max-m) {
+		@media (max-width: $max-s) {
 			margin-bottom: 0;
 		}
 	}

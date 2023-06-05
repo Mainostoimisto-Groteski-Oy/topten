@@ -3,6 +3,9 @@
 section.text-and-card-block {
 	.grid {
 		grid-template-columns: 8fr 4fr;
+		@media(max-width:$max-xs) {
+			grid-template-columns: minmax(0, 1fr);
+		}
 
 		.text-container {
 			.title {

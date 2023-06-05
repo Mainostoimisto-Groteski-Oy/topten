@@ -5,11 +5,7 @@ section.logos-block {
 	background-color: $green-lightest;
 
 	@media (max-width: $max-m) {
-		margin: 30px 0;
-	}
-
-	@media (max-width: $max-xs) {
-		margin: 15px 0;
+		padding: 25px 0px;
 	}
 
 	.grid {
@@ -24,7 +20,10 @@ section.logos-block {
 			> div:first-child {
 				border: 1px solid $black;
 				background-color: $white;
-				padding: 50px 0 25px;
+				padding: 50px 15px 25px 15px;
+				@media(max-width:$max-s) {
+					padding: 25px 15px;
+				}
 			}
 		}
 
@@ -34,7 +33,10 @@ section.logos-block {
 				border-left: 1px solid $black;
 				border-right: 1px solid $black;
 				background-color: $white;
-				padding: 50px 0 25px;
+				padding: 50px 15px 25px 15px;
+				@media(max-width:$max-s) {
+					padding: 25px 15px;
+				}
 			}
 
 			> div:nth-child(2) {
@@ -42,7 +44,10 @@ section.logos-block {
 				border-left: 1px solid $black;
 				border-right: 1px solid $black;
 				background-color: $white;
-				padding: 0 0 30px;
+				padding: 0 15px 30px 15px;
+				@media(max-width:$max-s) {
+					padding: 0 15px 15px 15px;
+				}
 			}
 		}
 	}

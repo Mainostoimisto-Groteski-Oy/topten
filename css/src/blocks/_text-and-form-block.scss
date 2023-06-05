@@ -9,6 +9,7 @@ section.text-and-form-block {
 
 		@media (max-width: $max-s) {
 			grid-template-columns: minmax(0, 1fr);
+			gap: 15px;
 		}
 	}
 
@@ -46,7 +47,7 @@ section.text-and-form-block {
 		}
 
 		@media (max-width: $max-s) {
-			grid-row: 1 / -1;
+			grid-row: 2;
 		}
 	}
 }
@@ -56,9 +57,9 @@ section.text-and-form-block {
 		grid-template-columns: minmax(0, 1fr);
 	}
 
-	.image-block {
-		@media (max-width: $max-m) {
-			grid-row: 1 / -1;
+	.form-block {
+		@media (max-width: $max-s) {
+			grid-row: 2;
 		}
 	}
 }

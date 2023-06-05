@@ -4,7 +4,9 @@ section.articles-block {
 	@include buttons;
 
 	padding: 25px 0;
-
+	@media(max-width:$max-m) {
+		padding: 0;
+	}
 	&.white {
 		background-color: $white;
 	}
@@ -16,7 +18,7 @@ section.articles-block {
 	.text-block {
 		.title {
 			color: $black;
-			font-weight: 500;
+			text-align: center;
 		}
 	}
 
@@ -24,7 +26,9 @@ section.articles-block {
 		display: grid;
 		gap: 30px;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
-
+		@media(max-width:$max-m) {
+			gap: 15px;
+		}
 		@media (max-width: $max-s) {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}

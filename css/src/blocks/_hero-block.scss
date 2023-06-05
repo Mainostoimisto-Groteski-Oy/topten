@@ -14,6 +14,7 @@ section.hero-block {
 
 		.hero-content-wrapper {
 			.grid {
+				padding: 0;
 				align-items: end;
 			}
 		}
@@ -24,15 +25,18 @@ section.hero-block {
 			.grid-full {
 				grid-template-columns: repeat(2, minmax(0, 1fr));
 				gap: 30px;
-
+				padding: 0 15px 0 0;
 				@media (max-width: $max-m) {
 					grid-template-columns: minmax(0, 1fr);
+					padding: 0 0 15px 0;
 				}
 
 				.text-block {
 					display: flex;
 					flex-direction: column;
-
+					@media(max-width:$max-m) {
+						padding: 0 15px;
+					}
 					.title {
 						margin: 15px 0;
 					}

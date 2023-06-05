@@ -12,7 +12,11 @@ body.page-template-template-korttiluettelo {
 			&.list {
 				background-color: $grey;
 				position: relative;
-
+				@media(max-width:$max-xxs) {
+					&.filters-active {
+						border-top: 1px solid $black;
+					}
+				}
 				#ajaxOverlay {
 					position: absolute;
 					top: 0;
@@ -40,14 +44,17 @@ body.page-template-template-korttiluettelo {
 					padding: 0 15px;
 					gap: 0;
 
-					@media (max-width: $max-xl) {
-						margin-bottom: 15px;
+					@media(max-width:$max-xxs) {
+						padding: 0;
 					}
 
 					.title-wrapper {
 						grid-column: 1 / -1;
 						position: relative;
 						border-bottom: 1px solid $black;
+						@media(max-width:$max-xxs) {
+							padding: 0 15px;
+						}
 
 						.title {
 							font-weight: 600;
@@ -108,6 +115,9 @@ body.page-template-template-korttiluettelo {
 						}
 						@media (max-width: $max-m) {
 							padding: 15px;
+						}
+						@media(max-width:$max-xxs) {
+							margin-bottom: 25px;
 						}
 
 						&.active {
@@ -229,6 +239,10 @@ body.page-template-template-korttiluettelo {
 							@media (max-width: $max-xl) {
 								padding: 5px 10px;
 							}
+							@media(max-width:$max-xxs) {
+								padding: 10px 20px;
+								width: 100%;
+							}
 
 							&:hover {
 								background-color: $black;
@@ -254,6 +268,7 @@ body.page-template-template-korttiluettelo {
 					@media (max-width: $max-xl) {
 						grid-column: auto;
 					}
+					
 
 					&.active {
 						display: block;
@@ -267,11 +282,26 @@ body.page-template-template-korttiluettelo {
 							@media (max-width: $max-s) {
 								grid-template-columns: minmax(0, 1fr);
 							}
+							@media(max-width:$max-xxs) {
+								padding: 0;
+								gap: 0;
+								>div {
+									padding: 30px 15px;
+									&:nth-child(odd) {
+										background-color: $white;
+									}
+									&:nth-child(even) {
+										background-color: $grey-transparent;
+									}
+									&.submit {
+										padding: 0 15px 25px;
+										border-bottom: 1px solid black;
+										margin-bottom: 25px;
+										background-color: $grey-transparent;
+									}
+								}
+							}
 						}
-					}
-
-					.search-wrapper {
-
 					}
 
 					label,
@@ -368,11 +398,17 @@ body.page-template-template-korttiluettelo {
 							font-size: 2rem;
 							font-weight: 400;
 							cursor: pointer;
+							@media(max-width:$max-xxs) {
+								font-size: 1.8rem;
+							}
 						}
 
 						.inner-wrapper {
 							display: flex;
-
+							@media(max-width:$max-xxs) {
+								flex-direction: column;
+								gap: 15px;
+							}
 							input {
 								flex-grow: 1;
 							}
@@ -382,11 +418,21 @@ body.page-template-template-korttiluettelo {
 								align-items: center;
 								font-size: 1.6rem;
 								letter-spacing: 0.2px;
+								@media(max-width:$max-xxs) {
+									align-items: unset;
+									gap: 0;
+								}
+								.divider {
+									text-align: center;
+								}
 							}
 						}
 
 						button {
 							padding: 0 30px;
+							@media(max-width:$max-xxs) {
+								padding: 10px 20px;
+							}
 						}
 					}
 
@@ -410,6 +456,10 @@ body.page-template-template-korttiluettelo {
 						border-top: 1px solid $black;
 						border-bottom: 1px solid $black;
 						border-radius: 5px 0 0 5px;
+						@media(max-width:$max-xxs) {
+							border-radius: 5px;
+							border: 1px solid $black;
+						}
 					}
 
 					#freeText {
@@ -429,6 +479,9 @@ body.page-template-template-korttiluettelo {
 						&.searchTrigger {
 							border-radius: 5px;
 							font-size: 2rem;
+							@media(max-width:$max-xxs) {
+								width: 100%;
+							}
 						}
 
 						&:hover {
@@ -452,6 +505,10 @@ body.page-template-template-korttiluettelo {
 						display: flex;
 						flex-direction: column;
 						gap: 15px;
+					}
+					@media(max-width:$max-xxs) {
+						border-bottom: 1px solid $black;
+						padding-bottom: 15px;
 					}
 
 					label,
@@ -483,6 +540,7 @@ body.page-template-template-korttiluettelo {
 								.boxes {
 									@media (max-width: $max-xs) {
 										flex-direction: column;
+										align-items: flex-start;
 									}
 								}
 							}
@@ -500,6 +558,9 @@ body.page-template-template-korttiluettelo {
 								font-weight: 400;
 								margin-right: 10px;
 								cursor: pointer;
+								@media(max-width:$max-xxs) {
+									font-size: 1.8rem;
+								}
 							}
 
 							.boxes {
@@ -509,7 +570,11 @@ body.page-template-template-korttiluettelo {
 								margin-left: auto;
 								height: 100%;
 								gap: 5px;
-
+								.box-wrapper {
+									display: flex;
+									align-items: center;
+									gap: 5px;
+								}
 								@media (max-width: $max-xl) {
 									margin-left: 0;
 								}
@@ -553,7 +618,7 @@ body.page-template-template-korttiluettelo {
 					border-left: 1px solid $black;
 					border-right: 1px solid $black;
 					border-top: 1px solid $black;
-
+					
 					.no-results {
 						padding: 15px 30px;
 						border-bottom: 1px solid $black;

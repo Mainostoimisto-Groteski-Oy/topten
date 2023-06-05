@@ -29,6 +29,13 @@ section.banner-block {
 				font-weight: 400;
 				color: $white;
 				text-align: center;
+				margin: 0;
+				@media(max-width:$max-s) {
+					font-size: 2.2rem;
+				}
+				@media(max-width:$max-xs) {
+					font-size: 2rem;
+				}
 			}
 		}
 	}

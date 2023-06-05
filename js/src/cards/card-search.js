@@ -546,7 +546,7 @@ jQuery(document).ready(($) => {
 	// Opens and closes the filters
 	$('#toggleFilters').on('click', function () {
 		$(this).toggleClass('active');
-
+		$('section.list').toggleClass('filters-active');
 		if ($('ul#selectedCardClasses li').length === 1) {
 			$('ul#selectedCardClasses li').addClass('disabled');
 		} else {
