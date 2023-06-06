@@ -57,28 +57,34 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 		$link_en = get_permalink($languages['en']['post']->ID);
 	}
 	$html  = '<li class="card">';
+	$html .= '<div class="first block">';
 	$html .= '<div class="ident">';
 	$html .= '<span class="start">' . esc_html( $identifier_start ) . '</span>';
 	$html .= '<span class="end"> ' . esc_html( $identifier_end ) . '</span>';
 	$html .= '</div>';
 	$html .= '<span class="version">' . esc_html( $version ) . '</span>';
 	$html .= '<span class="date">' . esc_html( $post_date ) . '</span>';
+	$html .= '</div>';
+	$html .= '<div class="second block">';
 	$html .= '<span class="card-title">' . esc_html( $title ) . '</span>';
+	$html .= '</div>';
+	$html .= '<div class="third block">';
 	$html .= '<div class="languages">';
-	if(!empty($link_fi)) {
-	$html .= '<a href="' . esc_url( $link_fi ) . '" class="fi">Fi</a>';
+	if(!empty($link_fi) && (!empty($link_sv) || !empty($link_en))) {
+		$html .= '<a href="' . esc_url( $link_fi ) . '">Fi</a>';
 	}
-	if(!empty($link_se)) {
-		$html .= '<a href="' . esc_url( $link_se ) . '" class="fi">Fi</a>';
+	if(!empty($link_se) && (!empty($link_fi) || !empty($link_en))) {
+		$html .= '<a href="' . esc_url( $link_se ) . '">Fi</a>';
 	}
-	if(!empty($link_en)) {
-		$html .= '<a href="' . esc_url( $link_en ) . '" class="fi">Fi</a>';
+	if(!empty($link_en) && (!empty($link_sv) || !empty($link_fi))) {
+		$html .= '<a href="' . esc_url( $link_en ) . '">Fi</a>';
 	}
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '" target="_blank">';
 	$html .= esc_html( 'Siirry kortille', 'topten' );
 	$html .= '<span class="screen-reader-text">'. esc_html__( 'Linkki aukeaa uuteen ikkunaan' ) .'</span></a>';
+	$html .= '</div>';
 	$html .= '</div>';
 	$html .= '</li>';
 
