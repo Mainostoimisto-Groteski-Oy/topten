@@ -24,8 +24,8 @@ class Topten_Admin_Cards extends Topten_Admin {
 		add_filter( 'post_row_actions', array( $this, 'copy_card_language_action' ), 10, 2 );
 
 		// Copy card action
-		add_filter( 'admin_action_tt_copy_card', array( $this, 'copy_card' ) );
-		add_filter( 'admin_action_tt_copy_card_language', array( $this, 'copy_card_language' ) );
+		add_action( 'admin_action_tt_copy_card', array( $this, 'copy_card' ) );
+		add_action( 'admin_action_tt_copy_card_language', array( $this, 'copy_card_language' ) );
 
 		// Approve card for municipality
 		add_filter( 'admin_action_tt_approve_card_for_municipality', array( $this, 'approve_card_for_municipality' ) );
@@ -242,7 +242,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 				'action' => 'tt_copy_card',
 				'post'   => $post->ID,
 			),
-			admin_url( 'admin-post.php' ),
+			admin_url( 'admin.php' ),
 		);
 
 		$url = wp_nonce_url( $url, 'tt_copy_card_' . $post->ID );
@@ -272,7 +272,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 				'action' => 'tt_copy_card_language',
 				'post'   => $post->ID,
 			),
-			admin_url( 'admin-post.php' ),
+			admin_url( 'admin.php' ),
 		);
 
 		$url = wp_nonce_url( $url, 'tt_copy_card_language_' . $post->ID );
@@ -288,12 +288,12 @@ class Topten_Admin_Cards extends Topten_Admin {
 	public function copy_card() {
 		// Check if user is logged in
 		if ( ! is_user_logged_in() ) {
-			return;
+			wp_die( 'User not logged in', 'User not logged in', array( 'response' => 401 ) );
 		}
 
 		// Check if we have a post ID and action tt_copy_card
 		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'tt_copy_card' !== $_GET['action'] ) ) {
-			return;
+			wp_die( 'Action missing', 'Action missing', array( 'response' => 401 ) );
 		}
 
 		$post_id = intval( $_GET['post'] );
@@ -310,7 +310,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 
 		// Check if user has permission to edit the post
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
+			wp_die( 'Unauthorized', 'Unauthorized', array( 'response' => 401 ) );
 		}
 
 		// Create a new post, copy post data from the source post
