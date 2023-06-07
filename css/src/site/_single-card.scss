@@ -8,16 +8,102 @@
 	.site {
 		overflow: hidden;
 	}
+	.grid.toggle {
+		display: none;
+		@media(max-width:$max-m) {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr);
+			gap: 30px;
+			padding-bottom: 0;
+		}
+
+		#toggleSidebar {
+			display: none;
+			@media(max-width:$max-m) {
+
+				display: flex;
+				height: 35px;
+				position: static;
+				top: 0;
+				align-items: center;
+				gap: 5px;
+				margin-right: auto;
+				background-color: $white;
+				color: $black;
+				border: 1px solid $black;
+				outline: none;
+				border-radius: 3px;
+				padding: 5px 10px;
+				&:hover, .active {
+					background-color: $black;
+					color: $white;
+					p.menu-explanation {
+						&.active {
+							background-color: $black;
+							color: $white;
+						}
+					}
+				}
+			}
+
+			p.menu-explanation {
+				margin: 0;
+				font-size: 1.6rem;
+				display: none;
+				&.active {
+					display: block;
+					background-color: $white;
+					color: $black;
+
+				}
+				
+			}
+		}
+	}
 
 	.sidebar-grid {
 		grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
 		gap: 30px;
+		position: relative;
+		@media(max-width:$max-m) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		@media(max-width:$max-s) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		
 	}
-
+	
 	article {
+	
+		
+		
 		.card-content {
+			position: relative;
+
 			.title {
 				margin: 0;
+			}
+			
+			&.status-past {
+				>section {
+					position: relative;
+					z-index: 999;
+				}
+				&::before {
+					position: absolute;
+					top: 0;
+					left: 10%;
+					height: 100%;
+					width: 80%;
+					@include background("#{$images}/expired.png");
+					background-repeat: repeat-y;
+					background-position: center;
+					background-size: contain;
+					opacity: 0.05;
+					content: '';
+					z-index: 1;
+				}
 			}
 
 			.desc {
@@ -174,7 +260,17 @@
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
-
+		@media(max-width:$max-m) {
+			grid-row: 1;
+			display: none;
+			position: static;
+			height: auto;
+			border: 1px solid $black;
+			padding: 30px 30px 60px 30px;
+			&.active {
+				display: flex;
+			}
+		}
 		&::before {
 			background-color: $lightgrey;
 			position: absolute;
@@ -184,6 +280,10 @@
 			width: 240%;
 			height: calc(100% + 60px);
 			z-index: 1;
+			@media(max-width:$max-m) {
+				display: none;
+				content: none;
+			}
 		}
 
 		.box {
@@ -220,6 +320,18 @@
 				&.active {
 					display: block;
 				}
+				a.related-card {
+					display: block;
+					&:hover {
+						text-decoration: none;
+					}
+				}
+				span.card-status {
+					margin: 5px 0px 15px 0px;
+					display: block;
+					font-size: 1.4rem;
+					text-transform: uppercase;
+				}
 			}
 
 			&.open {
@@ -242,6 +354,7 @@
 						&::after {
 							right: unset!important;
 							left: 0!important;
+							top: calc(50% + 3px)!important;
 							transform: translate(0, -50%) rotate(180deg)!important;
 						} 
 						&:hover {
@@ -286,24 +399,11 @@
 					span {
 						position: relative;
 						font-size: 1.8rem;
-
-						&::after {
-							width: 0;
-							height: 1px;
-							background-color: $black;
-							content: "";
-							position: absolute;
-							bottom: 0;
-							left: 0;
-							transition: all 0.15s;
-						}
 					}
 
 					&:hover {
 						span {
-							&::after {
-								width: 100%;
-							}
+							text-decoration: underline;
 						}
 					}
 

@@ -79,6 +79,25 @@
 				color: $black;
 			}
 		}
+		&.back {
+			padding: 5px 15px 5px 35px!important;
+			position: relative;
+
+
+			/* material icons back arrow icon in before */
+			&::before {
+				content: "\e941";
+				-webkit-font-smoothing: antialiased;
+				font-weight: 400;
+				font-family: "Material Icons";
+				font-size: 2.4rem;
+				position: absolute;
+				top: 50%;
+				left: 7px;
+				transform: translate(0, -50%) rotate(180deg);
+			}
+
+		}
 	}
 }
 

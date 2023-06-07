@@ -43,11 +43,19 @@ $columns = array( 'left', 'middle', 'right' );
 				<div class="footer <?php echo esc_attr( $column ); ?>">
 					<?php
 					if ( get_field( 'footer_' . $column, 'options' ) ) {
+						echo "<h3 class='h4 title'>". esc_html( get_field( 'footer_' . $column .'_title', 'options' ) ) ."</h3>";
+					}
+					if ( get_field( 'footer_' . $column, 'options' ) ) {
 						the_field( 'footer_' . $column, 'options' );
 					}
 
 					if ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
-						echo '<div class="buttons">';
+						if( $column === 'right' ) {
+							$wrapper = 'buttons';
+						} else {
+							$wrapper = 'links large';
+						}
+						echo '<div class="'.$wrapper.'">';
 
 						while ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
 							the_row();
@@ -59,7 +67,18 @@ $columns = array( 'left', 'middle', 'right' );
 								$title  = esc_attr( $button['title'] );
 								$target = esc_attr( $button['target'] );
 
-								echo sprintf( '<a class="button" href="%s" title="%s" target="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+								if( $column === 'right' ) {
+									$class = 'button';
+								} else {
+									$class = 'link';
+								}
+								if ( get_sub_field( 'button_icon' ) ) {
+									$subclass = get_sub_field( 'button_icon' );
+								} else {
+									$subclass = '';
+								}
+
+								echo sprintf( '<a class="%s %s" href="%s" title="%s" target="%s"><span>%s</span></a>', esc_attr( $class ), esc_attr( $subclass), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 							}
 						}
 

@@ -1064,7 +1064,8 @@
             "relevanssi_exclude": 0,
             "choices": {
                 "none": "Ei mitään",
-                "rss": "RSS-syöte"
+                "rss": "RSS-syöte",
+                "back": "Nuoli taaksepäin"
             },
             "default_value": false,
             "return_format": "value",
@@ -1093,5 +1094,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1685708023
+    "modified": 1686045977
 }

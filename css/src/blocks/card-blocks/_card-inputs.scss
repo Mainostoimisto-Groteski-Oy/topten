@@ -5,7 +5,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-
+		margin-top: auto;
+		margin-bottom: auto;
 		.checkboxes {
 			display: flex;
 			gap: 50px;
@@ -16,7 +17,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-
+		&.center {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
 		.radios {
 			display: flex;
 			gap: 50px;
@@ -29,7 +33,7 @@
 
 	label {
 		&.text-field,
-		&.textarea-field, {
+		&.textarea-field {
 			display: flex;
 			flex-direction: column;
 		}
@@ -38,9 +42,10 @@
 			.input-field-wrapper {
 				display: flex;
 				gap: 5px;
-
 				input {
 					width: 100%;
+					padding: 10px;
+					margin: 5px 0px;
 				}
 			}
 		}

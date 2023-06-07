@@ -53,6 +53,27 @@
             "append": ""
         },
         {
+            "key": "field_647f046a37dbc",
+            "label": "Otsikko, vasen palsta",
+            "name": "footer_left_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_64365dfa95489",
             "label": "Vasen palsta",
             "name": "footer_left",
@@ -75,7 +96,7 @@
         },
         {
             "key": "field_64367f86d68a1",
-            "label": "Painikkeet, vasen palsta",
+            "label": "Linkit, vasen palsta",
             "name": "footer_buttons_left",
             "aria-label": "",
             "type": "repeater",
@@ -117,6 +138,27 @@
             ]
         },
         {
+            "key": "field_647f047c37dbd",
+            "label": "Otsikko, keskimmäinen palsta",
+            "name": "footer_middle_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_64365e129548a",
             "label": "Keskimmäinen palsta",
             "name": "footer_middle",
@@ -139,7 +181,7 @@
         },
         {
             "key": "field_64367f66fe5d4",
-            "label": "Painikkeet, keskimmäinen palsta",
+            "label": "Linkit, keskimmäinen palsta",
             "name": "footer_buttons_middle",
             "aria-label": "",
             "type": "repeater",
@@ -179,6 +221,27 @@
                     "parent_repeater": "field_64367f66fe5d4"
                 }
             ]
+        },
+        {
+            "key": "field_647f049637dbe",
+            "label": "Otsikko, oikea palsta",
+            "name": "footer_right_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_64365e1a9548b",
@@ -241,6 +304,35 @@
                     "relevanssi_exclude": 0,
                     "return_format": "array",
                     "parent_repeater": "field_64367f33ca3db"
+                },
+                {
+                    "key": "field_647f04b837dbf",
+                    "label": "Ikoni",
+                    "name": "button_icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "choices": {
+                        "none": "Ei mitään",
+                        "rss": "RSS-syöte",
+                        "back": "Nuoli taaksepäin"
+                    },
+                    "default_value": "none",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_64367f33ca3db"
                 }
             ]
         }
@@ -263,5 +355,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681812122
+    "modified": 1686045956
 }

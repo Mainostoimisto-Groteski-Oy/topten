@@ -70,20 +70,29 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '</div>';
 	$html .= '<div class="third block">';
 	$html .= '<div class="languages">';
-	if(!empty($link_fi) && (!empty($link_sv) || !empty($link_en))) {
-		$html .= '<a href="' . esc_url( $link_fi ) . '">Fi</a>';
+	if(!empty($link_fi)) {
+		$html .= '<a target="_blank" href="' . esc_url( $link_fi ) . '">
+		<span>Fi</span>
+		<span class="screen-reader-text">'. esc_html__( 'Avautuu uuteen ikkunaan, suomeksi', 'topten' ) .'</span>
+		</a>';
 	}
-	if(!empty($link_se) && (!empty($link_fi) || !empty($link_en))) {
-		$html .= '<a href="' . esc_url( $link_se ) . '">Fi</a>';
+	if(!empty($link_sv)) {
+		$html .= '<a target="_blank" href="' . esc_url( $link_sv ) . '">
+		<span>Sv</span>
+		<span class="screen-reader-text">'. esc_html__( 'Avautuu uuteen ikkunaan, ruotsiksi', 'topten' ) .'</span>
+		</a>';
 	}
-	if(!empty($link_en) && (!empty($link_sv) || !empty($link_fi))) {
-		$html .= '<a href="' . esc_url( $link_en ) . '">Fi</a>';
+	if(!empty($link_en)) {
+		$html .= '<a target="_blank" href="' . esc_url( $link_en ) . '">
+		<span>En</span>		
+		<span class="screen-reader-text">'. esc_html__( 'Avautuu uuteen ikkunaan, englanniksi', 'topten' ) .'</span>
+		</a>';
 	}
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '" target="_blank">';
 	$html .= esc_html( 'Siirry kortille', 'topten' );
-	$html .= '<span class="screen-reader-text">'. esc_html__( 'Linkki aukeaa uuteen ikkunaan' ) .'</span></a>';
+	$html .= '<span class="screen-reader-text">'. esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) .'</span></a>';
 	$html .= '</div>';
 	$html .= '</div>';
 	$html .= '</li>';

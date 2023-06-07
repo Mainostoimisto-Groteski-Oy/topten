@@ -101,9 +101,24 @@ if('tulkintakortti' === $type ) {
 	</section>
 <?php endif; ?>
 
+<div class="grid toggle">
+	<button class="sidebar-toggle" id="toggleSidebar" aria-label="Avaa sivupalkki" aria-controls="sidebar-menu" aria-expanded="false">
+		<span class="material-icons" aria-hidden="true">
+			menu
+		</span>
+		<p class="menu-explanation closed active" aria-hidden="true">
+			<?php esc_html_e('Avaa sisällysluettelo', 'topten'); ?>
+		</p>
+		<p class="menu-explanation open" aria-hidden="true">
+			<?php esc_html_e('Sulje sisällysluettelo', 'topten'); ?>
+		</p>
+	</button>
+</div>
+
 <div class="grid sidebar-grid">
+	
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<div class="card-content">
+		<div class="card-content status-<?php echo esc_attr($status); ?>">
 			<section class="row-block top">
 				<div class="wrapper">
 					<?php if( get_field('rty_logo_cards', 'options') || get_field('topten_logo_cards', 'options') ) : ?>
@@ -184,7 +199,7 @@ if('tulkintakortti' === $type ) {
 		</button>
 	</article>
 
-	<aside class="sidebar">
+	<aside class="sidebar" id="sidebar-menu" aria-expanded="false">
 		<div class="box open">
 			<div class="box-title">
 				<h3 class="h2">
@@ -226,6 +241,43 @@ if('tulkintakortti' === $type ) {
 			</div>
 		</div>
 		<?php endif; ?>
+		<?php if ( get_field( 'linked_cards' ) ) : ?>
+
+			<div class="box">
+				<div class="box-title">
+					<h3 class="h2">
+						<?php esc_html_e( 'Liittyvät kortit', 'topten' ); ?>
+					</h3>
+					<button class="material-icons" aria-expanded="false">double_arrow</button>
+				</div>
+				<div class="box-content">
+					<?php $linked_cards = get_field( 'linked_cards' ); 
+					foreach ( $linked_cards as $linked_card ) :
+						$linked_card_id = $linked_card->ID;
+						$linked_card_title = $linked_card->post_title;
+						$linked_card_status = get_field( 'card_status_publish', $linked_card_id );
+						$linked_card_url = get_permalink( $linked_card_id );
+						if('Voimassa oleva' === $linked_card_status['label']) {
+							$content = 'Voimassa';
+						} else if ('2025' === $linked_card_status['label']) {
+							$content = 'Rakennuslaki 2025';
+						} else {
+							$content = 'Vanhentunut';
+						}
+						?>
+						<a class="related-card" href="<?php echo esc_url( $linked_card_url ); ?>" class="linked-card">
+							<span><?php echo esc_html( $linked_card_title ); ?></span>
+						</a>
+						<span class="card-status"><?php echo esc_html($content); ?></span>
+					<?php
+					endforeach;
+					?>
+					
+				</div>
+			</div>
+
+		<?php endif; ?>
+
 		<div class="box">
 			<div class="box-title">
 				<h3 class="h2">

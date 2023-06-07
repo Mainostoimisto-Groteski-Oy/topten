@@ -67,10 +67,10 @@
         },
         {
             "key": "field_642ea6f13e6a7",
-            "label": "Liittyvä kortti",
-            "name": "linked_card",
+            "label": "Liittyvät kortit",
+            "name": "linked_cards",
             "aria-label": "",
-            "type": "post_object",
+            "type": "relationship",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -85,12 +85,18 @@
                 "ohjekortti",
                 "lomakekortti"
             ],
-            "post_status": "",
+            "post_status": [
+                "publish"
+            ],
             "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type"
+            ],
             "return_format": "object",
-            "multiple": 0,
-            "allow_null": 0,
-            "ui": 1
+            "min": "",
+            "max": "",
+            "elements": ""
         },
         {
             "key": "field_642ea74674d4a",
@@ -146,5 +152,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681987761
+    "modified": 1686118679
 }
