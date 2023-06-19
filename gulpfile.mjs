@@ -104,11 +104,13 @@ function productionStyles() {
 }
 
 function js() {
-	webpackConfig.mode = 'development';
-	webpackConfig.devtool = 'source-map';
+	const wpConfig = _.clone(webpackConfig);
+
+	wpConfig.mode = 'development';
+	wpConfig.devtool = 'source-map';
 
 	return src(config.js.src)
-		.pipe(webpack(webpackConfig, compiler))
+		.pipe(webpack(wpConfig, compiler))
 
 		.on('error', function () {
 			this.emit('end');
@@ -121,6 +123,7 @@ function js() {
 
 function adminJs() {
 	const wpConfig = _.clone(webpackConfig);
+
 	wpConfig.mode = 'development';
 	wpConfig.devtool = 'source-map';
 	wpConfig.output.filename = 'admin.min.js';
@@ -138,23 +141,26 @@ function adminJs() {
 }
 
 function productionJs() {
-	webpackConfig.mode = 'production';
-	webpackConfig.devtool = false;
+	const wpConfig = _.clone(webpackConfig);
+
+	console.log(wpConfig);
+
+	wpConfig.mode = 'production';
+	wpConfig.devtool = false;
 
 	return src(config.js.src)
-		.pipe(webpack(webpackConfig, compiler))
+		.pipe(webpack(wpConfig, compiler))
 
 		.on('error', function () {
 			this.emit('end');
 		})
 
-		.pipe(dest(config.js.dest))
-
-		.pipe(browserSync.stream());
+		.pipe(dest(config.js.dest));
 }
 
 function adminProductionJs() {
 	const wpConfig = _.clone(webpackConfig);
+
 	wpConfig.mode = 'production';
 	wpConfig.devtool = false;
 	wpConfig.output.filename = 'admin.min.js';
@@ -166,9 +172,7 @@ function adminProductionJs() {
 			this.emit('end');
 		})
 
-		.pipe(dest(config.js.admin.dest))
-
-		.pipe(browserSync.stream());
+		.pipe(dest(config.js.admin.dest));
 }
 
 function bumpPackage() {
@@ -283,12 +287,12 @@ function watchFiles() {
 
 export const prod = series(
 	cleanDist,
-	parallel(optimizeAssets, productionStyles, productionJs, adminProductionJs)
+	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs))
 );
 
 export const generate = series(
 	cleanDist,
-	parallel(optimizeAssets, productionStyles, productionJs, adminProductionJs)
+	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs))
 );
 
 export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor, bumpPackageMinor);
