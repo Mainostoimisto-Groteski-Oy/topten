@@ -37,7 +37,6 @@ section.list-block {
 				display: flex;
 				flex-direction: column;
 
-
 				@include arrowlink($black, 400);
 
 				@media (max-width: $max-xs) {

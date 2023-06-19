@@ -199,7 +199,6 @@ add_action( 'admin_enqueue_scripts', 'topten_admin_scripts' );
  * Enqueue scripts and styles.
  */
 function topten_scripts() {
-
 	wp_enqueue_style( 'blinker', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
@@ -223,22 +222,22 @@ function topten_scripts() {
 		)
 	);
 
-	$scripts = array(
-		'topten_card_search',
-		'topten_fetch_suggestions',
-		'topten_fetch_terms',
-	);
+	// $scripts = array(
+	// 'topten_card_search',
+	// 'topten_fetch_suggestions',
+	// 'topten_fetch_terms',
+	// );
 
-	foreach ( $scripts as $script ) {
-		wp_localize_script(
-			'topten',
-			$script,
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'nonce' ),
-			)
-		);
-	}
+	// foreach ( $scripts as $script ) {
+	// wp_localize_script(
+	// 'topten',
+	// $script,
+	// array(
+	// 'ajaxurl' => admin_url( 'admin-ajax.php' ),
+	// 'nonce'   => wp_create_nonce( 'nonce' ),
+	// )
+	// );
+	// }
 
 	wp_localize_script(
 		'topten',
