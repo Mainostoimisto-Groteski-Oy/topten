@@ -5,7 +5,7 @@ section.logos-block {
 	background-color: $green-lightest;
 
 	@media (max-width: $max-m) {
-		padding: 25px 0px;
+		padding: 25px 0;
 	}
 
 	.grid {
@@ -20,8 +20,9 @@ section.logos-block {
 			> div:first-child {
 				border: 1px solid $black;
 				background-color: $white;
-				padding: 50px 15px 25px 15px;
-				@media(max-width:$max-s) {
+				padding: 50px 15px 25px;
+
+				@media (max-width: $max-s) {
 					padding: 25px 15px;
 				}
 			}
@@ -33,8 +34,9 @@ section.logos-block {
 				border-left: 1px solid $black;
 				border-right: 1px solid $black;
 				background-color: $white;
-				padding: 50px 15px 25px 15px;
-				@media(max-width:$max-s) {
+				padding: 50px 15px 25px;
+
+				@media (max-width: $max-s) {
 					padding: 25px 15px;
 				}
 			}
@@ -44,9 +46,10 @@ section.logos-block {
 				border-left: 1px solid $black;
 				border-right: 1px solid $black;
 				background-color: $white;
-				padding: 0 15px 30px 15px;
-				@media(max-width:$max-s) {
-					padding: 0 15px 15px 15px;
+				padding: 0 15px 30px;
+
+				@media (max-width: $max-s) {
+					padding: 0 15px 15px;
 				}
 			}
 		}
@@ -100,6 +103,7 @@ section.logos-block {
 				@media (max-width: $max-xs) {
 					max-width: 100px;
 				}
+
 				&:hover {
 					text-decoration: none;
 				}

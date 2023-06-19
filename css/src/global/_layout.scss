@@ -14,6 +14,7 @@ body.no-scroll {
 	border-top: 1px solid $black;
 	max-width: $qhd;
 	margin: 0 auto;
+
 	.grid {
 		padding: 10px 15px;
 
@@ -32,13 +33,16 @@ body.no-scroll {
 		}
 	}
 }
+
 #page {
 	max-width: $qhd;
 	margin: 0 auto;
 }
+
 #masthead {
 	max-width: $qhd;
 }
+
 .breadcrumb {
 	border-bottom: 1px solid $black;
 }

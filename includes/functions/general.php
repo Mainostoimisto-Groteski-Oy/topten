@@ -46,15 +46,15 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$version          = get_field( 'version', $id );
 	$post_date        = date( 'j.n.Y', strtotime( $card->post_date ) );
 	$link             = get_permalink( $id );
-	$languages = topten_get_card_language_versions( $id );
-	if(!empty($languages['fi']['post'])) {
-		$link_fi = get_permalink($languages['fi']['post']->ID);
+	$languages        = topten_get_card_language_versions( $id );
+	if ( ! empty( $languages['fi']['post'] ) ) {
+		$link_fi = get_permalink( $languages['fi']['post']->ID );
 	}
-	if(!empty($languages['sv']['post'])) {
-		$link_sv = get_permalink($languages['sv']['post']->ID);
+	if ( ! empty( $languages['sv']['post'] ) ) {
+		$link_sv = get_permalink( $languages['sv']['post']->ID );
 	}
-	if(!empty($languages['en']['post'])) {
-		$link_en = get_permalink($languages['en']['post']->ID);
+	if ( ! empty( $languages['en']['post'] ) ) {
+		$link_en = get_permalink( $languages['en']['post']->ID );
 	}
 	$html  = '<li class="card">';
 	$html .= '<div class="first block">';
@@ -70,29 +70,29 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	$html .= '</div>';
 	$html .= '<div class="third block">';
 	$html .= '<div class="languages">';
-	if(!empty($link_fi)) {
+	if ( ! empty( $link_fi ) ) {
 		$html .= '<a target="_blank" href="' . esc_url( $link_fi ) . '">
 		<span>Fi</span>
-		<span class="screen-reader-text">'. esc_html__( 'Avautuu uuteen ikkunaan, suomeksi', 'topten' ) .'</span>
+		<span class="screen-reader-text">' . esc_html__( 'Avautuu uuteen ikkunaan, suomeksi', 'topten' ) . '</span>
 		</a>';
 	}
-	if(!empty($link_sv)) {
+	if ( ! empty( $link_sv ) ) {
 		$html .= '<a target="_blank" href="' . esc_url( $link_sv ) . '">
 		<span>Sv</span>
-		<span class="screen-reader-text">'. esc_html__( 'Avautuu uuteen ikkunaan, ruotsiksi', 'topten' ) .'</span>
+		<span class="screen-reader-text">' . esc_html__( 'Avautuu uuteen ikkunaan, ruotsiksi', 'topten' ) . '</span>
 		</a>';
 	}
-	if(!empty($link_en)) {
+	if ( ! empty( $link_en ) ) {
 		$html .= '<a target="_blank" href="' . esc_url( $link_en ) . '">
 		<span>En</span>		
-		<span class="screen-reader-text">'. esc_html__( 'Avautuu uuteen ikkunaan, englanniksi', 'topten' ) .'</span>
+		<span class="screen-reader-text">' . esc_html__( 'Avautuu uuteen ikkunaan, englanniksi', 'topten' ) . '</span>
 		</a>';
 	}
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '" target="_blank">';
 	$html .= esc_html( 'Siirry kortille', 'topten' );
-	$html .= '<span class="screen-reader-text">'. esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) .'</span></a>';
+	$html .= '<span class="screen-reader-text">' . esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) . '</span></a>';
 	$html .= '</div>';
 	$html .= '</div>';
 	$html .= '</li>';
@@ -241,66 +241,66 @@ function topten_card_list( $card_array ) {
 }
 
 
-function topten_card_notification($type = '') {
+function topten_card_notification( $type = '' ) {
 	
-	if(!$type) :
+	if ( ! $type ) :
 		return;
 	else :
 		$id = get_the_ID(); 
 
-			if( 'archive' === $type ) :
+		if ( 'archive' === $type ) :
 
-				$status = get_field( 'card_status_type', $id );
+			$status = get_field( 'card_status_type', $id );
 
-				if ( 'future' ===  $status ) :
+			if ( 'future' === $status ) :
 
-					$message = get_field('future_card_archive_note', 'options');
-					$class = 'future';
+				$message = get_field( 'future_card_archive_note', 'options' );
+				$class   = 'future';
 
-					if(get_field('future_card_archive_link', 'options')) {
-						$link = get_permalink(get_field('main_card_archive', 'options'));
-					} else {
-						$link = '';
-					}
+				if ( get_field( 'future_card_archive_link', 'options' ) ) {
+					$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+				} else {
+					$link = '';
+				}
 					
 
 				elseif ( 'past' === $status ) :
 
-					$message = get_field('expired_card_archive_note', 'options');
-					$class = 'expired';
+					$message = get_field( 'expired_card_archive_note', 'options' );
+					$class   = 'expired';
 
-					if(get_field('expired_card_archive_link', 'options')) {
-						$link = get_permalink(get_field('main_card_archive', 'options'));
+					if ( get_field( 'expired_card_archive_link', 'options' ) ) {
+						$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
 					} else {
 						$link = '';
 					}
 
 				endif;
 				
-			elseif ('single' === $type) :
+			elseif ( 'single' === $type ) :
 
 				$status = get_field( 'card_status_publish', $id );
 
-					if ( is_array( $status ) ) :
+				if ( is_array( $status ) ) :
 		
-						if ( in_array( 'expired', $status ) || in_array( 'repealed', $status ) ) :
+					if ( in_array( 'expired', $status ) || in_array( 'repealed', $status ) ) :
 
-							$message = get_field('expired_card_archive_note', 'options');
-							$class = 'expired';
+						$message = get_field( 'expired_card_archive_note', 'options' );
+						$class   = 'expired';
 							
-							if(get_field('expired_card_archive_link', 'options')) {
-								$link = get_permalink(get_field('main_card_archive', 'options'));
-							} else {
-								$link = '';
-							}
+						if ( get_field( 'expired_card_archive_link', 'options' ) ) {
+							$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+						} else {
+							$link = '';
+						}
 
 						elseif ( in_array( 'future', $status ) ) :
 
-							$message = get_field('future_card_archive_note', 'options');
-							$class = 'future';
+							$message = get_field( 'future_card_archive_note', 'options' );
+							$class   = 'future';
 
-							if(get_field('future_card_archive_link', 'options')) {
-								$link = get_permalink(get_field('main_card_archive', 'options'));
+							if ( get_field( 'future_card_archive_link', 'options' ) ) {
+								$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
 							} else {
 								$link = '';
 							}
@@ -311,19 +311,20 @@ function topten_card_notification($type = '') {
 
 				endif;
 
-		if(!empty($message)) : ?>
-			<section class="cards-notification <?php echo esc_attr($class); ?>">
+			if ( ! empty( $message ) ) : 
+				?>
+			<section class="cards-notification <?php echo esc_attr( $class ); ?>">
 				<div class="grid">
-					<?php if(!empty($link)) : ?>
-						<a href="<?php echo esc_url($link); ?>">
-							<p><?php echo esc_html($message); ?></p>	
+						<?php if ( ! empty( $link ) ) : ?>
+						<a href="<?php echo esc_url( $link ); ?>">
+							<p><?php echo esc_html( $message ); ?></p>	
 						</a>
 					<?php else : ?>
-						<p><?php echo esc_html($message); ?></p>
+						<p><?php echo esc_html( $message ); ?></p>
 					<?php endif; ?>
 				</div>
 			</section>
-			<?php
+				<?php
 		endif;
-	endif; 	
+	endif;  
 }

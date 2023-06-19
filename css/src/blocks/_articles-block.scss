@@ -1,12 +1,15 @@
 @use "mixins/all" as *;
+
 section.latest-articles,
 section.articles-block {
 	@include buttons;
 
 	padding: 25px 0;
-	@media(max-width:$max-m) {
+
+	@media (max-width: $max-m) {
 		padding: 0;
 	}
+
 	&.white {
 		background-color: $white;
 	}
@@ -26,9 +29,11 @@ section.articles-block {
 		display: grid;
 		gap: 30px;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
-		@media(max-width:$max-m) {
+
+		@media (max-width: $max-m) {
 			gap: 15px;
 		}
+
 		@media (max-width: $max-s) {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
@@ -37,7 +42,8 @@ section.articles-block {
 			grid-template-columns: minmax(0, 1fr);
 		}
 
-		.single-post, .post {
+		.single-post,
+		.post {
 			background-color: $white;
 			border-radius: 5px;
 			display: flex;
@@ -152,6 +158,7 @@ section.articles-block {
 		}
 	}
 }
+
 section.latest-articles .content .grid,
 .content section.articles-block .grid {
 	.post-wrapper {

@@ -7,41 +7,43 @@
 @use "mixins/all" as *;
 
 section.cards-notification {
-    
-    &.expired {
-        background-color: $archive-red;
-    }
-    &.future {
-        background-color: $green-lighter;
-    }
-    .grid {
-        padding: 0px 15px;
-        a {
-            text-decoration: none;
-            p {
-                display: inline-block;
-                position: relative;
-                &::after {
-                    font-family: "Material Icons";
-                    content: "\eac9";
-                    transition: all 0.15s;
-                    position: absolute;
-                    right: 0;
-                    top: calc(50% + 1px);
-                    transform: translate(25px, -50%);
-                    font-size: 2rem;
-                }
-            }
-            &:hover {
-                p {
-                    &::after {
-                        transform: translate(30px, -50%);
-                    }
-                }
-            }
-        }
-        
-    }
+	&.expired {
+		background-color: $archive-red;
+	}
+
+	&.future {
+		background-color: $green-lighter;
+	}
+
+	.grid {
+		padding: 0 15px;
+
+		a {
+			text-decoration: none;
+
+			p {
+				display: inline-block;
+				position: relative;
+
+				&::after {
+					font-family: "Material Icons";
+					content: "\eac9";
+					transition: all 0.15s;
+					position: absolute;
+					right: 0;
+					top: calc(50% + 1px);
+					transform: translate(25px, -50%);
+					font-size: 2rem;
+				}
+			}
+
+			&:hover {
+				p {
+					&::after {
+						transform: translate(30px, -50%);
+					}
+				}
+			}
+		}
+	}
 }
-
-

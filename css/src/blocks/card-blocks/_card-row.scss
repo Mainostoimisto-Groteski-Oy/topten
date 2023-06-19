@@ -75,24 +75,29 @@
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			gap: 0;
 			padding: 15px;
+
 			.logos {
 				display: flex;
 				align-items: center;
-		
+
 				img {
 					max-width: 125px;
 				}
 			}
+
 			.content {
 				display: flex;
 				flex-direction: column;
 				margin-left: auto;
+
 				.column {
-					border: none!important;
+					border: none !important;
 					padding: 5px;
 					text-transform: uppercase;
+
 					&.date {
-						padding: 5px 5px 0px 5px;
+						padding: 5px 5px 0;
+
 						.small-title {
 							strong {
 								font-family: $font-alt;
@@ -101,6 +106,7 @@
 							}
 						}
 					}
+
 					&.identifier {
 						.small-title {
 							strong {
@@ -110,6 +116,7 @@
 							}
 						}
 					}
+
 					&.version {
 						.small-title {
 							strong {
@@ -120,15 +127,16 @@
 						}
 					}
 				}
+
 				.inner-wrapper {
 					display: flex;
 					flex-direction: row;
 				}
 			}
 		}
-		
 
-		
+
+
 
 		p {
 			font-size: 1.4rem;

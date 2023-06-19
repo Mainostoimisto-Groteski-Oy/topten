@@ -54,13 +54,14 @@
 				background-color: $black;
 			}
 		}
+
 		&.rss {
-			padding: 5px 15px 5px 35px!important;
+			padding: 5px 15px 5px 35px !important;
 			position: relative;
 			background-color: $black;
 			color: $white;
 			font-weight: 600;
-			
+
 			/* material icons rss icon in before */
 			&::before {
 				content: "\E0E5";
@@ -73,16 +74,16 @@
 				left: 7px;
 				transform: translate(0, -50%);
 			}
-			
+
 			&:hover {
 				background-color: $white;
 				color: $black;
 			}
 		}
-		&.back {
-			padding: 5px 15px 5px 35px!important;
-			position: relative;
 
+		&.back {
+			padding: 5px 15px 5px 35px !important;
+			position: relative;
 
 			/* material icons back arrow icon in before */
 			&::before {
@@ -96,7 +97,6 @@
 				left: 7px;
 				transform: translate(0, -50%) rotate(180deg);
 			}
-
 		}
 	}
 }
@@ -170,6 +170,7 @@
 
 		&:hover {
 			text-decoration: none;
+
 			span {
 				&::after {
 					transform: translate(30px, -50%);

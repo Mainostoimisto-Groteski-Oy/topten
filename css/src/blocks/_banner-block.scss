@@ -30,10 +30,12 @@ section.banner-block {
 				color: $white;
 				text-align: center;
 				margin: 0;
-				@media(max-width:$max-s) {
+
+				@media (max-width: $max-s) {
 					font-size: 2.2rem;
 				}
-				@media(max-width:$max-xs) {
+
+				@media (max-width: $max-xs) {
 					font-size: 2rem;
 				}
 			}
