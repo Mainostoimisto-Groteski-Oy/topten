@@ -467,7 +467,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 		check_admin_referer( 'tt_approve_card_for_municipality_' . $post_id );
 
 		// Check if user has permission to approve the card
-		if ( ! current_user_can( 'approve_for_municipality' ) ) {
+		if ( ! current_user_can( 'approve_for_profession' ) ) {
 			wp_die( esc_html__( 'Sinulla ei ole oikeuksia aktivoida kortteja', 'topten' ) );
 		}
 
@@ -530,7 +530,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 		check_admin_referer( 'tt_disapprove_card_for_municipality_' . $post_id );
 
 		// Check if user has permission to approve the card
-		if ( ! current_user_can( 'approve_for_municipality' ) ) {
+		if ( ! current_user_can( 'approve_for_profession' ) ) {
 			wp_die( esc_html__( 'Sinulla ei ole oikeuksia aktivoida kortteja', 'topten' ) );
 		}
 

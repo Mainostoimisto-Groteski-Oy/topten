@@ -1,5 +1,5 @@
 <?php
-if ( ! current_user_can( 'approve_for_municipality' ) ) {
+if ( ! current_user_can( 'approve_for_profession' ) ) {
 	wp_die( esc_html__( 'Sinulla ei ole oikeuksia tälle sivulle.', 'topten' ) );
 }
 ?>

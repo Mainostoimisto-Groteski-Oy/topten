@@ -21,33 +21,24 @@ class Topten_Admin_Users extends Topten_Admin {
 		$administrator = get_role( 'administrator' );
 
 		// Add custom capabilities to administrator role (WP doesn't add them automatically)
-		$administrator->add_cap( 'approve_for_municipality' );
 		$administrator->add_cap( 'approve_for_profession' );
+		$administrator->add_cap( 'access_draft_cards' );
 
+		// add_role adds a role only if it doesn't already exist
+		// TODO: We should be able to remove this once roles are correctly defined
+		remove_role( 'ammattihyvaksyja' );
 		remove_role( 'kuntahyvaksyja' );
+		remove_role( 'taso-1' );
 
-		// Kuntahyväksyjä
-		add_role(
-			'kuntahyvaksyja',
-			__( 'Kuntahyväksyjä', 'topten' ),
-			array(
-				'read'                     => true,
-				'edit'                     => true,
-				'approve_for_municipality' => true,
-			)
-		);
-
-		// Ammattihyväksyjä (?)
-		// Todo: Figure out better name for this role
+		// Ammattihyväksyjä
 		add_role(
 			'ammattihyvaksyja',
 			__( 'Ammattihyväksyjä', 'topten' ),
 			array(
 				'read'                   => true,
 				'edit'                   => true,
-				'approve_for_profession' => true,
-			// 'edit_tulkintakorttis' => true,
-			// 'read_tulkintakortti'  => true,
+				'approve_for_profession' => true, // Can approve cards for profession
+				'access_draft_cards'     => true, // Can access draft cards
 			)
 		);
 	}
@@ -86,11 +77,11 @@ class Topten_Admin_Users extends Topten_Admin {
 	 * Add menu pages
 	 */
 	public function add_menu_pages() {
-		// Page for municipality approval
+		// Approval page for ammattihyväksyjä
 		add_menu_page(
 			'Hyväksyntä',
 			'Hyväksyntä',
-			'approve_for_municipality', // todo: Change to correct capability
+			'approve_for_profession',
 			'hyvaksynta',
 			array( $this, 'render_approval_page' ),
 		);
@@ -100,7 +91,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'hyvaksynta',
 			'Tulkintakortit',
 			'Tulkintakortit',
-			'approve_for_municipality', // todo: Change to correct capability
+			'approve_for_profession',
 			'hyvaksynta-tulkintakortit',
 			array( $this, 'render_municipality_tulkintakortti' ),
 		);
@@ -110,7 +101,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'hyvaksynta',
 			'Ohjekortit',
 			'Ohjekortit',
-			'approve_for_municipality', // todo: Change to correct capability
+			'approve_for_profession',
 			'hyvaksynta-ohjekortti',
 			array( $this, 'render_municipality_ohjekortti' ),
 		);
@@ -120,7 +111,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'hyvaksynta',
 			'Lomakekortit',
 			'Lomakekortit',
-			'approve_for_municipality', // todo: Change to correct capability
+			'approve_for_profession',
 			'hyvaksynta-lomakekortti',
 			array( $this, 'render_municipality_lomakekortti' ),
 		);

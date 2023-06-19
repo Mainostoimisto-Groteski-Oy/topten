@@ -863,19 +863,19 @@ function topten_acf_cpt( $field ) {
 add_filter( 'acf/load_field/name=post_type', 'topten_acf_cpt' );
 
 function topten_acf_guide( $field ) {
-	
+
 	$field['choices'] = array(
 		'none' => 'Ei tulkintaa',
 	);
 
-	if ( have_rows('guide', 'options') ) {
-		while (have_rows('guide', 'options')) {
-			
+	if ( have_rows( 'guide', 'options' ) ) {
+		while ( have_rows( 'guide', 'options' ) ) {
+
 			the_row();
-			
-			$icon = get_sub_field('icon');
-			$color = get_sub_field('color');
-			$name = get_sub_field('name');
+
+			$icon  = get_sub_field( 'icon' );
+			$color = get_sub_field( 'color' );
+			$name  = get_sub_field( 'name' );
 
 			// array key = palautettava arvo ($post_type, esim 'post')
 			// array value = ACFn näyttävä arvo (singular_name, esim 'Artikkeli')
@@ -1415,30 +1415,30 @@ add_filter( 'acf/pre_save_block', 'topten_acf_unique_block_id' );
 
 // Add missing breadcrumbs to single card pages based on the card status, only if Yoast SEO is active.
 
-if(is_plugin_active('wordpress-seo/wp-seo.php')) {
-
+if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 	function topten_yoast_breadcrumbs( $links ) {
 		global $post;
-		$id		= get_the_ID();
-		$status	= get_field( 'card_status_publish', $id );
 
-		if ( is_singular( 'tulkintakortti' ) || is_singular('ohjekortti') || is_singular('lomakekortti') ) {
+		$id     = get_the_ID();
+		$status = get_field( 'card_status_publish', $id );
+
+		if ( is_singular( 'tulkintakortti' ) || is_singular( 'ohjekortti' ) || is_singular( 'lomakekortti' ) ) {
 			if ( is_array( $status ) ) {
 				if ( in_array( 'valid', $status ) || in_array( 'approved_for_repeal', $status ) ) {
-					$breadcrumb[] = array (
-						'url' => get_permalink( get_field( 'main_card_archive', 'options' ) ),
+					$breadcrumb[] = array(
+						'url'  => get_permalink( get_field( 'main_card_archive', 'options' ) ),
 						'text' => get_the_title( get_field( 'main_card_archive', 'options' ) ),
 					);
 				}
 				if ( in_array( 'expired', $status ) ) {
-					$breadcrumb[] = array (
-						'url' => get_permalink( get_field( 'expired_card_archive', 'options' ) ),
+					$breadcrumb[] = array(
+						'url'  => get_permalink( get_field( 'expired_card_archive', 'options' ) ),
 						'text' => get_the_title( get_field( 'expired_card_archive', 'options' ) ),
 					);
 				}
 				if ( in_array( 'future', $status ) ) {
-					$breadcrumb[] = array (
-						'url' => get_permalink( get_field( 'future_card_archive', 'options' ) ),
+					$breadcrumb[] = array(
+						'url'  => get_permalink( get_field( 'future_card_archive', 'options' ) ),
 						'text' => get_the_title( get_field( 'future_card_archive', 'options' ) ),
 					);
 				}
@@ -1447,7 +1447,7 @@ if(is_plugin_active('wordpress-seo/wp-seo.php')) {
 		}
 
 		return $links;
-	
+
 	}
 
 	add_filter( 'wpseo_breadcrumb_links', 'topten_yoast_breadcrumbs' );
