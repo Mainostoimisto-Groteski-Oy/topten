@@ -84,10 +84,10 @@ class Topten_Admin {
 					'revisions',
 					'author',
 				),
-				// 'capabilities' => array(
-				// 'edit_posts'  => 'edit_tulkintakorttis',
+				'capabilities' => array(
+					'edit_others_posts' => 'edit_tulkintakorttis',
 				// 'delete_post' => 'read_tulkintakortti',
-				// ),
+				),
 			)
 		);
 

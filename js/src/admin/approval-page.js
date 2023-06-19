@@ -1,3 +1,5 @@
+/* global Ajax */
+
 jQuery(document).ready(($) => {
 	const tableElements = $('.topten-datatable');
 
@@ -10,4 +12,26 @@ jQuery(document).ready(($) => {
 			});
 		});
 	}
+
+	$(document).on('click', '.topten-approve', function () {
+		const postId = $(this).data('id');
+		const message = $(`textarea#topten-message-${postId}`).val();
+
+		$.ajax({
+			url: Ajax.url,
+			method: 'POST',
+			data: {
+				action: 'tt_approve_card',
+				post_id: postId,
+				message,
+				nonce: Ajax.nonce,
+			},
+		})
+			.done((response) => {
+				console.log(response);
+			})
+			.fail((jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown);
+			});
+	});
 });

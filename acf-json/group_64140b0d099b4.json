@@ -55,7 +55,7 @@
             "relevanssi_exclude": 0,
             "choices": {
                 "draft": "Luonnos",
-                "preapproved": "Esihyväksytty",
+                "pending_approval": "Hyväksyttävänä",
                 "approved_for_reuse": "Hyväksytty uudelleen käyttöönotettavaksi",
                 "approved": "Hyväksytty"
             },
@@ -138,5 +138,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683200574
+    "modified": 1687175634
 }

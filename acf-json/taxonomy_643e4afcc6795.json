@@ -11,7 +11,7 @@
     ],
     "advanced_configuration": true,
     "import_source": "cptui",
-    "import_date": 1681804322,
+    "import_date": 1687173435,
     "labels": {
         "singular_name": "Asiasana",
         "name": "Asiasanat",
@@ -75,5 +75,5 @@
     "meta_box": "default",
     "meta_box_cb": "",
     "meta_box_sanitize_cb": "",
-    "modified": 1681804322
+    "modified": 1687173435
 }

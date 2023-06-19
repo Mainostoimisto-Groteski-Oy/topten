@@ -27,11 +27,19 @@ class Topten_Admin_Cards extends Topten_Admin {
 		add_action( 'admin_action_tt_copy_card', array( $this, 'copy_card' ) );
 		add_action( 'admin_action_tt_copy_card_language', array( $this, 'copy_card_language' ) );
 
-		// Approve card for municipality
-		add_filter( 'admin_action_tt_approve_card_for_municipality', array( $this, 'approve_card_for_municipality' ) );
+		// Approve card
+		// add_filter( 'admin_action_tt_approve_card', array( $this, 'approve_card' ) );
 
-		// Disapprove card for municipality
-		add_filter( 'admin_action_tt_disapprove_card_for_municipality', array( $this, 'disapprove_card_for_municipality' ) );
+		add_action( 'wp_ajax_tt_approve_card', array( $this, 'approve_card' ) );
+
+		// Disapprove card
+		add_filter( 'admin_action_tt_disapprove_card', array( $this, 'disapprove_card' ) );
+
+		// // Approve card for municipality
+		// add_filter( 'admin_action_tt_approve_card_for_municipality', array( $this, 'approve_card_for_municipality' ) );
+
+		// // Disapprove card for municipality
+		// add_filter( 'admin_action_tt_disapprove_card_for_municipality', array( $this, 'disapprove_card_for_municipality' ) );
 
 		// reorder_columns filters
 		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
@@ -448,6 +456,49 @@ class Topten_Admin_Cards extends Topten_Admin {
 	}
 
 	/**
+	 * Approve card
+	 */
+	public function approve_card() {
+		// Check nonce
+		check_ajax_referer( 'nonce', 'nonce' );
+
+		// Check if user is logged in
+		if ( ! is_user_logged_in() ) {
+			wp_send_json_error( esc_html__( 'Sinun täytyy kirjautua sisään hyväksyäksesi kortteja', 'topten' ) );
+		}
+
+		// Check if user has permission to approve the card
+		if ( ! current_user_can( 'approve_for_profession' ) ) {
+			wp_send_json_error( esc_html__( 'Sinulla ei ole oikeuksia hyväksyä kortteja', 'topten' ) );
+		}
+
+		// Check if we have a post ID
+		if ( ! isset( $_POST['post_id'] ) ) {
+			wp_send_json_error( esc_html__( 'Jotain meni vikaan. Yritä uudestaan', 'topten' ) );
+		}
+
+		$post_id = intval( $_POST['post_id'] );
+
+		$post = get_post( $post_id );
+
+		// Check if card exists
+		if ( ! $post ) {
+			wp_send_json_error( esc_html__( 'Korttia ei löytynyt', 'topten' ) );
+		}
+
+		// Get user profession
+		$user_profession = get_field( 'user_profession', 'user_' . get_current_user_id() );
+
+		if ( ! $user_profession ) {
+			wp_send_json_error( esc_html__( 'Käyttäjällesi ei ole asetettu ammattia. Ota yhteys ylläpitoon.', 'topten' ) );
+		}
+
+		$message = isset( $_POST['message'] ) ? sanitize_text_field( $_POST['message'] ) : '';
+
+		wp_send_json_success( array( 'message' => $message ) );
+	}
+
+	/**
 	 * Approve card for municipality
 	 */
 	public function approve_card_for_municipality() {
@@ -467,7 +518,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 		check_admin_referer( 'tt_approve_card_for_municipality_' . $post_id );
 
 		// Check if user has permission to approve the card
-		if ( ! current_user_can( 'approve_for_profession' ) ) {
+		if ( ! current_user_can( 'approve_for_municipality' ) ) {
 			wp_die( esc_html__( 'Sinulla ei ole oikeuksia aktivoida kortteja', 'topten' ) );
 		}
 
@@ -530,7 +581,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 		check_admin_referer( 'tt_disapprove_card_for_municipality_' . $post_id );
 
 		// Check if user has permission to approve the card
-		if ( ! current_user_can( 'approve_for_profession' ) ) {
+		if ( ! current_user_can( 'approve_for_municipality' ) ) {
 			wp_die( esc_html__( 'Sinulla ei ole oikeuksia aktivoida kortteja', 'topten' ) );
 		}
 

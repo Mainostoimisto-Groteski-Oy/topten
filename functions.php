@@ -186,6 +186,16 @@ add_filter(
  */
 function topten_admin_scripts() {
 	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array(), TOPTEN_VERSION, true );
+
+	wp_localize_script(
+		'topten-admin',
+		'Ajax',
+		array(
+			'url'   => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'nonce' ),
+		)
+	);
+
 	wp_enqueue_style( 'topten-admin', get_template_directory_uri() . '/css/dist/admin.min.css', array(), TOPTEN_VERSION );
 
 	// Datatables
