@@ -1,8 +1,6 @@
 jQuery(document).ready(($) => {
 	const tableElements = $('.topten-datatable');
 
-	console.log(tableElements);
-
 	if (tableElements.length > 0) {
 		tableElements.each(function () {
 			$(this).DataTable({

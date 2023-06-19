@@ -93,7 +93,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'Tulkintakortit',
 			'approve_for_profession',
 			'hyvaksynta-tulkintakortit',
-			array( $this, 'render_municipality_tulkintakortti' ),
+			array( $this, 'render_profession_tulkintakortti' ),
 		);
 
 		// Hyväksyntä/Ohjekortit
@@ -103,7 +103,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'Ohjekortit',
 			'approve_for_profession',
 			'hyvaksynta-ohjekortti',
-			array( $this, 'render_municipality_ohjekortti' ),
+			array( $this, 'render_profession_ohjekortti' ),
 		);
 
 		// Hyväksyntä/Lomakekortit
@@ -113,7 +113,7 @@ class Topten_Admin_Users extends Topten_Admin {
 			'Lomakekortit',
 			'approve_for_profession',
 			'hyvaksynta-lomakekortti',
-			array( $this, 'render_municipality_lomakekortti' ),
+			array( $this, 'render_profession_lomakekortti' ),
 		);
 	}
 
@@ -125,24 +125,24 @@ class Topten_Admin_Users extends Topten_Admin {
 	}
 
 	/**
-	 * Render municipility approval page (tulkintakortti)
+	 * Render profession approval page (tulkintakortti)
 	 */
-	public function render_municipality_tulkintakortti() {
-		include_once 'pages/approve-for-municipality/approve-tulkintakortti.php';
+	public function render_profession_tulkintakortti() {
+		include_once 'pages/approve-for-profession/approve-tulkintakortti.php';
 	}
 
 	/**
-	 * Render municipility approval page (ohjekortti)
+	 * Render profession approval page (ohjekortti)
 	 */
-	public function render_municipality_ohjekortti() {
-		include_once 'pages/approve-for-municipality/approve-ohjekortti.php';
+	public function render_profession_ohjekortti() {
+		include_once 'pages/approve-for-profession/approve-ohjekortti.php';
 	}
 
 	/**
-	 * Render municipility approval page (lomakekortti)
+	 * Render profession approval page (lomakekortti)
 	 */
-	public function render_municipality_lomakekortti() {
-		include_once 'pages/approve-for-municipality/approve-lomakekortti.php';
+	public function render_profession_lomakekortti() {
+		include_once 'pages/approve-for-profession/approve-lomakekortti.php';
 	}
 
 	/**
@@ -151,9 +151,11 @@ class Topten_Admin_Users extends Topten_Admin {
 	 * @param string $post_type Post type
 	 */
 	public function render_table( $post_type ) {
-		$user_municipality = get_field( 'user_municipality', 'user_' . get_current_user_id() );
+		$user_profession = get_field( 'user_profession', 'user_' . get_current_user_id() );
 
-		if ( ! $user_municipality ) {
+		if ( ! $user_profession ) {
+			echo sprintf( '<p>%s</p>', esc_html__( 'Sinulle ei ole asetettu ammattia, jolle voit hyväksyä kortteja.', 'topten' ) );
+
 			return;
 		}
 
@@ -165,7 +167,7 @@ class Topten_Admin_Users extends Topten_Admin {
 				array(
 					'taxonomy' => 'kunta',
 					'field'    => 'term_id',
-					'terms'    => $user_municipality,
+					'terms'    => $user_profession,
 					'operator' => 'NOT IN',
 				),
 			),
@@ -204,13 +206,13 @@ class Topten_Admin_Users extends Topten_Admin {
 
 							$approve_url = add_query_arg(
 								array(
-									'action' => 'tt_approve_card_for_municipality',
+									'action' => 'tt_approve_card_for_profession',
 									'post'   => get_the_ID(),
 								),
 								admin_url( 'admin.php' )
 							);
 
-							$approve_url = wp_nonce_url( $approve_url, 'tt_approve_card_for_municipality_' . get_the_ID() );
+							$approve_url = wp_nonce_url( $approve_url, 'tt_approve_card_for_profession_' . get_the_ID() );
 							?>
 
 							<tr>
@@ -261,13 +263,13 @@ class Topten_Admin_Users extends Topten_Admin {
 
 							$disapprove_url = add_query_arg(
 								array(
-									'action' => 'tt_disapprove_card_for_municipality',
+									'action' => 'tt_disapprove_card_for_profession',
 									'post'   => get_the_ID(),
 								),
 								admin_url( 'admin.php' )
 							);
 
-							$disapprove_url = wp_nonce_url( $disapprove_url, 'tt_disapprove_card_for_municipality_' . get_the_ID() );
+							$disapprove_url = wp_nonce_url( $disapprove_url, 'tt_disapprove_card_for_profession_' . get_the_ID() );
 							?>
 							<tr>
 								<td>
