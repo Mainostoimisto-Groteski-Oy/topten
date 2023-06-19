@@ -1075,7 +1075,10 @@ function topten_card_search() {
 	// Municipality (multiple values)
 	// Not in use due to customer request
 
-	/*
+	/**
+	 * Municipality (multiple values)
+	 * Not in use due to customer request
+
 	if ( isset( $_POST['cardmunicipalities'] ) ) {
 		if ( ! empty( $_POST['cardmunicipalities'] ) ) {
 			// sanitize array values
@@ -1264,7 +1267,9 @@ function topten_card_search() {
 
 add_action( 'wp_ajax_topten_card_search', 'topten_card_search' );
 add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
-
+/**
+ * Return autocomplete suggestions
+ */
 function topten_fetch_suggestions() {
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
@@ -1320,6 +1325,9 @@ function topten_fetch_suggestions() {
 add_action( 'wp_ajax_topten_fetch_suggestions', 'topten_fetch_suggestions' );
 add_action( 'wp_ajax_nopriv_topten_fetch_suggestions', 'topten_fetch_suggestions' );
 
+/**
+ * Fetches terms for the search form
+ */
 function topten_fetch_terms() {
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
@@ -1378,13 +1386,22 @@ function topten_fetch_terms() {
 
 add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
 add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );
-
+/**
+ * Customize the cutoff for the excerpt
+ *
+ * @param string $more The excerpt more string
+ */
 function topten_excerpt_more( $more ) {
 	return '..';
 }
 
 add_filter( 'excerpt_more', 'topten_excerpt_more' );
 
+/**
+ * Customize the length of the excerpt
+ *
+ * @param int $length The length of the excerpt
+ */
 function topten_excerpt_length( $length ) {
 	return 20;
 }
@@ -1416,9 +1433,13 @@ add_filter( 'acf/pre_save_block', 'topten_acf_unique_block_id' );
 // Add missing breadcrumbs to single card pages based on the card status, only if Yoast SEO is active.
 
 if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
+	/**
+	 * Add missing breadcrumbs to single card pages based on the card status, only if Yoast SEO is active.
+	 *
+	 * @param array $links The breadcrumbs array
+	 */
 	function topten_yoast_breadcrumbs( $links ) {
 		global $post;
-
 		$id     = get_the_ID();
 		$status = get_field( 'card_status_publish', $id );
 

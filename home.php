@@ -14,8 +14,6 @@
 
 get_header();
 ?>
-	
-
 
 	<main id="primary" class="site-main archive-page">
 		<?php
@@ -39,10 +37,10 @@ get_header();
 
 		<div class="content">
 			<div class="grid post-wrapper">
-				<?php 
-				if ( have_posts() ) : 
+				<?php
+				if ( have_posts() ) :
 					?>
-			
+
 
 					<?php
 					/* Start the Loop */

@@ -161,7 +161,7 @@ function topten_buttons( $block = array(), $background = '' ) {
 				$href   = esc_url( $button['url'] );
 				$title  = esc_attr( $button['title'] );
 				$target = esc_attr( $button['target'] );
-		
+
 				echo sprintf( '<a class="button %s %s" href="%s" title="%s" target="%s">%s</a>', esc_attr( $class ), esc_attr( $background ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 			}
 		}
@@ -248,8 +248,10 @@ function topten_get_desc( $description = false ) {
 	}
 }
 
-/** 
+/**
  * Hakee värin options sivulta arvon perusteella
+ *
+ * @param string $value options sivulla asetettu arvo
  */
 function topten_get_guide_color( $value = '' ) {
 	if ( ! $value ) {

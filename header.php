@@ -43,7 +43,7 @@
 
 					<div class="rty-branding">
 						<?php $logo = get_field( 'rty_logo', 'options' ); ?>
-						<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+						<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 					</div>
 
 				<?php endif; ?>

@@ -33,7 +33,7 @@ $columns = array( 'left', 'middle', 'right' );
 			<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
 				<div class="rty-branding">
 					<?php $logo = get_field( 'rty_logo', 'options' ); ?>
-					<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" width="<?php echo $logo['sizes']['medium-width']; ?>" height="<?php echo $logo['sizes']['medium-height']; ?>" />
+					<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" width="<?php echo esc_attr( $logo['sizes']['medium-width'] ); ?>" height="<?php echo esc_attr( $logo['sizes']['medium-height'] ); ?>" />
 				</div>
 			<?php endif; ?>
 		</div>
@@ -55,7 +55,7 @@ $columns = array( 'left', 'middle', 'right' );
 						} else {
 							$wrapper = 'links large';
 						}
-						echo '<div class="' . $wrapper . '">';
+						echo '<div class="' . esc_attr( $wrapper ) . '">';
 
 						while ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
 							the_row();

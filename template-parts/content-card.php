@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template part for displaying posts
  *
@@ -72,29 +73,29 @@ if ( 'tulkintakortti' === $type ) {
 			<h2 class="title h4"><?php the_field( $prefix . '_guide_title', 'options' ); ?></h2>
 			<div class="text">
 				<?php the_field( $prefix . '_guide_before', 'options' ); ?>
-				<?php 
-				if ( have_rows( 'guide', 'options' ) ) : 
+				<?php
+				if ( have_rows( 'guide', 'options' ) ) :
 					?>
-				<div class="tulkinnat">
-					<?php
-					while ( have_rows( 'guide', 'options' ) ) : 
-						
-						the_row();
-						
-						$icon  = get_sub_field( 'icon' );
-						$color = get_sub_field( 'color' );
-						$name  = get_sub_field( 'name' );
-						?>
-						<div class="tulkinta">
-							<p class="<?php echo esc_html( $color ) . ' ' . esc_html( $icon ); ?>">
-								<?php echo esc_html( $name ); ?>
-							</p>
-						</div>
+					<div class="tulkinnat">
 						<?php
-					endwhile; 
-					?>
-				</div>
-					<?php 
+						while ( have_rows( 'guide', 'options' ) ) :
+
+							the_row();
+
+							$icon  = get_sub_field( 'icon' );
+							$color = get_sub_field( 'color' );
+							$name  = get_sub_field( 'name' );
+							?>
+							<div class="tulkinta">
+								<p class="<?php echo esc_html( $color ) . ' ' . esc_html( $icon ); ?>">
+									<?php echo esc_html( $name ); ?>
+								</p>
+							</div>
+							<?php
+						endwhile;
+						?>
+					</div>
+					<?php
 				endif;
 				?>
 				<?php the_field( $prefix . '_guide_after', 'options' ); ?>
@@ -118,24 +119,24 @@ if ( 'tulkintakortti' === $type ) {
 </div>
 
 <div class="grid sidebar-grid">
-	
+
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div class="card-content status-<?php echo esc_attr( $status ); ?>">
 			<section class="row-block top">
 				<div class="wrapper">
 					<?php if ( get_field( 'rty_logo_cards', 'options' ) || get_field( 'topten_logo_cards', 'options' ) ) : ?>
-					
+
 						<div class="logos">
-							<?php 
-							if ( get_field( 'rty_logo', 'options' ) && get_field( 'rty_logo_cards', 'options' ) ) : 
+							<?php
+							if ( get_field( 'rty_logo', 'options' ) && get_field( 'rty_logo_cards', 'options' ) ) :
 								$image     = get_field( 'rty_logo', 'options' );
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
 								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
-							<?php 
-							if ( get_field( 'topten_logo', 'options' ) && get_field( 'topten_logo_cards', 'options' ) ) : 
+							<?php
+							if ( get_field( 'topten_logo', 'options' ) && get_field( 'topten_logo_cards', 'options' ) ) :
 								$image     = get_field( 'topten_logo', 'options' );
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
@@ -144,7 +145,9 @@ if ( 'tulkintakortti' === $type ) {
 							<?php endif; ?>
 						</div>
 
-					<?php endif; // end logos ?>
+						<?php
+					endif; // end logos
+					?>
 					<div class="content">
 						<div class="column date">
 							<p class="small-title">
@@ -164,9 +167,9 @@ if ( 'tulkintakortti' === $type ) {
 										<strong>
 
 											<?php echo esc_html( $identifier_start ); ?>
-										
+
 											<?php echo esc_html( $identifier_end ); ?>
-											
+
 										</strong>
 									<?php else : ?>
 										<strong>
@@ -193,7 +196,9 @@ if ( 'tulkintakortti' === $type ) {
 				</div> <!-- wrapper -->
 			</section>
 
-			<?php the_content(); // Kortin sisältölohkot ?>
+			<?php
+			the_content(); // Kortin sisältölohkot
+			?>
 
 
 		</div>
@@ -215,35 +220,37 @@ if ( 'tulkintakortti' === $type ) {
 				<?php topten_get_table_of_contents(); ?>
 			</div>
 		</div>
-		<?php if ( ! empty( $keywords ) ) : // Kortin asiasanat ?>
-		<div class="box">
-			<div class="box-title">
-				<h3 class="h2">
-					<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
-				</h3>
-				<button class="material-icons" aria-expanded="false">double_arrow</button>
-			</div>
-			<div class="box-content">
-				<ul class="keywords" aria-expanded="false">
-					<?php $keywords_count = count( $keywords ) - 1; ?>
+		<?php
+		if ( ! empty( $keywords ) ) : // Kortin asiasanat
+			?>
+			<div class="box">
+				<div class="box-title">
+					<h3 class="h2">
+						<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
+					</h3>
+					<button class="material-icons" aria-expanded="false">double_arrow</button>
+				</div>
+				<div class="box-content">
+					<ul class="keywords" aria-expanded="false">
+						<?php $keywords_count = count( $keywords ) - 1; ?>
 
-					<?php
-					foreach ( $keywords as $index => $keyword ) :
-						$redirect_url = $target_url . '?keyword=' . $keyword->term_id;
-						?>
-						<li class="keyword">
-							<a class="name" href="<?php echo esc_url( $redirect_url ); ?>"><span><?php echo esc_html( $keyword->name ); ?></span></a>
+						<?php
+						foreach ( $keywords as $index => $keyword ) :
+							$redirect_url = $target_url . '?keyword=' . $keyword->term_id;
+							?>
+							<li class="keyword">
+								<a class="name" href="<?php echo esc_url( $redirect_url ); ?>"><span><?php echo esc_html( $keyword->name ); ?></span></a>
 
-							<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
-								<a href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
-									info
-								</a>
-							<?php endif; ?>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+								<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
+									<a href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
+										info
+									</a>
+								<?php endif; ?>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
 			</div>
-		</div>
 		<?php endif; ?>
 		<?php if ( get_field( 'linked_cards' ) ) : ?>
 
@@ -255,8 +262,8 @@ if ( 'tulkintakortti' === $type ) {
 					<button class="material-icons" aria-expanded="false">double_arrow</button>
 				</div>
 				<div class="box-content">
-					<?php 
-					$linked_cards = get_field( 'linked_cards' ); 
+					<?php
+					$linked_cards = get_field( 'linked_cards' );
 					foreach ( $linked_cards as $linked_card ) :
 						$linked_card_id     = $linked_card->ID;
 						$linked_card_title  = $linked_card->post_title;
@@ -277,7 +284,7 @@ if ( 'tulkintakortti' === $type ) {
 						<?php
 					endforeach;
 					?>
-					
+
 				</div>
 			</div>
 
@@ -296,7 +303,7 @@ if ( 'tulkintakortti' === $type ) {
 		</div>
 		<div class="box return">
 			<a href="<?php echo esc_url( $target_url ); ?>">
-				<span class="h3"><?php esc_html_e( 'Siirry korttilistaukseen' ); ?></span>
+				<span class="h3"><?php esc_html_e( 'Siirry korttilistaukseen', 'topten' ); ?></span>
 			</a>
 		</div>
 

@@ -16,7 +16,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	</div>
 <?php endif; ?>
 
-<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <? echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
+<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
 
 	<?php
 	echo wp_kses(
