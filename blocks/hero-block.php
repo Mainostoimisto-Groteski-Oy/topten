@@ -51,13 +51,13 @@ $class = 'hero-block hero-' . $select;
 					echo 'right'; } 
 				?>
 				" style="<?php echo ( 'image-text' === $select && $background_url ) ? esc_attr( $background_url ) : ''; ?>">
-					
-				</div>
+
+			</div>
 				<div class="text-block">
 					<?php if ( get_field( 'hero_logo' ) ) : ?>
 						<div class="logo">
 							<?php $logo = get_field( 'hero_logo' ); ?>
-							<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+							<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 						</div>
 					<?php endif; ?>
 					<?php topten_block_title(); ?>

@@ -1,12 +1,12 @@
 <?php
-$first_block   = get_field( 'first_block' );
-$second_block = get_field( 'second_block' );
-$third_block  = get_field( 'third_block' );
-$fourth_block = get_field( 'fourth_block' );
-$background_color = get_field('background_color');
+$first_block      = get_field( 'first_block' );
+$second_block     = get_field( 'second_block' );
+$third_block      = get_field( 'third_block' );
+$fourth_block     = get_field( 'fourth_block' );
+$background_color = get_field( 'background_color' );
 ?>
 
-<section <?php topten_block_id(); ?> class="four-column-block bg-<?php echo esc_html($background_color); ?>">
+<section <?php topten_block_id(); ?> class="four-column-block bg-<?php echo esc_html( $background_color ); ?>">
 	<div class="grid">
 		<div class="block-title">
 			<?php topten_block_title(); ?>

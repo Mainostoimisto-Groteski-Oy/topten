@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template part for displaying posts
  *
@@ -42,11 +43,11 @@ if ( is_array( $status ) ) {
 	$target_url    = '';
 	$target_title  = '';
 }
-if('tulkintakortti' === $type ) {
+if ( 'tulkintakortti' === $type ) {
 	$prefix = 'tulkinta';
-} elseif ('ohjekortti' === $type) {
+} elseif ( 'ohjekortti' === $type ) {
 	$prefix = 'ohje';
-} elseif ('lomakekortti' === $type) {
+} elseif ( 'lomakekortti' === $type ) {
 	$prefix = 'lomake';
 } else {
 	$prefix = '';
@@ -61,41 +62,43 @@ if('tulkintakortti' === $type ) {
 	</section>
 <?php endif; ?>
 
-<?php topten_card_notification('single'); ?>
+<?php topten_card_notification( 'single' ); ?>
 
 <h1 class="screen-reader-text">
 	<?php the_title(); ?>
 </h1>
-<?php if(get_field($prefix.'_guide', 'options')) : ?>
+<?php if ( get_field( $prefix . '_guide', 'options' ) ) : ?>
 	<section class="text-block card">
 		<div class="grid">
-			<h2 class="title h4"><?php the_field($prefix.'_guide_title', 'options'); ?></h2>
+			<h2 class="title h4"><?php the_field( $prefix . '_guide_title', 'options' ); ?></h2>
 			<div class="text">
-				<?php the_field($prefix.'_guide_before', 'options'); ?>
-				<?php 
-				if ( have_rows('guide', 'options') ) : ?>
-				<div class="tulkinnat">
-					<?php
-					while (have_rows('guide', 'options')) : 
-						
-						the_row();
-						
-						$icon = get_sub_field('icon');
-						$color = get_sub_field('color');
-						$name = get_sub_field('name');
-						?>
-						<div class="tulkinta">
-							<p class="<?php echo esc_html($color).' '.esc_html( $icon ); ?>">
-								<?php echo esc_html( $name ); ?>
-							</p>
-						</div>
+				<?php the_field( $prefix . '_guide_before', 'options' ); ?>
+				<?php
+				if ( have_rows( 'guide', 'options' ) ) : 
+					?>
+					<div class="tulkinnat">
 						<?php
-					endwhile; ?>
-				</div>
-				<?php 
+						while ( have_rows( 'guide', 'options' ) ) :
+
+							the_row();
+
+							$icon  = get_sub_field( 'icon' );
+							$color = get_sub_field( 'color' );
+							$name  = get_sub_field( 'name' );
+							?>
+							<div class="tulkinta">
+								<p class="<?php echo esc_html( $color ) . ' ' . esc_html( $icon ); ?>">
+									<?php echo esc_html( $name ); ?>
+								</p>
+							</div>
+							<?php
+						endwhile; 
+						?>
+					</div>
+					<?php
 				endif;
 				?>
-				<?php the_field($prefix.'_guide_after', 'options'); ?>
+				<?php the_field( $prefix . '_guide_after', 'options' ); ?>
 			</div>
 		</div>
 	</section>
@@ -107,40 +110,44 @@ if('tulkintakortti' === $type ) {
 			menu
 		</span>
 		<p class="menu-explanation closed active" aria-hidden="true">
-			<?php esc_html_e('Avaa sisällysluettelo', 'topten'); ?>
+			<?php esc_html_e( 'Avaa sisällysluettelo', 'topten' ); ?>
 		</p>
 		<p class="menu-explanation open" aria-hidden="true">
-			<?php esc_html_e('Sulje sisällysluettelo', 'topten'); ?>
+			<?php esc_html_e( 'Sulje sisällysluettelo', 'topten' ); ?>
 		</p>
 	</button>
 </div>
 
 <div class="grid sidebar-grid">
-	
+
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<div class="card-content status-<?php echo esc_attr($status); ?>">
+		<div class="card-content status-<?php echo esc_attr( $status ); ?>">
 			<section class="row-block top">
 				<div class="wrapper">
-					<?php if( get_field('rty_logo_cards', 'options') || get_field('topten_logo_cards', 'options') ) : ?>
-					
+					<?php if ( get_field( 'rty_logo_cards', 'options' ) || get_field( 'topten_logo_cards', 'options' ) ) : ?>
+
 						<div class="logos">
-							<?php if( get_field('rty_logo', 'options') && get_field('rty_logo_cards', 'options') ) : 
-								$image = get_field('rty_logo', 'options');
+							<?php 
+							if ( get_field( 'rty_logo', 'options' ) && get_field( 'rty_logo_cards', 'options' ) ) :
+								$image     = get_field( 'rty_logo', 'options' );
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
-								<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" />
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
-							<?php if( get_field('topten_logo', 'options') && get_field('topten_logo_cards', 'options') ) : 
-								$image = get_field('topten_logo', 'options');
+							<?php 
+							if ( get_field( 'topten_logo', 'options' ) && get_field( 'topten_logo_cards', 'options' ) ) :
+								$image     = get_field( 'topten_logo', 'options' );
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
-								<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" />
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
 						</div>
 
-					<?php endif; // end logos ?>
+						<?php 
+					endif; // end logos 
+					?>
 					<div class="content">
 						<div class="column date">
 							<p class="small-title">
@@ -160,9 +167,9 @@ if('tulkintakortti' === $type ) {
 										<strong>
 
 											<?php echo esc_html( $identifier_start ); ?>
-										
+
 											<?php echo esc_html( $identifier_end ); ?>
-											
+
 										</strong>
 									<?php else : ?>
 										<strong>
@@ -189,7 +196,9 @@ if('tulkintakortti' === $type ) {
 				</div> <!-- wrapper -->
 			</section>
 
-			<?php the_content(); // Kortin sisältölohkot ?>
+			<?php 
+			the_content(); // Kortin sisältölohkot 
+			?>
 
 
 		</div>
@@ -211,35 +220,37 @@ if('tulkintakortti' === $type ) {
 				<?php topten_get_table_of_contents(); ?>
 			</div>
 		</div>
-		<?php if ( ! empty( $keywords ) ) : // Kortin asiasanat ?>
-		<div class="box">
-			<div class="box-title">
-				<h3 class="h2">
-					<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
-				</h3>
-				<button class="material-icons" aria-expanded="false">double_arrow</button>
-			</div>
-			<div class="box-content">
-				<ul class="keywords" aria-expanded="false">
-					<?php $keywords_count = count( $keywords ) - 1; ?>
+		<?php 
+		if ( ! empty( $keywords ) ) : // Kortin asiasanat 
+			?>
+			<div class="box">
+				<div class="box-title">
+					<h3 class="h2">
+						<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
+					</h3>
+					<button class="material-icons" aria-expanded="false">double_arrow</button>
+				</div>
+				<div class="box-content">
+					<ul class="keywords" aria-expanded="false">
+						<?php $keywords_count = count( $keywords ) - 1; ?>
 
-					<?php
-					foreach ( $keywords as $index => $keyword ) :
-						$redirect_url = $target_url . '?keyword=' . $keyword->term_id;
-						?>
-						<li class="keyword">
-							<a class="name" href="<?php echo esc_url( $redirect_url ); ?>"><span><?php echo esc_html( $keyword->name ); ?></span></a>
+						<?php
+						foreach ( $keywords as $index => $keyword ) :
+							$redirect_url = $target_url . '?keyword=' . $keyword->term_id;
+							?>
+							<li class="keyword">
+								<a class="name" href="<?php echo esc_url( $redirect_url ); ?>"><span><?php echo esc_html( $keyword->name ); ?></span></a>
 
-							<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
-								<a href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
-									info
-								</a>
-							<?php endif; ?>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+								<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
+									<a href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>" class="keyword-link material-icons" target="_blank" rel="noopener noreferrer">
+										info
+									</a>
+								<?php endif; ?>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
 			</div>
-		</div>
 		<?php endif; ?>
 		<?php if ( get_field( 'linked_cards' ) ) : ?>
 
@@ -251,15 +262,16 @@ if('tulkintakortti' === $type ) {
 					<button class="material-icons" aria-expanded="false">double_arrow</button>
 				</div>
 				<div class="box-content">
-					<?php $linked_cards = get_field( 'linked_cards' ); 
+					<?php 
+					$linked_cards = get_field( 'linked_cards' );
 					foreach ( $linked_cards as $linked_card ) :
-						$linked_card_id = $linked_card->ID;
-						$linked_card_title = $linked_card->post_title;
+						$linked_card_id     = $linked_card->ID;
+						$linked_card_title  = $linked_card->post_title;
 						$linked_card_status = get_field( 'card_status_publish', $linked_card_id );
-						$linked_card_url = get_permalink( $linked_card_id );
-						if('Voimassa oleva' === $linked_card_status['label']) {
+						$linked_card_url    = get_permalink( $linked_card_id );
+						if ( 'Voimassa oleva' === $linked_card_status['label'] ) {
 							$content = 'Voimassa';
-						} else if ('2025' === $linked_card_status['label']) {
+						} elseif ( '2025' === $linked_card_status['label'] ) {
 							$content = 'Rakennuslaki 2025';
 						} else {
 							$content = 'Vanhentunut';
@@ -268,11 +280,11 @@ if('tulkintakortti' === $type ) {
 						<a class="related-card" href="<?php echo esc_url( $linked_card_url ); ?>" class="linked-card">
 							<span><?php echo esc_html( $linked_card_title ); ?></span>
 						</a>
-						<span class="card-status"><?php echo esc_html($content); ?></span>
-					<?php
+						<span class="card-status"><?php echo esc_html( $content ); ?></span>
+						<?php
 					endforeach;
 					?>
-					
+
 				</div>
 			</div>
 
@@ -290,8 +302,8 @@ if('tulkintakortti' === $type ) {
 			</div>
 		</div>
 		<div class="box return">
-			<a href="<?php echo esc_url($target_url); ?>">
-				<span class="h3"><?php esc_html_e('Siirry korttilistaukseen'); ?></span>
+			<a href="<?php echo esc_url( $target_url ); ?>">
+				<span class="h3"><?php esc_html_e( 'Siirry korttilistaukseen', 'topten' ); ?></span>
 			</a>
 		</div>
 

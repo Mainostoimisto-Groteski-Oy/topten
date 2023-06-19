@@ -14,36 +14,36 @@ $order      = get_field( 'order' );
 			<?php endif; ?>
 
 			<?php
-			if($text_block['show_contact'] === true) :
+			if ( $text_block['show_contact'] === true ) :
 				$id = $text_block['contact'][0];
 				
-				$name = get_field('name', $id);
-				$title = get_field('title', $id);
-				$phone = get_field('phone', $id);
-				$email = get_field('email', $id);
-				if(get_field('image', $id)) {
-					$image = get_field('image', $id);
-					$image_url = $image['sizes']['medium'];
-					$image_alt = $image['alt'];
+				$name  = get_field( 'name', $id );
+				$title = get_field( 'title', $id );
+				$phone = get_field( 'phone', $id );
+				$email = get_field( 'email', $id );
+				if ( get_field( 'image', $id ) ) {
+					$image       = get_field( 'image', $id );
+					$image_url   = $image['sizes']['medium'];
+					$image_alt   = $image['alt'];
 					$image_class = '';
 				} else {
-					$image_url = '';
+					$image_url   = '';
 					$image_class = 'placeholder';  
 				}
 				?>
 
 				<div class="contact-content">
-					<div class="image <?php echo esc_html($image_class); ?>" >
-					<?php if(!empty($image_url)) : ?>
-						<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>">
+					<div class="image <?php echo esc_html( $image_class ); ?>" >
+					<?php if ( ! empty( $image_url ) ) : ?>
+						<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
 					<?php else : ?>
 						<div class="image-placeholder"></div>
 					<?php endif; ?>
 					</div>
-					<h2 class="title h4"><?php echo esc_html($name); ?></h2>
-					<span><?php echo esc_html($title); ?></span>
-					<span><?php echo esc_html($phone); ?></span>
-					<a class="email" href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></span></a>
+					<h2 class="title h4"><?php echo esc_html( $name ); ?></h2>
+					<span><?php echo esc_html( $title ); ?></span>
+					<span><?php echo esc_html( $phone ); ?></span>
+					<a class="email" href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></span></a>
 				</div>
 
 			<?php endif; ?>

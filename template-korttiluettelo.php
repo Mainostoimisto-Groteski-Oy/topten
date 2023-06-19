@@ -40,7 +40,7 @@ $cardClasses = get_terms(
 
 	<?php topten_breadcrumbs(); ?>
 	
-	<?php topten_card_notification('archive'); ?>
+	<?php topten_card_notification( 'archive' ); ?>
 	
 	<?php the_content(); ?>
 
@@ -88,7 +88,7 @@ $cardClasses = get_terms(
 									<button type="submit"
 										name="keywordssearch"
 										id="keywordssearch" >
-										<?php esc_html_e( 'Lisää asiasana' , 'topten' ); ?>
+										<?php esc_html_e( 'Lisää asiasana', 'topten' ); ?>
 									</button>
 								</div>
 							</div>

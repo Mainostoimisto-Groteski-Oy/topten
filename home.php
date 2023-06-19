@@ -14,23 +14,21 @@
 
 get_header();
 ?>
-	
-
 
 	<main id="primary" class="site-main archive-page">
 		<?php
-			if ( function_exists( 'yoast_breadcrumb' ) ) :
-				?>
+		if ( function_exists( 'yoast_breadcrumb' ) ) :
+			?>
 				<div class="page-breadcrumbs">
 					<div class="grid">
-						<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
+					<?php yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' ); ?>
 					</div>
 				</div>
 			<?php endif; ?>
 		<?php
-		// get the id of wordpress home archive page and use it to get the gutenberg blocks
+		// get the id of WordPress home archive page and use it to get the gutenberg blocks
 		$home_id = get_option( 'page_for_posts' );
-		$blocks = parse_blocks( get_post_field( 'post_content', $home_id ) );
+		$blocks  = parse_blocks( get_post_field( 'post_content', $home_id ) );
 		// Loop the blocks and output them
 		foreach ( $blocks as $index => $block ) :
 			echo render_block( $block );
@@ -40,8 +38,9 @@ get_header();
 		<div class="content">
 			<div class="grid post-wrapper">
 				<?php 
-				if ( have_posts() ) : ?>
-			
+				if ( have_posts() ) : 
+					?>
+
 
 					<?php
 					/* Start the Loop */

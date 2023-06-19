@@ -15,7 +15,7 @@
 					$background_url = '';
 				}
 				?>
-				<div class="lift" style="<?php echo $background_url; ?>">
+				<div class="lift" style="<?php echo esc_attr( $background_url ); ?>">
 					<div class="text">
 						<h2 class="title h4"><?php the_sub_field( 'title' ); ?></h2>
 						<p><?php the_sub_field( 'description' ); ?></p>

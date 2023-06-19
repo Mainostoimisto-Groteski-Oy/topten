@@ -108,13 +108,15 @@ function topten_focal_point( $sub_field = false, $block = array(), $selector = '
  * Muuten parametrin voi jättää tyhjäksi
  *
  * @param array|boolean $block ACF ryhmä (left_block tms), default tyhjä array
+ * 
+ * @param string        $background Lohkon taustaväri, default tyhjä
  */
 function topten_buttons( $block = array(), $background = '' ) {
 	if ( $block ) {
 		if ( ! empty( $block['buttons'] ) ) {
 			echo '<div class="buttons">';
 			// if icon sub field exists
-			if ( ! empty( $block['button_icon'] ) && 'none' !== $block['button_icon']) {
+			if ( ! empty( $block['button_icon'] ) && 'none' !== $block['button_icon'] ) {
 				$class = $block['button_icon'];
 			} else {
 				$class = '';
@@ -122,7 +124,7 @@ function topten_buttons( $block = array(), $background = '' ) {
 			// if background isn't empty
 			// TODO: check this, seems to be working but..
 			if ( ! empty( $background ) ) {
-				$background = 'background-'.$background;
+				$background = 'background-' . $background;
 			} else {
 				$background = '';
 			}
@@ -146,14 +148,14 @@ function topten_buttons( $block = array(), $background = '' ) {
 			the_row();
 
 			$button = get_sub_field( 'button' );
-			if(get_sub_field( 'button_icon' ) && 'none' !== get_sub_field( 'button_icon' )) {
+			if ( get_sub_field( 'button_icon' ) && 'none' !== get_sub_field( 'button_icon' ) ) {
 				$class = get_sub_field( 'button_icon' );
 			} else {
 				$class = '';
 			}
 			// if background isn't empty
 			if ( ! empty( $background ) ) {
-				$background = 'background-'.$background;
+				$background = 'background-' . $background;
 			} else {
 				$background = '';
 			}
@@ -251,16 +253,17 @@ function topten_get_desc( $description = false ) {
 /** 
  * Hakee värin options sivulta arvon perusteella
  * 
+ * @param string $value options sivulla asetettu arvo
  */
-function topten_get_guide_color($value = '') {
-	if(!$value) {
+function topten_get_guide_color( $value = '' ) {
+	if ( ! $value ) {
 		return;
 	} else {
-		if ( have_rows('guide', 'options') ) {
-			while (have_rows('guide', 'options')) {
+		if ( have_rows( 'guide', 'options' ) ) {
+			while ( have_rows( 'guide', 'options' ) ) {
 				the_row();
-				if ( esc_html( $value ) === get_sub_field('icon') ) {
-					$color = get_sub_field('color');
+				if ( esc_html( $value ) === get_sub_field( 'icon' ) ) {
+					$color = get_sub_field( 'color' );
 					return $color;
 				}
 			}

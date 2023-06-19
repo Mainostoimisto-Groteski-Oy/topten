@@ -23,7 +23,12 @@ if ( $image ) {
 	$alt   = '';
 }
 ?>
-	<div class="image <?php if( !empty( $class ) ) { echo esc_attr( $class ); } ?>">
+	<div class="image 
+	<?php 
+	if ( ! empty( $class ) ) {
+		echo esc_attr( $class ); } 
+	?>
+	">
 		<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 	</div>
 
@@ -41,7 +46,12 @@ if ( $image ) {
 					$date = get_the_date( 'j.n.Y', $id );
 					?>
 					
-					<p class="date"><?php if(!empty($date)) { echo esc_html( $date ); } ?></p>
+					<p class="date">
+					<?php 
+					if ( ! empty( $date ) ) {
+						echo esc_html( $date ); } 
+					?>
+					</p>
 					
 				</div><!-- .entry-meta -->
 			<?php endif; ?>

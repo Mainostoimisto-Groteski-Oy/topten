@@ -9,7 +9,6 @@
  * @package Groteski
  */
 
-
 // TODO: Delete this at some point. It was the menu used until customer wanted changes, still holding on to it in case they want to revert back.
 
 ?>
@@ -41,7 +40,7 @@
 				<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
 					<div class="rty-branding">
 						<?php $logo = get_field( 'rty_logo', 'options' ); ?>
-						<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+						<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 					</div>
 				<?php endif; ?>
 			</div>

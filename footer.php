@@ -33,29 +33,29 @@ $columns = array( 'left', 'middle', 'right' );
 			<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
 				<div class="rty-branding">
 					<?php $logo = get_field( 'rty_logo', 'options' ); ?>
-					<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" width="<?php echo $logo['sizes']['medium-width']; ?>" height="<?php echo $logo['sizes']['medium-height']; ?>" />
+					<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" width="<?php echo esc_attr( $logo['sizes']['medium-width'] ); ?>" height="<?php echo esc_attr( $logo['sizes']['medium-height'] ); ?>" />
 				</div>
 			<?php endif; ?>
 		</div>
-		
+
 		<div class="grid">
 			<?php foreach ( $columns as $column ) : ?>
 				<div class="footer <?php echo esc_attr( $column ); ?>">
 					<?php
 					if ( get_field( 'footer_' . $column, 'options' ) ) {
-						echo "<h3 class='h4 title'>". esc_html( get_field( 'footer_' . $column .'_title', 'options' ) ) ."</h3>";
+						echo "<h3 class='h4 title'>" . esc_html( get_field( 'footer_' . $column . '_title', 'options' ) ) . '</h3>';
 					}
 					if ( get_field( 'footer_' . $column, 'options' ) ) {
 						the_field( 'footer_' . $column, 'options' );
 					}
 
 					if ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
-						if( $column === 'right' ) {
+						if ( $column === 'right' ) {
 							$wrapper = 'buttons';
 						} else {
 							$wrapper = 'links large';
 						}
-						echo '<div class="'.$wrapper.'">';
+						echo '<div class="' . esc_attr( $wrapper ) . '">';
 
 						while ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
 							the_row();
@@ -67,7 +67,7 @@ $columns = array( 'left', 'middle', 'right' );
 								$title  = esc_attr( $button['title'] );
 								$target = esc_attr( $button['target'] );
 
-								if( $column === 'right' ) {
+								if ( $column === 'right' ) {
 									$class = 'button';
 								} else {
 									$class = 'link';
@@ -78,7 +78,7 @@ $columns = array( 'left', 'middle', 'right' );
 									$subclass = '';
 								}
 
-								echo sprintf( '<a class="%s %s" href="%s" title="%s" target="%s"><span>%s</span></a>', esc_attr( $class ), esc_attr( $subclass), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
+								echo sprintf( '<a class="%s %s" href="%s" title="%s" target="%s"><span>%s</span></a>', esc_attr( $class ), esc_attr( $subclass ), esc_url( $href ), esc_attr( $title ), esc_attr( $target ), wp_kses_post( $title ) );
 							}
 						}
 

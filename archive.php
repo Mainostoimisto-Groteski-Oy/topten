@@ -15,7 +15,7 @@ get_header();
 	<main id="primary" class="site-main">
 
 		<div class="grid">
-		
+
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
@@ -47,7 +47,7 @@ get_header();
 
 			endif;
 			?>
-		
+
 		</div>
 
 	</main><!-- #main -->
