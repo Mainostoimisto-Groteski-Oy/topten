@@ -5,10 +5,12 @@
 $text     = get_field( 'text' );
 $tulkinta = get_field( 'tulkinta' );
 
-if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
+$color = false;
 
+if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	$color = topten_get_guide_color( $tulkinta['value'] );
 	?>
+
 	<div class="tulkinta">
 		<p class="<?php echo $color ? esc_html( $color ) : ''; ?> <?php echo esc_html( $tulkinta['value'] ); ?>">
 			<?php echo esc_html( $tulkinta['label'] ); ?>
@@ -23,8 +25,8 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 		$text,
 		array(
 			'a'      => array(
-				'href',
-				'title',
+				'href'  => array(),
+				'title' => array(),
 			),
 			'b'      => array(),
 			'br'     => array(),
@@ -37,8 +39,8 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 			'h6'     => array(),
 			'i'      => array(),
 			'img'    => array(
-				'alt',
-				'src',
+				'alt' => array(),
+				'src' => array(),
 			),
 			'li'     => array(),
 			'ol'     => array(),

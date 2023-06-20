@@ -952,10 +952,10 @@ function topten_card_search() {
 	}
 
 	$args = array(
-		'posts_per_page' => -1,
-		'post_status'    => 'publish',
-		'fields'         => 'ids',
-		'meta_query'     => array(
+		'posts_per_page'         => -1,
+		'post_status'            => 'publish',
+		'fields'                 => 'ids',
+		'meta_query'             => array(
 			'relation' => 'AND',
 			array(
 				'relation' => 'AND',
@@ -966,7 +966,9 @@ function topten_card_search() {
 				),
 			),
 		),
-		'tax_query'      => array(),
+		'tax_query'              => array(),
+		'update_post_term_cache' => true,
+		'update_post_meta_cache' => true,
 	);
 
 	if ( isset( $_POST['cardStatusType'] ) ) {
@@ -1093,15 +1095,17 @@ function topten_card_search() {
 	*/
 
 	// Law article (single value)
+	$law = '';
+
 	if ( isset( $_POST['cardLaw'] ) ) {
 		$law = intval( $_POST['cardLaw'] );
+
 		if ( ! $law ) {
 			$law = '';
 		}
 	}
 
 	if ( $law ) {
-
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'laki',
@@ -1112,24 +1116,26 @@ function topten_card_search() {
 	}
 
 	// Category (single value)
+	$category = '';
+
 	if ( isset( $_POST['cardCategory'] ) ) {
 		$category = intval( $_POST['cardCategory'] );
+
 		if ( ! $category ) {
 			$category = '';
 		}
 	}
 
 	if ( $category ) {
-
-		$args['tax_query'][] =
-			array(
-				'taxonomy' => 'kortin_kategoria',
-				'field'    => 'term_id',
-				'terms'    => $category,
-			);
+		$args['tax_query'][] = array(
+			'taxonomy' => 'kortin_kategoria',
+			'field'    => 'term_id',
+			'terms'    => $category,
+		);
 	}
 
 	// Keywords (multiple)
+	$keywords = '';
 
 	if ( isset( $_POST['cardkeywords'] ) && is_array( $_POST['cardkeywords'] ) ) {
 
@@ -1142,40 +1148,32 @@ function topten_card_search() {
 	}
 
 	if ( isset( $keywords ) && ! empty( $keywords ) ) {
-
-		$args['tax_query'][] =
-			array(
-				'taxonomy' => 'asiasanat',
-				'field'    => 'term_id',
-				'terms'    => $keywords,
-			);
+		$args['tax_query'][] = array(
+			'taxonomy' => 'asiasanat',
+			'field'    => 'term_id',
+			'terms'    => $keywords,
+		);
 	}
 
 	// Card publish date. User can filter by either starting from, ending at or both.
 	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
 	$cardDateEnd   = isset( $_POST['cardDateEnd'] ) ? sanitize_text_field( $_POST['cardDateEnd'] ) : '';
 
-
 	if ( $cardDateStart && ! $cardDateEnd ) {
-
 		$args['date_query'] = array(
 			array(
 				'after' => $cardDateStart,
 
 			),
 		);
-
 	} elseif ( ! $cardDateStart && $cardDateEnd ) {
-
 		$args['date_query'] = array(
 			array(
 				'before' => $cardDateEnd,
 
 			),
 		);
-
 	} elseif ( $cardDateStart && $cardDateEnd ) {
-
 		$args['date_query'] = array(
 			array(
 				'after'  => $cardDateStart,
@@ -1183,7 +1181,6 @@ function topten_card_search() {
 
 			),
 		);
-
 	}
 
 	// Display order of cards
@@ -1218,9 +1215,12 @@ function topten_card_search() {
 		$the_query->query( $args );
 	}
 
+	// Create arrays for different card types
+	$tulkinta_array = array();
+	$ohje_array     = array();
+	$lomake_array   = array();
 
 	// If posts are found, save them to their own arrays from which one array is created
-
 	if ( $the_query->have_posts() ) {
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();

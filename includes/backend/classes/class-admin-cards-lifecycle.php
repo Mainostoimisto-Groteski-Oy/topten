@@ -66,8 +66,8 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 		$primary_status           = get_field( 'card_status', $post_id );
 		$this->old_primary_status = $primary_status['value'] ?? 'draft';
 
-		$secondary_status       = get_field( 'card_status_' . $this->old_primary_status, $post_id );
-		$this->secondary_status = $secondary_status['value'] ?? '';
+		$secondary_status           = get_field( 'card_status_' . $this->old_primary_status, $post_id );
+		$this->old_secondary_status = $secondary_status['value'] ?? '';
 	}
 
 	/**
@@ -110,6 +110,14 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 			$post_array['post_status'] = 'deleted';
 		} else {
 			$post_array['post_status'] = 'draft';
+		}
+
+		if ( 'draft' === $this->primary_status ) {
+			if ( 'pending_approval' === $this->secondary_status && 'pending_approval' !== $this->old_secondary_status ) {
+				error_log( 'update post meta' );
+
+				update_post_meta( $this->post_id, 'committer', get_current_user_id() );
+			}
 		}
 
 		wp_update_post( $post_array );

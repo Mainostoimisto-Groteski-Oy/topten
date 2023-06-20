@@ -495,7 +495,44 @@ class Topten_Admin_Cards extends Topten_Admin {
 
 		$message = isset( $_POST['message'] ) ? sanitize_text_field( $_POST['message'] ) : '';
 
+		$this->notify_committer( $post_id, $message );
+
 		wp_send_json_success( array( 'message' => $message ) );
+	}
+
+	/**
+	 * Send message to committer
+	 *
+	 * @param int    $post_id          Post ID
+	 * @param string $approver_message Approver message
+	 */
+	protected function notify_committer( $post_id, $approver_message ) {
+		$committer = get_post_meta( $post_id, 'committer', true );
+		$committer = get_user_by( 'id', $committer );
+
+		// Todo: What if committer is not set?
+		if ( ! $committer ) {
+			return;
+		}
+
+		$email   = $committer->user_email;
+		$subject = esc_html__( 'Korttisi on hyväksytty', 'topten' );
+
+		// Todo: Email content
+		$message = '<p>';
+
+		/* translators: %s: Card title */
+		$message .= sprintf( __( 'Korttisi "%s" on hyväksytty.', 'topten' ), get_the_title( $post_id ) );
+		$message .= '</p>';
+
+		$message .= '<p>' . __( 'Hyväksyjän viesti:', 'topten' ) . '</p>';
+		$message .= '<p>' . $approver_message . '</p>';
+
+		$headers = array(
+			'Content-Type: text/html; charset=UTF-8',
+		);
+
+		wp_mail( $email, $subject, $message, $headers );
 	}
 
 	/**

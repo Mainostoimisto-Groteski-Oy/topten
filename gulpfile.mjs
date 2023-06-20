@@ -5,7 +5,7 @@ import browserSync from 'browser-sync';
 import bump from 'gulp-bump';
 import compiler from 'webpack';
 import cssnano from 'cssnano';
-import dartSass from 'sass';
+import * as dartSass from 'sass';
 import del from 'del';
 import gulpSass from 'gulp-sass';
 import imagemin from 'gulp-imagemin';

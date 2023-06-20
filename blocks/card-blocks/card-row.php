@@ -13,7 +13,7 @@ $allowed_blocks = array(
 
 $width_selector = $columns . '_column_width';
 
-$column_widths = get_field( $width_selector );
+$column_widths = get_field( $width_selector ) ?: '[]';
 $column_widths = json_decode( $column_widths );
 
 $css_vars = '';
