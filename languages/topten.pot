@@ -1,0 +1,513 @@
+# Copyright (C) 2023 Mainostoimisto Groteski Oy
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Topten teema 1.0.22\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/topten\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-06-21T12:21:29+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: topten\n"
+
+#. Theme Name of the theme
+msgid "Topten teema"
+msgstr ""
+
+#. Theme URI of the theme
+msgid "https://github.com/Mainostoimisto-Groteski-Oy/topten"
+msgstr ""
+
+#. Description of the theme
+msgid "Toptenin teema"
+msgstr ""
+
+#. Author of the theme
+msgid "Mainostoimisto Groteski Oy"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://groteski.fi"
+msgstr ""
+
+#: 404.php:17
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:22
+msgid "It looks like nothing was found at this location."
+msgstr ""
+
+#: 404.php:27
+msgid "Return to homepage."
+msgstr ""
+
+#: blocks/articles-block.php:118
+#: blocks/text-and-card-block.php:94
+#: includes/functions/general.php:94
+msgid "Siirry kortille"
+msgstr ""
+
+#: blocks/articles-block.php:163
+#: template-parts/content-after-single.php:64
+#: template-parts/content-single-lift.php:92
+msgid "Lue koko juttu"
+msgstr ""
+
+#: blocks/logos-block.php:62
+#: blocks/logos-block.php:71
+#: includes/functions/general.php:95
+msgid "Linkki aukeaa uuteen ikkunaan"
+msgstr ""
+
+#. translators: 1: title.
+#: comments.php:35
+msgid "Kommentit"
+msgstr ""
+
+#: functions.php:77
+msgid "Päävalikko"
+msgstr ""
+
+#: functions.php:1245
+msgid "Ei hakutuloksia."
+msgstr ""
+
+#: header-normal-menu.php:31
+#: header.php:29
+msgid "Skip to content"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:67
+#: includes/backend/class-topten-admin.php:69
+#: includes/backend/classes/pages/approve-for-municipality/approve-lomakekortti.php:8
+#: includes/backend/classes/pages/approve-for-municipality/approve-tulkintakortti.php:8
+#: includes/backend/classes/pages/approve-for-profession/approve-lomakekortti.php:8
+#: includes/backend/classes/pages/approve-for-profession/approve-tulkintakortti.php:8
+#: includes/functions/general.php:135
+#: template-korttiluettelo.php:286
+msgid "Tulkintakortit"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:70
+msgid "Tulkintakortti"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:100
+#: includes/backend/class-topten-admin.php:102
+#: includes/backend/classes/pages/approve-for-municipality/approve-ohjekortti.php:8
+#: includes/backend/classes/pages/approve-for-profession/approve-ohjekortti.php:8
+#: includes/functions/general.php:184
+#: template-korttiluettelo.php:301
+msgid "Ohjekortit"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:103
+msgid "Ohjekortti"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:129
+#: includes/backend/class-topten-admin.php:131
+#: includes/functions/general.php:214
+#: template-korttiluettelo.php:316
+msgid "Lomakekortit"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:132
+msgid "Lomakekortti"
+msgstr ""
+
+#: includes/backend/class-topten-admin.php:163
+#: includes/backend/class-topten-admin.php:186
+msgid "Poistettu"
+msgstr ""
+
+#. translators: %s: post count.
+#: includes/backend/class-topten-admin.php:169
+msgid "Poistettu <span class=\"count\">(%s)</span>"
+msgid_plural "Poistettu <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/backend/class-topten-admin.php:188
+#: includes/backend/classes/class-admin-cards.php:77
+msgid "Julkaistu"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:33
+msgid "Kuntahyväksyjä"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:124
+msgid "Sinulle ei ole asetettu kuntaa, jolle voit hyväksyä kortteja."
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:151
+msgid "Hyväksymättömät kortit"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:158
+#: includes/backend/classes/class-admin-approval-municipality.php:215
+#: includes/backend/classes/class-admin-approval-profession.php:167
+msgid "ID"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:161
+#: includes/backend/classes/class-admin-approval-municipality.php:218
+#: includes/backend/classes/class-admin-approval-profession.php:171
+msgid "Kortin nimi"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:196
+msgid "Ota kortti käyttöön"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:208
+msgid "Hyväksytyt kortit"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-municipality.php:252
+msgid "Poista kortti käytöstä"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:33
+msgid "Ammattihyväksyjä"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:124
+msgid "Sinulle ei ole asetettu ammattia, jolle voit hyväksyä kortteja."
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:160
+msgid "Hyväksyntää odottavat kortit"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:175
+msgid "Viesti"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:179
+msgid "Hyväksy"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:183
+msgid "Hylkää"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:210
+msgid "Hyväksy kortti"
+msgstr ""
+
+#: includes/backend/classes/class-admin-approval-profession.php:216
+msgid "Hylkää kortti"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:71
+msgid "Kieli"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:72
+msgid "Kieliversiot"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:73
+msgid "Versio"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:74
+msgid "Tila"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:75
+msgid "Muokattu"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:76
+msgid "Muokkaaja"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:256
+msgid "Kopioi"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:286
+msgid "Kopioi kieliversioksi"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:467
+msgid "Sinun täytyy kirjautua sisään hyväksyäksesi kortteja"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:477
+msgid "Sinulla ei ole oikeuksia hyväksyä kortteja"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:487
+#: includes/backend/classes/class-admin-cards.php:524
+#: includes/backend/classes/class-admin-cards.php:616
+#: includes/backend/classes/class-admin-cards.php:679
+#: js/dist/admin.min.js:70
+msgid "Jotain meni vikaan. Yritä kohta uudestaan."
+msgstr ""
+
+#. translators: %s = Error message
+#: includes/backend/classes/class-admin-cards.php:489
+#: includes/backend/classes/class-admin-cards.php:526
+msgid "Parametri puuttuu: %s"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:502
+#: includes/backend/classes/class-admin-cards.php:633
+#: includes/backend/classes/class-admin-cards.php:696
+msgid "Korttia ei löytynyt"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:514
+msgid "Käyttäjällesi ei ole asetettu ammattia. Ota yhteys ylläpitoon."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:545
+msgid "Kortti hyväksytty"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:569
+msgid "Korttisi on hyväksytty"
+msgstr ""
+
+#. translators: %s: Card title
+#: includes/backend/classes/class-admin-cards.php:575
+msgid "Korttisi \"%s\" on hyväksytty."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:579
+msgid "Hyväksyjän viesti:"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:583
+msgid "Korttisi on hylätty"
+msgstr ""
+
+#. translators: %s: Card title
+#: includes/backend/classes/class-admin-cards.php:589
+msgid "Korttisi \"%s\" on hylätty."
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:593
+msgid "Hylkääjän viesti:"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:626
+#: includes/backend/classes/class-admin-cards.php:689
+msgid "Sinulla ei ole oikeuksia aktivoida kortteja"
+msgstr ""
+
+#: includes/backend/classes/class-admin-cards.php:640
+#: includes/backend/classes/class-admin-cards.php:703
+msgid "Käyttäjällesi ei ole asetettu kuntaa. Ota yhteys ylläpitoon."
+msgstr ""
+
+#: includes/backend/classes/pages/approve-for-municipality/approve-lomakekortti.php:3
+#: includes/backend/classes/pages/approve-for-municipality/approve-ohjekortti.php:3
+#: includes/backend/classes/pages/approve-for-municipality/approve-tulkintakortti.php:3
+#: includes/backend/classes/pages/approve-for-profession/approve-lomakekortti.php:3
+#: includes/backend/classes/pages/approve-for-profession/approve-ohjekortti.php:3
+#: includes/backend/classes/pages/approve-for-profession/approve-tulkintakortti.php:3
+msgid "Sinulla ei ole oikeuksia tälle sivulle."
+msgstr ""
+
+#: includes/functions/general.php:76
+msgid "Avautuu uuteen ikkunaan, suomeksi"
+msgstr ""
+
+#: includes/functions/general.php:82
+msgid "Avautuu uuteen ikkunaan, ruotsiksi"
+msgstr ""
+
+#: includes/functions/general.php:88
+msgid "Avautuu uuteen ikkunaan, englanniksi"
+msgstr ""
+
+#. translators: %s: search query.
+#: search.php:21
+msgid "Search Results for: %s"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Korttiluettelo"
+msgstr ""
+
+#: template-korttiluettelo.php:49
+msgid "Suodata kortteja"
+msgstr ""
+
+#: template-korttiluettelo.php:58
+msgid "Vapaa haku"
+msgstr ""
+
+#: template-korttiluettelo.php:65
+#: template-korttiluettelo.php:199
+msgid "Avoin tekstihaku"
+msgstr ""
+
+#: template-korttiluettelo.php:76
+msgid "Suodata kortteja asiasanan mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:83
+msgid "Alkaa kirjaimilla..."
+msgstr ""
+
+#: template-korttiluettelo.php:91
+msgid "Lisää asiasana"
+msgstr ""
+
+#: template-korttiluettelo.php:103
+msgid "Näytä vain kortit jotka on laadittu"
+msgstr ""
+
+#: template-korttiluettelo.php:109
+msgid "välisenä ajankohtana"
+msgstr ""
+
+#: template-korttiluettelo.php:117
+msgid "Suodata kortteja pykälän mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:123
+#: template-korttiluettelo.php:145
+msgid "Valitse"
+msgstr ""
+
+#: template-korttiluettelo.php:139
+msgid "Suodata kortteja vastuuryhmän mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:161
+#: template-korttiluettelo.php:223
+msgid "Näytä kortit luokasta"
+msgstr ""
+
+#: template-korttiluettelo.php:190
+msgid "Suodata hakutuloksia"
+msgstr ""
+
+#: template-korttiluettelo.php:197
+msgid "Käytössä olevat suodattimet"
+msgstr ""
+
+#: template-korttiluettelo.php:203
+msgid "Valitut asiasanat"
+msgstr ""
+
+#: template-korttiluettelo.php:207
+msgid "Näytä kortit joita koskee pykälä "
+msgstr ""
+
+#: template-korttiluettelo.php:211
+msgid "Kortit ajanjaksolta"
+msgstr ""
+
+#: template-korttiluettelo.php:219
+msgid "Valittu vastuuryhmä"
+msgstr ""
+
+#: template-korttiluettelo.php:231
+msgid "Tyhjennä kaikki valinnat"
+msgstr ""
+
+#: template-korttiluettelo.php:248
+msgid "Järjestä korttiluettelo"
+msgstr ""
+
+#: template-korttiluettelo.php:253
+msgid "Tunnisteen mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:257
+msgid "Julkaisuajankohdan mukaan"
+msgstr ""
+
+#: template-korttiluettelo.php:261
+msgid "Aakkosjärjestys"
+msgstr ""
+
+#: template-korttiluettelo.php:270
+msgid "Näytä"
+msgstr ""
+
+#: template-parts/content-card.php:112
+msgid "Avaa sisällysluettelo"
+msgstr ""
+
+#: template-parts/content-card.php:115
+msgid "Sulje sisällysluettelo"
+msgstr ""
+
+#: template-parts/content-card.php:153
+msgid "Vahvistuspvm"
+msgstr ""
+
+#: template-parts/content-card.php:163
+msgid "Tunniste"
+msgstr ""
+
+#: template-parts/content-card.php:185
+msgid "Muutos"
+msgstr ""
+
+#: template-parts/content-card.php:206
+msgid "Tulosta kortti"
+msgstr ""
+
+#: template-parts/content-card.php:214
+msgid "Sisällysluettelo"
+msgstr ""
+
+#: template-parts/content-card.php:228
+msgid "Asiasanat"
+msgstr ""
+
+#: template-parts/content-card.php:259
+msgid "Liittyvät kortit"
+msgstr ""
+
+#: template-parts/content-card.php:295
+msgid "Anna palautetta"
+msgstr ""
+
+#: template-parts/content-card.php:305
+msgid "Siirry korttilistaukseen"
+msgstr ""
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr ""
+
+#: template-parts/content-none.php:22
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:29
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content-single-lift.php:68
+msgid "Jatka lukemista <span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: template-parts/content.php:124
+msgid "Jaa Facebookissa"
+msgstr ""
+
+#: template-parts/content.php:135
+msgid "Jaa Twitterissä"
+msgstr ""
+
+#: template-parts/content.php:145
+msgid "Jaa LinkedInissä"
+msgstr ""

@@ -83,7 +83,6 @@ function topten_setup() {
  * ACF Options to admin menu
  */
 if ( function_exists( 'acf_add_options_page' ) ) {
-
 	acf_add_options_page(
 		array(
 			'page_title' => 'Sivuston asetukset',
@@ -185,7 +184,7 @@ add_filter(
  * Ylläpitopuolen skriptit ja tyylit
  */
 function topten_admin_scripts() {
-	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array(), TOPTEN_VERSION, true );
+	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array( 'wp-i18n' ), TOPTEN_VERSION, true );
 
 	wp_localize_script(
 		'topten-admin',
@@ -195,6 +194,8 @@ function topten_admin_scripts() {
 			'nonce' => wp_create_nonce( 'nonce' ),
 		)
 	);
+
+	wp_set_script_translations( 'topten-admin', 'topten', get_template_directory() . '/languages' );
 
 	wp_enqueue_style( 'topten-admin', get_template_directory_uri() . '/css/dist/admin.min.css', array(), TOPTEN_VERSION );
 

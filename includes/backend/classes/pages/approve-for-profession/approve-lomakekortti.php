@@ -8,4 +8,6 @@ if ( ! current_user_can( 'approve_for_profession' ) ) {
 	<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
 </h1>
 
+<div class="tt-message-row hidden" style="margin-bottom: 15px;"></div>
+
 <?php $this->render_table( 'lomakekortti' ); ?>

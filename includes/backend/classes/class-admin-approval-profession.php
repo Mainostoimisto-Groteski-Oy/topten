@@ -160,7 +160,7 @@ class Topten_Admin_Approval_Profession extends Topten_Admin_Users {
 				<?php esc_html_e( 'Hyväksyntää odottavat kortit', 'topten' ); ?>
 			</h2>
 
-			<table class="tt-datatable">
+			<table class="tt-datatable" id="approve-card">
 				<thead>
 					<tr>
 						<th>
