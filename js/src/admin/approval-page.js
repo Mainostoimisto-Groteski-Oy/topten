@@ -1,7 +1,7 @@
 /* global Ajax */
 
 jQuery(document).ready(($) => {
-	const tableElements = $('.topten-datatable');
+	const tableElements = $('.tt-datatable');
 
 	if (tableElements.length > 0) {
 		tableElements.each(function () {
@@ -13,9 +13,9 @@ jQuery(document).ready(($) => {
 		});
 	}
 
-	$(document).on('click', '.topten-approve', function () {
+	$(document).on('click', '.tt-approve', function () {
 		const postId = $(this).data('id');
-		const message = $(`textarea#topten-message-${postId}`).val();
+		const message = $(`textarea#tt-message-${postId}`).val();
 
 		$.ajax({
 			url: Ajax.url,

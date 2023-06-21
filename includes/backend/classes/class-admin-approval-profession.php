@@ -155,12 +155,12 @@ class Topten_Admin_Approval_Profession extends Topten_Admin_Users {
 
 		$cards = new WP_Query( $args );
 		?>
-		<div class="topten-table">
+		<div class="tt-table">
 			<h2>
 				<?php esc_html_e( 'Hyväksyntää odottavat kortit', 'topten' ); ?>
 			</h2>
 
-			<table class="topten-datatable">
+			<table class="tt-datatable">
 				<thead>
 					<tr>
 						<th>
@@ -202,17 +202,19 @@ class Topten_Admin_Approval_Profession extends Topten_Admin_Users {
 								</td>
 
 								<td>
-									<textarea id="topten-message-<?php echo esc_attr( get_the_ID() ); ?>"></textarea>
+									<textarea id="tt-approval-message-<?php echo esc_attr( get_the_ID() ); ?>"></textarea>
 								</td>
 
-								<td>
-									<button class="topten-approve" data-id="<?php echo esc_attr( get_the_ID() ); ?>">
+								<td style="width: 120px;">
+									<button class="tt-controls tt-approve" data-id="<?php echo esc_attr( get_the_ID() ); ?>">
 										<?php esc_html_e( 'Hyväksy kortti', 'topten' ); ?>
 									</button>
 								</td>
 
-								<td>
-
+								<td style="width: 120px;">
+									<button class="tt-controls tt-disapprove" data-id="<?php echo esc_attr( get_the_ID() ); ?>">
+										<?php esc_html_e( 'Hylkää kortti', 'topten' ); ?>
+									</button>
 								</td>
 							</tr>
 						<?php endwhile; ?>
