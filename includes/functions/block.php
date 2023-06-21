@@ -108,6 +108,7 @@ function topten_focal_point( $sub_field = false, $block = array(), $selector = '
  * Muuten parametrin voi jättää tyhjäksi
  *
  * @param array|boolean $block ACF ryhmä (left_block tms), default tyhjä array
+ * @param string        $background Napin taustaväri, default ''
  */
 function topten_buttons( $block = array(), $background = '' ) {
 	if ( $block ) {
@@ -119,13 +120,12 @@ function topten_buttons( $block = array(), $background = '' ) {
 			} else {
 				$class = '';
 			}
+
 			// if background isn't empty
-			// TODO: check this, seems to be working but..
-			if ( ! empty( $background ) ) {
+			if ( $background ) {
 				$background = 'background-' . $background;
-			} else {
-				$background = '';
 			}
+
 			foreach ( $block['buttons'] as $button ) {
 				if ( ! empty( $button['button'] ) ) {
 					$button = $button['button'];
@@ -146,17 +146,18 @@ function topten_buttons( $block = array(), $background = '' ) {
 			the_row();
 
 			$button = get_sub_field( 'button' );
+
 			if ( get_sub_field( 'button_icon' ) && 'none' !== get_sub_field( 'button_icon' ) ) {
 				$class = get_sub_field( 'button_icon' );
 			} else {
 				$class = '';
 			}
+
 			// if background isn't empty
-			if ( ! empty( $background ) ) {
+			if ( $background ) {
 				$background = 'background-' . $background;
-			} else {
-				$background = '';
 			}
+
 			if ( $button ) {
 				$href   = esc_url( $button['url'] );
 				$title  = esc_attr( $button['title'] );

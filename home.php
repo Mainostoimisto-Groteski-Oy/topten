@@ -31,7 +31,7 @@ get_header();
 		$blocks  = parse_blocks( get_post_field( 'post_content', $home_id ) );
 		// Loop the blocks and output them
 		foreach ( $blocks as $index => $block ) :
-			echo render_block( $block );
+			echo render_block( $block ); // phpcs:ignore
 		endforeach;
 		?>
 

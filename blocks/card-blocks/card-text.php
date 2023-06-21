@@ -1,7 +1,6 @@
 <?php topten_get_desc(); ?>
 
 <?php
-// TODO: värit
 $text     = get_field( 'text' );
 $tulkinta = get_field( 'tulkinta' );
 

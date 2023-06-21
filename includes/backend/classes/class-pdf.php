@@ -200,9 +200,11 @@ class Topten_PDF extends FPDFA {
 				$child_y_position = $this->GetY();
 
 				// If tag is list, don't add line height, because it will be added later
-				if ( 'ul' === $tag || 'ol' === $tag ) {
+
+				// Todo: Remove phpcs:ignores
+				if ( 'ul' === $tag || 'ol' === $tag ) { // phpcs:ignore
 					// $this->write_list( $column_children, $column_child_height );
-				} elseif ( 'img' === $tag || 'picture' === $tag ) {
+				} elseif ( 'img' === $tag || 'picture' === $tag ) { // phpcs:ignore
 					// $this->write_image( $column_children );
 				} else {
 					// Get total string width

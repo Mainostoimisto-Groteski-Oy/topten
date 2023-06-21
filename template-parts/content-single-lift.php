@@ -11,28 +11,22 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<?php
+	<?php
 	$image = get_the_post_thumbnail_url( $post->ID, 'fullhd' );
-	// get the alt if image exists
-if ( $image ) {
-	$alt   = get_post_meta( $image->ID, '_wp_attachment_image_alt', true );
-	$class = '';
-} else {
-	$image = get_template_directory_uri() . '/assets/dist/images/placeholder.png';
-	$class = 'placeholder';
-	$alt   = '';
-}
-?>
-	<div class="image 
-	<?php 
-	if ( ! empty( $class ) ) {
-		echo esc_attr( $class ); } 
+
+	if ( $image ) {
+		$image_id = attachment_url_to_postid( $image );
+		$alt      = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+		$class    = '';
+	} else {
+		$image = get_template_directory_uri() . '/assets/dist/images/placeholder.png';
+		$class = 'placeholder';
+		$alt   = '';
+	}
 	?>
-	">
+	<div class="image <?php echo $class ? esc_attr( $class ) : ''; ?>">
 		<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 	</div>
-
-
 
 	<div class="content">
 		<header class="entry-header">
@@ -45,17 +39,16 @@ if ( $image ) {
 					// get the post date by post id
 					$date = get_the_date( 'j.n.Y', $id );
 					?>
-					
+
 					<p class="date">
-					<?php 
-					if ( ! empty( $date ) ) {
-						echo esc_html( $date ); } 
-					?>
+						<?php
+						if ( ! empty( $date ) ) {
+							echo esc_html( $date ); }
+						?>
 					</p>
-					
 				</div><!-- .entry-meta -->
 			<?php endif; ?>
-			
+
 			<?php
 			if ( is_singular() ) :
 				the_title( '<h1 class="entry-title">', '</h1>' );
@@ -63,7 +56,6 @@ if ( $image ) {
 				the_title( '<h2 class="entry-title h4">', '</h2>' );
 			endif;
 			?>
-
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
@@ -83,7 +75,7 @@ if ( $image ) {
 						wp_kses_post( get_the_title() )
 					)
 				);
-				
+
 			else :
 				?>
 				<div class="excerpt">

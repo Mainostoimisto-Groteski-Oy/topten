@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Template part for displaying posts
  *
@@ -19,17 +18,17 @@ $full_name        = $identifier_start . ' ' . $identifier_end . ' ' . $version .
 $status           = get_field( 'card_status_publish', $id );
 
 if ( is_array( $status ) ) {
-	if ( in_array( 'valid', $status ) || in_array( 'approved_for_repeal', $status ) ) {
+	if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
 		$status        = 'valid';
 		$target_url_id = get_field( 'main_card_archive', 'options' );
 		$target_url    = get_permalink( $target_url_id );
 		$target_title  = get_the_title( $target_url_id );
-	} elseif ( in_array( 'expired', $status ) || in_array( 'repealed', $status ) ) {
+	} elseif ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) {
 		$status        = 'past';
 		$target_url_id = get_field( 'expired_card_archive', 'options' );
 		$target_url    = get_permalink( $target_url_id );
 		$target_title  = get_the_title( $target_url_id );
-	} elseif ( in_array( 'future', $status ) ) {
+	} elseif ( in_array( 'future', $status, true ) ) {
 		$target_url_id = get_field( 'future_card_archive', 'options' );
 		$target_url    = get_permalink( $target_url_id );
 		$target_title  = get_the_title( $target_url_id );

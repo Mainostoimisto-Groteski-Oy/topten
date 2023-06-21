@@ -114,8 +114,6 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 
 		if ( 'draft' === $this->primary_status ) {
 			if ( 'pending_approval' === $this->secondary_status && 'pending_approval' !== $this->old_secondary_status ) {
-				error_log( 'update post meta' );
-
 				update_post_meta( $this->post_id, 'committer', get_current_user_id() );
 			}
 		}
