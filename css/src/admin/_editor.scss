@@ -1,0 +1,27 @@
+@use "mixins/all" as *;
+
+.tt-editor-disabled {
+	.block-editor {
+		// Invidual editor parts
+		// .edit-post-header, // Header
+		// .edit-post-visual-editor, // Editor
+		// .edit-post-layout__metaboxes, // Metaboxes under editor
+		// .edit-post-sidebar { // Sidebar
+
+		// Whole editor
+		.edit-post-layout {
+			// position: relative;
+
+			&::after {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: rgba($black, 0.5);
+				z-index: 9999;
+			}
+		}
+	}
+}

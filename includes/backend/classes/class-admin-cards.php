@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Topten kortit
  */
@@ -798,5 +797,24 @@ class Topten_Admin_Cards extends Topten_Admin {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Is card pending approval?
+	 *
+	 * @param null|int $post_id Card ID, defaults to current post.
+	 */
+	public function is_pending_approval( $post_id = null ) {
+		if ( ! $post_id ) {
+			$post_id = get_the_ID();
+		}
+
+		$card_statuses = $this->get_card_statuses( $post_id );
+
+		if ( 'draft' === $card_statuses['primary'] && 'pending_approval' === $card_statuses['secondary'] ) {
+			return true;
+		}
+
+		return false;
 	}
 }

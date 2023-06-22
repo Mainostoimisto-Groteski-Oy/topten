@@ -45,6 +45,9 @@ class Topten_Admin {
 		add_action( 'init', array( $this, 'register_post_statuses' ) );
 
 		add_filter( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
+
+		// Edit page class
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 9999 );
 	}
 
 	/**
@@ -189,5 +192,86 @@ class Topten_Admin {
 		}
 
 		return $states;
+	}
+
+	/**
+	 * Get card statuses as an array of primary and secondary status
+	 * Contains value for each status
+	 *
+	 * @param int $post_id Card ID
+	 */
+	public function get_card_statuses( $post_id ) {
+		// Set default for card statuses, if status is not set, assume that card is a draft
+		$card_statuses = array(
+			'primary'   => 'draft',
+			'secondary' => 'draft',
+		);
+
+		$card_status = get_field( 'card_status', $post_id );
+
+		if ( $card_status ) {
+			$card_status_secondary = get_field( 'card_status_' . $card_status['value'], $post_id );
+
+			$card_statuses['primary']   = $card_status['value'];
+			$card_statuses['secondary'] = $card_status_secondary['value'];
+		}
+
+		return $card_statuses;
+	}
+
+	/**
+	 * Get card statuses as an array of primary and secondary status
+	 * Contains label and value for each status
+	 *
+	 * @param int $post_id Card ID
+	 */
+	public function get_card_statuses_array( $post_id ) {
+		// Set default for card statuses, if status is not set, assume that card is a draft
+		$card_statuses = array(
+			'primary'   => array(
+				'label' => 'Luonnos',
+				'value' => 'draft',
+			),
+			'secondary' => array(
+				'label' => 'Luonnos',
+				'value' => 'draft',
+			),
+		);
+
+		$card_status = get_field( 'card_status', $post_id );
+
+		if ( $card_status ) {
+			$card_status_secondary = get_field( 'card_status_' . $card_status['value'], $post_id );
+
+			$card_statuses['primary']   = $card_status;
+			$card_statuses['secondary'] = $card_status_secondary;
+		}
+
+		return $card_statuses;
+	}
+
+	/**
+	 * Add class to card editing page based on post status
+	 *
+	 * @param string $classes Existing classes
+	 */
+	public function admin_body_class( $classes ) {
+		global $pagenow;
+
+		if ( 'post.php' === $pagenow || 'post-new.php' === $pagenow ) {
+			$post_type = get_post_type( get_the_ID() );
+
+			if ( in_array( $post_type, $this->card_types, true ) ) {
+				error_log( 'qqq' );
+
+				if ( $this->cards->is_pending_approval( get_the_ID() ) ) {
+					error_log( 'qqq2' );
+
+					$classes .= ' tt-editor-disabled';
+				}
+			}
+
+			return $classes;
+		}
 	}
 }
