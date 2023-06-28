@@ -70,11 +70,20 @@
 	}
 
 	&.top {
-		.wrapper {
-			display: grid;
+		.grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			gap: 0;
 			padding: 15px;
+
+			.column {
+				border: none;
+				flex-direction: unset;
+				padding: 0;
+
+				> * {
+					width: auto;
+				}
+			}
 
 			.logos {
 				display: flex;
@@ -90,22 +99,23 @@
 				flex-direction: column;
 				margin-left: auto;
 
-				.column {
-					border: none !important;
-					padding: 5px;
+				.date {
+					padding: 5px 5px 0;
 					text-transform: uppercase;
+					width: 100%;
 
-					&.date {
-						padding: 5px 5px 0;
-
-						.small-title {
-							strong {
-								font-family: $font-alt;
-								margin-left: 5px;
-								font-size: 1.4rem;
-							}
+					.small-title {
+						strong {
+							font-family: $font-alt;
+							margin-left: 5px;
+							font-size: 1.4rem;
 						}
 					}
+				}
+
+				.inner-column {
+					padding: 5px;
+					text-transform: uppercase;
 
 					&.identifier {
 						.small-title {

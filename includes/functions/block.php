@@ -2,8 +2,8 @@
 /**
  * Luo blockin titlen blockin globaaleista ACF-kentistä
  *
- * @param boolean $echo Echotaanko title suoraan, default true
- * @param string  $id Titlelle annettava ID, default ''
+ * @param bool   $echo Echotaanko title suoraan, default true
+ * @param string $id Titlelle annettava ID, default ''
  */
 function topten_block_title( $echo = true, $id = '' ) {
 	$title_text = get_field( 'block_title' );
@@ -74,9 +74,9 @@ function topten_block_id( $id = '' ) {
 /**
  * Palauttaa blockin kuvan focal pointin
  *
- * @param boolean       $sub_field Onko kenttä repeater-kentän sisällä? Default false
- * @param array|boolean $block ACF ryhmä (image_block tms), default tyhjä array
- * @param string        $selector Kentän nimi, default 'focal_point'
+ * @param bool       $sub_field Onko kenttä repeater-kentän sisällä? Default false
+ * @param array|bool $block ACF ryhmä (image_block tms), default tyhjä array
+ * @param string     $selector Kentän nimi, default 'focal_point'
  */
 function topten_focal_point( $sub_field = false, $block = array(), $selector = 'focal_point' ) {
 	if ( $block ) {
@@ -107,8 +107,8 @@ function topten_focal_point( $sub_field = false, $block = array(), $selector = '
  *
  * Muuten parametrin voi jättää tyhjäksi
  *
- * @param array|boolean $block ACF ryhmä (left_block tms), default tyhjä array
- * @param string        $background Napin taustaväri, default ''
+ * @param array|bool $block ACF ryhmä (left_block tms), default tyhjä array
+ * @param string     $background Napin taustaväri, default ''
  */
 function topten_buttons( $block = array(), $background = '' ) {
 	if ( $block ) {

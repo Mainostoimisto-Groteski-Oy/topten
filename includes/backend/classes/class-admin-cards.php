@@ -619,9 +619,9 @@ class Topten_Admin_Cards extends Topten_Admin {
 	/**
 	 * Notify committer of approval about the approval (via email)
 	 *
-	 * @param boolean $approved          Was the card approved or not
-	 * @param int     $post_id          Post ID
-	 * @param string  $approver_message Approver message
+	 * @param bool   $approved          Was the card approved or not
+	 * @param int    $post_id          Post ID
+	 * @param string $approver_message Approver message
 	 */
 	protected function notify_committer( $approved, $post_id, $approver_message ) {
 		$committer = get_post_meta( $post_id, 'committer', true );

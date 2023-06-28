@@ -9,10 +9,19 @@
  * Kääntää parametrin JSONiksi ja kirjoittaa sen error_logiin
  *
  * @param any $data_to_log Logitettava data
- * @return void
  */
 function json_log( $data_to_log ) { // phpcs:ignore
 	error_log( wp_json_encode( $data_to_log ) ); // phpcs:ignore
+}
+
+
+/**
+ * Print_r to error_log
+ *
+ * @param any $data_to_log Data to log
+ */
+function print_log( $data_to_log ) { // phpcs:ignore
+	error_log( print_r( $data_to_log, true ) ); // phpcs:ignore
 }
 
 /**

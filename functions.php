@@ -253,7 +253,6 @@ add_action( 'wp_enqueue_scripts', 'topten_scripts' );
  * Enqueue editor scripts and styles
  */
 function topten_editor_scripts() {
-
 	wp_enqueue_style( 'blinker', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
