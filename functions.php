@@ -1471,3 +1471,16 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 
 	add_filter( 'wpseo_breadcrumb_links', 'topten_yoast_breadcrumbs' );
 }
+
+/**
+ * Remove H1 from WYSIWYG editor
+ *
+ * @param array $init The TinyMCE init array
+ */
+function topten_tiny_mce_remove_unused_formats( $init ) {
+	$init['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6';
+
+	return $init;
+}
+
+add_filter( 'tiny_mce_before_init', 'topten_tiny_mce_remove_unused_formats' );
