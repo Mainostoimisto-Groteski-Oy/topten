@@ -55,13 +55,13 @@ jQuery(document).ready(($) => {
 					}
 
 					$('.tt-message-row').removeClass('hidden').removeClass('tt-error').addClass('tt-success');
-					$('.tt-message-row').append('<p>' + response.data.message + '</p>');
+					$('.tt-message-row').append(`<p>${  response.data.message  }</p>`);
 				} else {
 					$('.tt-message-row').removeClass('hidden').removeClass('tt-success').addClass('tt-error');
-					$('.tt-message-row').append('<p>' + response.data.message + '</p>');
+					$('.tt-message-row').append(`<p>${  response.data.message  }</p>`);
 
 					if (response.data.error_code) {
-						$('.tt-message-row').append('<p>' + response.data.error_code + '</p>');
+						$('.tt-message-row').append(`<p>${  response.data.error_code  }</p>`);
 					}
 				}
 			})
@@ -71,9 +71,9 @@ jQuery(document).ready(($) => {
 				$('.tt-message-row').empty();
 				$('.tt-message-row').removeClass('hidden').removeClass('tt-success').addClass('tt-error');
 				$('.tt-message-row').append(
-					'<p>' + __('Jotain meni vikaan. Yritä kohta uudestaan.', 'topten') + '</p>'
+					`<p>${  __('Jotain meni vikaan. Yritä kohta uudestaan.', 'topten')  }</p>`
 				);
-				$('.tt-message-row').append('<p>' + errorThrown + '</p>');
+				$('.tt-message-row').append(`<p>${  errorThrown  }</p>`);
 			});
 	}
 
