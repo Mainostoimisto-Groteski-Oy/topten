@@ -106,7 +106,7 @@ if ( 'tulkintakortti' === $type ) {
 
 <div class="grid toggle">
 	<button class="sidebar-toggle" id="toggleSidebar" aria-label="Avaa sivupalkki" aria-controls="sidebar-menu" aria-expanded="false">
-		<span class="material-icons" aria-hidden="true">
+		<span class="material-symbols" aria-hidden="true">
 			menu
 		</span>
 		<p class="menu-explanation closed active" aria-hidden="true">
@@ -204,7 +204,9 @@ if ( 'tulkintakortti' === $type ) {
 					<?php esc_html_e( 'Sisällysluettelo', 'topten' ); ?>
 				</h3>
 
-				<button class="material-icons" aria-expanded="true">
+				<button class="material-symbols"
+					aria-label="<?php esc_html_e( 'Avaa valikko', 'topten' ); ?>"
+					aria-expanded="true">
 					double_arrow
 				</button>
 			</div>
@@ -223,7 +225,9 @@ if ( 'tulkintakortti' === $type ) {
 						<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
 					</h3>
 
-					<button class="material-icons" aria-expanded="false">
+					<button class="material-symbols"
+						aria-label="<?php esc_html_e( 'Avaa valikko', 'topten' ); ?>"
+						aria-expanded="false">
 						double_arrow
 					</button>
 				</div>
@@ -244,7 +248,7 @@ if ( 'tulkintakortti' === $type ) {
 								</a>
 
 								<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
-									<a class="keyword-link material-icons"
+									<a class="keyword-link material-symbols"
 										href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>"
 										target="_blank"
 										rel="noopener noreferrer">
@@ -265,7 +269,7 @@ if ( 'tulkintakortti' === $type ) {
 						<?php esc_html_e( 'Liittyvät kortit', 'topten' ); ?>
 					</h3>
 
-					<button class="material-icons" aria-expanded="false">double_arrow</button>
+					<button class="material-symbols" aria-expanded="false">double_arrow</button>
 				</div>
 				<div class="box-content">
 					<?php
@@ -301,7 +305,7 @@ if ( 'tulkintakortti' === $type ) {
 				<h3 class="h2">
 					<?php esc_html_e( 'Anna palautetta', 'topten' ); ?>
 				</h3>
-				<button class="material-icons" aria-expanded="false">double_arrow</button>
+				<button class="material-symbols" aria-expanded="false">double_arrow</button>
 			</div>
 
 			<div class="box-content">

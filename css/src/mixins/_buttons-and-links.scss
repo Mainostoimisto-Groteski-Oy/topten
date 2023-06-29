@@ -1,5 +1,6 @@
 @use "variables/breakpoints" as *;
 @use "variables/colors" as *;
+@use "variables/typography" as *;
 
 /// Mixin yksittäiselle napille
 @mixin button {
@@ -62,12 +63,12 @@
 			color: $white;
 			font-weight: 600;
 
-			/* material icons rss icon in before */
+			// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 			&::before {
 				content: "\E0E5";
 				-webkit-font-smoothing: antialiased;
 				font-weight: 400;
-				font-family: "Material Icons";
+				font-family: $font-icons;
 				font-size: 2.4rem;
 				position: absolute;
 				top: 50%;
@@ -85,12 +86,12 @@
 			padding: 5px 15px 5px 35px !important;
 			position: relative;
 
-			/* material icons back arrow icon in before */
+			// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 			&::before {
 				content: "\e941";
 				-webkit-font-smoothing: antialiased;
 				font-weight: 400;
-				font-family: "Material Icons";
+				font-family: $font-icons;
 				font-size: 2.4rem;
 				position: absolute;
 				top: 50%;
@@ -155,8 +156,9 @@
 			position: relative;
 			display: inline;
 
+			// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 			&::after {
-				font-family: "Material Icons";
+				font-family: $font-icons;
 				content: "\eac9";
 				transition: all 0.15s;
 				position: absolute;

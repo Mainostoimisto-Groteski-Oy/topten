@@ -14,9 +14,9 @@ class Topten_PDF extends FPDFA {
 	/**
 	 * Whitelisted tags
 	 *
-	 * @var string[]
+	 * @var array Whitelisted tags
 	 */
-	protected $tag_whitelist = array(
+	protected array $tag_whitelist = array(
 		'section',
 		'a',
 		'b',
@@ -42,9 +42,9 @@ class Topten_PDF extends FPDFA {
 	/**
 	 * Blacklisted tags
 	 *
-	 * @var array
+	 * @var string[] Blacklisted tags
 	 */
-	protected $tag_blacklist = array(
+	protected array $tag_blacklist = array(
 		'\n',
 		'\t',
 	);
@@ -52,52 +52,58 @@ class Topten_PDF extends FPDFA {
 	/**
 	 * Font size (px)
 	 *
-	 * @var int Font size (px)
+	 * @var float Font size (px)
 	 */
-	protected $font_size = 16;
+	protected float $font_size = 16;
 
 	/**
 	 * Font size (pt)
 	 *
-	 * @var int Font size (pt)
+	 * @var float Font size (pt)
 	 */
-	protected $font_size_pt = 12;
-
+	protected float $font_size_pt = 12;
 
 	/**
 	 * Font style
 	 *
 	 * @var string Font style (B = bold, I = italic, U = underline, empty = normal)
 	 */
-	protected $font_style = '';
+	protected string $font_style = '';
 
 	/**
 	 * Line height (px) (1.5 * font size), set in set_size-method
 	 *
-	 * @var int Line height
+	 * @var float Line height
 	 */
-	protected $line_height = 24;
+	protected float $line_height = 24;
 
 	/**
 	 * Line height (mm)
 	 *
-	 * @var int Line height
+	 * @var float Line height
 	 */
-	protected $line_height_mm = 6.35;
+	protected float $line_height_mm = 6.35;
 
 	/**
 	 * Row padding (mm)
 	 *
-	 * @var int Row padding
+	 * @var float Row padding (mm)
 	 */
-	protected $row_padding = 2;
+	protected float $row_padding = 3.96875;
+
+	/**
+	 * Row padding (px)
+	 *
+	 * @var float Row padding (<px></px>)
+	 */
+	protected float $row_padding_px = 15;
 
 	/**
 	 * Current column width
 	 *
-	 * @var int Current column width
+	 * @var float Current column width
 	 */
-	protected $column_width = 0;
+	protected float $column_width = 0;
 
 	/**
 	 * Convert px to mm
@@ -147,9 +153,9 @@ class Topten_PDF extends FPDFA {
 				break;
 			case 'h2':
 				if ( str_contains( $class, 'desc' ) ) {
-					$this->font_size = 12;
+					$this->font_size = 14;
 				} else {
-					$this->font_size = 24;
+					$this->font_size = 32;
 				}
 
 				break;
@@ -173,7 +179,7 @@ class Topten_PDF extends FPDFA {
 		$this->line_height    = $this->font_size * 1.5;
 		$this->line_height_mm = $this->px_to_mm( $this->line_height );
 
-		$this->SetFont( 'Roboto', $this->font_style, $this->font_size_pt );
+		$this->SetFont( 'Blinker', $this->font_style, $this->font_size_pt );
 	}
 
 	/**
@@ -192,7 +198,9 @@ class Topten_PDF extends FPDFA {
 				break;
 			case 'i':
 			case 'em':
-				$this->font_style = 'I';
+				// TODO: ITALICS NOT WORKING
+				// $this->font_style = 'I';
+				$this->font_style = '';
 				break;
 			default:
 				$this->font_style = '';
@@ -200,40 +208,12 @@ class Topten_PDF extends FPDFA {
 		}
 
 		if ( 'desc' === $class ) {
-			error_log( 'qqq' );
-			$this->font_style = 'I';
+			// TODO: ITALICS NOT WORKING
+			// $this->font_style = 'I';
+			$this->font_style = '';
 		}
 
-		$this->SetFont( 'Roboto', $this->font_style, $this->font_size_pt );
-	}
-
-	/**
-	 * Converts HTML to PDF
-	 *
-	 * @param array $data HTML data
-	 *
-	 * @return void
-	 */
-	public function generate_pdf( array $data ): void {
-		// $this->AddFont( 'Roboto', '', 'Roboto-Regular.php' );
-		// $this->AddFont( 'Roboto', 'B', 'Roboto-Bold.php' );
-		// $this->AddFont( 'Roboto', 'I', 'Roboto-Italic.php' );
-
-		$this->AddFont( 'Roboto', '', 'Roboto-Regular.ttf', true );
-		$this->AddFont( 'Roboto', 'B', 'Roboto-Bold.ttf', true );
-		$this->AddFont( 'Roboto', 'I', 'Roboto-Italic.ttf', true );
-
-		$this->SetFont( 'Roboto', $this->font_style, $this->font_size_pt );
-
-		$this->AddPage();
-
-		foreach ( $data['rows'] as $index => $row ) {
-			if ( $index > 1 ) {
-				break;
-			}
-
-			$this->write_columns( $row );
-		}
+		$this->SetFont( 'Blinker', $this->font_style, $this->font_size_pt );
 	}
 
 	/**
@@ -286,22 +266,52 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Create columns
+	 * Converts HTML to PDF
 	 *
-	 * @param array $row Row data
+	 * @param array $data HTML data
 	 *
 	 * @return void
 	 */
-	private function write_columns( array $row ): void {
+	public function generate_pdf( array $data ): void {
+		$this->AddFont( 'Blinker', '', 'Blinker-Regular.ttf', true );
+		$this->AddFont( 'Blinker', 'B', 'Blinker-Bold.ttf', true );
+
+		// Todo: italic font is not working, Blinker-Italic does not exist
+		// $this->AddFont( 'Blinker', 'I', 'Blinker-Regular.ttf', true );
+
+		$this->SetFont( 'Blinker', $this->font_style, $this->font_size_pt );
+
+		$this->AddPage();
+
+		foreach ( $data['rows'] as $index => $row ) {
+			$last_row = count( $data['rows'] ) - 1 === $index;
+
+			$this->write_columns( $row, $last_row );
+		}
+	}
+
+	/**
+	 * Create columns
+	 *
+	 * @param array $row Row data
+	 * @param bool  $last_row Is last row?
+	 *
+	 * @return void
+	 */
+	private function write_columns( array $row, bool $last_row = false ): void {
 		// Columns count
 		$columns = $row['columns'] ?? array();
 		$count   = $row['count'] ?? 0;
 
 		$row_class = $row['attributes']['class'] ?? '';
 
+		$column_heights = array();
+
 		// If class includes "top", it is topmost row and is a special case
 		if ( str_contains( $row_class, 'top' ) ) {
 			$this->write_top_row( $row );
+
+			$this->SetY( $this->GetY() + $this->row_padding * 2 );
 		} else {
 			// Calculate column width (page width - left and right margin / columns count)
 			$this->column_width = ( $this->GetPageWidth() - $this->lMargin - $this->rMargin ) / $count;
@@ -318,106 +328,41 @@ class Topten_PDF extends FPDFA {
 
 				$this->SetXY( $x, $y );
 
+				$column_height = 0;
+
 				// Column children
 				foreach ( $column as $column_children ) {
-					$tag   = $column_children['tag'];
-					$class = $column_children['attributes']['class'] ?? '';
-
-					json_log( $column_children );
-
-
-					// Move Y-axis by line height, save current position
-					$child_y_position = $this->GetY();
-
-					// If tag is list, don't add line height, because it will be added later
-
-					// Todo: Remove phpcs:ignores
-					if ( 'ul' === $tag || 'ol' === $tag ) { // phpcs:ignore
-						$this->write_list( $column_children, $column_child_height );
-					} elseif ( 'img' === $tag || 'picture' === $tag ) { // phpcs:ignore
-						$this->write_image( $column_children );
-					} elseif ( 'div' === $tag ) {
-						$this->handle_div( $column_children );
-					} else {
-						// // Get total string width
-						// $string_width = $this->get_string_width( $column_children );
-
-						// // How many lines string takes
-						// $lines = $this->column_width / $string_width;
-
-						// // Calculate column child height
-						// $column_height = $this->line_height_mm * $lines;
-
-						error_log( $class );
-
-						$this->set_style( $tag, $class );
-						$this->set_size( $tag, $class );
-
-						$this->write_text( $column_children );
-					}
-
-					// // Set XY-coordinates to next child start. X-coordinate doesn't change, Y-coordinate is increased by line height
-					// $next_child_position = $child_y_position + $column_height;
-
-					// $this->SetXY( $x, $next_child_position );
+					$column_height += $this->handle_output( $column_children );
 				}
 
-				// $max_column_height = max( $column_heights );
+				$column_heights[] = $column_height;
+			}
 
-				// Write column borders
-				// for ( $i = 0; $i < $count; $i++ ) {
+			$max_column_height = max( $column_heights );
+
+			$x_after_columns = $this->GetX();
+			$y_after_columns = $this->GetY();
+
+			// Write column borders
+			for ( $i = 0; $i < $count; $i++ ) {
 				// Add borders to top and right, and if it's first column, also add left border
-				// $borders = 0 === $i ? 'TRL' : 'TR';
+				$borders = 0 === $i ? 'TRL' : 'TR';
 
-				// $x = $this->lMargin + ( $this->column_width * $i );
+				$last_row ? $borders .= 'B' : '';
+
+				$x = $this->lMargin + ( $this->column_width * $i );
 
 				// Set start point
-				// $this->SetXY( $x, $y - $this->row_padding );
+				$this->SetXY( $x, $y - $this->row_padding );
 
 				// Write column, height = highest column height
-				// $this->Cell( $this->column_width, $max_column_height, '', $borders );
-				// }
+				$this->Cell( $this->column_width, $max_column_height + $this->row_padding, '', $borders );
 
-				// Set Y-axis to highest column height
-				// $this->SetXY( $this->lMargin, $y + $max_column_height );
-				// $this->SetXY( $this->lMargin, $y + $this->line_height_mm );
-			}
-		}
-	}
-
-	/**
-	 * Handle div tags
-	 *
-	 * @param array  $data Data
-	 * @param string $parent_tag Parent tag
-	 * @param string $parent_class Parent class
-	 *
-	 * @return void
-	 */
-	private function handle_div( array $data, $parent_tag = '', $parent_class = '' ): void {
-		if ( empty( $data['children'] ) ) {
-			return;
-		}
-
-		foreach ( $data['children'] as $child ) {
-			if ( ! $parent_tag ) {
-				$parent_tag   = $child['tag'];
-				$parent_class = $child['attributes']['class'] ?? '';
+				$this->SetXY( $x, $y );
 			}
 
-			if ( $parent_tag ) {
-				$this->set_size( $parent_tag, $parent_class );
-			} else {
-				$parent_tag = $child['tag'];
-			}
-
-			if ( ! empty( $child['children'] ) ) {
-				$this->handle_div( $child, $parent_tag, $parent_class );
-			} else {
-				$this->set_style( $child['tag'] );
-
-				$this->write_text( $child );
-			}
+			// Set X-axis to after columns
+			$this->SetXY( $x_after_columns, $y_after_columns + $this->row_padding );
 		}
 	}
 
@@ -434,14 +379,15 @@ class Topten_PDF extends FPDFA {
 
 		$this->column_width = ( $this->GetPageWidth() - $this->lMargin - $this->rMargin ) / $count;
 
-		$y = $this->GetY();
+		$original_x = $this->GetX();
+		$original_y = $this->GetY();
 
 		for ( $i = 0; $i < $count; $i++ ) {
 			$column = $columns[ $i ] ?? array();
 
 			$x = $this->lMargin + ( $this->column_width * $i );
 
-			$this->SetXY( $x, $y );
+			$this->SetXY( $x, $original_y );
 
 			// We want to align top row text column to right, so we need to get the width of the widest string in the column
 			$string_widths = array();
@@ -477,12 +423,9 @@ class Topten_PDF extends FPDFA {
 					$this->write_image( $column_children );
 
 					$img_width = $column_children['attributes']['width'] ?? 0;
-					// $img_height = $column_children['attributes']['height'] ?? 0;
-
 					$img_width = $this->px_to_mm( $img_width );
-					// $img_height = $this->px_to_mm( $img_height );
 
-					$this->SetXY( $x + $img_width, $y );
+					$this->SetXY( $x + $img_width, $original_y );
 				} elseif ( 'div' === $tag ) {
 					$x = $this->GetPageWidth() - $this->lMargin - $this->rMargin - $max_string_width;
 
@@ -499,6 +442,8 @@ class Topten_PDF extends FPDFA {
 				}
 			}
 		}
+
+		// $this->SetXY( $x, $next_child_position );
 	}
 
 	/**
@@ -627,6 +572,9 @@ class Topten_PDF extends FPDFA {
 						// Top row 'strong' tag is 20px and 'p' tag is 16px, and we want to align them, so we need to move the 'p' down based on the line height difference
 						$this->SetXY( $this->GetX(), $this->GetY() - $offset );
 					}
+				} else {
+					$this->set_size( $parent_tag, $parent_class );
+					$this->set_style( $parent_tag, $parent_class );
 				}
 
 				$this->Write( $this->line_height_mm, $value );
@@ -641,5 +589,55 @@ class Topten_PDF extends FPDFA {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Handle output
+	 *
+	 * @param array $data Data
+	 *
+	 * @return float Column height
+	 */
+	private function handle_output( array $data ): float {
+		$tag   = ! empty( $data['tag'] ) ? sanitize_text_field( $data['tag'] ) : '';
+		$class = ! empty( $data['attributes']['class'] ) ? sanitize_text_field( $data['attributes']['class'] ) : '';
+
+		// error_log( $class . ' - ' . $tag );
+
+		$column_height = 0;
+
+		if ( 'div' === $tag ) {
+			if ( ! empty( $data['children'] ) ) {
+				foreach ( $data['children'] as $child ) {
+					return $this->handle_output( $child );
+				}
+			}
+		} else {
+			$child_y_position = $this->GetY();
+			$child_x_position = $this->GetX();
+
+			if ( 'ul' === $tag || 'ol' === $tag ) { // phpcs:ignore
+				// $this->write_list( $data, $column_child_height );
+			} elseif ( 'img' === $tag || 'picture' === $tag ) { // phpcs:ignore
+				$this->write_image( $data );
+			} else {
+				$this->write_text( $data );
+			}
+
+			// Get total string width
+			$string_width = $this->get_string_width( $data );
+
+			// How many lines string takes
+			$lines = ceil( $string_width / $this->column_width );
+
+			// Calculate column child height
+			$column_height = $this->line_height_mm * $lines;
+
+			$next_child_position = $child_y_position + $column_height;
+
+			$this->SetXY( $child_x_position, $next_child_position );
+		}
+
+		return $column_height;
 	}
 }

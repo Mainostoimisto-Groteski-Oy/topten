@@ -243,9 +243,7 @@ function topten_get_desc( $description = false ) {
 	}
 
 	if ( $description ) {
-		$id = sanitize_title( $description );
-
-		echo sprintf( '<h2 id="%s" class="desc">%s</h2>', esc_attr( $id ), esc_html( $description ) );
+		echo sprintf( '<h2 class="desc">%s</h2>', esc_html( $description ) );
 	}
 }
 

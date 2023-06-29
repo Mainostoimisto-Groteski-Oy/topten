@@ -25,8 +25,9 @@ section.cards-notification {
 				display: inline-block;
 				position: relative;
 
+				// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 				&::after {
-					font-family: "Material Icons";
+					font-family: $font-icons;
 					content: "\eac9";
 					transition: all 0.15s;
 					position: absolute;

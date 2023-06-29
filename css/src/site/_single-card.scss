@@ -114,7 +114,6 @@
 				font-style: italic;
 				font-weight: 400;
 				margin-top: 0;
-				scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
 			}
 
 			.tulkinta {
@@ -129,6 +128,7 @@
 					font-size: 1.8rem;
 					font-weight: 400;
 
+					// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 					&::before {
 						font-family: $font-icons;
 						text-transform: none;

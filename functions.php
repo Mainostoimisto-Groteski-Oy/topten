@@ -216,7 +216,8 @@ function topten_scripts() {
 
 	wp_enqueue_style( 'topten', get_template_directory_uri() . '/css/dist/site.min.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
+	// Material Symbols (https://fonts.google.com/icons)
+	wp_enqueue_style( 'material-symbols', get_template_directory_uri() . '/fonts/MaterialSymbols/MaterialSymbols.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'jquery' );
 
@@ -257,7 +258,8 @@ function topten_editor_scripts() {
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
+	// Material Symbols (https://fonts.google.com/icons)
+	wp_enqueue_style( 'material-symbols', get_template_directory_uri() . '/fonts/MaterialSymbols/MaterialSymbols.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'groteski-script', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 

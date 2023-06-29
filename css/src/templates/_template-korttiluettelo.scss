@@ -65,6 +65,7 @@ body.page-template-template-korttiluettelo {
 							color: $black;
 						}
 
+						// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 						.toggler {
 							font-family: $font-icons;
 							font-size: 3rem;
@@ -185,6 +186,7 @@ body.page-template-template-korttiluettelo {
 										position: absolute;
 										top: 8px;
 
+										// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 										&::after {
 											position: absolute;
 											content: "\e5cd";

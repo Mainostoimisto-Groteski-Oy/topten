@@ -65,7 +65,7 @@
 			</nav>
 
 			<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="mobile-menu" aria-expanded="false">
-				<span class="material-icons" aria-hidden="true">
+				<span class="material-symbols" aria-hidden="true">
 					menu
 				</span>
 			</button>
