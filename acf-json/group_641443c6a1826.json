@@ -3,6 +3,56 @@
     "title": "Korttilohko: Otsikko",
     "fields": [
         {
+            "key": "field_649e7c667b4ef",
+            "label": "Älä näytä otsikkoa sisällysluettelossa",
+            "name": "ignore_toc",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "Kyllä",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_649e7cc37b4f0",
+            "label": "Näytä otsikon numero",
+            "name": "show_toc_number",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_649e7c667b4ef",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "Kyllä",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_641443c735ffa",
             "label": "Otsikko",
             "name": "title",
@@ -29,7 +79,7 @@
             "name": "title_tag",
             "aria-label": "",
             "type": "button_group",
-            "instructions": "",
+            "instructions": "Jokaisella sivulla tulisi olla yksi (ja vain yksi) H1-taso.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -39,6 +89,7 @@
             },
             "relevanssi_exclude": 0,
             "choices": {
+                "h1": "h1",
                 "h2": "h2",
                 "h3": "h3",
                 "h4": "h4",
@@ -68,5 +119,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681805203
+    "modified": 1688108282
 }

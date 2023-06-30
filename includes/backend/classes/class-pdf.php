@@ -602,8 +602,6 @@ class Topten_PDF extends FPDFA {
 		$tag   = ! empty( $data['tag'] ) ? sanitize_text_field( $data['tag'] ) : '';
 		$class = ! empty( $data['attributes']['class'] ) ? sanitize_text_field( $data['attributes']['class'] ) : '';
 
-		// error_log( $class . ' - ' . $tag );
-
 		$column_height = 0;
 
 		if ( 'div' === $tag ) {

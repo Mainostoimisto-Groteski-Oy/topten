@@ -23,11 +23,16 @@ jQuery(document).ready(($) => {
 		}
 		$('#toggleSidebar').on('click', function () {
 			$('aside.sidebar').toggleClass('active');
+
 			$(this).toggleClass('active');
+
 			// aria-expanded attribute for this and sidebar
 			$(this).attr('aria-expanded', (i, attr) => (attr === 'true' ? 'false' : 'true'));
-			$('aside.sidebar').attr('aria-expanded', (i, attr) => (attr === 'true' ? 'false' : 'true'));
-			// toggle menu-explanation 
+
+			// Aside should not have aria-expanded attribute
+			// $('aside.sidebar').attr('aria-expanded', (i, attr) => (attr === 'true' ? 'false' : 'true'));
+
+			// toggle menu-explanation
 			if ($('aside.sidebar').hasClass('active')) {
 				$('.menu-explanation.closed').removeClass('active');
 				$('.menu-explanation.open').addClass('active');

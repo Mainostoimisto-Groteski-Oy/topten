@@ -629,8 +629,6 @@ class Topten_Admin_Cards extends Topten_Admin {
 
 		// Todo: What if committer is not set?
 		if ( ! $committer ) {
-			error_log( 'Committer not set' );
-
 			return;
 		}
 

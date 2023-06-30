@@ -172,15 +172,20 @@ function topten_buttons( $block = array(), $background = '' ) {
 }
 
 /**
- * Luo sisällysluettelon
+ * Creates a table of contents from the title blocks of the card
+ * This is horrible, but it works? Not my finest work
  */
 function topten_get_table_of_contents() {
 	$blocks = parse_blocks( get_the_content() );
 
 	$table_of_contents = '<ol class="table-of-contents" role="list">';
 
-	$currently_in_sublist = false;
-	$is_open              = false;
+	$h2_open = false;
+	$h3_open = false;
+	$h4_open = false;
+	$h5_open = false;
+
+	$block_title_ids = array();
 
 	// Rivit
 	foreach ( $blocks as $row ) {
@@ -195,30 +200,144 @@ function topten_get_table_of_contents() {
 						if ( 'acf/otsikko' === $block['blockName'] ) {
 							$title = $block['attrs']['data']['title'];
 							$id    = sanitize_title( $block['attrs']['data']['title'] );
-							$href  = sprintf( '#%s', $id );
 							$tag   = $block['attrs']['data']['title_tag'];
 
-							$string = '';
-
-							if ( 'h3' === $tag ) {
-								$currently_in_sublist = true;
-
-								if ( ! $is_open ) {
-									$table_of_contents .= '<ol class="sub-list" role="list">';
-									$is_open            = true;
-								}
+							if ( ! isset( $block_title_ids[ $id ] ) ) {
+								$block_title_ids[ $id ] = array(
+									'id'    => $id,
+									'count' => 0,
+								);
 							} else {
-								$currently_in_sublist = false;
+								$block_title_ids[ $id ]['count']++;
+
+								$id = $id . '-' . $block_title_ids[ $id ]['count'];
 							}
 
-							$link = sprintf( '<a href="%s" aria-label="%s">%s</a>', $href, $title, $title );
+							$href = sprintf( '#%s', $id );
 
-							$string .= sprintf( '<li>%s</li>', $link );
+							if ( 'h2' === $tag ) {
+								if ( $h5_open ) {
+									$table_of_contents .= '</ol>';
 
-							if ( ! $currently_in_sublist && $is_open ) {
-								$table_of_contents .= '</ol>' . $string;
-							} else {
-								$table_of_contents .= $string;
+									$h5_open = false;
+
+									if ( ! $h4_open ) {
+										$table_of_contents .= '</ol>';
+
+										$h4_open = false;
+									}
+
+									if ( ! $h3_open ) {
+										$table_of_contents .= '</ol>';
+
+										$h3_open = false;
+									}
+								}
+
+								if ( $h4_open ) {
+									$table_of_contents .= '</ol>';
+
+									$h4_open = false;
+
+									if ( ! $h3_open ) {
+										$table_of_contents .= '</ol>';
+
+										$h3_open = false;
+									}
+								}
+
+								if ( $h3_open ) {
+									$table_of_contents .= '</ol>';
+
+									$h3_open = false;
+								}
+
+								if ( $h2_open ) {
+									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+								} else {
+									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+									$h2_open = true;
+								}
+							}
+
+							if ( 'h3' === $tag ) {
+								if ( $h5_open ) {
+									$table_of_contents .= '</ol>';
+
+									$h5_open = false;
+
+									if ( ! $h4_open ) {
+										$table_of_contents .= '</ol>';
+
+										$h4_open = false;
+									}
+								}
+
+								if ( $h4_open ) {
+									$table_of_contents .= '</ol>';
+
+									$h4_open = false;
+								}
+
+								if ( $h3_open ) {
+									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+								} else {
+									if ( $h2_open ) {
+										$table_of_contents .= '<ol class="h3-list sub-list" role="list">';
+										$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+										$h3_open = true;
+									}
+								}
+							}
+
+							if ( 'h4' === $tag ) {
+								if ( $h5_open ) {
+									$table_of_contents .= '</ol>';
+
+									$h5_open = false;
+
+									if ( ! $h4_open ) {
+										$table_of_contents .= '</ol>';
+
+										$h4_open = false;
+									}
+								}
+
+								if ( $h3_open ) {
+									$table_of_contents .= '<ol class="h4-list sub-list" role="list">';
+									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+									$h4_open = true;
+								} else {
+									if ( $h3_open ) {
+										$table_of_contents .= '<ol class="h4-list sub-list" role="list">';
+										$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+										$h4_open = true;
+									}
+								}
+							}
+
+							if ( 'h5' === $tag ) {
+								if ( $h4_open ) {
+									$table_of_contents .= '<ol class="h4-list sub-list" role="list">';
+									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+									$h5_open = true;
+								} else {
+									if ( $h5_open ) {
+										$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+									} else {
+										if ( $h3_open ) {
+											$table_of_contents .= '<ol class="h4-list sub-list" role="list"><ol class="h5-list sub-list" role="list">';
+											$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+											$h5_open = true;
+										}
+									}
+								}
 							}
 						}
 					}
@@ -230,6 +349,101 @@ function topten_get_table_of_contents() {
 	$table_of_contents .= '</ol>';
 
 	echo wp_kses_post( $table_of_contents );
+}
+
+/**
+ * Create title numbers
+ *
+ * @return array Title numbers
+ */
+function topten_get_title_numbers(): array {
+	$blocks = parse_blocks( get_the_content() );
+
+	$title_numbers = array();
+
+	$h2s = 0;
+	$h3s = 0;
+	$h4s = 0;
+	$h5s = 0;
+
+	// Rows
+	foreach ( $blocks as $row ) {
+		if ( ! empty( $row['innerBlocks'] ) ) {
+
+			// Columns
+			foreach ( $row['innerBlocks'] as $index => $column ) {
+				if ( ! empty( $column['innerBlocks'] ) ) {
+
+					// Column blocks
+					foreach ( $column['innerBlocks'] as $index => $block ) {
+						if ( 'acf/otsikko' === $block['blockName'] ) {
+							$title = $block['attrs']['data']['title'];
+							$tag   = $block['attrs']['data']['title_tag'];
+
+							$id = sanitize_title( $title );
+
+							if ( ! isset( $block_title_ids[ $id ] ) ) {
+								$block_title_ids[ $id ] = array(
+									'id'    => $id,
+									'count' => 0,
+								);
+							} else {
+								$block_title_ids[ $id ]['count']++;
+
+								$id = $id . '-' . $block_title_ids[ $id ]['count'];
+							}
+
+							if ( 'h2' === $tag ) {
+								$h2s++;
+
+								$number = $h2s . '.';
+
+								$h3s = 0;
+								$h4s = 0;
+								$h5s = 0;
+							} elseif ( 'h3' === $tag ) {
+								$h3s++;
+
+								$number = $h2s . '.' . $h3s . '.';
+
+								$h4s = 0;
+								$h5s = 0;
+							} elseif ( 'h4' === $tag ) {
+								$h4s++;
+
+								$number = $h2s . '.' . $h3s . '.' . $h4s . '.';
+
+								$h5s = 0;
+							} elseif ( 'h5' === $tag ) {
+								$h5s++;
+
+								$number = $h2s . '.' . $h3s . '.' . $h4s . '.' . $h5s . '.';
+							}
+
+							$title_numbers[ $id ] = $number;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return $title_numbers;
+}
+
+/**
+ * Get title number by ID
+ *
+ * @param string $id Title ID
+ */
+function topten_get_title_number( $id = '' ): string {
+	$title_numbers = topten_get_title_numbers();
+
+	if ( isset( $title_numbers[ $id ] ) ) {
+		return $title_numbers[ $id ];
+	}
+
+	return '';
 }
 
 /**

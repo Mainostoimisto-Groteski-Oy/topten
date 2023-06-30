@@ -262,11 +262,7 @@ class Topten_Admin {
 			$post_type = get_post_type( get_the_ID() );
 
 			if ( in_array( $post_type, $this->card_types, true ) ) {
-				error_log( 'qqq' );
-
 				if ( $this->cards->is_pending_approval( get_the_ID() ) ) {
-					error_log( 'qqq2' );
-
 					$classes .= ' tt-editor-disabled';
 				}
 			}

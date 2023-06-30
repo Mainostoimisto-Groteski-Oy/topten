@@ -77,6 +77,12 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 			'ul'     => array(
 				'style' => array(),
 			),
+			'sup'    => array(
+				'style' => array(),
+			),
+			'sub'    => array(
+				'style' => array(),
+			),
 		)
 	);
 	?>

@@ -322,6 +322,8 @@
 					margin-top: auto;
 					margin-bottom: 10px;
 					transition: all 0.15s;
+					padding: 0;
+					line-height: 1;
 				}
 			}
 
@@ -356,7 +358,9 @@
 
 				.box-title {
 					button {
-						transform: rotate(90deg);
+						.material-symbols {
+							transform: rotate(90deg);
+						}
 					}
 				}
 			}
@@ -448,8 +452,9 @@
 		}
 
 		ol.table-of-contents {
-			margin-left: 0;
 			padding-left: 15px;
+			list-style-type: none;
+			margin: 0;
 			counter-reset: item;
 
 			li {
@@ -464,12 +469,20 @@
 
 			> li {
 				counter-increment: item;
+
+				&::marker {
+					display: none;
+				}
+
+				&::before {
+					content: counters(item, ".") ". ";
+				}
 			}
 
 			ol.sub-list {
 				list-style-type: none;
 				counter-reset: item;
-				padding-left: 0;
+				padding-left: 15px;
 				margin-left: 0;
 
 				> li {

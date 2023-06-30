@@ -63,10 +63,6 @@ if ( 'tulkintakortti' === $type ) {
 
 <?php topten_card_notification( 'single' ); ?>
 
-<h1 class="screen-reader-text">
-	<?php the_title(); ?>
-</h1>
-
 <?php if ( get_field( $prefix . '_guide', 'options' ) ) : ?>
 	<section class="text-block card">
 		<div class="grid">
@@ -188,6 +184,12 @@ if ( 'tulkintakortti' === $type ) {
 			</section>
 
 			<?php
+			// Global variable for preventing duplicate IDs
+			$block_title_ids = array();
+
+			// Global variable for title prefix numbers (1., 1.1., 1.1.1., etc.)
+			$title_numbers = topten_get_title_numbers();
+
 			the_content(); // Kortin sisältölohkot
 			?>
 		</div>
@@ -197,17 +199,19 @@ if ( 'tulkintakortti' === $type ) {
 		</button>
 	</article>
 
-	<aside class="sidebar" id="sidebar-menu" aria-expanded="false">
+	<aside class="sidebar" id="sidebar-menu">
 		<div class="box open">
 			<div class="box-title">
 				<h3 class="h2">
 					<?php esc_html_e( 'Sisällysluettelo', 'topten' ); ?>
 				</h3>
 
-				<button class="material-symbols"
+				<button class="material-symbols-button"
 					aria-label="<?php esc_html_e( 'Avaa valikko', 'topten' ); ?>"
 					aria-expanded="true">
-					double_arrow
+					<span class="material-symbols" aria-hidden="true">
+						double_arrow
+					</span>
 				</button>
 			</div>
 
@@ -225,10 +229,12 @@ if ( 'tulkintakortti' === $type ) {
 						<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
 					</h3>
 
-					<button class="material-symbols"
+					<button class="material-symbols-button"
 						aria-label="<?php esc_html_e( 'Avaa valikko', 'topten' ); ?>"
-						aria-expanded="false">
-						double_arrow
+						aria-expanded="true">
+						<span class="material-symbols" aria-hidden="true">
+							double_arrow
+						</span>
 					</button>
 				</div>
 
@@ -305,6 +311,7 @@ if ( 'tulkintakortti' === $type ) {
 				<h3 class="h2">
 					<?php esc_html_e( 'Anna palautetta', 'topten' ); ?>
 				</h3>
+
 				<button class="material-symbols" aria-expanded="false">double_arrow</button>
 			</div>
 
