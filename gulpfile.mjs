@@ -143,8 +143,6 @@ function adminJs() {
 function productionJs() {
 	const wpConfig = _.clone(webpackConfig);
 
-	console.log(wpConfig);
-
 	wpConfig.mode = 'production';
 	wpConfig.devtool = false;
 
