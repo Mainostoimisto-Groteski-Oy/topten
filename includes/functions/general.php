@@ -11,7 +11,7 @@
  * @param any $data_to_log Logitettava data
  */
 function json_log( $data_to_log ) { // phpcs:ignore
-	error_log( wp_json_encode( $data_to_log ) ); // phpcs:ignore
+	error_log( wp_json_encode( $data_to_log, JSON_UNESCAPED_UNICODE ) ); // phpcs:ignore
 }
 
 
