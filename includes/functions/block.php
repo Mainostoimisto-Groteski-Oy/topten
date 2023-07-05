@@ -217,43 +217,25 @@ function topten_get_table_of_contents() {
 
 							if ( 'h2' === $tag ) {
 								if ( $h5_open ) {
-									$table_of_contents .= '</ol>';
+									$table_of_contents .= '</li></ol>';
 
 									$h5_open = false;
-
-									if ( ! $h4_open ) {
-										$table_of_contents .= '</ol>';
-
-										$h4_open = false;
-									}
-
-									if ( ! $h3_open ) {
-										$table_of_contents .= '</ol>';
-
-										$h3_open = false;
-									}
 								}
 
 								if ( $h4_open ) {
-									$table_of_contents .= '</ol>';
+									$table_of_contents .= '</li></ol>';
 
 									$h4_open = false;
-
-									if ( ! $h3_open ) {
-										$table_of_contents .= '</ol>';
-
-										$h3_open = false;
-									}
 								}
 
 								if ( $h3_open ) {
-									$table_of_contents .= '</ol>';
+									$table_of_contents .= '</li></ol>';
 
 									$h3_open = false;
 								}
 
 								if ( $h2_open ) {
-									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+									$table_of_contents .= sprintf( '</li><li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
 								} else {
 									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
 
@@ -263,80 +245,88 @@ function topten_get_table_of_contents() {
 
 							if ( 'h3' === $tag ) {
 								if ( $h5_open ) {
-									$table_of_contents .= '</ol>';
+									$table_of_contents .= '</li></ol>';
 
 									$h5_open = false;
-
-									if ( ! $h4_open ) {
-										$table_of_contents .= '</ol>';
-
-										$h4_open = false;
-									}
 								}
 
 								if ( $h4_open ) {
-									$table_of_contents .= '</ol>';
+									$table_of_contents .= '</li></ol>';
 
 									$h4_open = false;
 								}
 
 								if ( $h3_open ) {
-									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+									$table_of_contents .= sprintf( '</li><li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
 								} else {
-									if ( $h2_open ) {
-										$table_of_contents .= '<ol class="h3-list sub-list" role="list">';
-										$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+									if ( ! $h2_open ) {
+										$table_of_contents .= '<ol class="h2-list sub-list" role="list"><li>';
 
-										$h3_open = true;
+										$h2_open = true;
 									}
+
+									$table_of_contents .= '<ol class="h3-list sub-list" role="list">';
+									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+
+									$h3_open = true;
 								}
 							}
 
 							if ( 'h4' === $tag ) {
 								if ( $h5_open ) {
-									$table_of_contents .= '</ol>';
+									$table_of_contents .= '</li></ol>';
 
 									$h5_open = false;
-
-									if ( ! $h4_open ) {
-										$table_of_contents .= '</ol>';
-
-										$h4_open = false;
-									}
 								}
 
-								if ( $h3_open ) {
+								if ( $h4_open ) {
+									$table_of_contents .= sprintf( '</li><li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+								} else {
+									if ( ! $h2_open ) {
+										$table_of_contents .= '<ol class="h2-list sub-list" role="list"><li>';
+
+										$h2_open = true;
+									}
+
+									if ( ! $h3_open ) {
+										$table_of_contents .= '<ol class="h3-list sub-list" role="list"><li>';
+
+										$h3_open = true;
+									}
+
 									$table_of_contents .= '<ol class="h4-list sub-list" role="list">';
 									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
 
 									$h4_open = true;
-								} else {
-									if ( $h3_open ) {
-										$table_of_contents .= '<ol class="h4-list sub-list" role="list">';
-										$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
-
-										$h4_open = true;
-									}
 								}
 							}
 
 							if ( 'h5' === $tag ) {
-								if ( $h4_open ) {
-									$table_of_contents .= '<ol class="h4-list sub-list" role="list">';
+								if ( $h5_open ) {
+									$table_of_contents .= sprintf( '</li><li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
+								} else {
+									if ( ! $h2_open ) {
+										$table_of_contents .= '<ol class="h2-list sub-list" role="list"><li>';
+
+										$h2_open = true;
+									}
+
+									if ( ! $h3_open ) {
+										$table_of_contents .= '<ol class="h3-list sub-list" role="list"><li>';
+
+										$h3_open = true;
+									}
+
+									if ( ! $h4_open ) {
+										$table_of_contents .= '<ol class="h4-list sub-list" role="list"><li>';
+
+										$h4_open = true;
+									}
+
+									$table_of_contents .= '<ol class="h5-list sub-list" role="list">';
 									$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
 
 									$h5_open = true;
-								} else {
-									if ( $h5_open ) {
-										$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
-									} else {
-										if ( $h3_open ) {
-											$table_of_contents .= '<ol class="h4-list sub-list" role="list"><ol class="h5-list sub-list" role="list">';
-											$table_of_contents .= sprintf( '<li><a href="%s" aria-label="%s">%s</a>', esc_url( $href ), esc_attr( $title ), esc_html( $title ) );
-
-											$h5_open = true;
-										}
-									}
 								}
 							}
 						}
@@ -346,7 +336,7 @@ function topten_get_table_of_contents() {
 		}
 	}
 
-	$table_of_contents .= '</ol>';
+	$table_of_contents .= '</li></ol>';
 
 	echo wp_kses_post( $table_of_contents );
 }
