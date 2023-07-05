@@ -1480,8 +1480,9 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 	 * @param array $links The breadcrumbs array
 	 */
 	function topten_yoast_breadcrumbs( $links ) {
-		$id     = get_the_ID();
-		$status = get_field( 'card_status_publish', $id );
+		$id         = get_the_ID();
+		$status     = get_field( 'card_status_publish', $id );
+		$breadcrumb = array();
 
 		if ( is_singular( 'tulkintakortti' ) || is_singular( 'ohjekortti' ) || is_singular( 'lomakekortti' ) ) {
 			if ( is_array( $status ) ) {

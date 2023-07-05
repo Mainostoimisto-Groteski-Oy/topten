@@ -66,7 +66,10 @@ if ( 'tulkintakortti' === $type ) {
 <?php if ( get_field( $prefix . '_guide', 'options' ) ) : ?>
 	<section class="text-block card">
 		<div class="grid">
-			<h2 class="title h4"><?php the_field( $prefix . '_guide_title', 'options' ); ?></h2>
+			<h2 class="title h4">
+				<?php the_field( $prefix . '_guide_title', 'options' ); ?>
+			</h2>
+
 			<div class="text">
 				<?php the_field( $prefix . '_guide_before', 'options' ); ?>
 				<?php
@@ -101,13 +104,19 @@ if ( 'tulkintakortti' === $type ) {
 <?php endif; ?>
 
 <div class="grid toggle">
-	<button class="sidebar-toggle" id="toggleSidebar" aria-label="Avaa sivupalkki" aria-controls="sidebar-menu" aria-expanded="false">
+	<button class="sidebar-toggle"
+		id="toggleSidebar"
+		aria-label="<?php echo esc_attr( __( 'Avaa sivupalkki', 'topten' ) ); ?>"
+		aria-controls="sidebar-menu"
+		aria-expanded="false">
 		<span class="material-symbols" aria-hidden="true">
 			menu
 		</span>
+
 		<p class="menu-explanation closed active" aria-hidden="true">
 			<?php esc_html_e( 'Avaa sisällysluettelo', 'topten' ); ?>
 		</p>
+
 		<p class="menu-explanation open" aria-hidden="true">
 			<?php esc_html_e( 'Sulje sisällysluettelo', 'topten' ); ?>
 		</p>

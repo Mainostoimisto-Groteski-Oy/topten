@@ -8,10 +8,13 @@ $color = false;
 
 if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	$color = topten_get_guide_color( $tulkinta['value'] );
+
+	$class  = $color ? ' ' . $color : '';
+	$class .= ! empty( $tulkinta['value'] ) ? ' ' . $tulkinta['value'] : '';
 	?>
 
 	<div class="tulkinta">
-		<p class="<?php echo $color ? esc_html( $color ) : ''; ?> <?php echo esc_html( $tulkinta['value'] ); ?>">
+		<p class="<?php echo esc_attr( trim( $class ) ); ?>">
 			<?php echo esc_html( $tulkinta['label'] ); ?>
 		</p>
 	</div>
