@@ -13,7 +13,7 @@ $caption = get_field( 'caption' );
 
 <?php topten_get_desc(); ?>
 
-<figure class="image-wrapper">
+<figure class="image-wrapper" style="<?php topten_get_block_width(); ?>">
 	<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 
 	<?php if ( $caption ) : ?>

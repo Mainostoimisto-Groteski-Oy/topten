@@ -3,7 +3,7 @@
 <?php $table = get_field( 'table' ); ?>
 
 <?php if ( $table ) : ?>
-	<table>
+	<table style="<?php topten_get_block_width(); ?>">
 		<?php if ( ! empty( $table['header'] ) ) : ?>
 			<tr>
 				<?php foreach ( $table['header'] as $cell ) : ?>

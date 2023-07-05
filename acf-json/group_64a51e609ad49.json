@@ -1,0 +1,47 @@
+{
+    "key": "group_64a51e609ad49",
+    "title": "Korttilohko: Sarake",
+    "fields": [
+        {
+            "key": "field_64a51e6173d86",
+            "label": "Sarakkeen leveys",
+            "name": "column_width",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": 100,
+            "min": 10,
+            "max": 100,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/sarake"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1688542883
+}

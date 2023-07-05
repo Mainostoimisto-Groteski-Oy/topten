@@ -12,15 +12,16 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	$class  = $color ? ' ' . $color : '';
 	$class .= ! empty( $tulkinta['value'] ) ? ' ' . $tulkinta['value'] : '';
 	?>
-
-	<div class="tulkinta">
-		<p class="<?php echo esc_attr( trim( $class ) ); ?>">
-			<?php echo esc_html( $tulkinta['label'] ); ?>
-		</p>
-	</div>
 <?php endif; ?>
 
-<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
+<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>" style="<?php topten_get_block_width(); ?>">
+	<?php if ( $tulkinta && 'none' !== $tulkinta['value'] ) : ?>
+		<div class="tulkinta">
+			<p class="<?php echo esc_attr( trim( $class ) ); ?>">
+				<?php echo esc_html( $tulkinta['label'] ); ?>
+			</p>
+		</div>
+	<?php endif; ?>
 
 	<?php
 	echo wp_kses(

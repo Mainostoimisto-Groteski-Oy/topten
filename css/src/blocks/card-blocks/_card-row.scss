@@ -8,28 +8,28 @@
 		.grid {
 			display: unset;
 
-			@for $i from 1 through 4 {
-				$columns: "";
+			// 	@for $i from 1 through 4 {
+			// 		$columns: "";
 
-				&.columns-#{$i} > .block-editor-inner-blocks > .block-editor-block-list__layout {
-					@for $j from 1 through $i {
-						$columns: #{$columns} minmax(0, var(--column-#{$j}));
-					}
+			// 		&.columns-#{$i} > .block-editor-inner-blocks > .block-editor-block-list__layout {
+			// 			@for $j from 1 through $i {
+			// 				$columns: #{$columns} minmax(0, var(--column-#{$j}));
+			// 			}
 
-					grid-template-columns: $columns;
-				}
-			}
+			// 			grid-template-columns: $columns;
+			// 		}
+			// 	}
 
-			> .block-editor-inner-blocks {
-				> .block-editor-block-list__layout {
-					display: grid;
-					gap: 0;
+			// 	> .block-editor-inner-blocks {
+			// 		> .block-editor-block-list__layout {
+			// 			display: grid;
+			// 			gap: 0;
 
-					> .wp-block {
-						padding: 0 15px;
-					}
-				}
-			}
+			// 			> .wp-block {
+			// 				padding: 0 15px;
+			// 			}
+			// 		}
+			// 	}
 		}
 
 		.wp-block {

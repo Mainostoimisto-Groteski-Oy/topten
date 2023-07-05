@@ -1,7 +1,7 @@
 <?php topten_get_desc(); ?>
 
 <?php if ( have_rows( 'link_list' ) ) : ?>
-	<ul class="link-list">
+	<ul class="link-list" style="<?php topten_get_block_width(); ?>">
 		<?php
 		while ( have_rows( 'link_list' ) ) :
 			the_row();

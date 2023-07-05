@@ -1,7 +1,7 @@
 <?php topten_get_desc(); ?>
 
 <?php if ( have_rows( 'attachments' ) ) : ?>
-	<ul class="attachments">
+	<ul class="attachments" style="<?php topten_get_block_width(); ?>">
 		<?php
 		while ( have_rows( 'attachments' ) ) :
 			the_row();

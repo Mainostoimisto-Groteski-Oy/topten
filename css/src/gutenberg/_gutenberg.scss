@@ -5,6 +5,22 @@
 	width: 100%;
 }
 
+.post-type-tulkintakortti,
+.post-type-ohjekortti,
+.post-type-lomakekortti {
+	.editor-styles-wrapper {
+		.block-editor-block-list__layout {
+			display: flex;
+			flex-wrap: wrap;
+
+			.wp-block {
+				padding: 15px;
+				margin: 5px;
+			}
+		}
+	}
+}
+
 .block-editor-block-list__block {
 	min-height: 50px;
 	border: 1px solid rgba(0, 0, 0, 0.5);

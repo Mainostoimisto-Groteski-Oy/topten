@@ -6,7 +6,7 @@ $description = get_field( 'description' );
 $required = get_field( 'required' );
 ?>
 
-<div class="input-wrapper checkboxes-wrapper">
+<div class="input-wrapper checkboxes-wrapper" style="<?php topten_get_block_width(); ?>">
 	<?php if ( $description ) : ?>
 		<p class="description">
 			<?php echo esc_html( $description ); ?>

@@ -471,11 +471,20 @@ function topten_get_guide_color( $value ) {
 			$color = get_sub_field( 'color' );
 
 			if ( $value === $icon ) {
-				// We can't return here, because ACF repeater fields are stupid
 				break;
 			}
 		}
 	}
 
 	return $color;
+}
+
+function topten_get_block_width() {
+	$width = get_field( 'width' ) ?: 100;
+	$width = intval( $width );
+
+	$width = $width > 100 ? 100 : $width;
+	$width = $width < 0 ? 0 : $width;
+
+	echo 'width: calc(' . esc_attr( $width ) . '% - 10px);';
 }
