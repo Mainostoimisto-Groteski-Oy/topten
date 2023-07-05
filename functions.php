@@ -890,7 +890,7 @@ add_filter( 'acf/load_field/name=tulkinta', 'topten_acf_guide' );
 /**
  * WP login sivun logo
  */
-function topten_login_logo() {
+function groteski_login_logo() {
 	$logo_src = get_stylesheet_directory_uri() . '/assets/dist/images/groteski-logo.png.webp';
 	?>
 	<style type="text/css">
@@ -926,25 +926,68 @@ function topten_login_logo() {
 	<?php
 }
 
-add_action( 'login_enqueue_scripts', 'topten_login_logo' );
+add_action( 'login_enqueue_scripts', 'groteski_login_logo' );
 
 /**
  * WP login sivun logo linkki
  */
-function topten_login_logo_url() {
+function groteski_login_logo_url() {
 	return 'https://groteski.fi/';
 }
 
-add_filter( 'login_headerurl', 'topten_login_logo_url' );
+add_filter( 'login_headerurl', 'groteski_login_logo_url' );
 
 /**
  * WP login sivun logo linkin teksti
  */
-function topten_login_logo_url_title() {
+function groteski_login_logo_url_title() {
 	return 'Mainostoimisto Groteski Oy';
 }
 
-add_filter( 'login_headertext', 'topten_login_logo_url_title' );
+add_filter( 'login_headertext', 'groteski_login_logo_url_title' );
+
+/**
+ * Groteski dashboard widgets
+ */
+function groteski_dashboard_widgets() {
+	wp_add_dashboard_widget( 'groteski_help_widget', 'Tekninen tuki', 'groteski_help_widget', null, null, 'normal', 'high' );
+}
+
+add_action( 'wp_dashboard_setup', 'groteski_dashboard_widgets' );
+
+/**
+ * Groteski help widget
+ */
+function groteski_help_widget() {
+	?>
+	<div class="dashboard-grid">
+		<div class="left">
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/dist/images/groketti.gif" alt="" />
+		</div>
+
+		<div class="right">
+			<p>
+				<strong>
+					Ongelmia sivuston kanssa?
+				</strong>
+				<br />
+
+				<strong>
+					Kaipaatko uusia ominaisuuksia?
+				</strong>
+			</p>
+
+			<p>
+				Autamme mielellämme kehittämään sivustoasi entistäkin paremmaksi!
+			</p>
+
+			<p>
+				Ota yhteyttä Groteskin tukeen: <a href="mailto:tuki@groteski.fi">tuki@groteski.fi</a>
+			</p>
+		</div>
+	</div>
+	<?php
+}
 
 /**
  * Card search
@@ -1430,8 +1473,6 @@ function topten_acf_unique_block_id( $attributes ) {
 
 add_filter( 'acf/pre_save_block', 'topten_acf_unique_block_id' );
 
-// Add missing breadcrumbs to single card pages based on the card status, only if Yoast SEO is active.
-
 if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 	/**
 	 * Add missing breadcrumbs to single card pages based on the card status, only if Yoast SEO is active.
@@ -1474,3 +1515,53 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 	add_filter( 'wpseo_breadcrumb_links', 'topten_yoast_breadcrumbs' );
 }
 
+/**
+ * Remove dashboard bloat
+ */
+function topten_remove_dashboard_widgets() {
+	// Tapahtumat ja uutiset
+	remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+
+	// Sisällöt lyhyesti
+	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_right_now', 'dashboard', 'side' );
+
+	// Nopea luonnos
+	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+
+	// Recent activity
+	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_activity', 'dashboard', 'side' );
+
+	// Sivuston terveys
+	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_site_health', 'dashboard', 'side' );
+
+	// Yoast
+	remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
+	remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'side' );
+
+	// Yoast SEO / Wincher
+	remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'normal' );
+	remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'side' );
+
+	// Limit Login Attempts
+	remove_meta_box( 'llar_stats_widget', 'dashboard', 'normal' );
+	remove_meta_box( 'llar_stats_widget', 'dashboard', 'side' );
+
+	// Gravity Forms
+	remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'normal' );
+	remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'side' );
+
+	// Broken Link Checker
+	remove_meta_box( 'blc_dashboard_widget', 'dashboard', 'normal' );
+	remove_meta_box( 'blc_dashboard_widget', 'dashboard', 'side' );
+
+	// Easy WP SMTP
+	remove_meta_box( 'easy_wp_smtp_reports_widget_lite', 'dashboard', 'normal' );
+	remove_meta_box( 'easy_wp_smtp_reports_widget_lite', 'dashboard', 'side' );
+}
+
+add_action( 'wp_dashboard_setup', 'topten_remove_dashboard_widgets' );
