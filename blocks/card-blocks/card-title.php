@@ -1,5 +1,3 @@
-<?php topten_get_desc(); ?>
-
 <?php
 global $block_title_ids;
 
@@ -24,10 +22,10 @@ if ( ! isset( $block_title_ids[ $id ] ) ) {
 if ( ! $ignore_toc && $show_toc_number ) {
 	$title_number = topten_get_title_number( $id );
 }
-
-
 ?>
 
 <div class="title-wrapper" style="<?php topten_get_block_width(); ?>">
+	<?php topten_get_desc(); ?>
+
 	<?php echo sprintf( '<%1$s class="title" id="%3$s">%4$s %2$s</%1$s>', esc_attr( $title_tag ), wp_kses_post( $title ), esc_attr( $id ), esc_html( $title_number ) ); ?>
 </div>

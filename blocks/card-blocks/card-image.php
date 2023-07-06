@@ -11,14 +11,17 @@ $alt = $image['alt'];
 $caption = get_field( 'caption' );
 ?>
 
-<?php topten_get_desc(); ?>
 
-<figure class="image-wrapper" style="<?php topten_get_block_width(); ?>">
-	<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
+<div class="image-wrapper" style="<?php topten_get_block_width(); ?>">
+	<?php topten_get_desc(); ?>
 
-	<?php if ( $caption ) : ?>
-		<figcaption>
-			<?php echo wp_kses_post( $caption ); ?>
-		</figcaption>
-	<?php endif; ?>
-</figure>
+	<figure>
+		<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
+
+		<?php if ( $caption ) : ?>
+			<figcaption>
+				<?php echo wp_kses_post( $caption ); ?>
+			</figcaption>
+		<?php endif; ?>
+	</figure>
+</div>
