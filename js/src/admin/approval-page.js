@@ -68,9 +68,7 @@ jQuery(document).ready(($) => {
 
 				$('.tt-message-row').empty();
 				$('.tt-message-row').removeClass('hidden').removeClass('tt-success').addClass('tt-error');
-				$('.tt-message-row').append(
-					`<p>${__('Jotain meni vikaan. Yritä kohta uudestaan.', 'topten')}</p>`
-				);
+				$('.tt-message-row').append(`<p>${__('Jotain meni vikaan. Yritä kohta uudestaan.', 'topten')}</p>`);
 				$('.tt-message-row').append(`<p>${errorThrown}</p>`);
 			});
 	}

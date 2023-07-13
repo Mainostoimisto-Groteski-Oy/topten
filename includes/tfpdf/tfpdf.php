@@ -69,6 +69,11 @@ class tFPDF {
 	protected $metadata;           // document properties
 	protected $CreationDate;       // document creation date
 	protected $PDFVersion;         // PDF version number
+	protected $column_start_x;
+	protected $column_end_x;
+	protected $column_start_y;
+	protected $column_end_y;
+	protected $column_width;
 
 	/*******************************************************************************
 								   Public methods                                 *
@@ -1002,10 +1007,13 @@ class tFPDF {
 			$this->Error( 'No font has been set' );
 		}
 
+		$w   = $this->column_width - $this->rMargin - $this->x;
+
 		$cw   = $this->CurrentFont['cw'];
-		$w    = $this->w - $this->rMargin - $this->x;
-		$wmax = ( $w - 2 * $this->cMargin );
+		// $w    = $this->w - $this->rMargin - $this->x;
 		$s    = str_replace( "\r", '', (string) $txt );
+		$wmax = ( $w - 2 * $this->cMargin );
+		// $wmax = $this->column_width;
 
 		if ( $this->unifontSubset ) {
 			$nb = mb_strlen( $s, 'UTF-8' );
@@ -1071,15 +1079,20 @@ class tFPDF {
 						// Move to next line
 						$this->x  = $this->lMargin;
 						$this->y += $h;
+
 						$w        = $this->w - $this->rMargin - $this->x;
 						$wmax     = ( $w - 2 * $this->cMargin );
+
 						$i++;
 						$nl++;
+
 						continue;
 					}
+
 					if ( $i == $j ) {
 						$i++;
 					}
+
 					if ( $this->unifontSubset ) {
 						$this->Cell( $w, $h, mb_substr( $s, $j, $i - $j, 'UTF-8' ), 0, 2, '', false, $link );
 					} else {
@@ -1100,7 +1113,10 @@ class tFPDF {
 				$l   = 0;
 
 				if ( $nl == 1 ) {
-					$this->x = $this->lMargin;
+					// $this->x = $this->lMargin;
+
+					$this->x = $this->column_start_x;
+
 					$w       = $this->w - $this->rMargin - $this->x;
 					$wmax    = ( $w - 2 * $this->cMargin );
 				}

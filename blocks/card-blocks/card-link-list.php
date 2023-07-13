@@ -1,4 +1,4 @@
-<div class="link-list-wrapper" style="<?php topten_get_block_width(); ?>">
+<div class="link-list-wrapper column" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<?php if ( have_rows( 'link_list' ) ) : ?>

@@ -2,22 +2,6 @@
 
 .card-content {
 	.column {
-		border-right: 1px solid $red;
-
-		// padding: 15px 30px;
-		padding: 15px 20px;
-		display: flex;
-		flex-wrap: wrap;
-
-		> * {
-			width: 100%;
-			margin: 5px;
-		}
-
-		&:last-of-type {
-			border-right: none;
-		}
-
 		p {
 			margin: 15px 0;
 			line-height: 1.5;

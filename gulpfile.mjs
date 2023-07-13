@@ -6,7 +6,7 @@ import bump from 'gulp-bump';
 import compiler from 'webpack';
 import cssnano from 'cssnano';
 import * as dartSass from 'sass';
-import del from 'del';
+import { deleteAsync } from 'del';
 import gulpSass from 'gulp-sass';
 import imagemin from 'gulp-imagemin';
 import path from 'path';
@@ -108,6 +108,7 @@ function js() {
 
 	wpConfig.mode = 'development';
 	wpConfig.devtool = 'source-map';
+	wpConfig.optimization.minimize = false;
 
 	return src(config.js.src)
 		.pipe(webpack(wpConfig, compiler))
@@ -231,7 +232,7 @@ function optimizeAssets() {
 					basename: path.parse(file.basename).name,
 					ext: path.extname(file.path),
 				});
-			})
+			}),
 		)
 
 		.pipe(imagemin())
@@ -249,7 +250,7 @@ function optimizeAssets() {
 
 					filepath.basename += ext.ext;
 				}
-			})
+			}),
 		)
 
 		.pipe(dest(config.assets.dest))
@@ -258,7 +259,7 @@ function optimizeAssets() {
 }
 
 function cleanDist() {
-	return del(config.clean);
+	return deleteAsync(config.clean);
 }
 
 function initBrowserSync() {
@@ -285,12 +286,12 @@ function watchFiles() {
 
 export const prod = series(
 	cleanDist,
-	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs))
+	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs)),
 );
 
 export const generate = series(
 	cleanDist,
-	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs))
+	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs)),
 );
 
 export const bumpVersion = series(bumpFunctionsMinor, bumpStylesheetMinor, bumpPackageMinor);

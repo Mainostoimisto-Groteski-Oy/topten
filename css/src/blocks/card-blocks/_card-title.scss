@@ -1,7 +1,11 @@
 @use "mixins/all" as *;
 
 .card-content {
-	.title {
-		scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
+	.title-wrapper {
+		width: calc(var(--width, 100%) - 10px);
+
+		.title {
+			scroll-margin-top: calc(var(--navbar-height, 100px) + 20px);
+		}
 	}
 }

@@ -1,15 +1,27 @@
 <?php
-$columns = get_field( 'columns' ) ?: 1;
+// $columns = get_field( 'columns' ) ?: 1;
 
-$template = array();
+global $card_allowed_blocks;
 
-for ( $i = 0; $i < $columns; $i++ ) {
-	$template[] = array( 'acf/sarake' );
+$allowed_blocks = $card_allowed_blocks;
+
+foreach ( $allowed_blocks as $index => $allowed_block ) {
+	if ( 'acf/rivi' === $allowed_block || 'acf/sarake' === $allowed_block ) {
+		unset( $allowed_blocks[ $index ] );
+	}
 }
 
-$allowed_blocks = array(
-	'acf/sarake',
-);
+$allowed_blocks = array_values( $allowed_blocks );
+
+// $template = array();
+
+// for ( $i = 0; $i < $columns; $i++ ) {
+// $template[] = array( 'acf/sarake' );
+// }
+
+// $allowed_blocks = array(
+// 'acf/sarake',
+// );
 
 // $width_selector = $columns . '_column_width';
 
@@ -28,7 +40,5 @@ $allowed_blocks = array(
 ?>
 
 <section class="row-block">
-	<div class="grid">
-		<InnerBlocks template="<?php echo esc_attr( wp_json_encode( $template ) ); ?>" allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_blocks ) ); ?>" templateLock="all" />
-	</div>
+	<InnerBlocks allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_blocks ) ); ?>" templateLock="false" />
 </section>

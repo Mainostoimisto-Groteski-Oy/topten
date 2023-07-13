@@ -42,7 +42,7 @@
 				grid-column: span 6;
 			}
 
-			input:not([type="file"]):not([type="checkbox"]):not([type="radio"]),
+			input:not([type="file"], [type="checkbox"], [type="radio"]),
 			textarea {
 				width: 100%;
 				padding: 10px;

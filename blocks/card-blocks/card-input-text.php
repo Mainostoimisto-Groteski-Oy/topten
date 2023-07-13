@@ -9,7 +9,7 @@ $prefix = get_field( 'prefix' );
 $suffix = get_field( 'suffix' );
 ?>
 
-<div class="input-wrapper" style="<?php topten_get_block_width(); ?>">
+<div class="input-wrapper column" style="<?php topten_get_block_width(); ?>">
 	<label class="text-field" for="<?php echo esc_attr( $block_id ); ?>">
 		<span class="label-text">
 			<?php echo esc_html( $description ); ?>

@@ -2,6 +2,8 @@
 
 .card-content {
 	.image-wrapper {
+		width: calc(var(--width, 100%) - 10px);
+
 		figure {
 			padding: 0;
 			margin: 0;
