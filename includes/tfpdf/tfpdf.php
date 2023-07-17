@@ -74,6 +74,7 @@ class tFPDF {
 	protected $column_start_y;
 	protected $column_end_y;
 	protected $column_width;
+	protected $last_column_start_y;
 
 	/*******************************************************************************
 								   Public methods                                 *
@@ -1007,13 +1008,10 @@ class tFPDF {
 			$this->Error( 'No font has been set' );
 		}
 
-		$w   = $this->column_width - $this->rMargin - $this->x;
-
 		$cw   = $this->CurrentFont['cw'];
-		// $w    = $this->w - $this->rMargin - $this->x;
+		$w    = $this->w - $this->rMargin - $this->x;
 		$s    = str_replace( "\r", '', (string) $txt );
-		$wmax = ( $w - 2 * $this->cMargin );
-		// $wmax = $this->column_width;
+		$wmax = ( $this->column_width - 2 * $this->cMargin );
 
 		if ( $this->unifontSubset ) {
 			$nb = mb_strlen( $s, 'UTF-8' );
@@ -1056,7 +1054,7 @@ class tFPDF {
 				if ( $nl == 1 ) {
 					$this->x = $this->lMargin;
 					$w       = $this->w - $this->rMargin - $this->x;
-					$wmax    = ( $w - 2 * $this->cMargin );
+					$wmax = ( $this->column_width - 2 * $this->cMargin );
 				}
 				$nl++;
 				continue;
@@ -1081,7 +1079,8 @@ class tFPDF {
 						$this->y += $h;
 
 						$w        = $this->w - $this->rMargin - $this->x;
-						$wmax     = ( $w - 2 * $this->cMargin );
+						// $wmax     = ( $w - 2 * $this->cMargin );
+						$wmax = ( $this->column_width - 2 * $this->cMargin );
 
 						$i++;
 						$nl++;
@@ -1118,7 +1117,8 @@ class tFPDF {
 					$this->x = $this->column_start_x;
 
 					$w       = $this->w - $this->rMargin - $this->x;
-					$wmax    = ( $w - 2 * $this->cMargin );
+					// $wmax    = ( $w - 2 * $this->cMargin );
+					$wmax = ( $this->column_width - 2 * $this->cMargin );
 				}
 
 				$nl++;

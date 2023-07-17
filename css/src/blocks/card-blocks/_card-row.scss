@@ -77,34 +77,25 @@
 	}
 
 	&.top {
-		.grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 0;
-			padding: 15px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 0;
 
-			.column {
-				border: none;
-				flex-direction: unset;
-				padding: 0;
-
-				> * {
-					width: auto;
-				}
-			}
-
-			.logos {
+		.column {
+			&.logos {
 				display: flex;
 				align-items: center;
+				gap: 10px;
 
 				img {
 					max-width: 125px;
 				}
 			}
 
-			.content {
+			&.content {
+				justify-self: flex-end;
 				display: flex;
 				flex-direction: column;
-				margin-left: auto;
 
 				.date {
 					padding: 5px 5px 0;

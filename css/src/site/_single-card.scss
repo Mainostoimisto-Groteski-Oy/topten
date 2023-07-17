@@ -202,14 +202,12 @@
 			}
 
 			.text-wrapper {
-				display: flex;
-				flex-direction: column;
-
 				&.law,
 				&.info,
 				&.person,
 				&.check {
-					padding: 0 15px;
+					// Todo: Figure out why p-margin is not working if padding is set to 0
+					padding: 0.0001px 15px;
 					border-radius: 15px;
 				}
 
