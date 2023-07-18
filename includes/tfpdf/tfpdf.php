@@ -410,28 +410,37 @@ class tFPDF {
 		$this->ColorFlag = ( $this->FillColor != $this->TextColor );
 	}
 
-	function GetStringWidth( $s ) {
+	function GetStringWidth( $string ) {
 		// Get width of a string in the current font
-		$s  = (string) $s;
+		$string  = (string) $string;
 		$cw = $this->CurrentFont['cw'];
-		$w  = 0;
+		$width  = 0;
+
 		if ( $this->unifontSubset ) {
-			$unicode = $this->UTF8StringToArray( $s );
+			$unicode = $this->UTF8StringToArray( $string );
+
 			foreach ( $unicode as $char ) {
 				if ( isset( $cw[ 2 * $char ] ) ) {
-					$w += ( ord( $cw[ 2 * $char ] ) << 8 ) + ord( $cw[ 2 * $char + 1 ] ); } elseif ( $char > 0 && $char < 128 && isset( $cw[ chr( $char ) ] ) ) {
-					$w += $cw[ chr( $char ) ]; } elseif ( isset( $this->CurrentFont['desc']['MissingWidth'] ) ) {
-						$w += $this->CurrentFont['desc']['MissingWidth']; } elseif ( isset( $this->CurrentFont['MissingWidth'] ) ) {
-						$w += $this->CurrentFont['MissingWidth']; } else {
-									$w += 500; }
+					$width += ( ord( $cw[ 2 * $char ] ) << 8 ) + ord( $cw[ 2 * $char + 1 ] );
+				} elseif ( $char > 0 && $char < 128 && isset( $cw[ chr( $char ) ] ) ) {
+					$width += $cw[ chr( $char ) ];
+				} elseif ( isset( $this->CurrentFont['desc']['MissingWidth'] ) ) {
+					$width += $this->CurrentFont['desc']['MissingWidth'];
+				} elseif ( isset( $this->CurrentFont['MissingWidth'] ) ) {
+					$width += $this->CurrentFont['MissingWidth'];
+				} else {
+					$width += 500;
+				}
 			}
 		} else {
-			$l = strlen( $s );
-			for ( $i = 0;$i < $l;$i++ ) {
-				$w += $cw[ $s[ $i ] ];
+			$length = strlen( $string );
+
+			for ( $i = 0; $i < $length; $i++ ) {
+				$width += $cw[ $string[ $i ] ];
 			}
 		}
-		return $w * $this->FontSize / 1000;
+
+		return $width * $this->FontSize / 1000;
 	}
 
 	function SetLineWidth( $width ) {
@@ -1013,6 +1022,12 @@ class tFPDF {
 		$s    = str_replace( "\r", '', (string) $txt );
 		$wmax = ( $this->column_width - 2 * $this->cMargin );
 
+		$content_end = $this->GetPageWidth() - $this->rMargin;
+
+		$room_left = $wmax - $this->GetX();
+
+		$room_left = $wmax;
+
 		if ( $this->unifontSubset ) {
 			$nb = mb_strlen( $s, 'UTF-8' );
 
@@ -1070,7 +1085,9 @@ class tFPDF {
 				$l += $cw[ $c ] * $this->FontSize / 1000;
 			}
 
-			if ( $l > $wmax ) {
+			if ( $l > $wmax || $l > $room_left ) {
+				$room_left = $wmax;
+
 				// Automatic line break
 				if ( $sep == -1 ) {
 					if ( $this->x > $this->lMargin ) {
@@ -1078,8 +1095,7 @@ class tFPDF {
 						$this->x  = $this->lMargin;
 						$this->y += $h;
 
-						$w        = $this->w - $this->rMargin - $this->x;
-						// $wmax     = ( $w - 2 * $this->cMargin );
+						$w    = $this->w - $this->rMargin - $this->x;
 						$wmax = ( $this->column_width - 2 * $this->cMargin );
 
 						$i++;
@@ -1112,8 +1128,6 @@ class tFPDF {
 				$l   = 0;
 
 				if ( $nl == 1 ) {
-					// $this->x = $this->lMargin;
-
 					$this->x = $this->column_start_x;
 
 					$w       = $this->w - $this->rMargin - $this->x;

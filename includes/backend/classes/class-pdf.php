@@ -315,6 +315,7 @@ class Topten_PDF extends FPDFA {
 				$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
 
 				$this->set_style( $parent_tag );
+				$this->set_size( $parent_tag, $parent_class );
 
 				if ( $is_top_row ) {
 					$this->set_size( $parent_tag, $parent_class . ' top_row' );
@@ -326,8 +327,9 @@ class Topten_PDF extends FPDFA {
 					$string .= ' ';
 				}
 
-				$width += $this->GetStringWidth( $string );
+				$w = $this->GetStringWidth( $string );
 
+				$width += $w;
 			}
 		}
 
@@ -352,10 +354,38 @@ class Topten_PDF extends FPDFA {
 			$lines = ceil( $line_width / $this->column_width );
 
 			// Calculate column child height
-			$column_height += $this->line_height_mm * $lines;
+			$column_height += ( $this->line_height_mm + $this->row_padding ) * $lines;
 		}
 
 		return $column_height;
+	}
+
+	/**
+	 * Draw right and left lines
+	 *
+	 * @param float $start_y Start Y
+	 * @param float $end_y End Y
+	 *
+	 * @return void
+	 */
+	protected function draw_lines( float $start_y, float $end_y ): void {
+		// Left line
+		$this->Line(
+			$this->GetX() - $this->row_padding,
+			$start_y,
+			$this->GetX() - $this->row_padding,
+			$end_y,
+		);
+
+		// Right line
+		$this->Line(
+			$this->GetX() + $this->column_width + $this->row_padding,
+			$start_y,
+			$this->GetX() + $this->column_width + $this->row_padding,
+			$end_y,
+		);
+
+		// error_log( 'Drawing a line from ' . $start_y . ' to ' . $end_y . ', page: ' . $this->PageNo() );
 	}
 
 	/**
@@ -403,7 +433,7 @@ class Topten_PDF extends FPDFA {
 		if ( str_contains( $row_class, 'top' ) ) { // If class includes "top", it is topmost row and is a special case
 			$content_width = $this->GetPageWidth() - $this->rMargin - $this->lMargin;
 
-			// There is two columns in top row
+			// There are two columns in top row
 			$this->column_width = ( $content_width / 2 );
 
 			$this->SetY( $this->GetY() + $this->row_padding );
@@ -417,9 +447,14 @@ class Topten_PDF extends FPDFA {
 
 				$column_start_y = $this->GetY();
 
+				if ( 0 === $col_index ) {
+				}
+
 				$this->column_width = $content_width * $width_pct;
 
 				$total_column_height = 0;
+
+				$start_page = $this->PageNo();
 
 				foreach ( $column['data'] as $column_children ) {
 					$class         = $column_children['attributes']['class'] ?? '';
@@ -436,34 +471,62 @@ class Topten_PDF extends FPDFA {
 					$this->handle_output( $column_children, $col_index, $row_index );
 				}
 
-				$this->SetDrawColor( 0, 255, 0 );
+				$end_page = $this->PageNo();
 
-				$line_endpoint = $column_start_y + $total_column_height;
+				// error_log( 'Start page: ' . $start_page . ', end page: ' . $end_page );
 
-				if ( $line_endpoint > $this->GetPageHeight() ) {
-					$line_endpoint = $this->GetPageHeight() - $this->row_padding - $this->GetY();
+				if ( $start_page === $end_page ) {
+					$start_y = $column_start_y - $this->row_padding;
+					$end_y   = $column_start_y + $total_column_height;
+
+					$this->SetDrawColor( 0, 0, 255 );
+					$this->draw_lines( $start_y, $end_y );
+				} else {
+					// If column is split to multiple pages, we need to draw multiple lines
+					$pages = $end_page - $start_page;
+
+					$distance_to_draw = $total_column_height;
+
+					// error_log( 'Total distance to draw: ' . $distance_to_draw );
+
+					for ( $i = 0; $i <= $pages; $i ++ ) {
+						$this->page = $start_page + $i;
+
+						if ( 0 === $i ) {
+							$start_y = $column_start_y - $this->row_padding;
+							$end_y   = $this->GetPageHeight() - $this->row_padding;
+
+							$distance_to_draw -= $end_y - $start_y;
+
+							// error_log( 'Distance left after drawing first page: ' . $distance_to_draw );
+
+							$this->SetDrawColor( 255, 0, 255 );
+							$this->draw_lines( $start_y, $end_y );
+						} elseif ( $pages === $i ) {
+							$start_y = $this->row_padding;
+							$end_y   = $start_y + $distance_to_draw;
+
+							// error_log( 'Drawing ' . $distance_to_draw );
+
+							// $distance_to_draw -= $end_y - $start_y;
+
+							$this->SetDrawColor( 255, 255, 0 );
+							$this->draw_lines( $start_y, $end_y );
+						} else {
+							$start_y = $this->row_padding;
+							$end_y   = $this->GetPageHeight() - $this->row_padding;
+
+							$distance_to_draw += $end_y - $start_y;
+
+							$this->draw_lines( $start_y, $end_y );
+						}
+					}
+					$this->page = $start_page;
 				}
 
-				// Left line
-				$this->Line(
-					$this->GetX() - $this->row_padding,
-					$column_start_y - $this->row_padding,
-					$this->GetX() - $this->row_padding,
-					$line_endpoint,
-				);
-
-				// Right line
-				$this->Line(
-					$this->GetX() + $this->column_width + $this->row_padding,
-					$column_start_y - $this->row_padding,
-					$this->GetX() + $this->column_width + $this->row_padding,
-					$line_endpoint,
-				);
-
-				error_log( 'Total column height ' . $total_column_height );
-				error_log( 'Line endpoint ' . ( $column_start_y + $total_column_height ) );
-
 				$this->SetDrawColor( 0, 0, 0 );
+
+				$this->page = $end_page;
 			}
 		}
 	}
@@ -611,6 +674,8 @@ class Topten_PDF extends FPDFA {
 	protected function write_list( array $data ): void {
 		$list_type = $data['tag'];
 
+		$li_number = 0;
+
 		foreach ( $data['children'] as $index => $datum ) {
 			$tag = sanitize_text_field( $datum['tag'] );
 
@@ -618,26 +683,63 @@ class Topten_PDF extends FPDFA {
 				continue;
 			}
 
+			$children = $datum['children'];
+
 			// If value is not allowed (like \n), remove it
 			$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
 
-			$this->set_style( $tag );
+			// $this->set_style( $tag );
 
-			// Todo: Add ordered list
+			// // Todo: Add ordered list
 			if ( 'ol' === $list_type ) {
-				// If list type is ordered, add number
-				$char = '1.'; // todo
+				$li_number++;
+
+				$char = $li_number . '.';
 			} else {
 				// Otherwise add bullet
 				$char = chr( 149 );
 			}
 
 			$this->Write( $this->line_height_mm, $char . ' ' );
-			$this->Write( $this->line_height_mm, sanitize_text_field( $value ) );
+
+			$this->write_list_item( $children );
 
 			$this->Ln();
 
 			// $column_height += $this->line_height_mm;
+		}
+	}
+
+	/**
+	 * Write list item
+	 *
+	 * @param array $data Data, where is tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
+	 */
+	protected function write_list_item( array $data, string $parent_tag = '' ) {
+		foreach ( $data as $datum ) {
+			$tag = sanitize_text_field( $datum['tag'] );
+
+			if ( ! empty( $datum['children'] ) ) {
+				$this->write_list_item( $datum['children'], $tag );
+			} else {
+				$this->set_style( $parent_tag );
+
+				$value  = sanitize_text_field( $datum['value'] );
+				$value  = str_replace( $this->tag_blacklist, '', $datum['value'] );
+				$value .= ' ';
+
+				$line_width = $this->GetStringWidth( $value );
+
+				if ( $this->GetX() + $line_width > $this->column_end_x && $parent_tag ) {
+					// $this->Ln();
+					// $value = "\n" . $value;
+				}
+
+				error_log( '------------' );
+				error_log( $value );
+				$this->Write( $this->line_height_mm, $value );
+				error_log( '------------' );
+			}
 		}
 	}
 
@@ -759,10 +861,12 @@ class Topten_PDF extends FPDFA {
 			$current_x   = $this->GetX();
 			$current_y   = $this->GetY();
 
-			$this->column_start_y = $current_y + $this->line_height_mm;
+			$this->column_start_y = $current_y + $this->line_height_mm + $this->row_padding;
 
 			if ( $this->last_row_index === $row_index ) { // Same row
-				if ( $this->last_col_index !== $col_index ) { // Different column
+				if ( $this->last_col_index === $col_index ) { // Same column
+					// $this->column_start_y -= $this->row_padding;
+				} else { // Different column
 					// If we are on the same row, but different column, we need to reset the column start x and end x
 					$column_start_x = $current_x;
 
@@ -789,7 +893,7 @@ class Topten_PDF extends FPDFA {
 					$this->room_left = $content_end - $this->column_end_x;
 				}
 			} else { // Different row
-				$this->column_start_y = $current_y + $this->line_height_mm + $this->row_padding * 2;
+				$this->column_start_y += $this->row_padding;
 
 				if ( 1 === $row_index ) {
 					$this->column_start_y = $current_y;
@@ -824,7 +928,7 @@ class Topten_PDF extends FPDFA {
 			$this->SetXY( $this->column_start_x, $this->column_start_y );
 
 			if ( 'ul' === $tag || 'ol' === $tag ) {
-				// $this->write_list( $data );
+				$this->write_list( $data );
 			} elseif ( 'img' === $tag ) {
 				$this->write_image( $data );
 			} else {
