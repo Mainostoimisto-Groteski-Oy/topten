@@ -223,23 +223,6 @@ function topten_scripts() {
 		)
 	);
 
-	$scripts = array(
-		'topten_card_search',
-		'topten_fetch_suggestions',
-		'topten_fetch_terms',
-	);
-
-	foreach ( $scripts as $script ) {
-		wp_localize_script(
-			'topten',
-			$script,
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'nonce' ),
-			)
-		);
-	}
-
 	wp_localize_script(
 		'topten',
 		'REST',
@@ -1076,13 +1059,11 @@ function topten_card_search() {
 
 	}
 
-	// Municipality (multiple values)
-	// Not in use due to customer request
-
 	/**
 	 * Municipality (multiple values)
 	 * Not in use due to customer request
-
+	**/
+	/*
 	if ( isset( $_POST['cardmunicipalities'] ) ) {
 		if ( ! empty( $_POST['cardmunicipalities'] ) ) {
 			// sanitize array values
