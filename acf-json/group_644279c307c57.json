@@ -3,9 +3,9 @@
     "title": "Käyttäjä",
     "fields": [
         {
-            "key": "field_644279c40f0cd",
-            "label": "Käyttäjän kunta",
-            "name": "user_municipality",
+            "key": "field_649039d8fab6d",
+            "label": "Käyttäjän ammattikunta",
+            "name": "user_profession",
             "aria-label": "",
             "type": "taxonomy",
             "instructions": "",
@@ -17,7 +17,7 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "taxonomy": "kunta",
+            "taxonomy": "kortin_kategoria",
             "add_term": 1,
             "save_terms": 0,
             "load_terms": 0,
@@ -32,7 +32,7 @@
             {
                 "param": "user_role",
                 "operator": "==",
-                "value": "kuntahyvaksyja"
+                "value": "ammattihyvaksyja"
             }
         ]
     ],
@@ -45,5 +45,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1682078260
+    "modified": 1687173698
 }

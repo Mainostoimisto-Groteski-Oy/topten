@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "136d2879b3c40ef151279cccbd7f4a88",
+    "content-hash": "2585ef9bb506aa461c7414c5bb986e13",
     "packages": [],
     "packages-dev": [
         {
@@ -83,6 +83,43 @@
             "time": "2022-02-04T12:51:07+00:00"
         },
         {
+            "name": "petriliuska/relevanssi-stubs",
+            "version": "4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/petriliuska/relevanssi-stubs.git",
+                "reference": "391869f598e33d2caf16ddd5f175b0a1d87ef19f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/petriliuska/relevanssi-stubs/zipball/391869f598e33d2caf16ddd5f175b0a1d87ef19f",
+                "reference": "391869f598e33d2caf16ddd5f175b0a1d87ef19f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php": "~7.1",
+                "php-stubs/generator": "^0.8.3"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Petri Liuska",
+                    "email": "petriliuska@pm.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Stubs for Relevanssi plugin",
+            "support": {
+                "issues": "https://github.com/petriliuska/relevanssi-stubs/issues",
+                "source": "https://github.com/petriliuska/relevanssi-stubs/tree/4.2.0"
+            },
+            "time": "2023-06-11T10:01:02+00:00"
+        },
+        {
             "name": "php-stubs/acf-pro-stubs",
             "version": "v6.0.6",
             "source": {
@@ -127,17 +164,62 @@
             "time": "2022-12-25T22:14:41+00:00"
         },
         {
-            "name": "php-stubs/wordpress-stubs",
-            "version": "v6.2.0",
+            "name": "php-stubs/wordpress-seo-stubs",
+            "version": "v20.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "b73fe99eadf9fb56363619dac0343b6d19907dce"
+                "url": "https://github.com/php-stubs/wordpress-seo-stubs.git",
+                "reference": "67c69a1a6dfeabd600498b3f8239c5b531dc8156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/b73fe99eadf9fb56363619dac0343b6d19907dce",
-                "reference": "b73fe99eadf9fb56363619dac0343b6d19907dce",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-seo-stubs/zipball/67c69a1a6dfeabd600498b3f8239c5b531dc8156",
+                "reference": "67c69a1a6dfeabd600498b3f8239c5b531dc8156",
+                "shasum": ""
+            },
+            "require": {
+                "php-stubs/wordpress-stubs": "^5.3.0 || ^6.0"
+            },
+            "require-dev": {
+                "php": "~7.1",
+                "php-stubs/generator": "^0.8"
+            },
+            "suggest": {
+                "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+                "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Yoas SEO function and class declaration stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/wordpress-seo-stubs",
+            "keywords": [
+                "PHPStan",
+                "seo",
+                "static analysis",
+                "wordpress",
+                "yoast"
+            ],
+            "support": {
+                "issues": "https://github.com/php-stubs/wordpress-seo-stubs/issues",
+                "source": "https://github.com/php-stubs/wordpress-seo-stubs/tree/v20.5.1"
+            },
+            "time": "2023-04-21T20:41:07+00:00"
+        },
+        {
+            "name": "php-stubs/wordpress-stubs",
+            "version": "v6.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-stubs/wordpress-stubs.git",
+                "reference": "0009429e639b748eef1c955200ea0d4e5ad5627d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/0009429e639b748eef1c955200ea0d4e5ad5627d",
+                "reference": "0009429e639b748eef1c955200ea0d4e5ad5627d",
                 "shasum": ""
             },
             "require-dev": {
@@ -145,7 +227,8 @@
                 "php": "~7.3 || ~8.0",
                 "php-stubs/generator": "^0.8.3",
                 "phpdocumentor/reflection-docblock": "^5.3",
-                "phpstan/phpstan": "^1.9"
+                "phpstan/phpstan": "^1.10.12",
+                "phpunit/phpunit": "^9.5"
             },
             "suggest": {
                 "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
@@ -166,9 +249,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.2.0"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.2.1"
             },
-            "time": "2023-03-31T09:48:52+00:00"
+            "time": "2023-05-18T04:35:23+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -454,16 +537,16 @@
         },
         {
             "name": "wpsyntex/polylang-stubs",
-            "version": "3.3.1",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/polylang/polylang-stubs.git",
-                "reference": "af77c264f0017d55384dd715d055b76d177c29ab"
+                "reference": "63e6bc02282b914fe42cc6175ac02b31eec025df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/polylang/polylang-stubs/zipball/af77c264f0017d55384dd715d055b76d177c29ab",
-                "reference": "af77c264f0017d55384dd715d055b76d177c29ab",
+                "url": "https://api.github.com/repos/polylang/polylang-stubs/zipball/63e6bc02282b914fe42cc6175ac02b31eec025df",
+                "reference": "63e6bc02282b914fe42cc6175ac02b31eec025df",
                 "shasum": ""
             },
             "require-dev": {
@@ -482,9 +565,9 @@
             "homepage": "https://polylang.pro",
             "support": {
                 "issues": "https://github.com/polylang/polylang-stubs/issues",
-                "source": "https://github.com/polylang/polylang-stubs/tree/3.3.1"
+                "source": "https://github.com/polylang/polylang-stubs/tree/3.4.1"
             },
-            "time": "2023-02-20T14:02:22+00:00"
+            "time": "2023-05-25T16:44:41+00:00"
         },
         {
             "name": "wptrt/wpthemereview",

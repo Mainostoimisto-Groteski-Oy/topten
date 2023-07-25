@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Topten kortit
  */
@@ -27,11 +26,17 @@ class Topten_Admin_Cards extends Topten_Admin {
 		add_action( 'admin_action_tt_copy_card', array( $this, 'copy_card' ) );
 		add_action( 'admin_action_tt_copy_card_language', array( $this, 'copy_card_language' ) );
 
-		// Approve card for municipality
-		add_filter( 'admin_action_tt_approve_card_for_municipality', array( $this, 'approve_card_for_municipality' ) );
+		// Approve card
+		add_action( 'wp_ajax_tt_approve_card', array( $this, 'approve_card' ) );
 
-		// Disapprove card for municipality
-		add_filter( 'admin_action_tt_disapprove_card_for_municipality', array( $this, 'disapprove_card_for_municipality' ) );
+		// Disapprove card
+		add_action( 'wp_ajax_tt_disapprove_card', array( $this, 'disapprove_card' ) );
+
+		// // Approve card for municipality
+		// add_filter( 'admin_action_tt_approve_card_for_municipality', array( $this, 'approve_card_for_municipality' ) );
+
+		// // Disapprove card for municipality
+		// add_filter( 'admin_action_tt_disapprove_card_for_municipality', array( $this, 'disapprove_card_for_municipality' ) );
 
 		// reorder_columns filters
 		add_filter( 'manage_tulkintakortti_posts_columns', array( $this, 'reorder_columns' ), 20, 1 );
@@ -448,6 +453,225 @@ class Topten_Admin_Cards extends Topten_Admin {
 	}
 
 	/**
+	 * Handle card approval
+	 */
+	public function approve_card() {
+		// Check nonce
+		check_ajax_referer( 'nonce', 'nonce' );
+
+		// Check if user is logged in
+		if ( ! is_user_logged_in() ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Sinun täytyy kirjautua sisään hyväksyäksesi kortteja', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Check if user has permission to approve the card
+		if ( ! current_user_can( 'approve_for_profession' ) ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Sinulla ei ole oikeuksia hyväksyä kortteja', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Check if we have a post ID
+		if ( ! isset( $_POST['post_id'] ) ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Jotain meni vikaan. Yritä kohta uudestaan.', 'topten' ),
+					/* translators: %s = Error message */
+					'error_code' => sprintf( __( 'Parametri puuttuu: %s', 'topten' ), 'approved' ),
+				)
+			);
+		}
+
+		$post_id = intval( $_POST['post_id'] );
+
+		$post = get_post( $post_id );
+
+		// Check if card exists
+		if ( ! $post ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Korttia ei löytynyt', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Get user profession
+		$user_profession = get_field( 'user_profession', 'user_' . get_current_user_id() );
+
+		if ( ! $user_profession ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Käyttäjällesi ei ole asetettu ammattia. Ota yhteys ylläpitoon.', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Approvers message
+		$message = isset( $_POST['message'] ) ? sanitize_text_field( $_POST['message'] ) : '';
+
+		// Notify committer of approval about the approval (via email)
+		$this->notify_committer( true, $post_id, $message );
+
+		// Set card status to approved
+		update_field( 'card_status', 'draft', $post_id );
+		update_field( 'card_status_draft', 'approved', $post_id );
+
+		wp_send_json_success(
+			array(
+				'message'    => esc_html__( 'Kortti hyväksytty', 'topten' ),
+				'error_code' => '',
+			)
+		);
+	}
+
+	/**
+	 * Handle card disapproval
+	 */
+	public function disapprove_card() {
+		// Check nonce
+		check_ajax_referer( 'nonce', 'nonce' );
+
+		// Check if user is logged in
+		if ( ! is_user_logged_in() ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Sinun täytyy kirjautua sisään hyväksyäksesi kortteja', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Check if user has permission to approve the card
+		if ( ! current_user_can( 'approve_for_profession' ) ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Sinulla ei ole oikeuksia hyväksyä kortteja', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Check if we have a post ID
+		if ( ! isset( $_POST['post_id'] ) ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Jotain meni vikaan. Yritä kohta uudestaan.', 'topten' ),
+					/* translators: %s = Error message */
+					'error_code' => sprintf( __( 'Parametri puuttuu: %s', 'topten' ), 'approved' ),
+				)
+			);
+		}
+
+		$post_id = intval( $_POST['post_id'] );
+
+		$post = get_post( $post_id );
+
+		// Check if card exists
+		if ( ! $post ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Korttia ei löytynyt', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Get user profession
+		$user_profession = get_field( 'user_profession', 'user_' . get_current_user_id() );
+
+		if ( ! $user_profession ) {
+			wp_send_json_error(
+				array(
+					'message'    => __( 'Käyttäjällesi ei ole asetettu ammattia. Ota yhteys ylläpitoon.', 'topten' ),
+					'error_code' => '',
+				)
+			);
+		}
+
+		// Approvers message
+		$message = isset( $_POST['message'] ) ? sanitize_text_field( $_POST['message'] ) : '';
+
+		// Notify committer of approval about the approval (via email)
+		$this->notify_committer( false, $post_id, $message );
+
+		// Set card status back to draft
+		update_field( 'card_status', 'draft', $post_id );
+		update_field( 'card_status_draft', 'draft', $post_id );
+
+		wp_send_json_success(
+			array(
+				'message'    => esc_html__( 'Kortti hylätty', 'topten' ),
+				'error_code' => '',
+			)
+		);
+	}
+
+	/**
+	 * Notify committer of approval about the approval (via email)
+	 *
+	 * @param bool   $approved          Was the card approved or not
+	 * @param int    $post_id          Post ID
+	 * @param string $approver_message Approver message
+	 */
+	protected function notify_committer( $approved, $post_id, $approver_message ) {
+		$committer = get_post_meta( $post_id, 'committer', true );
+		$committer = get_user_by( 'id', $committer );
+
+		// Todo: What if committer is not set?
+		if ( ! $committer ) {
+			return;
+		}
+
+		$email = $committer->user_email;
+
+		if ( $approved ) {
+			$subject = esc_html__( 'Korttisi on hyväksytty', 'topten' );
+
+			// Todo: Email content
+			$message = '<p>';
+
+			/* translators: %s: Card title */
+			$message .= sprintf( __( 'Korttisi "%s" on hyväksytty.', 'topten' ), get_the_title( $post_id ) );
+			$message .= '</p>';
+
+			if ( $approver_message ) {
+				$message .= '<p>' . __( 'Hyväksyjän viesti:', 'topten' ) . '</p>';
+				$message .= '<p>' . $approver_message . '</p>';
+			}
+		} else {
+			$subject = esc_html__( 'Korttisi on hylätty', 'topten' );
+
+			// Todo: Email content
+			$message = '<p>';
+
+			/* translators: %s: Card title */
+			$message .= sprintf( __( 'Korttisi "%s" on hylätty.', 'topten' ), get_the_title( $post_id ) );
+			$message .= '</p>';
+
+			if ( $approver_message ) {
+				$message .= '<p>' . __( 'Hylkääjän viesti:', 'topten' ) . '</p>';
+				$message .= '<p>' . $approver_message . '</p>';
+			}
+		}
+
+		$headers = array(
+			'Content-Type: text/html; charset=UTF-8',
+		);
+
+		wp_mail( $email, $subject, $message, $headers );
+	}
+
+	/**
 	 * Approve card for municipality
 	 */
 	public function approve_card_for_municipality() {
@@ -458,7 +682,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 
 		// Check if we have a post ID and action tt_approve_card
 		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'tt_approve_card_for_municipality' !== $_GET['action'] ) ) {
-			wp_die( esc_html__( 'Jotain meni vikaan. Yritä uudestaan', 'topten' ) );
+			wp_die( esc_html__( 'Jotain meni vikaan. Yritä kohta uudestaan.', 'topten' ) );
 		}
 
 		$post_id = intval( $_GET['post'] );
@@ -521,7 +745,7 @@ class Topten_Admin_Cards extends Topten_Admin {
 
 		// Check if we have a post ID and action tt_disapprove_card
 		if ( ! isset( $_GET['post'] ) || ( ! isset( $_GET['action'] ) || 'tt_disapprove_card_for_municipality' !== $_GET['action'] ) ) {
-			wp_die( esc_html__( 'Jotain meni vikaan. Yritä uudestaan', 'topten' ) );
+			wp_die( esc_html__( 'Jotain meni vikaan. Yritä kohta uudestaan.', 'topten' ) );
 		}
 
 		$post_id = intval( $_GET['post'] );
@@ -571,5 +795,24 @@ class Topten_Admin_Cards extends Topten_Admin {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Is card pending approval?
+	 *
+	 * @param null|int $post_id Card ID, defaults to current post.
+	 */
+	public function is_pending_approval( $post_id = null ) {
+		if ( ! $post_id ) {
+			$post_id = get_the_ID();
+		}
+
+		$card_statuses = $this->get_card_statuses( $post_id );
+
+		if ( 'draft' === $card_statuses['primary'] && 'pending_approval' === $card_statuses['secondary'] ) {
+			return true;
+		}
+
+		return false;
 	}
 }

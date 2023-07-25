@@ -25,7 +25,7 @@ $columns = array( 'left', 'middle', 'right' );
 				</div>
 			</section>
 		<?php endif; ?>
-		
+
 		<div class="grid logos">
 			<div class="site-branding">
 				<?php the_custom_logo(); ?>

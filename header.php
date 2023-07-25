@@ -34,7 +34,7 @@
 		<div class="grid-full">
 			<div class="container">
 				<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="site-navigation" aria-expanded="false">
-					<span class="material-icons" aria-hidden="true">
+					<span class="material-symbols" aria-hidden="true">
 						menu
 					</span>
 				</button>

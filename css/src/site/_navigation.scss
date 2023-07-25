@@ -60,7 +60,6 @@
 	width: 100%;
 
 	.menu-container {
-		
 		padding: 0;
 		position: relative;
 		top: 10px;
@@ -68,10 +67,10 @@
 		background-color: transparent;
 		height: calc(100vh - 10px);
 
-
 		@media (max-width: $max-s) {
 			grid-template-columns: minmax(0, 1fr);
 		}
+
 		&::after {
 			content: "";
 			position: absolute;
@@ -84,6 +83,7 @@
 			z-index: 1;
 			max-width: 2241px;
 		}
+
 		#primary-menu {
 			background-color: $white;
 			height: 100%;
@@ -93,15 +93,19 @@
 			position: relative;
 			z-index: 999;
 			grid-column: 1 / 4;
-			@media(max-width:1750px) {
+
+			@media (max-width: 1750px) {
 				grid-column: 1 / 5;
 			}
+
 			@media (max-width: $max-l) {
 				grid-column: 1 / 6;
 			}
+
 			@media (max-width: $max-m) {
 				grid-column: 1 / 7;
 			}
+
 			&::before {
 				width: 100vw;
 				height: 100%;

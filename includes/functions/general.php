@@ -9,10 +9,19 @@
  * Kääntää parametrin JSONiksi ja kirjoittaa sen error_logiin
  *
  * @param any $data_to_log Logitettava data
- * @return void
  */
 function json_log( $data_to_log ) { // phpcs:ignore
-	error_log( wp_json_encode( $data_to_log ) ); // phpcs:ignore
+	error_log( wp_json_encode( $data_to_log, JSON_UNESCAPED_UNICODE ) ); // phpcs:ignore
+}
+
+
+/**
+ * Print_r to error_log
+ *
+ * @param any $data_to_log Data to log
+ */
+function print_log( $data_to_log ) { // phpcs:ignore
+	error_log( print_r( $data_to_log, true ) ); // phpcs:ignore
 }
 
 /**
@@ -84,21 +93,21 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 	}
 	if ( ! empty( $link_en ) ) {
 		$html .= '<a target="_blank" href="' . esc_url( $link_en ) . '">
-		<span>En</span>		
+		<span>En</span>
 		<span class="screen-reader-text">' . esc_html__( 'Avautuu uuteen ikkunaan, englanniksi', 'topten' ) . '</span>
 		</a>';
 	}
 	$html .= '</div>';
 	$html .= '<div class="buttons">';
 	$html .= '<a class="button" href="' . esc_url( $link ) . '" target="_blank">';
-	$html .= esc_html( 'Siirry kortille', 'topten' );
+	$html .= esc_html__( 'Siirry kortille', 'topten' );
 	$html .= '<span class="screen-reader-text">' . esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) . '</span></a>';
 	$html .= '</div>';
 	$html .= '</div>';
 	$html .= '</li>';
 
 	if ( 'echo' === $return_format ) {
-		echo $html;
+		echo $html; // phpcs:ignore
 	} elseif ( 'return' === $return_format ) {
 		return $html;
 	} else {
@@ -108,9 +117,10 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 
 /**
  * Tulostaa korttilistat
+ *
+ * @param array $card_array Korttilista
  */
 function topten_card_list( $card_array ) {
-
 	// Need to get all the laki and kortin_kategoria terms for this to work
 	$laws = get_terms(
 		'laki',
@@ -240,13 +250,16 @@ function topten_card_list( $card_array ) {
 	<?php
 }
 
-
+/**
+ * Card notification
+ *
+ * @param string $type Type
+ */
 function topten_card_notification( $type = '' ) {
-	
 	if ( ! $type ) :
 		return;
 	else :
-		$id = get_the_ID(); 
+		$id = get_the_ID();
 
 		if ( 'archive' === $type ) :
 
@@ -262,7 +275,7 @@ function topten_card_notification( $type = '' ) {
 				} else {
 					$link = '';
 				}
-					
+
 
 				elseif ( 'past' === $status ) :
 
@@ -276,25 +289,25 @@ function topten_card_notification( $type = '' ) {
 					}
 
 				endif;
-				
+
 			elseif ( 'single' === $type ) :
 
 				$status = get_field( 'card_status_publish', $id );
 
 				if ( is_array( $status ) ) :
-		
-					if ( in_array( 'expired', $status ) || in_array( 'repealed', $status ) ) :
+
+					if ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) :
 
 						$message = get_field( 'expired_card_archive_note', 'options' );
 						$class   = 'expired';
-							
+
 						if ( get_field( 'expired_card_archive_link', 'options' ) ) {
 							$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
 						} else {
 							$link = '';
 						}
 
-						elseif ( in_array( 'future', $status ) ) :
+						elseif ( in_array( 'future', $status, true ) ) :
 
 							$message = get_field( 'future_card_archive_note', 'options' );
 							$class   = 'future';
@@ -306,18 +319,18 @@ function topten_card_notification( $type = '' ) {
 							}
 
 						endif;
-					
+
 					endif;
 
 				endif;
 
-			if ( ! empty( $message ) ) : 
+			if ( ! empty( $message ) ) :
 				?>
 			<section class="cards-notification <?php echo esc_attr( $class ); ?>">
 				<div class="grid">
 						<?php if ( ! empty( $link ) ) : ?>
 						<a href="<?php echo esc_url( $link ); ?>">
-							<p><?php echo esc_html( $message ); ?></p>	
+							<p><?php echo esc_html( $message ); ?></p>
 						</a>
 					<?php else : ?>
 						<p><?php echo esc_html( $message ); ?></p>
@@ -326,5 +339,5 @@ function topten_card_notification( $type = '' ) {
 			</section>
 				<?php
 		endif;
-	endif;  
+	endif;
 }

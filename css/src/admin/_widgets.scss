@@ -1,0 +1,29 @@
+@use "mixins/all" as *;
+
+#groteski_help_widget {
+	.dashboard-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+		gap: 25px;
+
+		.left {
+			img {
+				max-width: 100%;
+			}
+		}
+
+		.right {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			:first-child {
+				margin-top: 0;
+			}
+
+			:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

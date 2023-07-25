@@ -2,45 +2,57 @@
 
 /// _multi-column-block.scss löytyy sellaiset arvot, jotka vaikuttaa sekä kahden, kolmen ja neljän palstan lohkoon
 section.four-column-block {
-    padding-bottom: 25px;
-    border: 1px solid $black;
-    &.bg-cream {
-        background-color:  $cream-transparent;
-    }
-    &.bg-grey {
-        background-color: $grey;
-    }
-    &.bg-white {
-        background-color: $white;
-    }
-    &.bg-greenish {
-        background-color: $green-lightest;
-    }
+	padding-bottom: 25px;
+	border: 1px solid $black;
+
+	&.bg-cream {
+		background-color: $cream-transparent;
+	}
+
+	&.bg-grey {
+		background-color: $grey;
+	}
+
+	&.bg-white {
+		background-color: $white;
+	}
+
+	&.bg-greenish {
+		background-color: $green-lightest;
+	}
+
 	.grid,
 	.grid-full {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
-        @media(max-width:$max-m) {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        @media(max-width:$max-xxs) {
-            grid-template-columns: minmax(0, 1fr);
-        }
-        .block-title {
-            grid-column: 1 / -1;
-        }
-        .column {
-            border: 1px solid $black;
-            padding: 15px;
-            &.bg-white {
-                background-color: $white;
-            }
-            &.bg-cream {
-                background-color: $cream-transparent;
-            }
-            &.bg-green {
-                background-color: $green;
-                color: $white;
-            }
-        }
+
+		@media (max-width: $max-m) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media (max-width: $max-xxs) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.block-title {
+			grid-column: 1 / -1;
+		}
+
+		.column {
+			border: 1px solid $black;
+			padding: 15px;
+
+			&.bg-white {
+				background-color: $white;
+			}
+
+			&.bg-cream {
+				background-color: $cream-transparent;
+			}
+
+			&.bg-green {
+				background-color: $green;
+				color: $white;
+			}
+		}
 	}
 }

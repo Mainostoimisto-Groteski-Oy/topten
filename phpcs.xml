@@ -25,10 +25,8 @@
 	<!-- Exclude patterns. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
-	<exclude-pattern>/includes/fpdf/*</exclude-pattern>
+	<exclude-pattern>/includes/tfpdf/*</exclude-pattern>
 	<exclude-pattern>/fonts/*</exclude-pattern>
-	<exclude-pattern>/includes/fpdf</exclude-pattern>
-	<exclude-pattern>/includes/tfpdf</exclude-pattern>
 
 	<rule ref="WordPress">
 		<!-- Generic excludes -->
@@ -70,6 +68,7 @@
 		<properties>
 			<property name="prefixes" type="array">
 				<element value="topten" />
+				<element value="groteski" />
 			</property>
 		</properties>
 	</rule>

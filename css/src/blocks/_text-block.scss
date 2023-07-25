@@ -2,12 +2,15 @@
 
 section.text-block {
 	@include buttons;
+
 	&.card {
 		border-bottom: 1px solid $black;
+
 		.title {
-			margin: 15px 0px 0px 0px;
+			margin: 15px 0 0;
 		}
 	}
+
 	.tulkinnat {
 		.tulkinta {
 			p {
@@ -21,6 +24,7 @@ section.text-block {
 				font-size: 1.8rem;
 				font-weight: 400;
 
+				// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 				&::before {
 					font-family: $font-icons;
 					text-transform: none;
@@ -37,26 +41,31 @@ section.text-block {
 					font-weight: 400;
 					font-size: 2.2rem;
 				}
+
 				&.green {
 					&::before {
 						background-color: $tulkinta-green;
 					}
 				}
+
 				&.blue {
 					&::before {
 						background-color: $tulkinta-blue;
 					}
 				}
+
 				&.red {
 					&::before {
 						background-color: $tulkinta-red;
 					}
 				}
+
 				&.lightblue {
 					&::before {
 						background-color: $tulkinta-lightblue;
 					}
 				}
+
 				&.law {
 					&::before {
 						font-family: $font-main;

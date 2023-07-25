@@ -37,11 +37,10 @@ $cardClasses = get_terms(
 ?>
 
 <main id="primary" class="site-main" data-template="<?php echo esc_html( get_field( 'card_status_type' ) ); ?>">
-
 	<?php topten_breadcrumbs(); ?>
-	
+
 	<?php topten_card_notification( 'archive' ); ?>
-	
+
 	<?php the_content(); ?>
 
 	<section class="cards filters">
@@ -49,6 +48,7 @@ $cardClasses = get_terms(
 			<div class="title-wrapper">
 				<h2 class="title h3"><?php esc_html_e( 'Suodata kortteja', 'topten' ); ?></h2><button id="toggleFilters" class="toggler" aria-expanded="false" aria-controls="searchAndFilters">keyboard_double_arrow_right</button>
 			</div>
+
 			<div class="content-area" id="searchAndFilters">
 				<div class="search" id="searchCards" role="search">
 					<div class="search-wrapper">
@@ -158,7 +158,7 @@ $cardClasses = get_terms(
 						<?php if ( $cardClasses ) : ?>
 							<div class="full checkboxes" id="classCheckboxes">
 								<p for="cardClass" class="label">
-									<?php esc_html_e( 'Näytä kortit luokasta' ); ?>
+									<?php esc_html_e( 'Näytä kortit luokasta', 'topten' ); ?>
 								</p>
 
 									<?php foreach ( $cardClasses as $class ) : ?>
@@ -168,14 +168,14 @@ $cardClasses = get_terms(
 												<input class=""
 													type="checkbox"
 													name="cardclassfilter"
-													data-name="<?php echo esc_html_e( $class->name, 'topten' ); ?>"
-													id="class-<?php echo esc_html( $class->slug ); ?>"
-													value="<?php echo esc_html( $class->term_id ); ?>"
+													data-name="<?php echo esc_attr( $class->name ); ?>"
+													id="class-<?php echo esc_attr( $class->slug ); ?>"
+													value="<?php echo esc_attr( $class->term_id ); ?>"
 													checked />
 												<span class="checkmark"></span>
 											</label>
 										</div>
-										<span class="check" data-name="cardclassfilter" data-id="<?php echo esc_html( $class->term_id ); ?>"><?php esc_html_e( $class->name, 'topten' ); ?></span>
+										<span class="check" data-name="cardclassfilter" data-id="<?php echo esc_attr( $class->term_id ); ?>"><?php echo esc_html( $class->name ); ?></span>
 									</div>
 									<?php endforeach; ?>
 

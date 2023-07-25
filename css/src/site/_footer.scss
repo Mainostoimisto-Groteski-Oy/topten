@@ -5,6 +5,7 @@ footer {
 	background-repeat: no-repeat;
 	background-position: center;
 	padding-bottom: 50px;
+
 	.grid:not(.banner) {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 
@@ -89,12 +90,12 @@ footer {
 	}
 
 	@include buttons;
-	
 	@include arrowlinks;
+
 	.links {
-		
 		a.link {
-			text-decoration: none!important;
+			text-decoration: none !important;
+
 			span {
 				&::before {
 					width: 100%;
@@ -107,6 +108,7 @@ footer {
 					left: 0;
 					transition: all 0.15s;
 				}
+
 				&:hover {
 					&::before {
 						width: 0;

@@ -6,7 +6,7 @@ section.text-and-image-block {
 	.grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 50px;
-		
+
 		@media (max-width: $max-s) {
 			grid-template-columns: minmax(0, 1fr);
 			gap: 15px;
@@ -21,12 +21,14 @@ section.text-and-image-block {
 
 	.image-block {
 		text-align: center;
+
 		&.image-height-normal {
 			img {
 				height: auto;
 				object-fit: contain;
 			}
 		}
+
 		&.image-height-stretch {
 			img {
 				height: 100%;

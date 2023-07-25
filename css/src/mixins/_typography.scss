@@ -16,5 +16,6 @@
 /// 	Fonttikoon maksimiarvo (rem)
 @mixin font-size($min, $max) {
 	$target: math.div($max, 192rem) * 100vw;
+
 	font-size: clamp($min, $target, $max);
 }

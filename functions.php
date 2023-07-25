@@ -83,7 +83,6 @@ function topten_setup() {
  * ACF Options to admin menu
  */
 if ( function_exists( 'acf_add_options_page' ) ) {
-
 	acf_add_options_page(
 		array(
 			'page_title' => 'Sivuston asetukset',
@@ -185,7 +184,19 @@ add_filter(
  * Ylläpitopuolen skriptit ja tyylit
  */
 function topten_admin_scripts() {
-	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array(), TOPTEN_VERSION, true );
+	wp_enqueue_script( 'topten-admin', get_template_directory_uri() . '/js/dist/admin.min.js', array( 'wp-i18n' ), TOPTEN_VERSION, true );
+
+	wp_localize_script(
+		'topten-admin',
+		'Ajax',
+		array(
+			'url'   => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'nonce' ),
+		)
+	);
+
+	wp_set_script_translations( 'topten-admin', 'topten', get_template_directory() . '/languages' );
+
 	wp_enqueue_style( 'topten-admin', get_template_directory_uri() . '/css/dist/admin.min.css', array(), TOPTEN_VERSION );
 
 	// Datatables
@@ -199,14 +210,14 @@ add_action( 'admin_enqueue_scripts', 'topten_admin_scripts' );
  * Enqueue scripts and styles.
  */
 function topten_scripts() {
-
 	wp_enqueue_style( 'blinker', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'topten', get_template_directory_uri() . '/css/dist/site.min.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
+	// Material Symbols (https://fonts.google.com/icons)
+	wp_enqueue_style( 'material-symbols', get_template_directory_uri() . '/fonts/MaterialSymbols/MaterialSymbols.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'jquery' );
 
@@ -243,12 +254,12 @@ add_action( 'wp_enqueue_scripts', 'topten_scripts' );
  * Enqueue editor scripts and styles
  */
 function topten_editor_scripts() {
-
 	wp_enqueue_style( 'blinker', get_template_directory_uri() . '/fonts/blinker/blinker.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
-	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Round|Material+Icons+Outlined&display=swap', array(), TOPTEN_VERSION );
+	// Material Symbols (https://fonts.google.com/icons)
+	wp_enqueue_style( 'material-symbols', get_template_directory_uri() . '/fonts/MaterialSymbols/MaterialSymbols.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'groteski-script', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
 
@@ -845,21 +856,21 @@ function topten_acf_cpt( $field ) {
 
 add_filter( 'acf/load_field/name=post_type', 'topten_acf_cpt' );
 
-/** Palauttaa sivuston asetukset ohje ACFn kentän valinnat
+/**
+ * Populate guide field with data from options page
  *
- * @param array $field ACFn kenttä
+ * @param array $field ACF field
  */
 function topten_acf_guide( $field ) {
-	
 	$field['choices'] = array(
 		'none' => 'Ei tulkintaa',
 	);
 
 	if ( have_rows( 'guide', 'options' ) ) {
 		while ( have_rows( 'guide', 'options' ) ) {
-			
+
 			the_row();
-			
+
 			$icon  = get_sub_field( 'icon' );
 			$color = get_sub_field( 'color' );
 			$name  = get_sub_field( 'name' );
@@ -876,11 +887,10 @@ function topten_acf_guide( $field ) {
 
 add_filter( 'acf/load_field/name=tulkinta', 'topten_acf_guide' );
 
-
 /**
  * WP login sivun logo
  */
-function topten_login_logo() {
+function groteski_login_logo() {
 	$logo_src = get_stylesheet_directory_uri() . '/assets/dist/images/groteski-logo.png.webp';
 	?>
 	<style type="text/css">
@@ -916,25 +926,68 @@ function topten_login_logo() {
 	<?php
 }
 
-add_action( 'login_enqueue_scripts', 'topten_login_logo' );
+add_action( 'login_enqueue_scripts', 'groteski_login_logo' );
 
 /**
  * WP login sivun logo linkki
  */
-function topten_login_logo_url() {
+function groteski_login_logo_url() {
 	return 'https://groteski.fi/';
 }
 
-add_filter( 'login_headerurl', 'topten_login_logo_url' );
+add_filter( 'login_headerurl', 'groteski_login_logo_url' );
 
 /**
  * WP login sivun logo linkin teksti
  */
-function topten_login_logo_url_title() {
+function groteski_login_logo_url_title() {
 	return 'Mainostoimisto Groteski Oy';
 }
 
-add_filter( 'login_headertext', 'topten_login_logo_url_title' );
+add_filter( 'login_headertext', 'groteski_login_logo_url_title' );
+
+/**
+ * Groteski dashboard widgets
+ */
+function groteski_dashboard_widgets() {
+	wp_add_dashboard_widget( 'groteski_help_widget', 'Tekninen tuki', 'groteski_help_widget', null, null, 'normal', 'high' );
+}
+
+add_action( 'wp_dashboard_setup', 'groteski_dashboard_widgets' );
+
+/**
+ * Groteski help widget
+ */
+function groteski_help_widget() {
+	?>
+	<div class="dashboard-grid">
+		<div class="left">
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/dist/images/groketti.gif" alt="" />
+		</div>
+
+		<div class="right">
+			<p>
+				<strong>
+					Ongelmia sivuston kanssa?
+				</strong>
+				<br />
+
+				<strong>
+					Kaipaatko uusia ominaisuuksia?
+				</strong>
+			</p>
+
+			<p>
+				Autamme mielellämme kehittämään sivustoasi entistäkin paremmaksi!
+			</p>
+
+			<p>
+				Ota yhteyttä Groteskin tukeen: <a href="mailto:tuki@groteski.fi">tuki@groteski.fi</a>
+			</p>
+		</div>
+	</div>
+	<?php
+}
 
 /**
  * Card search
@@ -947,10 +1000,10 @@ function topten_card_search() {
 	}
 
 	$args = array(
-		'posts_per_page' => -1,
-		'post_status'    => 'publish',
-		'fields'         => 'ids',
-		'meta_query'     => array(
+		'posts_per_page'         => -1,
+		'post_status'            => 'publish',
+		'fields'                 => 'ids',
+		'meta_query'             => array(
 			'relation' => 'AND',
 			array(
 				'relation' => 'AND',
@@ -961,7 +1014,9 @@ function topten_card_search() {
 				),
 			),
 		),
-		'tax_query'      => array(),
+		'tax_query'              => array(),
+		'update_post_term_cache' => true,
+		'update_post_meta_cache' => true,
 	);
 
 	if ( isset( $_POST['cardStatusType'] ) ) {
@@ -1059,7 +1114,7 @@ function topten_card_search() {
 
 	}
 
-	/**
+	/*
 	 * Municipality (multiple values)
 	 * Not in use due to customer request
 	**/
@@ -1082,19 +1137,21 @@ function topten_card_search() {
 				'field'    => 'term_id',
 				'terms'    => $municipality,
 			);
-
 	}
 	*/
+
 	// Law article (single value)
+	$law = '';
+
 	if ( isset( $_POST['cardLaw'] ) ) {
 		$law = intval( $_POST['cardLaw'] );
+
 		if ( ! $law ) {
 			$law = '';
 		}
 	}
 
 	if ( $law ) {
-
 		$args['tax_query'][] =
 			array(
 				'taxonomy' => 'laki',
@@ -1105,24 +1162,26 @@ function topten_card_search() {
 	}
 
 	// Category (single value)
+	$category = '';
+
 	if ( isset( $_POST['cardCategory'] ) ) {
 		$category = intval( $_POST['cardCategory'] );
+
 		if ( ! $category ) {
 			$category = '';
 		}
 	}
 
 	if ( $category ) {
-
-		$args['tax_query'][] =
-			array(
-				'taxonomy' => 'kortin_kategoria',
-				'field'    => 'term_id',
-				'terms'    => $category,
-			);
+		$args['tax_query'][] = array(
+			'taxonomy' => 'kortin_kategoria',
+			'field'    => 'term_id',
+			'terms'    => $category,
+		);
 	}
 
 	// Keywords (multiple)
+	$keywords = '';
 
 	if ( isset( $_POST['cardkeywords'] ) && is_array( $_POST['cardkeywords'] ) ) {
 
@@ -1135,40 +1194,32 @@ function topten_card_search() {
 	}
 
 	if ( isset( $keywords ) && ! empty( $keywords ) ) {
-
-		$args['tax_query'][] =
-			array(
-				'taxonomy' => 'asiasanat',
-				'field'    => 'term_id',
-				'terms'    => $keywords,
-			);
+		$args['tax_query'][] = array(
+			'taxonomy' => 'asiasanat',
+			'field'    => 'term_id',
+			'terms'    => $keywords,
+		);
 	}
 
 	// Card publish date. User can filter by either starting from, ending at or both.
 	$cardDateStart = isset( $_POST['cardDateStart'] ) ? sanitize_text_field( $_POST['cardDateStart'] ) : '';
 	$cardDateEnd   = isset( $_POST['cardDateEnd'] ) ? sanitize_text_field( $_POST['cardDateEnd'] ) : '';
 
-
 	if ( $cardDateStart && ! $cardDateEnd ) {
-
 		$args['date_query'] = array(
 			array(
 				'after' => $cardDateStart,
 
 			),
 		);
-
 	} elseif ( ! $cardDateStart && $cardDateEnd ) {
-
 		$args['date_query'] = array(
 			array(
 				'before' => $cardDateEnd,
 
 			),
 		);
-
 	} elseif ( $cardDateStart && $cardDateEnd ) {
-
 		$args['date_query'] = array(
 			array(
 				'after'  => $cardDateStart,
@@ -1176,7 +1227,6 @@ function topten_card_search() {
 
 			),
 		);
-
 	}
 
 	// Display order of cards
@@ -1211,13 +1261,17 @@ function topten_card_search() {
 		$the_query->query( $args );
 	}
 
+	// Create arrays for different card types
+	$tulkinta_array = array();
+	$ohje_array     = array();
+	$lomake_array   = array();
 
 	// If posts are found, save them to their own arrays from which one array is created
-
 	if ( $the_query->have_posts() ) {
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
 			$post_id = get_the_ID();
+
 			if ( 'tulkintakortti' === get_post_type( $post_id ) ) {
 				$tulkinta_array[] = $post_id;
 			} elseif ( 'ohjekortti' === get_post_type( $post_id ) ) {
@@ -1232,8 +1286,10 @@ function topten_card_search() {
 		$results  = '<div class="no-results">';
 		$results .= '<p>' . esc_html__( 'Ei hakutuloksia.', 'topten' ) . '</p>';
 		$results .= '</div>';
+
 		// return results and die
-		echo $results;
+		echo $results; // phpcs:ignore
+
 		wp_die();
 	} else {
 		// Create array of arrays
@@ -1373,7 +1429,7 @@ add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
 add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );
 /**
  * Customize the cutoff for the excerpt
- * 
+ *
  * @param string $more The excerpt more string
  */
 function topten_excerpt_more( $more ) {
@@ -1384,7 +1440,7 @@ add_filter( 'excerpt_more', 'topten_excerpt_more' );
 
 /**
  * Customize the length of the excerpt
- * 
+ *
  * @param int $length The length of the excerpt
  */
 function topten_excerpt_length( $length ) {
@@ -1418,42 +1474,93 @@ add_filter( 'acf/pre_save_block', 'topten_acf_unique_block_id' );
 if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 	/**
 	 * Add missing breadcrumbs to single card pages based on the card status, only if Yoast SEO is active.
-	 * 
+	 *
 	 * @param array $links The breadcrumbs array
 	 */
 	function topten_yoast_breadcrumbs( $links ) {
-		global $post;
-		$id     = get_the_ID();
-		$status = get_field( 'card_status_publish', $id );
+		$id         = get_the_ID();
+		$status     = get_field( 'card_status_publish', $id );
+		$breadcrumb = array();
 
 		if ( is_singular( 'tulkintakortti' ) || is_singular( 'ohjekortti' ) || is_singular( 'lomakekortti' ) ) {
 			if ( is_array( $status ) ) {
-				if ( in_array( 'valid', $status ) || in_array( 'approved_for_repeal', $status ) ) {
+				if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
 					$breadcrumb[] = array(
 						'url'  => get_permalink( get_field( 'main_card_archive', 'options' ) ),
 						'text' => get_the_title( get_field( 'main_card_archive', 'options' ) ),
 					);
 				}
-				if ( in_array( 'expired', $status ) ) {
+				if ( in_array( 'expired', $status, true ) ) {
 					$breadcrumb[] = array(
 						'url'  => get_permalink( get_field( 'expired_card_archive', 'options' ) ),
 						'text' => get_the_title( get_field( 'expired_card_archive', 'options' ) ),
 					);
 				}
-				if ( in_array( 'future', $status ) ) {
+				if ( in_array( 'future', $status, true ) ) {
 					$breadcrumb[] = array(
 						'url'  => get_permalink( get_field( 'future_card_archive', 'options' ) ),
 						'text' => get_the_title( get_field( 'future_card_archive', 'options' ) ),
 					);
 				}
 			}
+
 			array_splice( $links, 1, -2, $breadcrumb );
 		}
 
 		return $links;
-	
+
 	}
 
 	add_filter( 'wpseo_breadcrumb_links', 'topten_yoast_breadcrumbs' );
-
 }
+
+/**
+ * Remove dashboard bloat
+ */
+function topten_remove_dashboard_widgets() {
+	// Tapahtumat ja uutiset
+	remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+
+	// Sisällöt lyhyesti
+	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_right_now', 'dashboard', 'side' );
+
+	// Nopea luonnos
+	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+
+	// Recent activity
+	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_activity', 'dashboard', 'side' );
+
+	// Sivuston terveys
+	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_site_health', 'dashboard', 'side' );
+
+	// Yoast
+	remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
+	remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'side' );
+
+	// Yoast SEO / Wincher
+	remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'normal' );
+	remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'side' );
+
+	// Limit Login Attempts
+	remove_meta_box( 'llar_stats_widget', 'dashboard', 'normal' );
+	remove_meta_box( 'llar_stats_widget', 'dashboard', 'side' );
+
+	// Gravity Forms
+	remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'normal' );
+	remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'side' );
+
+	// Broken Link Checker
+	remove_meta_box( 'blc_dashboard_widget', 'dashboard', 'normal' );
+	remove_meta_box( 'blc_dashboard_widget', 'dashboard', 'side' );
+
+	// Easy WP SMTP
+	remove_meta_box( 'easy_wp_smtp_reports_widget_lite', 'dashboard', 'normal' );
+	remove_meta_box( 'easy_wp_smtp_reports_widget_lite', 'dashboard', 'side' );
+}
+
+add_action( 'wp_dashboard_setup', 'topten_remove_dashboard_widgets' );

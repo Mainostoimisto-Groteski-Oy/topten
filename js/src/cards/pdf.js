@@ -1,9 +1,10 @@
 /* global Ajax */
-
 jQuery(document).ready(($) => {
 	function getChild(node) {
+		const tag = node.nodeName.toLowerCase();
+
 		const nodeData = {
-			tag: node.nodeName.toLowerCase(),
+			tag,
 			value: node.textContent,
 			children: [],
 			attributes: {
@@ -11,8 +12,22 @@ jQuery(document).ready(($) => {
 			},
 		};
 
-		if (node.childNodes.length > 0) {
+		if (tag === 'picture') {
+			const image = node.querySelector('img');
+
+			nodeData.tag = 'img';
+
+			nodeData.attributes = {
+				src: image.src,
+				alt: image.alt,
+				class: image.className,
+				width: image.width,
+				height: image.height,
+			};
+		} else if (node.childNodes.length > 0) {
 			nodeData.value = null;
+
+			console.log(node.childNodes);
 
 			node.childNodes.forEach((child) => {
 				nodeData.children.push(getChild(child));
@@ -29,32 +44,6 @@ jQuery(document).ready(($) => {
 	 */
 	function getChildData(child) {
 		const data = getChild(child);
-		// const tag = child.tagName.toLowerCase();
-
-		// const data = {
-		// 	tag,
-		// 	children: [],
-		// 	attributes: {
-		// 		class: child.className,
-		// 	},
-		// };
-
-		// if (tag === 'picture') {
-		// 	const image = child.querySelector('img');
-
-		// 	data.tag = 'img';
-		// 	data.attributes = {
-		// 		src: image.src,
-		// 		alt: image.alt,
-		// 		class: image.className,
-		// 	};
-		// }
-
-		// child.childNodes.forEach((node) => {
-		// 	const nodeData = getChild(node, data);
-
-		// 	data.children.push(nodeData);
-		// });
 
 		return data;
 	}
@@ -78,6 +67,9 @@ jQuery(document).ready(($) => {
 			const rowData = {
 				count: 0,
 				columns: [],
+				attributes: {
+					class: row.className,
+				},
 			};
 
 			$(row)
@@ -99,10 +91,9 @@ jQuery(document).ready(($) => {
 			data.rows.push(rowData);
 		});
 
-		console.log(data);
-
 		return data;
 	}
+
 	/**
 	 * Print page as PDF
 	 */
@@ -114,6 +105,8 @@ jQuery(document).ready(($) => {
 
 		// Get card content
 		const data = generatePDFdata(cardContent);
+
+		console.log(data);
 
 		$.ajax({
 			url: Ajax.url,
