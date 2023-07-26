@@ -66,9 +66,9 @@ if ( 'tulkintakortti' === $type ) {
 <?php if ( get_field( $prefix . '_guide', 'options' ) ) : ?>
 	<section class="text-block card">
 		<div class="grid">
-			<h2 class="title h4">
+			<span class="title h4">
 				<?php the_field( $prefix . '_guide_title', 'options' ); ?>
-			</h2>
+			</span>
 
 			<div class="text">
 				<?php the_field( $prefix . '_guide_before', 'options' ); ?>

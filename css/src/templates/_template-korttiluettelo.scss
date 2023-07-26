@@ -294,7 +294,7 @@ body.page-template-template-korttiluettelo {
 								padding: 0;
 								gap: 0;
 
-								>div {
+								> div {
 									padding: 30px 15px;
 
 									&:nth-child(odd) {
@@ -693,12 +693,10 @@ body.page-template-template-korttiluettelo {
 										}
 
 										@media (max-width: $max-m) {
-
 										}
 									}
 
 									&.second {
-
 									}
 
 									&.third {
@@ -726,7 +724,6 @@ body.page-template-template-korttiluettelo {
 
 								.ident {
 									.end {
-
 									}
 								}
 
@@ -785,7 +782,7 @@ body.page-template-template-korttiluettelo {
 								padding: 0;
 
 								li.parent {
-									>p.name {
+									> p.name {
 										background-color: $green-lighter;
 										color: $black;
 										border-bottom: 1px solid $black;
@@ -802,7 +799,7 @@ body.page-template-template-korttiluettelo {
 										li.child {
 											background-color: $green-lightest;
 
-											>p.name {
+											> p.name {
 												color: $black;
 												background-color: $green-lightest;
 												border-bottom: 1px solid $black;
@@ -825,9 +822,9 @@ body.page-template-template-korttiluettelo {
 														padding: 15px;
 													}
 
-													>span,
-													>p,
-													>a {
+													> span,
+													> p,
+													> a {
 														font-size: 1.8rem;
 													}
 
@@ -852,7 +849,7 @@ body.page-template-template-korttiluettelo {
 								padding: 0;
 
 								li.parent {
-									>p.name {
+									> p.name {
 										color: $black;
 										background-color: $green-lightest;
 										border-bottom: 1px solid $black;
@@ -874,9 +871,9 @@ body.page-template-template-korttiluettelo {
 												padding: 15px;
 											}
 
-											>span,
-											>p,
-											>a {
+											> span,
+											> p,
+											> a {
 												font-size: 1.8rem;
 											}
 
@@ -908,7 +905,6 @@ body.page-template-template-korttiluettelo {
 					}
 
 					.parent {
-
 					}
 
 					@include buttons;

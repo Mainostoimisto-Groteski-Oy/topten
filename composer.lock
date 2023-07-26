@@ -537,16 +537,16 @@
         },
         {
             "name": "wpsyntex/polylang-stubs",
-            "version": "3.4.1",
+            "version": "3.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/polylang/polylang-stubs.git",
-                "reference": "63e6bc02282b914fe42cc6175ac02b31eec025df"
+                "reference": "341da216100ed3efcc33fd03e9c3818a122f0e0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/polylang/polylang-stubs/zipball/63e6bc02282b914fe42cc6175ac02b31eec025df",
-                "reference": "63e6bc02282b914fe42cc6175ac02b31eec025df",
+                "url": "https://api.github.com/repos/polylang/polylang-stubs/zipball/341da216100ed3efcc33fd03e9c3818a122f0e0e",
+                "reference": "341da216100ed3efcc33fd03e9c3818a122f0e0e",
                 "shasum": ""
             },
             "require-dev": {
@@ -565,9 +565,9 @@
             "homepage": "https://polylang.pro",
             "support": {
                 "issues": "https://github.com/polylang/polylang-stubs/issues",
-                "source": "https://github.com/polylang/polylang-stubs/tree/3.4.1"
+                "source": "https://github.com/polylang/polylang-stubs/tree/3.4.3"
             },
-            "time": "2023-05-25T16:44:41+00:00"
+            "time": "2023-07-12T13:00:24+00:00"
         },
         {
             "name": "wptrt/wpthemereview",

@@ -46,6 +46,50 @@
                     "max_size": "",
                     "mime_types": "",
                     "parent_repeater": "field_6440dec1b43d4"
+                },
+                {
+                    "key": "field_64c0bbf95d2d1",
+                    "label": "Linkin teksti",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6440dec1b43d4"
+                },
+                {
+                    "key": "field_64c0c5a5be537",
+                    "label": "Avaa uuteen välilehteen?",
+                    "name": "target",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_6440dec1b43d4"
                 }
             ]
         }
@@ -68,5 +112,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1681972956
+    "modified": 1690355123
 }

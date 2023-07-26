@@ -27,9 +27,10 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 		$text,
 		array(
 			'a'      => array(
-				'href'  => array(),
-				'title' => array(),
-				'style' => array(),
+				'href'   => array(),
+				'title'  => array(),
+				'style'  => array(),
+				'target' => array(),
 			),
 			'b'      => array(
 				'style' => array(),

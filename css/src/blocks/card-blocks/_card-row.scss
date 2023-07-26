@@ -43,12 +43,12 @@
 }
 
 .row-block {
-	border-top: 1px solid $red;
-	border-right: 1px solid $red;
-	border-left: 1px solid $red;
+	border-top: 1px solid $black;
+	border-right: 1px solid $black;
+	border-left: 1px solid $black;
 
 	&:last-child {
-		border-bottom: 1px solid $red;
+		border-bottom: 1px solid $black;
 	}
 
 	.grid {
@@ -120,6 +120,7 @@
 					&.identifier {
 						.small-title {
 							strong {
+								text-transform: none;
 								font-family: $font-alt;
 								font-size: 2rem;
 								margin-left: 5px;

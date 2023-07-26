@@ -464,6 +464,8 @@ function topten_get_guide_color( $value ) {
 	$color = false;
 
 	if ( have_rows( 'guide', 'options' ) ) {
+		// Without this you will get wrong colors if you have multiple instances of the same value
+		reset_rows();
 		while ( have_rows( 'guide', 'options' ) ) {
 			the_row();
 

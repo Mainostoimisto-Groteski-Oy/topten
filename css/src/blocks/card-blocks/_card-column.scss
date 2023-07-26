@@ -11,6 +11,17 @@
 		> * {
 			width: 100%;
 		}
+		.title-wrapper {
+			h1.title {
+				margin: 5px 0px;
+			}
+			h2.title {
+				margin: 10px 0px;
+			}
+			h3.title {
+				margin: 15px 0px;
+			}
+		}
 
 		&:last-of-type {
 			border-right: none;

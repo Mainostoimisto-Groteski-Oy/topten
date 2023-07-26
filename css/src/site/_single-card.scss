@@ -86,7 +86,7 @@
 			}
 
 			&.status-past {
-				>section {
+				> section {
 					position: relative;
 					z-index: 999;
 				}
@@ -199,28 +199,109 @@
 			}
 
 			.text-wrapper {
+				a {
+					color: $green;
+					font-weight: 600;
+					&[target="_blank"] {
+						display: inline-block;
+						position: relative;
+						padding-right: 20px;
+						// material icons new tab in after element
+						&::after {
+							content: "\e89e";
+							font-family: $font-icons;
+							position: absolute;
+							top: 0;
+							right: 0;
+							font-size: 1.8rem;
+							font-weight: 400;
+							color: $green;
+						}
+					}
+				}
 				&.law,
 				&.info,
 				&.person,
 				&.check {
 					padding: 0 15px;
 					border-radius: 15px;
+					margin-bottom: 15px;
 				}
 
 				&.bg-blue {
 					background-color: $tulkinta-blue-transparent;
+					a {
+						color: $tulkinta-blue;
+						&::after {
+							color: $tulkinta-blue;
+						}
+					}
 				}
 
 				&.bg-green {
 					background-color: $tulkinta-green-transparent;
+					a {
+						color: $tulkinta-green;
+						&::after {
+							color: $tulkinta-green;
+						}
+					}
 				}
 
 				&.bg-red {
 					background-color: $tulkinta-red-transparent;
+					a {
+						color: $tulkinta-red;
+						&::after {
+							color: $tulkinta-red;
+						}
+					}
 				}
 
 				&.bg-lightblue {
 					background-color: $tulkinta-lightblue-transparent;
+					a {
+						color: $tulkinta-lightblue;
+						&::after {
+							color: $tulkinta-lightblue;
+						}
+					}
+				}
+			}
+			.attachments {
+				a {
+					color: $green;
+					&[target="_blank"] {
+						display: inline-block;
+						position: relative;
+						padding-right: 20px;
+						// material icons new tab in after element
+						&::after {
+							content: "\e89e";
+							font-family: $font-icons;
+							position: absolute;
+							top: 0;
+							right: 0;
+							font-size: 1.8rem;
+							font-weight: 400;
+							color: $green;
+						}
+					}
+				}
+			}
+			ol,
+			ul {
+				margin: 15px 0px;
+				li {
+					margin: 15px 0px;
+				}
+				ol,
+				ul {
+					margin: 15px 0px;
+					ol,
+					ul {
+						margin: 15px 0px;
+					}
 				}
 			}
 		}

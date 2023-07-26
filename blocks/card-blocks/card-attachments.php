@@ -7,7 +7,8 @@
 			the_row();
 
 			$attachment = get_sub_field( 'attachment' );
-
+			$text       = get_sub_field( 'text' );
+			$target     = get_sub_field( 'target' );
 			if ( ! $attachment ) :
 				continue;
 			endif;
@@ -17,9 +18,23 @@
 			?>
 
 			<li>
-				<a href="<?php esc_url( $href ); ?>" aria-label="<?php esc_attr( $title ); ?>">
-					<?php echo esc_url( $href ); ?>
-				</a>
+				<?php if ( ! empty( $text ) ) : ?>
+					<a href="<?php echo esc_url( $href ); ?>" aria-label="<?php esc_attr( $text ); ?>" 
+										<?php 
+										if ( $target ) :
+											?>
+						 target="_blank" <?php endif; ?> >
+						<?php echo esc_html( $text ); ?>
+					</a>
+				<?php else : ?>
+					<a href="<?php echo esc_url( $href ); ?>" aria-label="<?php esc_attr( $title ); ?>" 
+										<?php 
+										if ( $target ) :
+											?>
+						 target="_blank" <?php endif; ?>>
+						<?php echo esc_url( $href ); ?>
+					</a>
+				<?php endif; ?>
 			</li>
 		<?php endwhile; ?>
 	</ul>
