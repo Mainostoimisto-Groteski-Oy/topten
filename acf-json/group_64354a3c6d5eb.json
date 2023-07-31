@@ -24,13 +24,13 @@
             "append": ""
         },
         {
-            "key": "field_64c0ffeec006c",
+            "key": "field_64a51fd30a5e0",
             "label": "Leveys",
             "name": "width",
             "aria-label": "",
             "type": "range",
             "instructions": "",
-            "required": 0,
+            "required": 1,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -39,8 +39,8 @@
             },
             "relevanssi_exclude": 0,
             "default_value": 100,
-            "min": "",
-            "max": "",
+            "min": 10,
+            "max": 100,
             "step": "",
             "prepend": "",
             "append": ""
@@ -127,5 +127,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1690370061
+    "modified": 1688543208
 }

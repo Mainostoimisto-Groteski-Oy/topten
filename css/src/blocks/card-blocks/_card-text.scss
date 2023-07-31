@@ -1,0 +1,7 @@
+@use "mixins/all" as *;
+
+.card-content {
+	.card-text-block {
+		width: calc(var(--width, 100%) - 10px);
+	}
+}

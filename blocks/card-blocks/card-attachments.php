@@ -1,21 +1,22 @@
-<?php topten_get_desc(); ?>
+<div class="attachments-wrapper column" style="<?php topten_get_block_width(); ?>">
+	<?php topten_get_desc(); ?>
 
-<?php if ( have_rows( 'attachments' ) ) : ?>
-	<ul class="attachments">
-		<?php
-		while ( have_rows( 'attachments' ) ) :
-			the_row();
+	<?php if ( have_rows( 'attachments' ) ) : ?>
+		<ul class="attachments">
+			<?php
+			while ( have_rows( 'attachments' ) ) :
+				the_row();
 
-			$attachment = get_sub_field( 'attachment' );
-			$text       = get_sub_field( 'text' );
-			$target     = get_sub_field( 'target' );
-			if ( ! $attachment ) :
-				continue;
+				$attachment = get_sub_field( 'attachment' );
+				$text       = get_sub_field( 'text' );
+				$target     = get_sub_field( 'target' );
+				if ( ! $attachment ) :
+					continue;
 			endif;
 
-			$href  = $attachment['url'];
-			$title = $attachment['title'];
-			?>
+				$href  = $attachment['url'];
+				$title = $attachment['title'];
+				?>
 
 			<li>
 				<?php if ( ! empty( $text ) ) : ?>

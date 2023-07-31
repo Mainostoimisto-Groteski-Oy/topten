@@ -461,23 +461,28 @@ function topten_get_desc( $description = false ) {
  * @param string $value options sivulla asetettu arvo
  */
 function topten_get_guide_color( $value ) {
-	$color = false;
+	$guide = get_field( 'guide', 'options' );
 
-	if ( have_rows( 'guide', 'options' ) ) {
-		// Without this you will get wrong colors if you have multiple instances of the same value
-		reset_rows();
-		while ( have_rows( 'guide', 'options' ) ) {
-			the_row();
+	$index = array_search( $value, array_column( $guide, 'icon' ), true );
 
-			$icon  = get_sub_field( 'icon' );
-			$color = get_sub_field( 'color' );
-
-			if ( $value === $icon ) {
-				// We can't return here, because ACF repeater fields are stupid
-				break;
-			}
-		}
+	if ( false !== $index ) {
+		return $guide[ $index ]['color'];
 	}
 
-	return $color;
+	return false;
+}
+
+/**
+ * Get block width in percent
+ */
+function topten_get_block_width() {
+	$width = get_field( 'width' ) ?: 100;
+	$width = intval( $width );
+
+	$width = $width > 100 ? 100 : $width;
+	$width = $width < 0 ? 0 : $width;
+
+	// echo 'width: calc(' . esc_attr( $width ) . '% - 10px);';
+
+	echo '--width: ' . esc_attr( $width ) . '%;';
 }

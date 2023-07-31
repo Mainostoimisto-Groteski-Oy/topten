@@ -1316,6 +1316,7 @@ function topten_fetch_suggestions() {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 		wp_die();
 	}
+
 	// Get type
 	if ( ! isset( $_POST['type'] ) ) {
 		wp_send_json_error( 'Type is not set.' );
@@ -1339,7 +1340,6 @@ function topten_fetch_suggestions() {
 		}
 	}
 
-
 	$args = array(
 		'taxonomy'   => $tax,
 		'orderby'    => 'title',
@@ -1348,7 +1348,6 @@ function topten_fetch_suggestions() {
 	);
 
 	$terms = get_terms( $args );
-
 
 	if ( $terms ) {
 		$list = array();
@@ -1359,7 +1358,9 @@ function topten_fetch_suggestions() {
 	} else {
 		$list = array();
 	}
+
 	wp_send_json_success( $list );
+
 	wp_die();
 }
 
@@ -1374,6 +1375,8 @@ function topten_fetch_terms() {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 		wp_die();
 	}
+
+
 	// This does nothing yet
 	if ( ! isset( $_POST['type'] ) ) {
 		wp_send_json_error( 'Type is not set.' );
@@ -1393,9 +1396,9 @@ function topten_fetch_terms() {
 	}
 
 	if ( isset( $_POST['keywords'] ) ) {
-
 		// Sanitize array of keyword IDs
 		$keywords = array_map( 'intval', $_POST['keywords'] );
+
 		if ( ! $keywords ) {
 			$keywords = '';
 			wp_die();
@@ -1427,6 +1430,7 @@ function topten_fetch_terms() {
 
 add_action( 'wp_ajax_topten_fetch_terms', 'topten_fetch_terms' );
 add_action( 'wp_ajax_nopriv_topten_fetch_terms', 'topten_fetch_terms' );
+
 /**
  * Customize the cutoff for the excerpt
  *

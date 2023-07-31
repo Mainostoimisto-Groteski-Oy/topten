@@ -14,17 +14,19 @@ get_header();
 	<main id="primary" class="site-main">
 		<section class="error-404 not-found">
 			<header class="page-header">
-				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'topten' ); ?></h1>
+				<h1 class="page-title h2">
+					<?php esc_html_e( 'Hups! Sivua ei löytynyt.', 'topten' ); ?>
+				</h1>
 			</header>
 
 			<div class="page-content">
 				<p>
-					<?php esc_html_e( 'It looks like nothing was found at this location.', 'topten' ); ?>
+					<?php esc_html_e( 'Pyydettyä sivua ei löytynyt.', 'topten' ); ?>
 				</p>
 
 				<a href="<?php echo esc_url( home_url() ); ?>">
 					<span>
-						<?php esc_html_e( 'Return to homepage.', 'topten' ); ?>
+						<?php esc_html_e( 'Palaa etusivulle.', 'topten' ); ?>
 					</span>
 				</a>
 			</div>

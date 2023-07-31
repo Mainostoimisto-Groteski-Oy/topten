@@ -4,33 +4,7 @@
 .acf-block-preview {
 	.row-block {
 		background-color: color.adjust($white, $lightness: -10%);
-
-		.grid {
-			display: unset;
-
-			@for $i from 1 through 4 {
-				$columns: "";
-
-				&.columns-#{$i} > .block-editor-inner-blocks > .block-editor-block-list__layout {
-					@for $j from 1 through $i {
-						$columns: #{$columns} minmax(0, var(--column-#{$j}));
-					}
-
-					grid-template-columns: $columns;
-				}
-			}
-
-			> .block-editor-inner-blocks {
-				> .block-editor-block-list__layout {
-					display: grid;
-					gap: 0;
-
-					> .wp-block {
-						padding: 0 15px;
-					}
-				}
-			}
-		}
+		display: block;
 
 		.wp-block {
 			background-color: $white;
@@ -70,34 +44,25 @@
 	}
 
 	&.top {
-		.grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 0;
-			padding: 15px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 0;
 
-			.column {
-				border: none;
-				flex-direction: unset;
-				padding: 0;
-
-				> * {
-					width: auto;
-				}
-			}
-
-			.logos {
+		.column {
+			&.logos {
 				display: flex;
 				align-items: center;
+				gap: 10px;
 
 				img {
 					max-width: 125px;
 				}
 			}
 
-			.content {
+			&.content {
+				justify-self: flex-end;
 				display: flex;
 				flex-direction: column;
-				margin-left: auto;
 
 				.date {
 					padding: 5px 5px 0;

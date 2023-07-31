@@ -6,27 +6,32 @@ jQuery(document).ready(($) => {
 	// cardStatusType is an acf field set in korttiluettelo template that determines which cards are shown (valid, expired or 2025 law)
 	function cardSearch(cardStatusType = 'valid') {
 		// if value is in localstorage, use it instead of form value
-
 		let freeText = '';
+
 		if (localStorage.getItem('freeText')) {
 			freeText = localStorage.getItem('freeText');
 		} else {
 			freeText = $('#freeText').val();
 		}
+
 		let cardLaw = '';
+
 		if (localStorage.getItem('cardLaw')) {
 			cardLaw = localStorage.getItem('cardLaw');
+
 			const splitLaw = cardLaw.split('|');
+
 			$('#cardLaw').val(splitLaw[0]);
 		} else {
 			cardLaw = $('#cardLaw').val();
 		}
 
 		let cardCategory = '';
+
 		if (localStorage.getItem('cardCategory')) {
 			cardCategory = localStorage.getItem('cardCategory');
 			const splitCategory = cardCategory.split('|');
-			jQuery('#cardCategory').val(splitCategory[0]);
+			$('#cardCategory').val(splitCategory[0]);
 		} else {
 			cardCategory = $('#cardCategory').val();
 		}
@@ -156,9 +161,9 @@ jQuery(document).ready(($) => {
 					if (terms.length > 0) {
 						$(`#selected${type}`).html('');
 						$(`#selected${type}`).parent('figure').addClass('active');
-						jQuery(terms).each(function () {
+						$(terms).each(function () {
 							$(`#selected${type}`).append(
-								`<li class="keyword" data-id="${this.value}"><button class="removekeyword" data-type="${type}" data-id="${this.value}"></button><span>${this.label}</span></li>`
+								`<li class="keyword" data-id="${this.value}"><button class="removekeyword" data-type="${type}" data-id="${this.value}"></button><span>${this.label}</span></li>`,
 							);
 						});
 					}
@@ -181,7 +186,7 @@ jQuery(document).ready(($) => {
 				$('#selectedLaw').html('');
 				$(`#selectedLaw`).parent('figure').addClass('active');
 				$('#selectedLaw').append(
-					`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"></button><span>${splitLaw[1]}</span></li>`
+					`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"></button><span>${splitLaw[1]}</span></li>`,
 				);
 			}
 		}
@@ -192,7 +197,7 @@ jQuery(document).ready(($) => {
 				$('#selectedCategory').html('');
 				$(`#selectedCategory`).parent('figure').addClass('active');
 				$('#selectedCategory').append(
-					`<li class="keyword" data-id="${splitCategory[0]}"><button class="removekeyword" data-type="cardCategory" data-id="${splitCategory[0]}"></button><span>${splitCategory[1]}</span></li>`
+					`<li class="keyword" data-id="${splitCategory[0]}"><button class="removekeyword" data-type="cardCategory" data-id="${splitCategory[0]}"></button><span>${splitCategory[1]}</span></li>`,
 				);
 			}
 		}
@@ -207,7 +212,7 @@ jQuery(document).ready(($) => {
 				$('#selectedDateStart').html('');
 				$(`#selectedDateStart`).parent('ul').parent('figure').addClass('active');
 				$('#selectedDateStart').append(
-					`<li class="keyword" data-id="dateStart"><button class="removekeyword" data-type="cardDateStart" data-time="${cardDateStart}" data-id="dateStart"></button><span>${dateString}</span></li>`
+					`<li class="keyword" data-id="dateStart"><button class="removekeyword" data-type="cardDateStart" data-time="${cardDateStart}" data-id="dateStart"></button><span>${dateString}</span></li>`,
 				);
 			}
 		}
@@ -222,7 +227,7 @@ jQuery(document).ready(($) => {
 				const year = date.getFullYear();
 				const dateString = `${day}.${month}.${year}`;
 				$('#selectedDateEnd').append(
-					`<li class="keyword" data-id="dateEnd"><button class="removekeyword" data-type="cardDateEnd" data-time="${cardDateEnd}" data-id="dateEnd"></button><span>${dateString}</span></li>`
+					`<li class="keyword" data-id="dateEnd"><button class="removekeyword" data-type="cardDateEnd" data-time="${cardDateEnd}" data-id="dateEnd"></button><span>${dateString}</span></li>`,
 				);
 			}
 		}
@@ -232,7 +237,7 @@ jQuery(document).ready(($) => {
 				$('#selectedFreeText').html('');
 				$(`#selectedFreeText`).parent('figure').addClass('active');
 				$('#selectedFreeText').append(
-					`<li class="keyword" data-id="freeText"><button class="removekeyword" data-type="freeText" data-id="freeText"></button><span>${freeText}</span></li>`
+					`<li class="keyword" data-id="freeText"><button class="removekeyword" data-type="freeText" data-id="freeText"></button><span>${freeText}</span></li>`,
 				);
 			}
 		}
@@ -279,8 +284,8 @@ jQuery(document).ready(($) => {
 					$(`#selected${type}`).parent('figure').addClass('active');
 					$(`#selected${type}`).append(
 						`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(
-							`#card${type}`
-						).val()}</span></li>`
+							`#card${type}`,
+						).val()}</span></li>`,
 					);
 				}
 			} else {
@@ -288,8 +293,8 @@ jQuery(document).ready(($) => {
 				$(`#selected${type}`).parent('figure').addClass('active');
 				$(`#selected${type}`).append(
 					`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"></button><span>${$(
-						`#card${type}`
-					).val()}</span></li>`
+						`#card${type}`,
+					).val()}</span></li>`,
 				);
 			}
 			$('#cardkeywords').val('');
@@ -312,7 +317,7 @@ jQuery(document).ready(($) => {
 					// split the string into an array
 					const split = this.toString().split('|');
 					$('#selectedCardClasses').append(
-						`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" data-type="cardclassfilter" data-id="${split[0]}"></button><span>${split[1]}</span></li>`
+						`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" data-type="cardclassfilter" data-id="${split[0]}"></button><span>${split[1]}</span></li>`,
 					);
 				});
 			}
@@ -441,7 +446,7 @@ jQuery(document).ready(($) => {
 							$.map(data.data, (item) => ({
 								label: item.label,
 								value: item.value,
-							}))
+							})),
 						);
 					},
 					error(errorThrown) {
@@ -651,7 +656,7 @@ jQuery(document).ready(($) => {
 		if (localStorage.getItem('cardCategory') !== null) {
 			const cardCategory = localStorage.getItem('cardCategory');
 			const splitCategory = cardCategory.split('|');
-			jQuery('#cardCategory').val(splitCategory[0]);
+			$('#cardCategory').val(splitCategory[0]);
 		}
 		// Applies keyword filters to sidebar
 		$('#keywordssearch').on('click', () => {

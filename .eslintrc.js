@@ -1,13 +1,21 @@
 module.exports = {
+	root: true,
+	parser: '@babel/eslint-parser',
+	parserOptions: {
+		requireConfigFile: false,
+	},
+	extends: ['plugin:@wordpress/eslint-plugin/recommended', 'plugin:prettier/recommended'],
 	env: {
 		browser: true,
 		jquery: true,
-		node: true,
-		es2022: true,
 	},
-	extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
-	parserOptions: { ecmaVersion: 13 },
 	rules: {
+		'prettier/prettier': [
+			'error',
+			{
+				danglingComma: 'es5',
+			},
+		],
 		indent: ['error', 'tab'],
 		'no-console': 0,
 		'func-names': 0,

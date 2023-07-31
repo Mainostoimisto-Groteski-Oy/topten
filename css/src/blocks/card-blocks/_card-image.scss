@@ -2,25 +2,35 @@
 
 .card-content {
 	.image-wrapper {
-		padding: 0;
-		margin: 0;
+		width: calc(var(--width, 100%) - 10px);
 
-		figcaption {
-			:first-child {
-				margin-top: 0;
+		figure {
+			padding: 0;
+			margin: 0;
+
+			figcaption {
+				:first-child {
+					margin-top: 0;
+				}
+
+				:last-child {
+					margin-bottom: 0;
+				}
+
+				* {
+					font-size: 1.6rem;
+				}
 			}
 
-			:last-child {
-				margin-bottom: 0;
+			picture {
+				font-size: 0;
 			}
 
-			* {
-				font-size: 1.6rem;
+			img {
+				width: 100%;
+				max-width: 100%;
+				object-fit: contain;
 			}
-		}
-
-		picture {
-			font-size: 0;
 		}
 	}
 }

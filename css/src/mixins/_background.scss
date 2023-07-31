@@ -12,7 +12,7 @@
 /// @param {List} $urls
 /// 	Lista backgroundiin tulevista linkeistä
 
-@mixin background( $urls ) {
+@mixin background($urls) {
 	$images: ();
 
 	@each $url in $urls {

@@ -27,8 +27,6 @@ jQuery(document).ready(($) => {
 		} else if (node.childNodes.length > 0) {
 			nodeData.value = null;
 
-			console.log(node.childNodes);
-
 			node.childNodes.forEach((child) => {
 				nodeData.children.push(getChild(child));
 			});
@@ -41,6 +39,8 @@ jQuery(document).ready(($) => {
 
 	/**
 	 * Get child data
+	 *
+	 * @param {Object} child
 	 */
 	function getChildData(child) {
 		const data = getChild(child);
@@ -50,8 +50,8 @@ jQuery(document).ready(($) => {
 
 	/**
 	 * Generate PDF data from card HTML content
-	 * @param object parent Parent element
-	 * @returns array Data array
+	 *
+	 * @param {Object} parent
 	 */
 	function generatePDFdata(parent) {
 		const data = {
@@ -77,12 +77,20 @@ jQuery(document).ready(($) => {
 				.each((columnIndex, column) => {
 					rowData.count += 1;
 
-					const columnData = [];
+					const width = getComputedStyle(column).getPropertyValue('--width');
+
+					const columnData = {
+						data: [],
+						attributes: {
+							class: column.className,
+							width: width ? width.replace('%', '') : 100,
+						},
+					};
 
 					$(column)
 						.children()
 						.each((childIndex, child) => {
-							columnData.push(getChildData(child));
+							columnData.data.push(getChildData(child));
 						});
 
 					rowData.columns.push(columnData);
@@ -130,6 +138,19 @@ jQuery(document).ready(($) => {
 				const byteArray = new Uint8Array(byteNumbers);
 				const blob = new Blob([byteArray], { type: 'application/pdf' });
 				const url = URL.createObjectURL(blob);
+
+				// const a = $('<a style="display:none"></a>');
+
+				// a.attr('href', url);
+				// a.attr('download', 'test.pdf');
+
+				// $('body').append(a);
+
+				// a[0].click();
+
+				// window.URL.revokeObjectURL(url);
+
+				// a.remove();
 
 				window.open(url, '_blank');
 			})

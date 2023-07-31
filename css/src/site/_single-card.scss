@@ -121,15 +121,18 @@
 					position: relative;
 					display: flex;
 					align-items: center;
-					margin-top: 15px;
-					margin-bottom: 10px;
-					padding-left: 40px;
+
+					// margin-top: 15px;
+					// margin-bottom: 10px;
+					padding: 15px 0 10px 40px;
+					margin: 0;
+
+					// padding-left: 40px;
 					text-transform: uppercase;
 					font-size: 1.8rem;
 					font-weight: 400;
 
-					// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
-					&::before {
+					.tulkinta-symbol {
 						font-family: $font-icons;
 						text-transform: none;
 						width: 30px;
@@ -137,6 +140,8 @@
 						color: $white;
 						position: absolute;
 						top: 0;
+						bottom: 0;
+						margin: auto;
 						left: 0;
 						display: flex;
 						justify-content: center;
@@ -147,54 +152,52 @@
 					}
 
 					&.green {
-						&::before {
+						.tulkinta-symbol {
 							background-color: $tulkinta-green;
 						}
 					}
 
 					&.blue {
-						&::before {
+						.tulkinta-symbol {
 							background-color: $tulkinta-blue;
 						}
 					}
 
 					&.red {
-						&::before {
+						.tulkinta-symbol {
 							background-color: $tulkinta-red;
 						}
 					}
 
 					&.lightblue {
-						&::before {
+						.tulkinta-symbol {
 							background-color: $tulkinta-lightblue;
 						}
 					}
 
 					&.law {
-						&::before {
+						.tulkinta-symbol {
 							font-family: $font-main;
-							content: "§";
 						}
 					}
 
 					&.info {
-						&::before {
+						.tulkinta-symbol {
 							font-family: $font-main;
-							content: "i";
 						}
 					}
 
-					&.person {
-						&::before {
-							content: "\ea3d";
-						}
-					}
+					// &.person {
+					// 	.tulkinta-symbol {
+					// 		content: "\ea3d";
+					// 	}
+					// }
 
-					&.check {
-						&::before {
-							content: "\e876";
-						}
-					}
+					// &.check {
+					// 	.tulkinta-symbol {
+					// 		content: "\e876";
+					// 	}
+					// }
 				}
 			}
 
@@ -223,7 +226,8 @@
 				&.info,
 				&.person,
 				&.check {
-					padding: 0 15px;
+					// Todo: Figure out why p-margin is not working if padding is set to 0
+					padding: 1px 15px;
 					border-radius: 15px;
 					margin-bottom: 15px;
 				}
