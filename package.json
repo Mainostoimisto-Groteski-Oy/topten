@@ -35,7 +35,7 @@
 		"gulp-tap": "^2.0.0",
 		"gulp-webp": "^4.0.1",
 		"lodash": "^4.17.21",
-		"postcss": "^8.4.25",
+		"postcss": "^8.4.27",
 		"postcss-scss": "^4.0.6",
 		"prettier": "^3.0.0",
 		"sass": "^1.63.6",
