@@ -1,22 +1,22 @@
 @font-face {
-	font-family: "Material Symbols";
+	font-family: 'Material Symbols';
 	font-style: normal;
 	font-weight: 100 700;
 	font-display: swap;
-	src: url("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2") format("woff2");
+	src: url('MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2') format('woff2');
 }
 
 @font-face {
-	font-family: "Material Symbols Outlined";
+	font-family: 'Material Symbols Outlined';
 	font-style: normal;
 	font-weight: 100 700;
 	font-display: swap;
-	src: url("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2") format("woff2");
+	src: url('MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2') format('woff2');
 }
 
 .material-symbols-outlined,
 .material-symbols {
-	font-family: "Material Symbols Outlined";
+	font-family: 'Material Symbols Outlined';
 	font-weight: normal;
 	font-style: normal;
 	font-size: 24px;
@@ -27,20 +27,20 @@
 	white-space: nowrap;
 	word-wrap: normal;
 	direction: ltr;
-	font-feature-settings: "liga";
+	font-feature-settings: 'liga';
 	-moz-osx-font-smoothing: grayscale;
 }
 
 @font-face {
-	font-family: "Material Symbols Rounded";
+	font-family: 'Material Symbols Rounded';
 	font-style: normal;
 	font-weight: 100 700;
 	font-display: swap;
-	src: url("MaterialSymbolsRounded[FILL,GRAD,opsz,wght].woff2") format("woff2");
+	src: url('MaterialSymbolsRounded[FILL,GRAD,opsz,wght].woff2') format('woff2');
 }
 
 .material-symbols-rounded {
-	font-family: "Material Symbols Rounded";
+	font-family: 'Material Symbols Rounded';
 	font-weight: normal;
 	font-style: normal;
 	font-size: 24px;
@@ -51,19 +51,19 @@
 	white-space: nowrap;
 	word-wrap: normal;
 	direction: ltr;
-	font-feature-settings: "liga";
+	font-feature-settings: 'liga';
 	-moz-osx-font-smoothing: grayscale;
 }
 
 @font-face {
-	font-family: "Material Symbols Sharp";
+	font-family: 'Material Symbols Sharp';
 	font-style: normal;
 	font-display: swap;
-	src: url("MaterialSymbolsSharp[FILL,GRAD,opsz,wght].woff2") format("woff2");
+	src: url('MaterialSymbolsSharp[FILL,GRAD,opsz,wght].woff2') format('woff2');
 }
 
 .material-symbols-sharp {
-	font-family: "Material Symbols Sharp";
+	font-family: 'Material Symbols Sharp';
 	font-weight: normal;
 	font-style: normal;
 	font-size: 24px;
@@ -74,6 +74,6 @@
 	word-wrap: normal;
 	white-space: nowrap;
 	direction: ltr;
-	font-feature-settings: "liga";
+	font-feature-settings: 'liga';
 	-moz-osx-font-smoothing: grayscale;
 }
