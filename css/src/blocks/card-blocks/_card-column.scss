@@ -2,7 +2,7 @@
 
 .card-content {
 	.column {
-		padding: 15px 20px;
+		padding: 10px 20px;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
@@ -11,14 +11,12 @@
 			width: 100%;
 		}
 		.title-wrapper {
-			h1.title {
+			h1.title,
+			h2.title,
+			h3.title,
+			h4.title,
+			h5.title {
 				margin: 5px 0px;
-			}
-			h2.title {
-				margin: 10px 0px;
-			}
-			h3.title {
-				margin: 15px 0px;
 			}
 		}
 
