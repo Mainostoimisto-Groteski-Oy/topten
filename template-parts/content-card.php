@@ -127,63 +127,64 @@ if ( 'tulkintakortti' === $type ) {
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div class="card-content status-<?php echo esc_attr( $status ); ?>">
 			<section class="row-block top">
-				<?php if ( get_field( 'rty_logo_cards', 'options' ) || get_field( 'topten_logo_cards', 'options' ) ) : ?>
-					<div class="logos column">
-						<?php
-						if ( get_field( 'rty_logo', 'options' ) && get_field( 'rty_logo_cards', 'options' ) ) :
-							$image     = get_field( 'rty_logo', 'options' );
-							$image_url = $image['sizes']['medium'];
-							$image_alt = $image['alt'];
-							?>
-							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
-						<?php endif; ?>
+				<div class="grid">
+					<?php if ( get_field( 'rty_logo_cards', 'options' ) || get_field( 'topten_logo_cards', 'options' ) ) : ?>
+						<div class="logos column">
+							<?php
+							if ( get_field( 'rty_logo', 'options' ) && get_field( 'rty_logo_cards', 'options' ) ) :
+								$image     = get_field( 'rty_logo', 'options' );
+								$image_url = $image['sizes']['medium'];
+								$image_alt = $image['alt'];
+								?>
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+							<?php endif; ?>
 
-						<?php
-						if ( get_field( 'topten_logo', 'options' ) && get_field( 'topten_logo_cards', 'options' ) ) :
-							$image     = get_field( 'topten_logo', 'options' );
-							$image_url = $image['sizes']['medium'];
-							$image_alt = $image['alt'];
-							?>
-							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
+							<?php
+							if ( get_field( 'topten_logo', 'options' ) && get_field( 'topten_logo_cards', 'options' ) ) :
+								$image     = get_field( 'topten_logo', 'options' );
+								$image_url = $image['sizes']['medium'];
+								$image_alt = $image['alt'];
+								?>
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 
-				<div class="content column">
-					<div class="date">
-						<p class="small-title date-title">
-							<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
+					<div class="content column">
+						<div class="date">
+							<p class="small-title date-title">
+								<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
 
-							<strong class="smaller">
-								<?php echo esc_html( $post_date ); ?>
-							</strong>
-						</p>
-					</div>
-
-					<div class="inner-wrapper">
-						<div class="inner-column identifier">
-							<p class="small-title">
-								<?php esc_html_e( 'Tunniste', 'topten' ); ?>
-
-								<strong>
-									<?php echo esc_html( $identifier_start ); ?>
-
-									<?php echo esc_html( $identifier_end ); ?>
+								<strong class="smaller">
+									<?php echo esc_html( $post_date ); ?>
 								</strong>
 							</p>
 						</div>
 
-						<div class="inner-column version">
-							<p class="small-title">
-								<?php echo esc_html_e( 'Muutos', 'topten' ); ?>
+						<div class="inner-wrapper">
+							<div class="inner-column identifier">
+								<p class="small-title">
+									<?php esc_html_e( 'Tunniste', 'topten' ); ?>
 
-								<strong>
-									<?php echo esc_html( $version ); ?>
-								</strong>
-							</p>
+									<strong>
+										<?php echo esc_html( $identifier_start ); ?>
+
+										<?php echo esc_html( $identifier_end ); ?>
+									</strong>
+								</p>
+							</div>
+
+							<div class="inner-column version">
+								<p class="small-title">
+									<?php echo esc_html_e( 'Muutos', 'topten' ); ?>
+
+									<strong>
+										<?php echo esc_html( $version ); ?>
+									</strong>
+								</p>
+							</div>
 						</div>
 					</div>
-
 				</div> <!-- content -->
 			</section>
 

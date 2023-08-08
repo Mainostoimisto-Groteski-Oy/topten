@@ -116,7 +116,7 @@
 /// Mixin yksittäiselle linkille
 @mixin link {
 	a {
-		color: $red;
+		color: $green;
 		text-decoration: none;
 		transition: all 0.15s;
 		position: relative;
@@ -124,7 +124,7 @@
 
 		&::after {
 			content: "";
-			background-color: $red;
+			background-color: $green;
 			position: absolute;
 			bottom: 0;
 			left: 0;
