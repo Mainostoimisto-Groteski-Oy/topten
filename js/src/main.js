@@ -40,7 +40,7 @@ jQuery(document).ready(($) => {
 	});
 
 	$('.sidebar-navigation li.page_item_has_children > a').after(
-		'<button class="nav-button"><span class="material-symbols-outlined nav-icon">add</span></button>'
+		'<button class="nav-button"><span class="material-symbols-outlined nav-icon">add</span></button>',
 	);
 
 	$(document).on('click', '.page_item_has_children button.nav-button', function () {
