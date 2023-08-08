@@ -1233,13 +1233,8 @@ function topten_card_search() {
 	$filterOrder = isset( $_POST['filterOrder'] ) ? sanitize_text_field( $_POST['filterOrder'] ) : '';
 
 	if ( $filterOrder ) {
-		// Identifier, notice that this is not a WordPress ID
-		if ( $filterOrder === 'identifier' ) {
-			$args['orderby']  = 'meta_value';
-			$args['meta_key'] = 'identifier_start';
-			$args['order']    = 'ASC';
-			// Publish date, descending order
-		} elseif ( $filterOrder === 'publishDate' ) {
+		
+		if ( $filterOrder === 'publishDate' ) {
 			$args['orderby'] = 'date';
 			$args['order']   = 'DESC';
 			// card name, alphabetical order
@@ -1247,8 +1242,9 @@ function topten_card_search() {
 			$args['orderby'] = 'title';
 			$args['order']   = 'ASC';
 		}
+		// with card identifier (note: not wordpress ID) we do custom array sorting, since meta_query with relevassi takes longer than the heat death of the universe
 	}
-
+	
 
 	$the_query = new WP_Query();
 
@@ -1271,16 +1267,27 @@ function topten_card_search() {
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
 			$post_id = get_the_ID();
-
+			// combine identifier from acf fields start and end
+			$identifier = get_field( 'identifier_start' ) . '' . get_field( 'identifier_end' );
 			if ( 'tulkintakortti' === get_post_type( $post_id ) ) {
-				$tulkinta_array[] = $post_id;
+				$tulkinta_array[] = array(
+					'ID'         => $post_id,
+					'identifier' => $identifier,
+				);
 			} elseif ( 'ohjekortti' === get_post_type( $post_id ) ) {
-				$ohje_array[] = $post_id;
+				$ohje_array[] = array(
+					'ID'         => $post_id,
+					'identifier' => $identifier,
+				);
 			} elseif ( 'lomakekortti' === get_post_type( $post_id ) ) {
-				$lomake_array[] = $post_id;
+				$lomake_array[] = array(
+					'ID'         => $post_id,
+					'identifier' => $identifier,
+				);
 			}
 		}
 	}
+	
 	// If nothing is found, return notice to user
 	if ( empty( $tulkinta_array ) && empty( $ohje_array ) && empty( $lomake_array ) ) {
 		$results  = '<div class="no-results">';
@@ -1292,12 +1299,37 @@ function topten_card_search() {
 
 		wp_die();
 	} else {
+		// Sort every array by identifier
+		usort(
+			$tulkinta_array,
+			function( $a, $b ) {
+				return $a['identifier'] <=> $b['identifier'];
+			} 
+		);
+		usort(
+			$ohje_array,
+			function( $a, $b ) {
+				return $a['identifier'] <=> $b['identifier'];
+			} 
+		);
+		usort(
+			$lomake_array,
+			function( $a, $b ) {
+				return $a['identifier'] <=> $b['identifier'];
+			} 
+		);
+		// remove identifiers from arrays and leave only IDs
+		$tulkinta_array = array_column( $tulkinta_array, 'ID' );
+		$ohje_array     = array_column( $ohje_array, 'ID' );
+		$lomake_array   = array_column( $lomake_array, 'ID' );
+
 		// Create array of arrays
 		$card_array = array(
 			'tulkinta' => $tulkinta_array,
 			'ohje'     => $ohje_array,
 			'lomake'   => $lomake_array,
 		);
+
 		// Run function to get the results
 		topten_card_list( $card_array );
 	}
