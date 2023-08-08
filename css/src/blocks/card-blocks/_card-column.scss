@@ -2,22 +2,15 @@
 
 .card-content {
 	.column {
-		padding: 10px 20px;
+		border-right: 1px solid $black;
+
+		padding: 15px 20px;
 		display: flex;
-		align-items: center;
-		flex-direction: column;
+		flex-wrap: wrap;
 
 		> * {
 			width: 100%;
-		}
-		.title-wrapper {
-			h1.title,
-			h2.title,
-			h3.title,
-			h4.title,
-			h5.title {
-				margin: 5px 0px;
-			}
+			margin: 5px;
 		}
 
 		&:last-of-type {

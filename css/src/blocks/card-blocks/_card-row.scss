@@ -4,7 +4,33 @@
 .acf-block-preview {
 	.row-block {
 		background-color: color.adjust($white, $lightness: -10%);
-		display: block;
+
+		.grid {
+			display: unset;
+
+			// 	@for $i from 1 through 4 {
+			// 		$columns: "";
+
+			// 		&.columns-#{$i} > .block-editor-inner-blocks > .block-editor-block-list__layout {
+			// 			@for $j from 1 through $i {
+			// 				$columns: #{$columns} minmax(0, var(--column-#{$j}));
+			// 			}
+
+			// 			grid-template-columns: $columns;
+			// 		}
+			// 	}
+
+			// 	> .block-editor-inner-blocks {
+			// 		> .block-editor-block-list__layout {
+			// 			display: grid;
+			// 			gap: 0;
+
+			// 			> .wp-block {
+			// 				padding: 0 15px;
+			// 			}
+			// 		}
+			// 	}
+		}
 
 		.wp-block {
 			background-color: $white;
@@ -17,12 +43,12 @@
 }
 
 .row-block {
-	border-top: 1px solid $black;
-	border-right: 1px solid $black;
-	border-left: 1px solid $black;
+	border-top: 1px solid $red;
+	border-right: 1px solid $red;
+	border-left: 1px solid $red;
 
 	&:last-child {
-		border-bottom: 1px solid $black;
+		border-bottom: 1px solid $red;
 	}
 
 	.grid {
@@ -44,25 +70,34 @@
 	}
 
 	&.top {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		gap: 0;
+		.grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0;
+			padding: 15px;
 
-		.column {
-			&.logos {
+			.column {
+				border: none;
+				flex-direction: unset;
+				padding: 0;
+
+				> * {
+					width: auto;
+				}
+			}
+
+			.logos {
 				display: flex;
 				align-items: center;
-				gap: 10px;
 
 				img {
 					max-width: 125px;
 				}
 			}
 
-			&.content {
-				justify-self: flex-end;
+			.content {
 				display: flex;
 				flex-direction: column;
+				margin-left: auto;
 
 				.date {
 					padding: 5px 5px 0;
@@ -85,7 +120,6 @@
 					&.identifier {
 						.small-title {
 							strong {
-								text-transform: none;
 								font-family: $font-alt;
 								font-size: 2rem;
 								margin-left: 5px;

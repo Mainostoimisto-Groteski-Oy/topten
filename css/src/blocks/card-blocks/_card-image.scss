@@ -2,8 +2,6 @@
 
 .card-content {
 	.image-wrapper {
-		width: calc(var(--width, 100%) - 10px);
-
 		figure {
 			padding: 0;
 			margin: 0;
@@ -24,12 +22,6 @@
 
 			picture {
 				font-size: 0;
-			}
-
-			img {
-				width: 100%;
-				max-width: 100%;
-				object-fit: contain;
 			}
 		}
 	}

@@ -12,7 +12,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	?>
 <?php endif; ?>
 
-<div class="card-text-block column" style="<?php topten_get_block_width(); ?>">
+<div class="card-text-block" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
