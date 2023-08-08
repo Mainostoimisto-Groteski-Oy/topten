@@ -1,6 +1,6 @@
 <?php $table = get_field( 'table' ); ?>
 
-<div class="table-wrapper column" style="<?php topten_get_block_width(); ?>">
+<div class="table-wrapper" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<?php if ( $table ) : ?>

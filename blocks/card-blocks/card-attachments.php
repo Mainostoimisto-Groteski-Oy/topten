@@ -1,4 +1,4 @@
-<div class="attachments-wrapper column" style="<?php topten_get_block_width(); ?>">
+<div class="attachments-wrapper" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<?php if ( have_rows( 'attachments' ) ) : ?>
