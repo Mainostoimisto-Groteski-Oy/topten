@@ -176,6 +176,7 @@ function topten_buttons( $block = array(), $background = '' ) {
  * This is horrible, but it works? Not my finest work
  */
 function topten_get_table_of_contents() {
+
 	$blocks = parse_blocks( get_the_content() );
 
 	$table_of_contents = '<ol class="table-of-contents" role="list">';

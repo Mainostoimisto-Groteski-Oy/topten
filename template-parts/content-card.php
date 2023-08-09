@@ -205,25 +205,27 @@ if ( 'tulkintakortti' === $type ) {
 	</article>
 
 	<aside class="sidebar" id="sidebar-menu">
-		<div class="box open">
-			<div class="box-title">
-				<h3 class="h2">
-					<?php esc_html_e( 'Sisällysluettelo', 'topten' ); ?>
-				</h3>
+		<?php if ( ! get_field( 'hide_toc' ) ) : ?>
+			<div class="box open">
+				<div class="box-title">
+					<h3 class="h2">
+						<?php esc_html_e( 'Sisällysluettelo', 'topten' ); ?>
+					</h3>
 
-				<button class="material-symbols-button"
-					aria-label="<?php esc_html_e( 'Avaa valikko', 'topten' ); ?>"
-					aria-expanded="true">
-					<span class="material-symbols" aria-hidden="true">
-						double_arrow
-					</span>
-				</button>
-			</div>
+					<button class="material-symbols-button"
+						aria-label="<?php esc_html_e( 'Avaa valikko', 'topten' ); ?>"
+						aria-expanded="true">
+						<span class="material-symbols" aria-hidden="true">
+							double_arrow
+						</span>
+					</button>
+				</div>
 
-			<div class="box-content" aria-expanded="true">
-				<?php topten_get_table_of_contents(); ?>
+				<div class="box-content" aria-expanded="true">
+					<?php topten_get_table_of_contents(); ?>
+				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 
 		<?php
 		if ( ! empty( $keywords ) ) : // Kortin asiasanat

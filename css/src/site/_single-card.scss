@@ -537,6 +537,9 @@
 		}
 
 		ol.table-of-contents {
+			&.hidden {
+				display: none;
+			}
 			padding-left: 15px;
 			list-style-type: none;
 			margin: 0;

@@ -1,6 +1,11 @@
 @use "mixins/all" as *;
 
 .input-wrapper {
+	&.centered {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 	&.checkboxes-wrapper {
 		display: flex;
 		align-items: center;
@@ -10,7 +15,12 @@
 
 		.checkboxes {
 			display: flex;
-			gap: 50px;
+			gap: 15px;
+		}
+		&.vertical {
+			.checkboxes {
+				flex-direction: column;
+			}
 		}
 	}
 
@@ -26,11 +36,17 @@
 
 		.radios {
 			display: flex;
-			gap: 50px;
+			gap: 15px;
+		}
+		&.vertical {
+			.radios {
+				flex-direction: column;
+			}
 		}
 	}
 
 	textarea {
+		margin-top: 5px;
 		resize: none;
 	}
 
@@ -45,7 +61,7 @@
 			.input-field-wrapper {
 				display: flex;
 				gap: 5px;
-
+				align-items: center;
 				input {
 					width: 100%;
 					padding: 10px;
@@ -58,6 +74,10 @@
 		&.radio-field {
 			display: flex;
 			gap: 5px;
+		}
+		span.label-text {
+			font-size: 1.6rem;
+			font-weight: 300;
 		}
 	}
 }

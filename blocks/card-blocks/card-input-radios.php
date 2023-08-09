@@ -4,9 +4,14 @@ $block_id = $block['id'];
 $description = get_field( 'description' );
 
 $required = get_field( 'required' );
+
+$direction = get_field( 'direction' ); 
+if ( ! $direction ) {
+	$direction = 'horizontal';
+}
 ?>
 
-<div class="input-wrapper radios-wrapper" style="<?php topten_get_block_width(); ?>">
+<div class="input-wrapper radios-wrapper <?php echo esc_attr( $direction ); ?>" style="<?php topten_get_block_width(); ?>">
 	<?php if ( $description ) : ?>
 		<p class="description">
 			<?php echo esc_html( $description ); ?>

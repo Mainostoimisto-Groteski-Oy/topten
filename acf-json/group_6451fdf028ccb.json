@@ -1,7 +1,31 @@
 {
     "key": "group_6451fdf028ccb",
     "title": "Lomakekortti: Tekstialue",
-    "fields": [],
+    "fields": [
+        {
+            "key": "field_64d389ab69b57",
+            "label": "Tekstialueen korkeus (riviä)",
+            "name": "textarea_rows",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": 1,
+            "min": 1,
+            "max": 20,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
     "location": [
         [
             {
@@ -20,5 +44,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683095112
+    "modified": 1691585590
 }

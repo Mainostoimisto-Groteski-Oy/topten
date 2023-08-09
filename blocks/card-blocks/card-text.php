@@ -111,6 +111,27 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 				'sub'    => array(
 					'style' => array(),
 				),
+				'table'  => array(
+					'style' => array(),
+				),
+				'tbody'  => array(
+					'style' => array(),
+				),
+				'td'     => array(
+					'style' => array(),
+				),
+				'tfoot'  => array(
+					'style' => array(),
+				),
+				'th'     => array(
+					'style' => array(),
+				),
+				'thead'  => array(
+					'style' => array(),
+				),
+				'tr'     => array(
+					'style' => array(),
+				),
 			)
 		);
 		?>

@@ -13,7 +13,8 @@
 			margin: 5px;
 		}
 
-		&:last-of-type {
+		&:last-of-type,
+		.single {
 			border-right: none;
 		}
 
@@ -26,8 +27,36 @@
 			}
 		}
 		.title-wrapper {
-			margin-top: 10px;
-			margin-bottom: 10px;
+			padding: 10px 5px;
+			margin: 0 !important;
+			&.background-white {
+				background-color: $white;
+			}
+			&.background-grey {
+				background-color: $grey;
+			}
+			&.background-light {
+				background-color: $dim;
+				position: relative;
+				&::before {
+					position: absolute;
+					top: 0;
+					left: -20px;
+					width: 20px;
+					height: 100%;
+					content: "";
+					background-color: $dim;
+				}
+				&::after {
+					position: absolute;
+					top: 0;
+					right: -20px;
+					width: 30px;
+					height: 100%;
+					content: "";
+					background-color: $dim;
+				}
+			}
 		}
 		.small-title {
 			font-size: 1.6rem;

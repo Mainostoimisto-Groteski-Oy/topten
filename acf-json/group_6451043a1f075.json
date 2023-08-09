@@ -48,6 +48,30 @@
                     "parent_repeater": "field_6451043a2aec1"
                 }
             ]
+        },
+        {
+            "key": "field_64d38cda62d77",
+            "label": "Suunta",
+            "name": "direction",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "horizontal": "Vaaka",
+                "vertical": "Pysty"
+            },
+            "default_value": "horizontal",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
         }
     ],
     "location": [
@@ -68,5 +92,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1686122957
+    "modified": 1691585779
 }

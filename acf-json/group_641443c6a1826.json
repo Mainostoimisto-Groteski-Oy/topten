@@ -99,6 +99,34 @@
             "return_format": "value",
             "allow_null": 0,
             "layout": "horizontal"
+        },
+        {
+            "key": "field_64d3935edbcf9",
+            "label": "Taustaväri",
+            "name": "title_background_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "white": "Valkoinen",
+                "light": "Vaaleanharmaa",
+                "grey": "Harmaa"
+            },
+            "default_value": "white",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -119,5 +147,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1688108282
+    "modified": 1691587471
 }
