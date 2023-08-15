@@ -153,11 +153,37 @@ if ( 'tulkintakortti' === $type ) {
 					<div class="content column">
 						<div class="date">
 							<p class="small-title date-title">
-								<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
+								<?php 
+								if ( 'valid' === $status ) : 
+									?>
+									<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
+										<strong class="smaller">
+											<?php echo esc_html( $post_date ); ?>
+										</strong>
+									<?php 
+								elseif ( 'past' === $status ) : 
+									?>
+									<?php if ( get_field( 'card_valid_start', $id ) && get_field( 'card_valid_end', $id ) ) : ?>
 
-								<strong class="smaller">
-									<?php echo esc_html( $post_date ); ?>
-								</strong>
+										<?php esc_html_e( 'Voimassaolo', 'topten' ); ?>
+
+										<strong class="smaller">
+											<?php the_field( 'card_valid_start', $id ); ?>
+										</strong>
+
+										<strong class="smaller">-</strong>
+
+										<strong class="smaller">
+											<?php the_field( 'card_valid_end', $id ); ?>
+										</strong>
+
+									<?php endif; ?>
+
+								<?php else : ?>
+
+									<?php esc_html_e( 'Rakennuslaki 2025', 'topten' ); ?>
+								<?php endif; ?>
+									
 							</p>
 						</div>
 

@@ -104,6 +104,74 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_64db692f5105c",
+            "label": "Kortin voimassaolo alkoi",
+            "name": "card_valid_start",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "expired"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "repealed"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_64db697a5105d",
+            "label": "Kortin voimassaolo päättyi",
+            "name": "card_valid_end",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "expired"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_64140b70c42c8",
+                        "operator": "==",
+                        "value": "repealed"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
         }
     ],
     "location": [
@@ -138,5 +206,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1687175634
+    "modified": 1692101080
 }
