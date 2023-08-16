@@ -124,7 +124,7 @@ body.blog {
 							@include text-clamp(3);
 						}
 
-						@include arrowlinks;
+						@include arrowlinks($black, 600);
 
 						.links {
 							padding-top: 25px;

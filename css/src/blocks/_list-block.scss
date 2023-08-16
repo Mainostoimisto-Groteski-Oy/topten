@@ -2,7 +2,7 @@
 
 section.list-block {
 	.grid {
-		grid-template-columns: 5fr 7fr;
+		grid-template-columns: 4fr 8fr;
 		gap: 30px;
 
 		@media (max-width: $max-xs) {
@@ -37,11 +37,16 @@ section.list-block {
 				display: flex;
 				flex-direction: column;
 
-				@include arrowlink($black, 400);
+				@include arrowlink($black, 600);
 
 				@media (max-width: $max-xs) {
 					.title {
 						margin: 5px 0;
+					}
+				}
+				&:first-child {
+					h3 {
+						margin-top: 0;
 					}
 				}
 			}

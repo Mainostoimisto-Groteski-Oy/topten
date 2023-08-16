@@ -1,12 +1,7 @@
 @use "mixins/all" as *;
 
 section.logos-block {
-	padding: 50px 0;
-	background-color: $green-lightest;
-
-	@media (max-width: $max-m) {
-		padding: 25px 0;
-	}
+	padding: 25px 0;
 
 	.grid {
 		padding: 30px 15px;

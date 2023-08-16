@@ -9,7 +9,7 @@ body.no-scroll {
 }
 
 .page-breadcrumbs {
-	background-color: $cream-transparent;
+	background-color: $white;
 	border-bottom: 1px solid $black;
 	border-top: 1px solid $black;
 	max-width: $qhd;
@@ -21,7 +21,7 @@ body.no-scroll {
 		a {
 			text-decoration: underline;
 			font-size: 1.8rem;
-			color: $green;
+			color: $black;
 		}
 
 		p#breadcrumbs {
@@ -56,7 +56,17 @@ html {
 }
 
 main {
-	margin-top: 85px;
+	margin-top: 104px;
+	@media (max-width: $max-m) {
+		margin-top: 80px;
+	}
+}
+body.admin-bar {
+	main {
+		@media (max-width: 782px) {
+			margin-top: 67px;
+		}
+	}
 }
 
 .grid,

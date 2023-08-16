@@ -63,6 +63,27 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_64dc672dff37b",
+            "label": "Näytä TopTen logo headerissa?",
+            "name": "show_topten_logo",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_6476f7eef4697",
             "label": "Näytä Toptenin logo korteissa?",
             "name": "topten_logo_cards",
@@ -1094,5 +1115,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1686045977
+    "modified": 1692165956
 }

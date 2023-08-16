@@ -31,8 +31,18 @@
 
 
 	<header id="masthead" class="site-header">
-		<div class="grid-full">
+		<div class="grid">
 			<div class="container">
+
+				<?php if ( get_field( 'show_topten_logo', 'options' ) ) : ?>
+
+				<div class="topten-branding">
+					<?php $logo = get_field( 'topten_logo', 'options' ); ?>
+					<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
+				</div>
+
+				<?php endif; ?>
+
 				<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="site-navigation" aria-expanded="false">
 					<span class="material-symbols" aria-hidden="true">
 						menu

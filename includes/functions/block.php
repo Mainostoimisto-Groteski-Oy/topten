@@ -9,6 +9,12 @@ function topten_block_title( $echo = true, $id = '' ) {
 	$title_text = get_field( 'block_title' );
 	$title_tag  = get_field( 'block_title_tag' );
 	$title_size = get_field( 'block_title_size' );
+	$hide_title = get_field( 'hide_title' );
+	if ( $hide_title ) {
+		$hide_title = 'hide';
+	} else {
+		$hide_title = '';
+	}
 
 	if ( ! $title_text ) {
 		return;
@@ -21,9 +27,9 @@ function topten_block_title( $echo = true, $id = '' ) {
 	if ( $id ) {
 		$title_id = esc_attr( $id );
 
-		$title = sprintf( '<%1$s id="%4$s" class="%2$s title">%3$s</%1$s>', $title_tag, $title_size, $title_text, $title_id );
+		$title = sprintf( '<%1$s id="%4$s" class="%2$s %5$s title">%3$s</%1$s>', $title_tag, $title_size, $title_text, $title_id, $hide_title );
 	} else {
-		$title = sprintf( '<%1$s class="%2$s title">%3$s</%1$s>', $title_tag, $title_size, $title_text );
+		$title = sprintf( '<%1$s class="%2$s %4$s title">%3$s</%1$s>', $title_tag, $title_size, $title_text, $hide_title );
 	}
 
 	if ( $echo ) {

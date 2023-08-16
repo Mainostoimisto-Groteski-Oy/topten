@@ -8,7 +8,9 @@ footer {
 
 section.banner-block {
 	margin: 50px 0;
-	background-color: $green;
+	background-color: $grey;
+	border-top: 1px solid $black;
+	border-bottom: 1px solid $black;
 
 	.grid {
 		padding: 0 15px;
@@ -26,8 +28,8 @@ section.banner-block {
 
 			.text p {
 				font-size: 2.4rem;
-				font-weight: 400;
-				color: $white;
+				font-weight: 600;
+				color: $black;
 				text-align: center;
 				margin: 0;
 

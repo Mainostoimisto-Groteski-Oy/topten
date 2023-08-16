@@ -35,7 +35,16 @@ section.hero-block {
 				.text-block {
 					display: flex;
 					flex-direction: column;
-
+					padding: 30px 300px 30px 15px;
+					@media (width <= 1600px) {
+						padding: 30px 200px 30px 15px;
+					}
+					@media (max-width: $max-xl) {
+						padding: 30px 100px 30px 15px;
+					}
+					@media (max-width: $max-l) {
+						padding: 30px 15px;
+					}
 					@media (max-width: $max-m) {
 						padding: 0 15px;
 					}
@@ -46,11 +55,23 @@ section.hero-block {
 
 					.logo {
 						img {
-							max-width: 250px;
+							max-width: 500px;
+							@media (max-width: $max-l) {
+								max-width: 400px;
+							}
+							@media (max-width: $max-xs) {
+								max-width: 250px;
+							}
 						}
 					}
 
 					.ingress {
+						p {
+							font-size: 2.4rem;
+							font-weight: 600;
+						}
+					}
+					.text {
 						p {
 							font-size: 2.2rem;
 						}
