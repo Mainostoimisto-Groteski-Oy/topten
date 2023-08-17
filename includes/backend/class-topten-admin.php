@@ -47,7 +47,8 @@ class Topten_Admin {
 		add_filter( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
 
 		// Edit page class
-		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 9999 );
+		// Setting priority >= 99 breaks Gravity Forms
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 98, 1 ); 
 	}
 
 	/**
