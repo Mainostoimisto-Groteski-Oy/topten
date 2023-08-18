@@ -85,7 +85,8 @@
 				margin: 0;
 			}
 
-			&.status-past {
+			&.status-past,
+			&.status-future {
 				> section {
 					position: relative;
 					z-index: 999;
@@ -97,9 +98,6 @@
 					left: 10%;
 					height: 100%;
 					width: 80%;
-
-					@include background("#{$images}/expired.png");
-
 					background-repeat: repeat-y;
 					background-position: center;
 					background-size: contain;
@@ -108,7 +106,16 @@
 					z-index: 1;
 				}
 			}
-
+			&.status-past {
+				&::before {
+					@include background("#{$images}/expired.png");
+				}
+			}
+			&.status-future {
+				&::before {
+					@include background("#{$images}/draft.png");
+				}
+			}
 			.desc {
 				font-size: 1.4rem;
 				font-style: italic;

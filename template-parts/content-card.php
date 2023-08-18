@@ -29,6 +29,7 @@ if ( is_array( $status ) ) {
 		$target_url    = get_permalink( $target_url_id );
 		$target_title  = get_the_title( $target_url_id );
 	} elseif ( in_array( 'future', $status, true ) ) {
+		$status        = 'future';
 		$target_url_id = get_field( 'future_card_archive', 'options' );
 		$target_url    = get_permalink( $target_url_id );
 		$target_title  = get_the_title( $target_url_id );

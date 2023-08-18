@@ -234,7 +234,8 @@
             "return_format": "id",
             "multiple": 0,
             "allow_null": 0,
-            "ui": 1
+            "ui": 1,
+            "bidirectional_target": []
         },
         {
             "key": "field_646ef926f789f",
@@ -261,7 +262,8 @@
             "return_format": "id",
             "multiple": 0,
             "allow_null": 0,
-            "ui": 1
+            "ui": 1,
+            "bidirectional_target": []
         },
         {
             "key": "field_64785e39d10a4",
@@ -330,7 +332,8 @@
             "return_format": "id",
             "multiple": 0,
             "allow_null": 0,
-            "ui": 1
+            "ui": 1,
+            "bidirectional_target": []
         },
         {
             "key": "field_64785de9f043a",
@@ -958,7 +961,7 @@
         },
         {
             "key": "field_6479c520c0efb",
-            "label": "Näytä Twitter-jako?",
+            "label": "Näytä X-jako?",
             "name": "single_article_twitter",
             "aria-label": "",
             "type": "true_false",
@@ -1115,5 +1118,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1692165956
+    "modified": 1692363451
 }

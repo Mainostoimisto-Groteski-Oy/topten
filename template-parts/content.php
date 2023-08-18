@@ -129,10 +129,10 @@ if ( get_field( 'article_author' ) || get_field( 'single_article_social', 'optio
 					<?php if ( get_field( 'single_article_twitter', 'options' ) ) : ?>
 					<div class="social-sharing">
 						<a class="twitter-share-button"
-							href="https://twitter.com/intent/tweet?url=<?php echo esc_url( $url ); ?>"
+							href="https://x.com/intent/tweet?url=<?php echo esc_url( $url ); ?>"
 						data-size="large">
-						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/dist/images/somejakokuvat_twitter.png' ); ?>" />
-						<span class="screen-reader-text"><?php esc_html_e( 'Jaa Twitterissä', 'topten' ); ?></span>
+						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/dist/images/x_x.png' ); ?>" />
+						<span class="screen-reader-text"><?php esc_html_e( 'Jaa X:ssä', 'topten' ); ?></span>
 						</a>
 					</div>
 					<?php endif; ?>
