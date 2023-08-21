@@ -5,13 +5,13 @@ $description = get_field( 'description' );
 
 $required = get_field( 'required' );
 
-$direction = get_field( 'direction' ); 
+$direction = get_field( 'direction' );
 if ( ! $direction ) {
 	$direction = 'horizontal';
 }
 ?>
 
-<div class="input-wrapper radios-wrapper <?php echo esc_attr( $direction ); ?>" style="<?php topten_get_block_width(); ?>">
+<div class="column-item input-wrapper radios-wrapper <?php echo esc_attr( $direction ); ?>" style="<?php topten_get_block_width(); ?>">
 	<?php if ( $description ) : ?>
 		<p class="description">
 			<?php echo esc_html( $description ); ?>

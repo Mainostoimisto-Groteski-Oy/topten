@@ -489,5 +489,7 @@ function topten_get_block_width() {
 	$width = $width > 100 ? 100 : $width;
 	$width = $width < 0 ? 0 : $width;
 
-	echo 'width: calc(' . esc_attr( $width ) . '% - 10px);';
+	// echo 'width: calc(' . esc_attr( $width ) . '% - 10px);';
+
+	echo '--width: ' . esc_attr( $width ) . '%;';
 }

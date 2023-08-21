@@ -12,7 +12,14 @@ jQuery(document).ready(($) => {
 			},
 		};
 
-		if (tag === 'picture') {
+		if (tag === 'input') {
+			nodeData.tag = 'input';
+
+			nodeData.attributes = {
+				type: node.type,
+				value: node.value,
+			};
+		} else if (tag === 'picture') {
 			const image = node.querySelector('img');
 
 			nodeData.tag = 'img';
@@ -73,11 +80,13 @@ jQuery(document).ready(($) => {
 			};
 
 			$(row)
-				.find('.column')
+				.find('.column-item')
 				.each((columnIndex, column) => {
 					rowData.count += 1;
 
 					const width = getComputedStyle(column).getPropertyValue('--width');
+
+					console.log(width);
 
 					const columnData = {
 						data: [],

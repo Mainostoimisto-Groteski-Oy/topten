@@ -441,14 +441,12 @@ class Topten_PDF extends FPDFA {
 			$this->write_top_row( $row );
 		} else {
 			foreach ( $columns as $col_index => $column ) {
-				$width         = $column['attributes']['width'] ?? 100;
+				$width = $column['attributes']['width'] ?? 100;
+
 				$width_pct     = ( $width / 100 );
 				$content_width = $this->GetPageWidth() - $this->rMargin - $this->lMargin;
 
 				$column_start_y = $this->GetY();
-
-				if ( 0 === $col_index ) {
-				}
 
 				$this->column_width = $content_width * $width_pct;
 
@@ -473,58 +471,44 @@ class Topten_PDF extends FPDFA {
 
 				$end_page = $this->PageNo();
 
-				// error_log( 'Start page: ' . $start_page . ', end page: ' . $end_page );
+				// If column is split to multiple pages, we need to draw multiple lines
+				$pages = $end_page - $start_page;
 
-				if ( $start_page === $end_page ) {
-					$start_y = $column_start_y - $this->row_padding;
-					$end_y   = $column_start_y + $total_column_height;
+				for ( $i = 0; $i <= $pages; $i ++ ) {
+					$this->page = $start_page + $i;
 
-					$this->SetDrawColor( 0, 0, 255 );
-					$this->draw_lines( $start_y, $end_y );
-				} else {
-					// If column is split to multiple pages, we need to draw multiple lines
-					$pages = $end_page - $start_page;
+					// Top line
+					$this->Line(
+						$this->lMargin - $this->row_padding,
+						$this->tMargin - $this->row_padding,
+						$this->GetPageWidth() - $this->rMargin + $this->row_padding,
+						$this->tMargin - $this->row_padding
+					);
 
-					$distance_to_draw = $total_column_height;
+					// Bottom line
+					$this->Line(
+						$this->lMargin - $this->row_padding,
+						$this->GetPageHeight() - $this->row_padding,
+						$this->GetPageWidth() - $this->rMargin + $this->row_padding,
+						$this->GetPageHeight() - $this->row_padding
+					);
 
-					// error_log( 'Total distance to draw: ' . $distance_to_draw );
+					// Left line
+					$this->Line(
+						$this->tMargin - $this->row_padding,
+						$this->lMargin - $this->row_padding,
+						$this->tMargin - $this->row_padding,
+						$this->GetPageHeight() - $this->row_padding
+					);
 
-					for ( $i = 0; $i <= $pages; $i ++ ) {
-						$this->page = $start_page + $i;
-
-						if ( 0 === $i ) {
-							$start_y = $column_start_y - $this->row_padding;
-							$end_y   = $this->GetPageHeight() - $this->row_padding;
-
-							$distance_to_draw -= $end_y - $start_y;
-
-							// error_log( 'Distance left after drawing first page: ' . $distance_to_draw );
-
-							$this->SetDrawColor( 255, 0, 255 );
-							$this->draw_lines( $start_y, $end_y );
-						} elseif ( $pages === $i ) {
-							$start_y = $this->row_padding;
-							$end_y   = $start_y + $distance_to_draw;
-
-							// error_log( 'Drawing ' . $distance_to_draw );
-
-							// $distance_to_draw -= $end_y - $start_y;
-
-							$this->SetDrawColor( 255, 255, 0 );
-							$this->draw_lines( $start_y, $end_y );
-						} else {
-							$start_y = $this->row_padding;
-							$end_y   = $this->GetPageHeight() - $this->row_padding;
-
-							$distance_to_draw += $end_y - $start_y;
-
-							$this->draw_lines( $start_y, $end_y );
-						}
-					}
-					$this->page = $start_page;
+					// Right line
+					$this->Line(
+						$this->GetPageWidth() - $this->rMargin + $this->row_padding,
+						$this->lMargin - $this->row_padding,
+						$this->GetPageWidth() - $this->rMargin + $this->row_padding,
+						$this->GetPageHeight() - $this->row_padding
+					);
 				}
-
-				$this->SetDrawColor( 0, 0, 0 );
 
 				$this->page = $end_page;
 			}
@@ -542,6 +526,8 @@ class Topten_PDF extends FPDFA {
 		$columns = $row['columns'] ?? array();
 
 		$start_y = $this->GetY();
+
+		$top_row_height = $this->px_to_mm( 100 ) + ( $this->row_padding * 2 );
 
 		foreach ( $columns as $column_index => $column ) {
 			$children = $column['data'];
@@ -580,10 +566,24 @@ class Topten_PDF extends FPDFA {
 				$child_y_position = $this->GetY();
 
 				if ( 'img' === $tag ) {
-					$this->write_image( $child );
-
 					$img_width = $child['attributes']['width'] ?? 0;
 					$img_width = $this->px_to_mm( $img_width );
+
+					$img_height = $child['attributes']['height'] ?? 0;
+					$img_height = $this->px_to_mm( $img_height );
+
+					// Resize image if it is too big
+					if ( $img_height > 100 ) {
+						$img_height = $this->px_to_mm( 100 );
+						$img_width  = $img_height * ( $img_width / $img_height );
+					}
+
+					// Center image vertically
+					$img_y = $start_y - $this->row_padding + ( $top_row_height - $img_height ) / 2;
+
+					$this->SetXY( $this->GetX(), $img_y );
+
+					$this->write_image( $child );
 
 					$this->SetXY( $current_x + $img_width, $start_y );
 				} else {
@@ -626,7 +626,7 @@ class Topten_PDF extends FPDFA {
 			$margin,
 			$margin,
 			$margin,
-			$this->GetY() + $this->row_padding
+			$start_y + $top_row_height
 		);
 
 		// Left line
@@ -634,10 +634,10 @@ class Topten_PDF extends FPDFA {
 			$this->GetPageWidth() - $margin,
 			$margin,
 			$this->GetPageWidth() - $margin,
-			$this->GetY() + $this->row_padding
+			$start_y + $top_row_height
 		);
 
-		$this->SetY( $this->GetY() + $this->row_padding + $margin );
+		$this->SetY( $start_y + $top_row_height );
 	}
 
 	/**
@@ -832,6 +832,112 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
+	 * Write input data to PDF-file
+	 *
+	 * @param array $data Data
+	 *
+	 * @return void
+	 */
+	protected function write_input( array $data ): void {
+		$type = $data['attributes']['type'] ?? '';
+
+		if ( 'text' === $type || 'number' === $type ) {
+			$original_column_width   = $this->column_width;
+			$original_column_start_x = $this->column_start_x;
+			$original_column_end_x   = $this->column_end_x;
+			$original_column_start_y = $this->column_start_y;
+			$original_column_end_y   = $this->column_end_y;
+
+			$value = $data['attributes']['value'] ?? '';
+
+			// Line break so label and input are on different lines
+			$this->Ln();
+
+			// Get the start point for the rectangle (after line break)
+			$start_y = $this->GetY();
+
+			$input_padding = $this->px_to_mm( 10 );
+
+			$this->column_width = $this->column_width - $input_padding;
+
+			// Set start point to the start of the column
+			$this->SetX( $this->column_start_x + $input_padding );
+
+			$this->column_start_x = $original_column_start_x + $input_padding;
+
+			$this->SetXY( $this->GetX(), $start_y + $input_padding );
+
+			// Write value
+			$this->Write( $this->line_height_mm, $value );
+
+			// Calculate how many lines the value takes
+			$string_width = $this->GetStringWidth( $value );
+			$lines        = ceil( $string_width / $this->column_width );
+
+			$rect_endpoint = $this->line_height_mm * $lines + $input_padding * 2;
+
+			// Draw rectangle around value
+			$this->Rect(
+				$original_column_start_x + 1.25,
+				$start_y,
+				$this->column_width - $this->row_padding,
+				$rect_endpoint,
+				'D'
+			);
+
+			$this->SetY( $rect_endpoint + $start_y );
+
+			$this->column_width   = $original_column_width;
+			$this->column_start_x = $original_column_start_x;
+			$this->column_end_x   = $original_column_end_x;
+			$this->column_start_y = $original_column_start_y;
+			$this->column_end_y   = $original_column_end_y;
+		} elseif ( 'checkbox' === $type ) {
+			error_log( 'type is checkbox' );
+			json_log( $data );
+
+			$this->Rect(
+				$this->GetX(),
+				$this->GetY(),
+				$this->line_height_mm,
+				$this->line_height_mm,
+				'D'
+			);
+		}
+	}
+
+	/**
+	 * Write label to PDF-file
+	 *
+	 * @param array $data Data
+	 *
+	 * @return void
+	 */
+	protected function write_label( array $data ): void {
+		if ( ! isset( $data['children'] ) ) {
+			return;
+		}
+
+		foreach ( $data['children'] as $child ) {
+			$tag = $child['tag'];
+
+			if ( 'input' === $tag ) {
+				$this->write_input( $child );
+			} elseif ( 'div' === $tag ) {
+				foreach ( $child['children'] as $grandchild ) {
+					$grandchild_tag = $grandchild['tag'];
+
+					if ( 'input' === $grandchild_tag ) {
+						$this->write_input( $grandchild );
+					}
+				}
+			} elseif ( 'span' === $tag ) {
+				$this->write_text( $child );
+			}
+		}
+	}
+
+	/**
 	 * Handle output
 	 *
 	 * @param array $data Data
@@ -931,6 +1037,8 @@ class Topten_PDF extends FPDFA {
 				$this->write_list( $data );
 			} elseif ( 'img' === $tag ) {
 				$this->write_image( $data );
+			} elseif ( 'label' === $tag ) {
+				$this->write_label( $data );
 			} else {
 				$this->write_text( $data );
 			}

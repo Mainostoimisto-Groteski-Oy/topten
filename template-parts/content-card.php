@@ -130,7 +130,7 @@ if ( 'tulkintakortti' === $type ) {
 			<section class="row-block top">
 				<div class="grid">
 					<?php if ( get_field( 'rty_logo_cards', 'options' ) || get_field( 'topten_logo_cards', 'options' ) ) : ?>
-						<div class="logos column">
+						<div class="logos column column-item">
 							<?php
 							if ( get_field( 'rty_logo', 'options' ) && get_field( 'rty_logo_cards', 'options' ) ) :
 								$image     = get_field( 'rty_logo', 'options' );
@@ -151,18 +151,18 @@ if ( 'tulkintakortti' === $type ) {
 						</div>
 					<?php endif; ?>
 
-					<div class="content column">
+					<div class="content column column-item">
 						<div class="date">
 							<p class="small-title date-title">
-								<?php 
-								if ( 'valid' === $status ) : 
+								<?php
+								if ( 'valid' === $status ) :
 									?>
 									<?php esc_html_e( 'Vahvistuspvm', 'topten' ); ?>
 										<strong class="smaller">
 											<?php echo esc_html( $post_date ); ?>
 										</strong>
-									<?php 
-								elseif ( 'past' === $status ) : 
+									<?php
+								elseif ( 'past' === $status ) :
 									?>
 									<?php if ( get_field( 'card_valid_start', $id ) && get_field( 'card_valid_end', $id ) ) : ?>
 
@@ -177,14 +177,10 @@ if ( 'tulkintakortti' === $type ) {
 										<strong class="smaller">
 											<?php the_field( 'card_valid_end', $id ); ?>
 										</strong>
-
 									<?php endif; ?>
-
 								<?php else : ?>
-
 									<?php esc_html_e( 'Rakennuslaki 2025', 'topten' ); ?>
 								<?php endif; ?>
-									
 							</p>
 						</div>
 
