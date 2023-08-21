@@ -8,3 +8,5 @@ vendor
 *.rar
 *.tar
 *.zip
+
+*/dist
