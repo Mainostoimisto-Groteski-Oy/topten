@@ -57,13 +57,15 @@ html {
 
 main {
 	margin-top: 104px;
+
 	@media (max-width: $max-m) {
 		margin-top: 80px;
 	}
 }
+
 body.admin-bar {
 	main {
-		@media (max-width: 782px) {
+		@media (width <= 782px) {
 			margin-top: 67px;
 		}
 	}

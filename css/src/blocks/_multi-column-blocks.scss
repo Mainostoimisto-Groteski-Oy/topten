@@ -29,9 +29,11 @@ section.three-column-block {
 			@media (max-width: $max-l) {
 				padding: 30px 60px 30px 15px;
 			}
+
 			@media (max-width: $max-m) {
 				padding: 30px 15px;
 			}
+
 			.buttons {
 				margin-top: 50px;
 			}
@@ -67,6 +69,7 @@ section.three-column-block {
 		background-color: $white;
 		color: $black;
 		position: relative;
+
 		div.icon {
 			position: absolute;
 			right: 50px;
@@ -78,23 +81,27 @@ section.three-column-block {
 			justify-content: center;
 			align-items: center;
 			content: "";
+
 			.icon-placeholder {
 				display: flex;
 				flex-direction: column;
 				color: $white;
 				gap: 5px;
 				margin-top: 20px;
+
 				span {
 					display: block;
 					width: 8px;
 					height: 8px;
 					border-radius: 8px;
 					background-color: $white;
+
 					@media (max-width: $max-xl) {
 						width: 7px;
 						height: 7px;
 						border-radius: 7px;
 					}
+
 					@media (max-width: $max-l) {
 						width: 5px;
 						height: 5px;
@@ -102,68 +109,83 @@ section.three-column-block {
 					}
 				}
 			}
+
 			.icon-wrapper {
 				img {
 					height: 25px;
 					width: auto;
 					object-fit: contain;
 					margin-top: 25px;
+
 					@media (max-width: $max-xl) {
 						height: 20px;
 					}
+
 					@media (max-width: $max-l) {
 						height: 15px;
 					}
 				}
+
 				&.exclamation {
 					img {
 						height: 30px;
 						width: auto;
+
 						@media (max-width: $max-xl) {
 							height: 25px;
 						}
+
 						@media (max-width: $max-l) {
 							height: 20px;
 						}
 					}
 				}
+
 				&.line {
 					img {
 						height: auto;
 						width: 25px;
+
 						@media (max-width: $max-xl) {
 							width: 20px;
 						}
+
 						@media (max-width: $max-l) {
 							width: 15px;
 						}
 					}
 				}
 			}
+
 			@media (max-width: $max-xxl) {
 				right: 30px;
 				width: 40px;
 				height: 80px;
 			}
+
 			@media (max-width: $max-l) {
 				right: 15px;
 				width: 30px;
 				height: 60px;
 			}
+
 			@media (max-width: $max-m) {
 				display: none;
 			}
 		}
+
 		&.green {
 			div.icon {
 				background-color: $green-lighter;
 			}
 		}
+
 		&.grey {
 			div.icon {
 				background-color: $dim;
 			}
 		}
+
 		.block-title {
 			margin-top: 0;
 			color: $green;
@@ -182,11 +204,14 @@ section.three-column-block {
 
 			li {
 				width: 100%;
+
 				a.link {
 					width: 100%;
+
 					&::before {
 						width: calc(100% + 25px);
 					}
+
 					span {
 						width: calc(100% - 25px);
 					}

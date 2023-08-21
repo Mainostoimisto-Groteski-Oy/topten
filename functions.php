@@ -1114,31 +1114,30 @@ function topten_card_search() {
 
 	}
 
-	/*
+	/**
 	 * Municipality (multiple values)
 	 * Not in use due to customer request
-	**/
-	/*
-	if ( isset( $_POST['cardmunicipalities'] ) ) {
-		if ( ! empty( $_POST['cardmunicipalities'] ) ) {
-			// sanitize array values
-			$municipality = array_map( 'intval', $_POST['cardmunicipalities'] );
-		}
-		if ( ! $municipality ) {
-			$municipality = '';
-		}
-	}
+	 */
+	// if ( isset( $_POST['cardmunicipalities'] ) ) {
+	// if ( ! empty( $_POST['cardmunicipalities'] ) ) {
+	// sanitize array values
+	// $municipality = array_map( 'intval', $_POST['cardmunicipalities'] );
+	// }
+	// if ( ! $municipality ) {
+	// $municipality = '';
+	// }
+	// }
 
-	if ( $municipality ) {
+	// if ( $municipality ) {
 
-		$args['tax_query'][] =
-			array(
-				'taxonomy' => 'kunta',
-				'field'    => 'term_id',
-				'terms'    => $municipality,
-			);
-	}
-	*/
+	// $args['tax_query'][] =
+	// array(
+	// 'taxonomy' => 'kunta',
+	// 'field'    => 'term_id',
+	// 'terms'    => $municipality,
+	// );
+	// }
+
 
 	// Law article (single value)
 	$law = '';
@@ -1233,7 +1232,7 @@ function topten_card_search() {
 	$filterOrder = isset( $_POST['filterOrder'] ) ? sanitize_text_field( $_POST['filterOrder'] ) : '';
 
 	if ( $filterOrder ) {
-		
+
 		if ( $filterOrder === 'publishDate' ) {
 			$args['orderby'] = 'date';
 			$args['order']   = 'DESC';
@@ -1242,9 +1241,9 @@ function topten_card_search() {
 			$args['orderby'] = 'title';
 			$args['order']   = 'ASC';
 		}
-		// with card identifier (note: not wordpress ID) we do custom array sorting, since meta_query with relevassi takes longer than the heat death of the universe
+		// with card identifier (note: not WordPress ID) we do custom array sorting, since meta_query with relevassi takes longer than the heat death of the universe
 	}
-	
+
 
 	$the_query = new WP_Query();
 
@@ -1287,7 +1286,7 @@ function topten_card_search() {
 			}
 		}
 	}
-	
+
 	// If nothing is found, return notice to user
 	if ( empty( $tulkinta_array ) && empty( $ohje_array ) && empty( $lomake_array ) ) {
 		$results  = '<div class="no-results">';
@@ -1304,19 +1303,19 @@ function topten_card_search() {
 			$tulkinta_array,
 			function( $a, $b ) {
 				return $a['identifier'] <=> $b['identifier'];
-			} 
+			}
 		);
 		usort(
 			$ohje_array,
 			function( $a, $b ) {
 				return $a['identifier'] <=> $b['identifier'];
-			} 
+			}
 		);
 		usort(
 			$lomake_array,
 			function( $a, $b ) {
 				return $a['identifier'] <=> $b['identifier'];
-			} 
+			}
 		);
 		// remove identifiers from arrays and leave only IDs
 		$tulkinta_array = array_column( $tulkinta_array, 'ID' );

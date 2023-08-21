@@ -106,16 +106,19 @@
 					z-index: 1;
 				}
 			}
+
 			&.status-past {
 				&::before {
 					@include background("#{$images}/expired.png");
 				}
 			}
+
 			&.status-future {
 				&::before {
 					@include background("#{$images}/draft.png");
 				}
 			}
+
 			.desc {
 				font-size: 1.4rem;
 				font-style: italic;
@@ -212,10 +215,12 @@
 				a {
 					color: $green;
 					font-weight: 600;
+
 					&[target="_blank"] {
 						display: inline-block;
 						position: relative;
 						padding-right: 20px;
+
 						// material icons new tab in after element
 						&::after {
 							content: "\e89e";
@@ -229,6 +234,7 @@
 						}
 					}
 				}
+
 				&.law,
 				&.info,
 				&.person,
@@ -241,8 +247,10 @@
 
 				&.bg-blue {
 					background-color: $tulkinta-blue-transparent;
+
 					a {
 						color: $tulkinta-blue;
+
 						&::after {
 							color: $tulkinta-blue;
 						}
@@ -251,8 +259,10 @@
 
 				&.bg-green {
 					background-color: $tulkinta-green-transparent;
+
 					a {
 						color: $tulkinta-green;
+
 						&::after {
 							color: $tulkinta-green;
 						}
@@ -261,8 +271,10 @@
 
 				&.bg-red {
 					background-color: $tulkinta-red-transparent;
+
 					a {
 						color: $tulkinta-red;
+
 						&::after {
 							color: $tulkinta-red;
 						}
@@ -271,21 +283,26 @@
 
 				&.bg-lightblue {
 					background-color: $tulkinta-lightblue-transparent;
+
 					a {
 						color: $tulkinta-lightblue;
+
 						&::after {
 							color: $tulkinta-lightblue;
 						}
 					}
 				}
 			}
+
 			.attachments {
 				a {
 					color: $green;
+
 					&[target="_blank"] {
 						display: inline-block;
 						position: relative;
 						padding-right: 20px;
+
 						// material icons new tab in after element
 						&::after {
 							content: "\e89e";
@@ -300,18 +317,22 @@
 					}
 				}
 			}
+
 			ol,
 			ul {
-				margin: 15px 0px;
+				margin: 15px 0;
+
 				li {
-					margin: 15px 0px;
+					margin: 15px 0;
 				}
+
 				ol,
 				ul {
-					margin: 15px 0px;
+					margin: 15px 0;
+
 					ol,
 					ul {
-						margin: 15px 0px;
+						margin: 15px 0;
 					}
 				}
 			}
@@ -547,6 +568,7 @@
 			&.hidden {
 				display: none;
 			}
+
 			padding-left: 15px;
 			list-style-type: none;
 			margin: 0;

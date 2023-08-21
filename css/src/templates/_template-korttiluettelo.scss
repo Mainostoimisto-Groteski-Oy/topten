@@ -54,6 +54,7 @@ body.page-template-template-korttiluettelo {
 						grid-column: 1 / -1;
 						position: relative;
 						border-bottom: 1px solid $black;
+
 						@media (max-width: $max-xxs) {
 							padding: 0 15px;
 						}
@@ -790,6 +791,7 @@ body.page-template-template-korttiluettelo {
 										margin: 0;
 										padding: 15px 30px;
 										font-size: 2.4rem;
+
 										@media (min-width: $min-xxl) {
 											font-size: 2.8rem;
 										}
@@ -811,6 +813,7 @@ body.page-template-template-korttiluettelo {
 												padding: 15px 30px;
 												font-weight: 600;
 												font-size: 2rem;
+
 												@media (min-width: $min-xxl) {
 													font-size: 2.4rem;
 												}
@@ -864,6 +867,7 @@ body.page-template-template-korttiluettelo {
 										padding: 15px 30px;
 										font-weight: 600;
 										font-size: 2.4rem;
+
 										@media (min-width: $min-xxl) {
 											font-size: 2.8rem;
 										}

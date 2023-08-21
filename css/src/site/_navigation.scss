@@ -32,6 +32,7 @@
 				align-items: center;
 				flex-direction: column;
 				margin-left: 30px;
+
 				> span {
 					font-size: 4.2rem;
 				}
@@ -42,15 +43,18 @@
 
 				img {
 					max-width: 125px;
+
 					@media (max-width: $max-m) {
 						max-width: 100px;
 					}
 				}
 			}
+
 			.topten-branding {
 				img {
 					width: 72px;
 					height: auto;
+
 					@media (max-width: $max-m) {
 						width: 50px;
 					}
@@ -70,12 +74,15 @@
 	z-index: 99999;
 	height: 100vh;
 	width: 100%;
+
 	@media (max-width: $max-m) {
 		top: 72px;
 	}
+
 	@media (max-width: $max-s) {
 		background-color: $white;
 	}
+
 	.menu-container {
 		padding: 0;
 		position: relative;
@@ -185,6 +192,7 @@
 	.admin-bar & {
 		top: 106px;
 		height: calc(100vh - 106px);
+
 		@media (max-width: $max-m) {
 			top: 104px;
 			height: calc(100vh - 104px);
