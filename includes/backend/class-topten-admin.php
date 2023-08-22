@@ -47,8 +47,7 @@ class Topten_Admin {
 		add_filter( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
 
 		// Edit page class
-		// Setting priority >= 99 breaks Gravity Forms
-		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 98, 1 ); 
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 9999, 1 ); 
 	}
 
 	/**
@@ -266,9 +265,8 @@ class Topten_Admin {
 				if ( $this->cards->is_pending_approval( get_the_ID() ) ) {
 					$classes .= ' tt-editor-disabled';
 				}
-			}
-
-			return $classes;
+			}       
 		}
+		return $classes;
 	}
 }
