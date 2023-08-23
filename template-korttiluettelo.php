@@ -52,6 +52,7 @@ $cardClasses = get_terms(
 			<div class="content-area" id="searchAndFilters">
 				<div class="search" id="searchCards" role="search">
 					<div class="search-wrapper">
+						<p id="error-message"></p>
 						<div class="full">
 							<div class="input-wrapper freeText">
 								<label for="freeText">

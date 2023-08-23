@@ -2,12 +2,28 @@
 /* eslint-disable no-underscore-dangle */
 /* global Ajax */
 jQuery(document).ready(($) => {
+	// ACF Field that tells code what kind of cards we want to search for
+	if ($('#primary').attr('data-template')) {
+		const cardStatusType = $('#primary').attr('data-template');
+		if (cardStatusType !== localStorage.getItem('lastTemplateUsed')) {
+			localStorage.clear();
+		}
+		localStorage.setItem('lastTemplateUsed', cardStatusType);
+	}
+
 	// Fetch cards from database via query
 	// cardStatusType is an acf field set in korttiluettelo template that determines which cards are shown (valid, expired or 2025 law)
-	function cardSearch(cardStatusType = 'valid') {
+	function cardSearch() {
 		// if value is in localstorage, use it instead of form value
-		let freeText = '';
 
+		let cardStatusType = '';
+		if (localStorage.getItem('lastTemplateUsed')) {
+			cardStatusType = localStorage.getItem('lastTemplateUsed');
+		} else {
+			cardStatusType = $('#primary').attr('data-template');
+		}
+
+		let freeText = '';
 		if (localStorage.getItem('freeText')) {
 			freeText = localStorage.getItem('freeText');
 		} else {
@@ -132,6 +148,7 @@ jQuery(document).ready(($) => {
 				console.log(errorThrown);
 			},
 		});
+		clearErrors();
 	}
 
 	function updateFilters(type) {
@@ -389,7 +406,6 @@ jQuery(document).ready(($) => {
 			const storage = JSON.parse(localStorage.getItem(type));
 			// We want at least one to be selected and shown at all times
 			if (storage.length > 1) {
-				console.log(storage.length);
 				$(`ul#selectedCardClasses li.keyword`).removeClass('disabled');
 				$(storage).each(function () {
 					const storedItem = this.toString().split('|')[0];
@@ -516,18 +532,28 @@ jQuery(document).ready(($) => {
 		cardSearch();
 	}
 
+	function doError(id, errorMessage) {
+		$(id).addClass('error');
+		$('#error-message').show();
+		$('#error-message').text(errorMessage);
+	}
+	function clearErrors() {
+		$('#searchCards input').removeClass('error');
+		$('#searchCards #error-message').hide();
+	}
+
 	// Applies ajax overlay when ajax is running
 	const ajaxOverlay = $('#ajaxOverlay');
 	$(document)
 		.ajaxStart(() => {
 			$(ajaxOverlay).fadeIn(200);
+			$('#textSearch').addClass('disabled');
 		})
 		.ajaxStop(() => {
 			$(ajaxOverlay).fadeOut(200);
+			$('#textSearch').removeClass('disabled');
 		});
 
-	// ACF Field that tells code what kind of cards we want to search for
-	const cardStatusType = $('#primary').attr('data-template');
 	// Get the cards
 	// if we have keyword as query string via urlsearchparams
 	const urlParams = new URLSearchParams(window.location.search);
@@ -546,7 +572,7 @@ jQuery(document).ready(($) => {
 		applyFilters('keywords');
 	}
 
-	cardSearch(cardStatusType);
+	cardSearch();
 
 	// Opens and closes the filters
 	$('#toggleFilters').on('click', function () {
@@ -660,7 +686,12 @@ jQuery(document).ready(($) => {
 		}
 		// Applies keyword filters to sidebar
 		$('#keywordssearch').on('click', () => {
-			applyFilters('keywords');
+			// if this length 3 or over
+			if ($('#cardkeywords').val().length >= 3) {
+				applyFilters('keywords');
+			} else {
+				doError('#cardkeywords', 'Syötä vähintään kolme merkkiä.');
+			}
 		});
 
 		// Do the same thing on enter press

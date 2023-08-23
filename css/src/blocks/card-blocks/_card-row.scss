@@ -91,6 +91,14 @@
 
 				img {
 					max-width: 125px;
+					&.topten {
+						max-width: 55px;
+					}
+				}
+				picture.topten {
+					img {
+						max-width: 55px;
+					}
 				}
 			}
 

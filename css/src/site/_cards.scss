@@ -7,6 +7,12 @@
 @use "mixins/all" as *;
 
 section.cards-notification {
+	&.scrolled {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		z-index: 999999;
+	}
 	&.expired {
 		background-color: $archive-red;
 	}
@@ -24,26 +30,34 @@ section.cards-notification {
 			p {
 				display: inline-block;
 				position: relative;
-
-				// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
-				&::after {
-					font-family: $font-icons;
-					content: "\eac9";
+				font-size: 2rem;
+				@media (max-width: $max-s) {
+					font-size: 1.8rem;
+				}
+				span.material-symbols {
+					vertical-align: middle;
 					transition: all 0.15s;
-					position: absolute;
-					right: 0;
-					top: calc(50% + 1px);
-					transform: translate(25px, -50%);
-					font-size: 2rem;
+					font-size: 1.8rem;
+					@media (max-width: $max-s) {
+						font-size: 1.6rem;
+					}
 				}
 			}
 
 			&:hover {
 				p {
-					&::after {
-						transform: translate(30px, -50%);
+					span.material-symbols {
+						transform: translateX(10px);
 					}
 				}
+			}
+		}
+		p {
+			display: inline-block;
+			position: relative;
+			font-size: 2rem;
+			@media (max-width: $max-s) {
+				font-size: 1.8rem;
 			}
 		}
 	}

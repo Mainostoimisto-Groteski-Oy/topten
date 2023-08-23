@@ -330,7 +330,7 @@ function topten_card_notification( $type = '' ) {
 				<div class="grid">
 						<?php if ( ! empty( $link ) ) : ?>
 						<a href="<?php echo esc_url( $link ); ?>">
-							<p><?php echo esc_html( $message ); ?></p>
+							<p><?php echo esc_html( $message ); ?><span class="material-symbols">double_arrow</span></p>
 						</a>
 					<?php else : ?>
 						<p><?php echo esc_html( $message ); ?></p>

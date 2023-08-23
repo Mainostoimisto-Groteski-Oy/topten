@@ -1,7 +1,7 @@
 @use "mixins/all" as *;
 
 ul.ui-autocomplete {
-	z-index: 999;
+	z-index: 999999;
 	background-color: $white;
 	display: block;
 	border-bottom: 1px solid $black;
