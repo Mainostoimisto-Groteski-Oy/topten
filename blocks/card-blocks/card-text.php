@@ -47,7 +47,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 		<?php endif; ?>
 
 		<?php
-		echo wp_kses(
+		$output = wp_kses(
 			$text,
 			array(
 				'a'      => array(
@@ -135,5 +135,11 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 			)
 		);
 		?>
+
+		<?php if ( $output ) : ?>
+			<?php echo $output; // phpcs:ignore ?>
+		<?php else : ?>
+			<p class="hidden empty-text">&nbsp;</p>
+		<?php endif; ?>
 	</div>
 </div>

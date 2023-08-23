@@ -7,7 +7,7 @@
 	"scripts": {
 		"jslint": "eslint ./js/src/**/*.js --fix",
 		"csslint": "stylelint ./css/src/**/*.scss --fix",
-		"phplint": "./vendor/bin/phpcbf --ignore=vendor .",
+		"phplint": "./vendor/bin/phpcs --ignore=vendor .",
 		"autofix": "npm run jslint && npm run csslint && npm run phplint"
 	},
 	"devDependencies": {

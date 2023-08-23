@@ -12,12 +12,18 @@ jQuery(document).ready(($) => {
 			},
 		};
 
-		if (tag === 'input') {
+		if (tag === 'input' || tag === 'textarea') {
 			nodeData.tag = 'input';
+
+			const id = node.id;
+			const labelText = $(`label[for="${id}"] .label-text`).text();
 
 			nodeData.attributes = {
 				type: node.type,
 				value: node.value,
+				checked: node.checked,
+				label: labelText,
+				rows: node.rows,
 			};
 		} else if (tag === 'picture') {
 			const image = node.querySelector('img');
@@ -85,8 +91,6 @@ jQuery(document).ready(($) => {
 					rowData.count += 1;
 
 					const width = getComputedStyle(column).getPropertyValue('--width');
-
-					console.log(width);
 
 					const columnData = {
 						data: [],
@@ -164,7 +168,8 @@ jQuery(document).ready(($) => {
 				window.open(url, '_blank');
 			})
 			.fail((jqXHR, textStatus, errorThrown) => {
-				console.log(textStatus, errorThrown);
+				// eslint-disable-next-line no-console
+				console.error(textStatus, errorThrown);
 			});
 	});
 });

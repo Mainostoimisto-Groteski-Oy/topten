@@ -129,6 +129,7 @@ jQuery(document).ready(($) => {
 				});
 			},
 			error(errorThrown) {
+				// eslint-disable-next-line no-console
 				console.log(errorThrown);
 			},
 		});
@@ -169,6 +170,7 @@ jQuery(document).ready(($) => {
 					}
 				},
 				error(errorThrown) {
+					// eslint-disable-next-line no-console
 					console.log(errorThrown);
 				},
 			});
@@ -389,7 +391,6 @@ jQuery(document).ready(($) => {
 			const storage = JSON.parse(localStorage.getItem(type));
 			// We want at least one to be selected and shown at all times
 			if (storage.length > 1) {
-				console.log(storage.length);
 				$(`ul#selectedCardClasses li.keyword`).removeClass('disabled');
 				$(storage).each(function () {
 					const storedItem = this.toString().split('|')[0];
@@ -450,6 +451,7 @@ jQuery(document).ready(($) => {
 						);
 					},
 					error(errorThrown) {
+						// eslint-disable-next-line no-console
 						console.log(errorThrown);
 					},
 				});
