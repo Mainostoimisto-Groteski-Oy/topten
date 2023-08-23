@@ -4,22 +4,7 @@
 section.four-column-block {
 	padding-bottom: 25px;
 	border: 1px solid $black;
-
-	&.bg-cream {
-		background-color: $cream-transparent;
-	}
-
-	&.bg-grey {
-		background-color: $grey;
-	}
-
-	&.bg-white {
-		background-color: $white;
-	}
-
-	&.bg-greenish {
-		background-color: $green-lightest;
-	}
+	background-color: $white;
 
 	.grid,
 	.grid-full {
@@ -39,19 +24,35 @@ section.four-column-block {
 
 		.column {
 			border: 1px solid $black;
-			padding: 15px;
-
-			&.bg-white {
-				background-color: $white;
-			}
-
-			&.bg-cream {
-				background-color: $cream-transparent;
-			}
-
-			&.bg-green {
-				background-color: $green;
-				color: $white;
+			padding: 15px 30px;
+			background-color: $white;
+		}
+	}
+	&.decorate {
+		.grid,
+		.grid-full {
+			.column {
+				.wrapper {
+					.title-wrapper {
+						width: 50px;
+						height: 75px;
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-end;
+						align-items: center;
+						background-color: $green-lighter;
+						margin-top: -15px;
+						.block-title {
+							margin: 0 0 15px 0;
+						}
+					}
+					p,
+					a,
+					span,
+					li {
+						font-size: 1.8rem;
+					}
+				}
 			}
 		}
 	}

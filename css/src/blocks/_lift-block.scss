@@ -1,45 +1,52 @@
 @use "mixins/all" as *;
 
-section.lift-block {
-	@include buttons;
-
+section.list-block {
 	.grid {
-		grid-template-columns: 150px repeat(2, minmax(0, 1fr)) 150px;
-		background-size: cover;
-		background-repeat: no-repeat;
+		grid-template-columns: 4fr 8fr;
+		gap: 30px;
 
-		.content {
-			position: relative;
+		@media (max-width: $max-xs) {
+			gap: 15px;
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.text {
+			grid-column: 1;
+
+			@media (max-width: $max-xs) {
+				grid-column: auto;
+			}
+		}
+
+		ul.list {
 			grid-column: 2;
-			padding: 0 25px 25px;
+			list-style: none;
+			margin: 15px 0 0;
+			padding: 0;
 
-			&::before {
-				content: "";
-				position: absolute;
-				top: -30px;
-				left: 0;
-				height: calc(100% + 60px);
-				width: 100%;
-				background-color: $grey;
-				display: block;
-				z-index: 1;
+			@media (max-width: $max-xs) {
+				grid-column: auto;
+				margin: 0;
 			}
 
-			.text {
-				padding-bottom: 25px;
-				position: relative;
-				z-index: 999;
-			}
+			li {
+				border-left: 2px solid $green;
+				list-style-type: none;
+				margin-bottom: 25px;
+				padding: 0 10px;
 
-			.title {
-				color: $black;
-				position: relative;
-				z-index: 999;
-			}
+				@include arrowlink($black, 600);
 
-			.buttons {
-				position: relative;
-				z-index: 999;
+				@media (max-width: $max-xs) {
+					.title {
+						margin: 5px 0;
+					}
+				}
+				&:first-child {
+					h3 {
+						margin-top: 0;
+					}
+				}
 			}
 		}
 	}

@@ -1,23 +1,30 @@
 <?php
-$first_block      = get_field( 'first_block' );
-$second_block     = get_field( 'second_block' );
-$third_block      = get_field( 'third_block' );
-$fourth_block     = get_field( 'fourth_block' );
-$background_color = get_field( 'background_color' );
+$first_block  = get_field( 'first_block' );
+$second_block = get_field( 'second_block' );
+$third_block  = get_field( 'third_block' );
+$fourth_block = get_field( 'fourth_block' );
+
 ?>
 
-<section <?php topten_block_id(); ?> class="four-column-block bg-<?php echo esc_html( $background_color ); ?>">
+<section <?php topten_block_id(); ?> class="four-column-block 
+								  <?php 
+									if ( get_field( 'decorate_titles' ) ) {
+										echo 'decorate'; } 
+									?>
+">
 	<div class="grid">
 		<div class="block-title">
 			<?php topten_block_title(); ?>
 		</div>
 
-		<div class="first-block column bg-<?php echo esc_attr( $first_block['generated_background_color'] ); ?> ">
+		<div class="first-block column">
 			<div class="wrapper">
 				<?php if ( ! empty( $first_block['title'] ) ) : ?>
-					<h3 class="block-title h3">
-						<?php echo wp_kses_post( $first_block['title'] ); ?>
-					</h3>
+					<div class="title-wrapper">
+						<h3 class="block-title h4">
+							<?php echo wp_kses_post( $first_block['title'] ); ?>
+						</h3>
+					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $first_block['text'] ) ) : ?>
@@ -42,16 +49,18 @@ $background_color = get_field( 'background_color' );
 				}
 				?>
 
-				<?php topten_buttons( $first_block, esc_attr( $first_block['generated_background_color'] ) ); ?>
+				<?php topten_buttons( $first_block ); ?>
 			</div>
 		</div>
 
-		<div class="second-block column bg-<?php echo esc_attr( $second_block['generated_background_color'] ); ?> ">
+		<div class="second-block column">
 			<div class="wrapper">
 				<?php if ( ! empty( $second_block['title'] ) ) : ?>
-					<h3 class="block-title h3">
-						<?php echo wp_kses_post( $second_block['title'] ); ?>
-					</h3>
+					<div class="title-wrapper">
+						<h3 class="block-title h4">
+							<?php echo wp_kses_post( $second_block['title'] ); ?>
+						</h3>
+					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $second_block['text'] ) ) : ?>
@@ -75,16 +84,18 @@ $background_color = get_field( 'background_color' );
 					echo '</ul>';
 				}
 				?>
-				<?php topten_buttons( $second_block, esc_attr( $second_block['generated_background_color'] ) ); ?>
+				<?php topten_buttons( $second_block ); ?>
 			</div>
 		</div>
 
-		<div class="third-block column bg-<?php echo esc_attr( $third_block['generated_background_color'] ); ?> ">
+		<div class="third-block column">
 			<div class="wrapper">
 				<?php if ( ! empty( $third_block['title'] ) ) : ?>
-					<h3 class="block-title h3">
-						<?php echo wp_kses_post( $third_block['title'] ); ?>
-					</h3>
+					<div class="title-wrapper">
+						<h3 class="block-title h4">
+							<?php echo wp_kses_post( $third_block['title'] ); ?>
+						</h3>
+					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $third_block['text'] ) ) : ?>
@@ -108,16 +119,18 @@ $background_color = get_field( 'background_color' );
 					echo '</ul>';
 				}
 				?>
-				<?php topten_buttons( $third_block, esc_attr( $third_block['generated_background_color'] ) ); ?>
+				<?php topten_buttons( $third_block ); ?>
 			</div>
 		</div>
 
-		<div class="fourth-block column bg-<?php echo esc_attr( $fourth_block['generated_background_color'] ); ?> ">
+		<div class="fourth-block column">
 			<div class="wrapper">
 				<?php if ( ! empty( $fourth_block['title'] ) ) : ?>
-					<h3 class="block-title h3">
-						<?php echo wp_kses_post( $fourth_block['title'] ); ?>
-					</h3>
+					<div class="title-wrapper">
+						<h3 class="block-title h4">
+							<?php echo wp_kses_post( $fourth_block['title'] ); ?>
+						</h3>
+					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $fourth_block['text'] ) ) : ?>
@@ -141,7 +154,7 @@ $background_color = get_field( 'background_color' );
 					echo '</ul>';
 				}
 				?>
-				<?php topten_buttons( $fourth_block, esc_attr( $fourth_block['generated_background_color'] ) ); ?>
+				<?php topten_buttons( $fourth_block ); ?>
 			</div>
 		</div>
 
