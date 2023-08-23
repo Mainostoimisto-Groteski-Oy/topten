@@ -225,6 +225,23 @@ if ( 'tulkintakortti' === $type ) {
 		<button type="button" class="button inverted save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
 			<?php esc_html_e( 'Tulosta kortti', 'topten' ); ?>
 		</button>
+
+		<!-- TODO: Move this to correct place -->
+		<div class="card-actions">
+			<button type="button" class="button inverted save-card">
+				<?php esc_html_e( 'Tallenna kortti', 'topten' ); ?>
+			</button>
+
+			<label for="card-code">
+				Syötä kortin koodi
+
+				<input id="card-code" type="text" />
+			</label>
+
+			<button type="button" class="button inverted load-card">
+				<?php esc_html_e( 'Lataa kortti', 'topten' ); ?>
+			</button>
+		</div>
 	</article>
 
 	<aside class="sidebar" id="sidebar-menu">
@@ -352,7 +369,9 @@ if ( 'tulkintakortti' === $type ) {
 
 		<div class="box return">
 			<a href="<?php echo esc_url( $target_url ); ?>">
-				<span class="h3"><?php esc_html_e( 'Siirry korttilistaukseen', 'topten' ); ?></span>
+				<span class="h3">
+					<?php esc_html_e( 'Siirry korttilistaukseen', 'topten' ); ?>
+				</span>
 			</a>
 		</div>
 	</aside>

@@ -172,4 +172,83 @@ jQuery(document).ready(($) => {
 				console.error(textStatus, errorThrown);
 			});
 	});
+
+	/**
+	 * Save card to database
+	 */
+	$('.save-card').on('click', function () {
+		const data = {};
+
+		$('.lomakekortti .card-content input, .lomakekortti .card-content textarea').each(function () {
+			if ($(this).hasClass('prevent-save')) {
+				return;
+			}
+
+			const id = $(this).attr('id');
+			let value;
+
+			if ($(this).attr('type') === 'checkbox') {
+				value = $(this).is(':checked');
+			} else {
+				value = $(this).val();
+			}
+
+			data[id] = value;
+		});
+
+		console.log(data);
+
+		$.ajax({
+			url: Ajax.url,
+			type: 'POST',
+			data: {
+				action: 'topten_save_card',
+				nonce: Ajax.nonce,
+				data,
+			},
+		})
+			.done((response) => {
+				console.log(response);
+			})
+			.fail((jqXHR, textStatus, errorThrown) => {
+				// eslint-disable-next-line no-console
+				console.error(textStatus, errorThrown);
+			});
+	});
+
+	/**
+	 * Load card from database
+	 */
+	$('.load-card').on('click', function () {
+		const cardCode = $('#card-code').val();
+
+		$.ajax({
+			url: Ajax.url,
+			type: 'POST',
+			data: {
+				action: 'topten_load_card',
+				nonce: Ajax.nonce,
+				code: cardCode,
+			},
+		})
+			.done((response) => {
+				if (response.success) {
+					for (const index in response.data) {
+						if ($(`#${index}`).attr('type') === 'checkbox') {
+							if (response.data[index] === 'true') {
+								$(`#${index}`).prop('checked', true);
+							} else {
+								$(`#${index}`).prop('checked', false);
+							}
+						} else {
+							$(`#${index}`).val(response.data[index]);
+						}
+					}
+				}
+			})
+			.fail((jqXHR, textStatus, errorThrown) => {
+				// eslint-disable-next-line no-console
+				console.error(textStatus, errorThrown);
+			});
+	});
 });
