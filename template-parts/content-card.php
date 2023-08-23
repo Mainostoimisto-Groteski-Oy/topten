@@ -137,7 +137,7 @@ if ( 'tulkintakortti' === $type ) {
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
-								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+								<img class="rty" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
 
 							<?php
@@ -146,7 +146,7 @@ if ( 'tulkintakortti' === $type ) {
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
-								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+								<img class="topten" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
