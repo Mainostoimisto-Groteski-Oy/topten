@@ -12,7 +12,6 @@ jQuery(document).ready(($) => {
 		const combinedHeight = breadcrumbs + wpadminbar;
 		const topValue = masthead + wpadminbar;
 
-		console.log(combinedHeight);
 		// on scroll past combinedHeight add class to cards-notification
 		$(window).scroll(() => {
 			if ($(window).scrollTop() > combinedHeight) {
