@@ -52,6 +52,7 @@ $cardClasses = get_terms(
 			<div class="content-area" id="searchAndFilters">
 				<div class="search" id="searchCards" role="search">
 					<div class="search-wrapper">
+						<p id="error-message"></p>
 						<div class="full">
 							<div class="input-wrapper freeText">
 								<label for="freeText">
@@ -70,7 +71,12 @@ $cardClasses = get_terms(
 							</div>
 						</div>
 
-						<div class="full">
+						<div class="full
+						<?php 
+						if ( 'valid' !== get_field( 'card_status_type' ) ) :
+							?>
+							hidden 
+						<?php endif; ?> ">
 							<div class="input-wrapper keywords">
 								<label for="cardkeywords">
 									<?php esc_html_e( 'Suodata kortteja asiasanan mukaan', 'topten' ); ?>
@@ -92,10 +98,8 @@ $cardClasses = get_terms(
 									</button>
 								</div>
 							</div>
-
-
-
 						</div>
+			
 
 						<div class="full">
 							<div class="input-wrapper dateRange">

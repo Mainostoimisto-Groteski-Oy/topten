@@ -3,32 +3,6 @@
     "title": "Lohko: Neljä saraketta",
     "fields": [
         {
-            "key": "field_6475cf1886ab9",
-            "label": "Lohkon taustaväri",
-            "name": "background_color",
-            "aria-label": "",
-            "type": "button_group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "choices": {
-                "white": "Valkoinen",
-                "greenish": "Vihertävä",
-                "grey": "Harmaa",
-                "cream": "Kerma"
-            },
-            "default_value": "",
-            "return_format": "value",
-            "allow_null": 0,
-            "layout": "horizontal"
-        },
-        {
             "key": "field_6475ce3c7dd62",
             "label": "Ensimmäinen sarake",
             "name": "first_block",
@@ -701,6 +675,27 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "field_64e49aa952910",
+            "label": "Koristeelliset otsikot sarakkeissa?",
+            "name": "decorate_titles",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -721,5 +716,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1685442398
+    "modified": 1692703632
 }

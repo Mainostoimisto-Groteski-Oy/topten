@@ -481,6 +481,9 @@
 				@include arrowlink($black, 600);
 
 				a {
+					&::before {
+						width: 100% !important;
+					}
 					span {
 						padding-left: 25px;
 						transition: all 0.15s;
@@ -544,20 +547,63 @@
 					}
 
 					&.keyword-link {
-						text-decoration: none;
+						align-items: center;
+						display: flex;
+						font-weight: 400;
+						position: relative;
+						text-transform: uppercase;
+						background-color: $green;
+						width: 18px;
+						height: 18px;
+						border-radius: 36px;
 						margin-left: 5px;
-						margin-top: 2px;
-						color: $green;
-						transition: all 0.15s;
-
+						span.icon {
+							color: #fff;
+							font-size: 1.4rem;
+							font-weight: 400;
+							position: absolute;
+							left: 50%;
+							top: 50%;
+							transform: translate(-50%, -50%);
+							text-transform: none;
+						}
 						&:hover {
-							color: $lightgreen;
-							background-color: unset;
+							background-color: $lightgreen;
+							span.icon {
+								text-decoration: none;
+							}
 						}
-
-						&::after {
-							display: none;
+					}
+				}
+				.keyword-description-container {
+					font-size: 1.6rem;
+					font-weight: 400;
+					padding: 15px;
+					position: absolute;
+					left: 1px;
+					background-color: $white;
+					border: 1px solid $black;
+					border-radius: 5px;
+					z-index: 999999;
+					visibility: hidden;
+					p,
+					a,
+					li,
+					strong,
+					b {
+						font-size: 1.6rem;
+					}
+					p {
+						&:first-of-type {
+							margin-top: 0;
 						}
+						&:last-of-type {
+							margin-bottom: 0;
+						}
+					}
+					&.active {
+						display: block;
+						visibility: visible;
 					}
 				}
 			}

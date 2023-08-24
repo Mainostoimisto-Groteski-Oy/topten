@@ -468,7 +468,14 @@ body.page-template-template-korttiluettelo {
 						padding: 10px;
 						max-width: 100%;
 					}
-
+					input.error {
+						border: 1px solid $admin-red !important;
+					}
+					p#error-message {
+						margin: 0;
+						color: $admin-red;
+						font-size: 1.8rem;
+					}
 					#cardmunicipalities,
 					#cardkeywords {
 						border-right: none;
@@ -488,6 +495,13 @@ body.page-template-template-korttiluettelo {
 						border: 1px solid $black;
 						background-color: $white;
 						border-radius: 5px;
+					}
+
+					#textSearch.disabled {
+						pointer-events: none;
+						cursor: disabled;
+						background-color: $grey;
+						border: 1px solid $grey;
 					}
 
 					button {

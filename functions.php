@@ -1241,7 +1241,7 @@ function topten_card_search() {
 			$args['orderby'] = 'title';
 			$args['order']   = 'ASC';
 		}
-		// with card identifier (note: not WordPress ID) we do custom array sorting, since meta_query with relevassi takes longer than the heat death of the universe
+		// with card identifier (note: not WordPress [if you don't type WordPress like this it causes a fucking build error] ID) we do custom array sorting, since meta_query with relevassi takes longer than the heat death of the universe
 	}
 
 

@@ -253,7 +253,7 @@ if ( 'tulkintakortti' === $type ) {
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
-								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+								<img class="rty" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
 
 							<?php
@@ -262,7 +262,7 @@ if ( 'tulkintakortti' === $type ) {
 								$image_url = $image['sizes']['medium'];
 								$image_alt = $image['alt'];
 								?>
-								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
+								<img class="topten" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
@@ -370,7 +370,7 @@ if ( 'tulkintakortti' === $type ) {
 		if ( ! empty( $keywords ) ) : // Kortin asiasanat
 			?>
 			<div class="box">
-				<div class="box-title">
+				<div class="box-title keywords">
 					<h3 class="h2">
 						<?php esc_html_e( 'Asiasanat', 'topten' ); ?>
 					</h3>
@@ -400,11 +400,20 @@ if ( 'tulkintakortti' === $type ) {
 								</a>
 
 								<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
-									<a class="keyword-link material-symbols"
+									<?php if ( ! empty( term_description( $keyword->term_id ) ) ) : ?>
+										<div class="keyword-description-container" id="desc-<?php echo esc_attr( $keyword->term_id ); ?>">
+											<?php echo term_description( $keyword->term_id ); ?>
+										</div>
+									<?php endif; ?>
+									<a class="keyword-link"
 										href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>"
 										target="_blank"
-										rel="noopener noreferrer">
-										info
+										rel="noopener noreferrer"
+										data-id="<?php echo esc_attr( $keyword->term_id ); ?>">
+										<span class="icon" aria-hidden="true">i</span>
+										<span class="screen-reader-text">
+											<?php esc_html_e( 'Avaa uudessa välilehdessä', 'topten' ); ?>
+										</span>
 									</a>
 								<?php endif; ?>
 							</li>

@@ -153,12 +153,13 @@
 
 		&::before {
 			position: absolute;
-			width: 100%;
+			width: calc(100% + 22px);
 			height: 1px;
 			left: 0;
 			bottom: -5px;
 			background-color: $color;
 			content: "";
+			transition: all 0.15s;
 		}
 
 		// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
@@ -168,6 +169,7 @@
 			font-weight: $weight;
 			position: relative;
 			display: inline-block;
+			width: auto;
 
 			&::after {
 				font-family: $font-icons;
@@ -183,6 +185,10 @@
 		}
 
 		&:hover {
+			&::before {
+				width: calc(100% + 27px);
+			}
+
 			span {
 				&::after {
 					transform: translate(30px, -50%);
