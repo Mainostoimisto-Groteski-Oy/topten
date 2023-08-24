@@ -27,6 +27,10 @@ class Topten_Ajax extends Topten {
 		// Load card from database
 		add_action( 'wp_ajax_topten_load_card', array( $this, 'load_card_ajax' ) );
 		add_action( 'wp_ajax_nopriv_topten_load_card', array( $this, 'load_card_ajax' ) );
+
+		// Send code to email
+		add_action( 'wp_ajax_topten_send_code', array( $this, 'send_code_ajax' ) );
+		add_action( 'wp_ajax_nopriv_topten_send_code', array( $this, 'send_code_ajax' ) );
 	}
 
 	/**
@@ -146,7 +150,7 @@ class Topten_Ajax extends Topten {
 		$table_name = $wpdb->prefix . $this->card_table_name;
 
 		$card = $wpdb->get_row( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->prepare( 'SELECT data FROM %i WHERE code = %s', $table_name, $code )
+			$wpdb->prepare( 'SELECT data FROM %i WHERE code = %s', $table_name, $code ) // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders
 		);
 
 		if ( ! $card ) {
@@ -156,5 +160,64 @@ class Topten_Ajax extends Topten {
 		$response = maybe_unserialize( $card->data );
 
 		wp_send_json_success( $response );
+	}
+
+	/**
+	 * Send code to email
+	 */
+	public function send_code_ajax(): void {
+		check_ajax_referer( 'nonce', 'nonce' );
+
+		$code    = isset( $_POST['code'] ) ? sanitize_text_field( $_POST['code'] ) : '';
+		$email   = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+		$card_id = isset( $_POST['cardId'] ) ? intval( ( $_POST['cardId'] ) ) : '';
+
+		if ( ! $code || ! $card_id ) {
+			wp_send_json_error( __( 'Jokin meni vikaan. Päivitä sivu ja yritä uudestaan.', 'topten' ) );
+		}
+
+		$card_post = get_post( $card_id );
+
+		if ( ! $card_post ) {
+			wp_send_json_error( __( 'Jokin meni vikaan. Päivitä sivu ja yritä uudestaan.', 'topten' ) );
+		}
+
+		if ( ! $email || ! is_email( $email ) ) {
+			wp_send_json_error( __( 'Sähköpostiosoite ei ole kelvollinen.', 'topten' ) );
+		}
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . $this->card_table_name;
+
+		$card = $wpdb->get_row( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare( 'SELECT data FROM %i WHERE code = %s', $table_name, $code ) // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders
+		);
+
+		if ( ! $card ) {
+			wp_send_json_error( __( 'Jokin meni vikaan. Päivitä sivu ja yritä uudestaan.', 'topten' ) );
+		}
+
+		$identifier_start = get_field( 'identifier_start', $card_id );
+		$identifier_end   = get_field( 'identifier_end', $card_id );
+		$version          = get_field( 'version', $card_id );
+
+		$card_name = $identifier_start . ' ' . $identifier_end . ' ' . $version . ' ' . get_the_title( $card_id );
+
+		$to      = $email;
+		$subject = '[Topten] Tallenuskoodi lomakkeelle ' . $card_name;
+
+		$body  = '<p>Hei,</p>';
+		$body .= '<p>Tässä on tallenuskoodisi lomakkeelle "' . $card_name . '".</p>';
+		$body .= '<p>Koodi: <strong>' . $code . '</strong></p>';
+		$body .= '<p>Voit käyttää koodia lomakkeen lataamiseen osoitteessa <a href="' . get_permalink( $card_id ) . '">' . get_permalink( $card_id ) . '</a>.</p>';
+
+		$headers = array(
+			'Content-Type: text/html; charset=UTF-8',
+		);
+
+		wp_mail( $to, $subject, $body, $headers );
+
+		wp_send_json_success( __( 'Koodi lähetetty sähköpostiisi.', 'topten' ) );
 	}
 }

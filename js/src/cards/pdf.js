@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 /* global Ajax */
 jQuery(document).ready(($) => {
 	function getChild(node) {
@@ -127,8 +129,6 @@ jQuery(document).ready(($) => {
 		// Get card content
 		const data = generatePDFdata(cardContent);
 
-		console.log(data);
-
 		$.ajax({
 			url: Ajax.url,
 			type: 'POST',
@@ -173,10 +173,80 @@ jQuery(document).ready(($) => {
 			});
 	});
 
+	$('.close-modal').on('click', function () {
+		closeModal();
+	});
+
+	$(document).keydown(function (event) {
+		if (event.keyCode === 27) {
+			closeModal();
+		}
+	});
+
+	function trapFocus(event, firstFocusableElement, lastFocusableElement) {
+		if (event.keyCode === 9) {
+			// tab
+			if (event.shiftKey) {
+				// shift + tab
+
+				if (firstFocusableElement === firstFocusableElement.ownerDocument.activeElement) {
+					event.preventDefault();
+
+					lastFocusableElement.focus();
+				}
+			} else if (lastFocusableElement === lastFocusableElement.ownerDocument.activeElement) {
+				event.preventDefault();
+
+				firstFocusableElement.focus();
+			}
+		}
+	}
+
+	function openModal() {
+		$('.save-card-modal').fadeIn(300);
+		$('.save-card-modal .modal-content').focus();
+		$('.save-card').attr('aria-expanded', 'true');
+		$('body').addClass('no-scroll');
+
+		// const firstFocusableElement = $('.save-card-modal')
+		// 	.find('input:not([disabled]), textarea:not([disabled]), button:not([disabled]), a:not([disabled])')
+		// 	.filter(':visible')
+		// 	.first();
+
+		const focusableElements = $('.save-card-modal').find(
+			'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+		);
+
+		const firstFocusableElement = focusableElements[0];
+		const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+		$('.save-card-modal').keydown(function (event) {
+			trapFocus(event, firstFocusableElement, lastFocusableElement);
+		});
+	}
+
+	function closeModal() {
+		$('.save-card-modal').fadeOut(300, () => {
+			$('#card-code-textarea').html('');
+			$('.save-card-modal .loading-spinner').hide();
+			$('.save-card-modal .copy-card-code-wrapper').attr('aria-busy', 'false');
+			$('body').removeClass('no-scroll');
+			$('.save-card-modal .message-wrapper p.message').html('');
+		});
+
+		$('.save-card').attr('aria-expanded', 'false');
+		$('.save-card').focus();
+	}
+
 	/**
 	 * Save card to database
 	 */
 	$('.save-card').on('click', function () {
+		openModal();
+
+		$('.save-card-modal .loading-spinner').show();
+		$('.save-card-modal .copy-card-code-wrapper').attr('aria-busy', 'true');
+
 		const data = {};
 
 		$('.lomakekortti .card-content input, .lomakekortti .card-content textarea').each(function () {
@@ -185,6 +255,7 @@ jQuery(document).ready(($) => {
 			}
 
 			const id = $(this).attr('id');
+
 			let value;
 
 			if ($(this).attr('type') === 'checkbox') {
@@ -196,8 +267,6 @@ jQuery(document).ready(($) => {
 			data[id] = value;
 		});
 
-		console.log(data);
-
 		$.ajax({
 			url: Ajax.url,
 			type: 'POST',
@@ -205,6 +274,51 @@ jQuery(document).ready(($) => {
 				action: 'topten_save_card',
 				nonce: Ajax.nonce,
 				data,
+			},
+		})
+			.done((response) => {
+				$('.save-card-modal .loading-spinner').hide();
+				$('.save-card-modal .copy-card-code-wrapper').attr('aria-busy', 'false');
+
+				if (response.success) {
+					$('.save-card-modal #card-code-textarea').html(response.data);
+				}
+			})
+			.fail((jqXHR, textStatus, errorThrown) => {
+				// eslint-disable-next-line no-console
+				console.error(textStatus, errorThrown);
+			});
+	});
+
+	$('button.copy-card-code').on('click', function () {
+		const value = $('#card-code-textarea').val();
+
+		navigator.clipboard.writeText(value);
+
+		$('.copy-card-code-wrapper .message-wrapper p.message').html(__('Koodi kopioitu leikepöydälle!', 'topten'));
+		$('.copy-card-code-wrapper .message-wrapper').fadeIn(200);
+
+		setTimeout(() => {
+			$('.copy-card-code-wrapper .message-wrapper').fadeOut(200, () => {
+				$('.copy-card-code-wrapper .message-wrapper p.message').html('');
+			});
+		}, 2500);
+	});
+
+	$('#send-code-to-email').on('click', function () {
+		const code = $('#card-code-textarea').val();
+		const email = $('#send-card-code-email').val();
+		const cardId = $('.site-main').data('post-id');
+
+		$.ajax({
+			url: Ajax.url,
+			type: 'POST',
+			data: {
+				action: 'topten_send_code',
+				nonce: Ajax.nonce,
+				code,
+				email,
+				cardId,
 			},
 		})
 			.done((response) => {

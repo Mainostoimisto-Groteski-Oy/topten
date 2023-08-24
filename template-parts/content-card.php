@@ -100,6 +100,122 @@ if ( 'tulkintakortti' === $type ) {
 				?>
 				<?php the_field( $prefix . '_guide_after', 'options' ); ?>
 			</div>
+
+			<?php if ( 'lomakekortti' === $type ) : ?>
+				<div class="card-actions">
+					<div class="left-side">
+						<span class="title h4">
+							<?php esc_html_e( 'Tallenna esitäytetty lomake', 'topten' ); ?>
+						</span>
+
+						<p>
+							TODO: Vaihda nämä tekstit
+							Huomioithan, että tallennetun lomakkeen tiedot säilyvät vain x määräajan
+						</p>
+
+						<button type="button" class="button save-card" aria-haspopup="dialog" aria-expanded="false">
+							<?php esc_html_e( 'Tallenna lomake', 'topten' ); ?>
+						</button>
+					</div>
+
+					<div class="right-side">
+						<span class="title h4">
+							<?php esc_html_e( 'Jatka lomakkeen täyttämistä', 'topten' ); ?>
+						</span>
+
+						<p>
+							<?php esc_html_e( 'Jatka lomakkeen täyttämistä syöttämällä tallentamasi koodi alapuolelta löytyvään kenttään. ', 'topten' ); ?>
+						</p>
+
+						<label class="card-code-label" for="card-code">
+							<span class="label-text">
+								<?php esc_html_e( 'Syötä saamasi koodi tähän', 'topten' ); ?>
+							</span>
+
+							<div class="input-with-button">
+								<input class="card-code-input"
+									id="card-code"
+									type="text"
+									placeholder="<?php esc_attr_e( 'Syötä saamasi koodi tähän', 'topten' ); ?>" />
+
+								<button type="button" class="button load-card inverted">
+									<?php esc_html_e( 'Lähetä', 'topten' ); ?>
+								</button>
+							</div>
+						</label>
+					</div>
+
+					<div class="save-card-modal modal">
+						<div class="modal-content"
+							tabindex="0"
+							role="dialog"
+							aria-labelledby="save-card-modal-title"
+							aria-modal="true">
+							<h2 id="save-card-modal-title" class="h4 modal-title">
+								TESTI
+							</h2>
+
+							<p>TODO: VAIHDA TEKSTIT</p>
+
+							<div class="copy-card-code-wrapper" aria-live="polite" aria-busy="false">
+								<label for="card-code-textarea" class="card-code-textarea-wrapper">
+									<span class="label-text">
+										<?php esc_html_e( 'Koodi', 'topten' ); ?>
+									</span>
+
+									<div class="textarea-wrapper">
+										<div class="loading-spinner" aria-hidden="true"></div>
+
+										<textarea id="card-code-textarea" rows="1" disabled></textarea>
+
+										<button class="copy-card-code"
+											type="button"
+											aria-label="<?php esc_html_e( 'Kopioi koodi', 'topten' ); ?>"
+											title="<?php esc_html_e( 'Kopioi koodi', 'topten' ); ?>">
+											<span class="material-symbols-outlined" aria-hidden="true">
+												content_copy
+											</span>
+										</button>
+									</div>
+								</label>
+
+								<div class="message-wrapper">
+									<p class="message"></p>
+								</div>
+							</div>
+
+							<p>
+								Voit myös lähettää koodin sähköpostiiisi. Syötä sähköpostiosoitteesi alla olevaan kenttään ja klikkaa lähetä.
+							</p>
+
+							<label class="card-code-label" for="copy-card-code">
+								<span class="label-text">
+									<?php esc_html_e( 'Sähköpostiosoite', 'topten' ); ?>
+								</span>
+
+								<div class="input-with-button">
+									<input class="card-code-input"
+										id="send-card-code-email"
+										type="email"
+										placeholder="<?php esc_attr_e( 'Sähköpostiosoite', 'topten' ); ?>" />
+
+									<button id="send-code-to-email" type="button" class="button inverted">
+										<?php esc_html_e( 'Lähetä', 'topten' ); ?>
+									</button>
+								</div>
+							</label>
+
+							<button class="close-modal"
+								type="button"
+								aria-label="<?php esc_attr_e( 'Sulje', 'topten' ); ?>">
+								<span class="material-symbols-outlined" aria-hidden="true">
+									close
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
 		</div>
 	</section>
 <?php endif; ?>
@@ -225,23 +341,6 @@ if ( 'tulkintakortti' === $type ) {
 		<button type="button" class="button inverted save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
 			<?php esc_html_e( 'Tulosta kortti', 'topten' ); ?>
 		</button>
-
-		<!-- TODO: Move this to correct place -->
-		<div class="card-actions">
-			<button type="button" class="button inverted save-card">
-				<?php esc_html_e( 'Tallenna kortti', 'topten' ); ?>
-			</button>
-
-			<label for="card-code">
-				Syötä kortin koodi
-
-				<input id="card-code" type="text" />
-			</label>
-
-			<button type="button" class="button inverted load-card">
-				<?php esc_html_e( 'Lataa kortti', 'topten' ); ?>
-			</button>
-		</div>
 	</article>
 
 	<aside class="sidebar" id="sidebar-menu">
