@@ -1,5 +1,9 @@
 @use "mixins/all" as *;
 
+body #wpadminbar {
+	z-index: 99999999;
+}
+
 .animate-on-scroll {
 	opacity: 0;
 }
@@ -41,7 +45,7 @@ body.no-scroll {
 
 #masthead {
 	max-width: $qhd;
-	z-index: 999999999;
+	z-index: 99999990;
 }
 
 .breadcrumb {

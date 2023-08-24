@@ -468,14 +468,17 @@ body.page-template-template-korttiluettelo {
 						padding: 10px;
 						max-width: 100%;
 					}
+
 					input.error {
 						border: 1px solid $admin-red !important;
 					}
+
 					p#error-message {
 						margin: 0;
 						color: $admin-red;
 						font-size: 1.8rem;
 					}
+
 					#cardmunicipalities,
 					#cardkeywords {
 						border-right: none;

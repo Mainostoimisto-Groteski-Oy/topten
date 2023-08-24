@@ -484,6 +484,7 @@
 					&::before {
 						width: 100% !important;
 					}
+
 					span {
 						padding-left: 25px;
 						transition: all 0.15s;
@@ -557,6 +558,7 @@
 						height: 18px;
 						border-radius: 36px;
 						margin-left: 5px;
+
 						span.icon {
 							color: #fff;
 							font-size: 1.4rem;
@@ -567,14 +569,17 @@
 							transform: translate(-50%, -50%);
 							text-transform: none;
 						}
+
 						&:hover {
 							background-color: $lightgreen;
+
 							span.icon {
 								text-decoration: none;
 							}
 						}
 					}
 				}
+
 				.keyword-description-container {
 					font-size: 1.6rem;
 					font-weight: 400;
@@ -586,6 +591,7 @@
 					border-radius: 5px;
 					z-index: 999999;
 					visibility: hidden;
+
 					p,
 					a,
 					li,
@@ -593,14 +599,17 @@
 					b {
 						font-size: 1.6rem;
 					}
+
 					p {
 						&:first-of-type {
 							margin-top: 0;
 						}
+
 						&:last-of-type {
 							margin-bottom: 0;
 						}
 					}
+
 					&.active {
 						display: block;
 						visibility: visible;

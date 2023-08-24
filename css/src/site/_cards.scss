@@ -13,6 +13,7 @@ section.cards-notification {
 		width: 100%;
 		z-index: 999999;
 	}
+
 	&.expired {
 		background-color: $archive-red;
 	}
@@ -31,13 +32,16 @@ section.cards-notification {
 				display: inline-block;
 				position: relative;
 				font-size: 2rem;
+
 				@media (max-width: $max-s) {
 					font-size: 1.8rem;
 				}
+
 				span.material-symbols {
 					vertical-align: middle;
 					transition: all 0.15s;
 					font-size: 1.8rem;
+
 					@media (max-width: $max-s) {
 						font-size: 1.6rem;
 					}
@@ -52,10 +56,12 @@ section.cards-notification {
 				}
 			}
 		}
+
 		p {
 			display: inline-block;
 			position: relative;
 			font-size: 2rem;
+
 			@media (max-width: $max-s) {
 				font-size: 1.8rem;
 			}

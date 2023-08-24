@@ -28,6 +28,7 @@ section.four-column-block {
 			background-color: $white;
 		}
 	}
+
 	&.decorate {
 		.grid,
 		.grid-full {
@@ -42,10 +43,12 @@ section.four-column-block {
 						align-items: center;
 						background-color: $green-lighter;
 						margin-top: -15px;
+
 						.block-title {
-							margin: 0 0 15px 0;
+							margin: 0 0 15px;
 						}
 					}
+
 					p,
 					a,
 					span,
