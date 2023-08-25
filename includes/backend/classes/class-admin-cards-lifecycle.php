@@ -102,10 +102,10 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 		);
 
 		// Set post status based on primary status. If primary status is 'publish', set post status to 'publish', otherwise 'draft'
-		if ( 'publish' === $this->primary_status ) {
-			$post_array['post_status'] = 'publish';
-			// $post_array['post_date']     = wp_date( 'Y-m-d H:i:s' );
-			// $post_array['post_date_gmt'] = gmdate( 'Y-m-d H:i:s' );
+		if ( 'publish' === $this->primary_status && 'publish' !== $this->old_primary_status ) {
+			$post_array['post_status']   = 'publish';
+			$post_array['post_date']     = wp_date( 'Y-m-d H:i:s' );
+			$post_array['post_date_gmt'] = gmdate( 'Y-m-d H:i:s' );
 		} elseif ( 'deleted' === $this->primary_status ) {
 			$post_array['post_status'] = 'deleted';
 		} else {
