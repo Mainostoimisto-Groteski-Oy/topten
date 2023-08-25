@@ -377,10 +377,6 @@ function topten_get_title_numbers(): array {
 							$title = $block['attrs']['data']['title'];
 							$tag   = $block['attrs']['data']['title_tag'];
 
-							if ( 'h1' === $tag ) {
-								continue;
-							}
-
 							$id = sanitize_title( $title );
 
 							if ( ! isset( $block_title_ids[ $id ] ) ) {
@@ -392,6 +388,10 @@ function topten_get_title_numbers(): array {
 								$block_title_ids[ $id ]['count']++;
 
 								$id = $id . '-' . $block_title_ids[ $id ]['count'];
+							}
+
+							if ( 'h1' === $tag ) {
+								continue;
 							}
 
 							if ( 'h2' === $tag ) {
