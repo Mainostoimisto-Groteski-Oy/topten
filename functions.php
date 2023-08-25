@@ -1349,15 +1349,9 @@ function topten_fetch_suggestions() {
 		wp_die();
 	}
 
-	// Get type
-	if ( ! isset( $_POST['type'] ) ) {
-		wp_send_json_error( 'Type is not set.' );
-		wp_die();
-	} else {
-		$type = sanitize_text_field( $_POST['type'] );
-	}
-
 	// Get input
+	
+	/*
 	if ( isset( $_POST['userInput'] ) ) {
 		$userInput = sanitize_text_field( $_POST['userInput'] );
 		if ( ! $type ) {
@@ -1371,16 +1365,18 @@ function topten_fetch_suggestions() {
 			}
 		}
 	}
+	*/
 
 	$args = array(
-		'taxonomy'   => $tax,
-		'orderby'    => 'title',
-		'order'      => 'DESC',
-		'name__like' => $userInput,
+		'taxonomy' => 'asiasanat',
+		'orderby'  => 'title',
+		'order'    => 'DESC',
+		// 'name__like' => $userInput,
 	);
 
 	$terms = get_terms( $args );
-
+	// sort alphabetically
+	$terms = array_reverse( $terms );
 	if ( $terms ) {
 		$list = array();
 		foreach ( $terms as $index => $term ) {
@@ -1390,7 +1386,7 @@ function topten_fetch_suggestions() {
 	} else {
 		$list = array();
 	}
-
+	
 	wp_send_json_success( $list );
 
 	wp_die();
