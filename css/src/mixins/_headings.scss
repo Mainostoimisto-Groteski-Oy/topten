@@ -25,7 +25,7 @@
 
 	h3,
 	.h3,
-	.gform_title h2 {
+	h2.gform_title {
 		@include font-size(2.4rem, 4rem);
 
 		font-family: $font-heading;
