@@ -1,4 +1,4 @@
 <?php
 if ( ! defined( 'TOPTEN_VERSION' ) ) {
-	define( 'TOPTEN_VERSION', '1.0.50' );
+	define( 'TOPTEN_VERSION', '1.0.51' );
 }
