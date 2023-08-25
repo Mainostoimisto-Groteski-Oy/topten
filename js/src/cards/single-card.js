@@ -54,7 +54,6 @@ jQuery(document).ready(($) => {
 		$('.keyword-description-container').css('width', sidebarWidth + 'px');
 		// get height of keyword-description-container and add some space
 		const height = $('.keyword-description-container[id=desc-' + id + ']').height() + 35;
-		console.log(height);
 		// get left border of ul.keywords
 		const left = $('#sidebar-menu .keywords').offset().left;
 		// get left border of keyword

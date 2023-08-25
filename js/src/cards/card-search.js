@@ -437,56 +437,42 @@ jQuery(document).ready(($) => {
 		}
 		cardSearch();
 	}
-
 	// jquery autocomplete for keywords (and municipalities, but not in use)
-	function autoCompleteField(type, minLen) {
-		// match the type to the correct taxonomy
-		let typeName = '';
-		if (type === 'keywords') {
-			typeName = 'asiasanat';
-		} else if (type === 'municipalities') {
-			typeName = 'kunta';
-		}
-		$(`#card${type}`).autocomplete({
-			source(request, response) {
-				const userInput = $(`#card${type}`).val();
-				$.ajax({
-					url: Ajax.url,
-					method: 'POST',
-					data: {
-						action: 'topten_fetch_suggestions',
-						nonce: Ajax.nonce,
-						userInput,
-						type: typeName,
-					},
-					success(data) {
-						response(
-							$.map(data.data, (item) => ({
-								label: item.label,
-								value: item.value,
-							})),
-						);
-					},
-					error(errorThrown) {
-						// eslint-disable-next-line no-console
-						console.log(errorThrown);
-					},
-				});
+	let suggestions = [];
+	if ($('#searchAndFilters').length > 0) {
+		$.ajax({
+			url: Ajax.url,
+			method: 'POST',
+			data: {
+				action: 'topten_fetch_suggestions',
+				nonce: Ajax.nonce,
 			},
-			// When user selects an item from the list, display values
-			select(e, ui) {
-				$(`#card${type}`).val(ui.item.label);
-				$(`#card${type}Value`).val(ui.item.value);
-				return false;
+			success(data) {
+				suggestions = $.map(data.data, (item) => ({
+					label: item.label,
+					value: item.value,
+				}));
+				$('#cardkeywords').autocomplete({
+					source: suggestions,
+					// When user selects an item from the list, display values
+					select(e, ui) {
+						$('#cardkeywords').val(ui.item.label);
+						$('#cardkeywordsValue').val(ui.item.value);
+						return false;
+					},
+					minLength: 1,
+					// Show the list of values
+				})._renderItem = function (ul, item) {
+					return $('<li></li>')
+						.data('item.autocomplete', item.label)
+						.append(`<div data-id="${item.value}">${item.label}</div>`)
+						.appendTo(ul);
+				};
 			},
-			minLength: minLen,
-			// Show the list of values
-		})._renderItem = function (ul, item) {
-			return $('<li></li>')
-				.data('item.autocomplete', item.label)
-				.append(`<div data-id="${item.value}">${item.label}</div>`)
-				.appendTo(ul);
-		};
+			error(errorThrown) {
+				console.log(errorThrown);
+			},
+		});
 	}
 
 	// handle checking / unchecking checkboxes from another element press
@@ -630,7 +616,7 @@ jQuery(document).ready(($) => {
 		updateSingularFilters();
 
 		// Init autocomplete fields
-		autoCompleteField('keywords', 3);
+		//autoCompleteField();
 		// autoCompleteField('municipalities', 2);
 
 		// Search & filter button events
