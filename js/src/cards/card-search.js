@@ -145,6 +145,7 @@ jQuery(document).ready(($) => {
 				});
 			},
 			error(errorThrown) {
+				// eslint-disable-next-line no-console
 				console.log(errorThrown);
 			},
 		});
@@ -186,6 +187,7 @@ jQuery(document).ready(($) => {
 					}
 				},
 				error(errorThrown) {
+					// eslint-disable-next-line no-console
 					console.log(errorThrown);
 				},
 			});

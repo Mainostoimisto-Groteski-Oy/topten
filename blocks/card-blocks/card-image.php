@@ -12,7 +12,7 @@ $caption = get_field( 'caption' );
 ?>
 
 
-<div class="image-wrapper" style="<?php topten_get_block_width(); ?>">
+<div class="column-item image-wrapper" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<figure>

@@ -7,9 +7,11 @@ $required = get_field( 'required' );
 
 $prefix = get_field( 'prefix' );
 $suffix = get_field( 'suffix' );
+
+$prevent_save = get_field( 'prevent_save' );
 ?>
 
-<div class="input-wrapper centered" style="<?php topten_get_block_width(); ?>">
+<div class="column-item input-wrapper centered" style="<?php topten_get_block_width(); ?>">
 	<label class="text-field" for="<?php echo esc_attr( $block_id ); ?>">
 		<span class="label-text">
 			<?php echo esc_html( $description ); ?>
@@ -28,7 +30,10 @@ $suffix = get_field( 'suffix' );
 				</span>
 			<?php endif; ?>
 
-			<input id="<?php echo esc_attr( $block_id ); ?>" type="text" <?php echo $required ? 'required' : ''; ?> />
+			<input class="<?php echo $prevent_save ? 'prevent-save' : ''; ?>"
+				id="<?php echo esc_attr( $block_id ); ?>"
+				type="text"
+				<?php echo $required ? 'required' : ''; ?> />
 
 			<?php if ( $suffix ) : ?>
 				<span class="suffix">

@@ -6,6 +6,7 @@
 		flex-direction: column;
 		justify-content: center;
 	}
+
 	&.checkboxes-wrapper {
 		display: flex;
 		align-items: center;
@@ -17,6 +18,7 @@
 			display: flex;
 			gap: 15px;
 		}
+
 		&.vertical {
 			.checkboxes {
 				flex-direction: column;
@@ -38,6 +40,7 @@
 			display: flex;
 			gap: 15px;
 		}
+
 		&.vertical {
 			.radios {
 				flex-direction: column;
@@ -62,6 +65,7 @@
 				display: flex;
 				gap: 5px;
 				align-items: center;
+
 				input {
 					width: 100%;
 					padding: 10px;
@@ -74,7 +78,12 @@
 		&.radio-field {
 			display: flex;
 			gap: 5px;
+
+			> span {
+				font-size: inherit;
+			}
 		}
+
 		span.label-text {
 			font-size: 1.6rem;
 			font-weight: 300;

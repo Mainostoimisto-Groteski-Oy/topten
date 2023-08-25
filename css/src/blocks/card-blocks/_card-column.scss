@@ -1,13 +1,17 @@
 @use "mixins/all" as *;
 
 .card-content {
+	.column-item {
+		width: calc(var(--width, 100%) - 10px);
+	}
+
 	.column {
 		padding: 15px 20px;
 		display: flex;
 		flex-wrap: wrap;
 
 		> * {
-			width: 100%;
+			// width: 100%;
 			margin: 5px;
 		}
 
@@ -24,17 +28,21 @@
 				font-weight: 400;
 			}
 		}
+
 		.title-wrapper {
 			padding: 10px 5px;
 			margin: 0 !important;
+
 			&.background-white {
 				background-color: transparent;
 			}
+
 			&.background-grey {
 				background-color: $grey;
 				position: relative;
 				margin-bottom: 5px !important;
 				margin-top: -15px !important;
+
 				&::after {
 					position: absolute;
 					top: 0;
@@ -46,11 +54,13 @@
 					z-index: -1;
 				}
 			}
+
 			&.background-light {
 				background-color: $dim;
 				position: relative;
 				margin-bottom: 5px !important;
 				margin-top: -15px !important;
+
 				&::after {
 					position: absolute;
 					top: 0;
@@ -63,6 +73,7 @@
 				}
 			}
 		}
+
 		.small-title {
 			font-size: 1.6rem;
 			margin: 0;

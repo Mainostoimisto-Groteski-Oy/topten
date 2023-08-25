@@ -12,7 +12,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	?>
 <?php endif; ?>
 
-<div class="card-text-block" style="<?php topten_get_block_width(); ?>">
+<div class="column-item card-text-block" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
@@ -47,7 +47,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 		<?php endif; ?>
 
 		<?php
-		echo wp_kses(
+		$output = wp_kses(
 			$text,
 			array(
 				'a'      => array(
@@ -135,5 +135,11 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 			)
 		);
 		?>
+
+		<?php if ( $output ) : ?>
+			<?php echo $output; // phpcs:ignore ?>
+		<?php else : ?>
+			<p class="hidden empty-text">&nbsp;</p>
+		<?php endif; ?>
 	</div>
 </div>

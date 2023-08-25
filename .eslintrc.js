@@ -17,7 +17,7 @@ module.exports = {
 			},
 		],
 		indent: ['error', 'tab'],
-		'no-console': 0,
+		'no-console': 'warn',
 		'func-names': 0,
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 	},

@@ -5,13 +5,16 @@ $description = get_field( 'description' );
 
 $required = get_field( 'required' );
 
-$direction = get_field( 'direction' ); 
+$direction = get_field( 'direction' );
+
 if ( ! $direction ) {
 	$direction = 'horizontal';
 }
+
+$prevent_save = get_field( 'prevent_save' );
 ?>
 
-<div class="input-wrapper checkboxes-wrapper <?php echo esc_attr( $direction ); ?>" style="<?php topten_get_block_width(); ?>">
+<div class="column-item input-wrapper checkboxes-wrapper <?php echo esc_attr( $direction ); ?> <?php echo $prevent_save ? 'prevent-save' : ''; ?>" style="<?php topten_get_block_width(); ?>">
 	<?php if ( $description ) : ?>
 		<p class="description">
 			<?php echo esc_html( $description ); ?>
@@ -30,17 +33,20 @@ if ( ! $direction ) {
 				<?php
 				the_row();
 
-				$index = $block_id . ' - ' . get_row_index();
+				$index = $block_id . '-' . get_row_index();
 
 				$label = get_sub_field( 'label' );
 				?>
 				<label class="checkbox-field" for="<?php echo esc_attr( $index ); ?>">
-					<input id="<?php echo esc_attr( $index ); ?>"
+					<input class="<?php echo $prevent_save ? 'prevent-save' : ''; ?>"
+						id="<?php echo esc_attr( $index ); ?>"
 						type="checkbox"
-						value="<?php esc_html( $label ); ?>"
+						value="<?php esc_attr( $label ); ?>"
 						<?php echo $required ? 'required' : ''; ?> />
 
-					<?php echo esc_html( $label ); ?>
+					<span>
+						<?php echo esc_html( $label ); ?>
+					</span>
 				</label>
 			<?php endwhile; ?>
 		</div>

@@ -1067,8 +1067,14 @@ class tFPDF {
 				$j   = $i;
 				$l   = 0;
 				if ( $nl == 1 ) {
-					$this->x = $this->lMargin;
+					// $this->x = $this->lMargin;
+					// $w       = $this->w - $this->rMargin - $this->x;
+					// $wmax = ( $this->column_width - 2 * $this->cMargin );
+
+					$this->x = $this->column_start_x;
+
 					$w       = $this->w - $this->rMargin - $this->x;
+					// $wmax    = ( $w - 2 * $this->cMargin );
 					$wmax = ( $this->column_width - 2 * $this->cMargin );
 				}
 				$nl++;

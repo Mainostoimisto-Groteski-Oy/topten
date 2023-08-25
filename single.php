@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+	<main id="primary" class="site-main" data-post-id="<?php echo esc_attr( get_the_ID() ); ?>">
 		<?php
 		while ( have_posts() ) :
 			the_post();

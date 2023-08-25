@@ -108,7 +108,6 @@ function js() {
 
 	wpConfig.mode = 'development';
 	wpConfig.devtool = 'source-map';
-	wpConfig.optimization.minimize = false;
 
 	return src(config.js.src)
 		.pipe(webpack(wpConfig, compiler))
