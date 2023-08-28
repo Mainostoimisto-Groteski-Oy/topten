@@ -22,6 +22,13 @@
 		&.vertical {
 			.checkboxes {
 				flex-direction: column;
+				gap: 5px;
+				label.checkbox-field {
+					display: block;
+					input {
+						margin-right: 3px;
+					}
+				}
 			}
 		}
 	}
@@ -30,7 +37,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-
+		@media (max-width: $max-xs) {
+			width: 100%;
+			align-items: unset;
+		}
 		&.center {
 			margin-top: auto;
 			margin-bottom: auto;
@@ -39,11 +49,24 @@
 		.radios {
 			display: flex;
 			gap: 15px;
+			span.text-before {
+				font-size: 1.6rem;
+			}
+			@media (max-width: $max-xs) {
+				width: 100%;
+			}
 		}
 
 		&.vertical {
 			.radios {
 				flex-direction: column;
+				gap: 5px;
+				label.radio-field {
+					display: block;
+					input {
+						margin-right: 3px;
+					}
+				}
 			}
 		}
 	}
@@ -73,7 +96,8 @@
 				}
 				span.prefix,
 				span.suffix {
-					font-size: 1.8rem;
+					font-size: 1.6rem;
+					font-weight: 400;
 				}
 			}
 		}
@@ -81,16 +105,36 @@
 		&.checkbox-field,
 		&.radio-field {
 			display: flex;
-			gap: 10px;
+			gap: 5px;
 			align-items: center;
+
 			> span {
-				font-size: inherit;
+				font-size: 1.6rem !important;
 			}
 		}
 
 		span.label-text {
 			font-size: 1.6rem;
-			font-weight: 300;
+			font-weight: 400;
+		}
+	}
+	&.checkboxes-wrapper,
+	&.radios-wrapper {
+		@media (max-width: $max-xs) {
+			width: 100%;
+		}
+		&.horizontal {
+			@media (max-width: $max-xs) {
+				display: flex;
+				flex-direction: column;
+			}
+			.description {
+				max-width: 80%;
+				@media (max-width: $max-xs) {
+					width: 100%;
+					max-width: unset;
+				}
+			}
 		}
 	}
 }

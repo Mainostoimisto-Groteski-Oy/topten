@@ -3,6 +3,9 @@
 .card-content {
 	.column-item {
 		width: calc(var(--width, 100%) - 10px);
+		@media (max-width: $max-xs) {
+			width: 100%;
+		}
 	}
 
 	.column {
@@ -101,6 +104,34 @@
 	.card-content {
 		.column {
 			align-items: center;
+			p,
+			li,
+			a,
+			i,
+			s,
+			u,
+			span,
+			del,
+			ins,
+			sub,
+			sup {
+				font-size: 1.8rem;
+			}
+			.column-item.bigger-font {
+				p,
+				li,
+				a,
+				i,
+				s,
+				u,
+				span,
+				del,
+				ins,
+				sub,
+				sup {
+					font-size: 2.2rem;
+				}
+			}
 		}
 	}
 }

@@ -5,8 +5,8 @@ $description = get_field( 'description' );
 
 $required = get_field( 'required' );
 
-$direction = get_field( 'direction' );
-
+$direction   = get_field( 'direction' );
+$text_before = get_field( 'text_before_radios' );
 if ( ! $direction ) {
 	$direction = 'horizontal';
 }
@@ -29,6 +29,9 @@ $prevent_save = get_field( 'prevent_save' );
 
 	<?php if ( have_rows( 'radios' ) ) : ?>
 		<div class="radios">
+			<?php if ( get_field( 'text_before_radios' ) ) : ?>
+				<span class="text-before"><?php the_field( 'text_before_radios' ); ?></span>
+			<?php endif; ?>
 			<?php while ( have_rows( 'radios' ) ) : ?>
 				<?php
 				the_row();

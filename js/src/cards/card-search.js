@@ -567,6 +567,7 @@ jQuery(document).ready(($) => {
 	$('#toggleFilters').on('click', function () {
 		$(this).toggleClass('active');
 		$('section.list').toggleClass('filters-active');
+		$('#ajaxOverlay').toggleClass('filters-active');
 		if ($('ul#selectedCardClasses li').length === 1) {
 			$('ul#selectedCardClasses li').addClass('disabled');
 		} else {

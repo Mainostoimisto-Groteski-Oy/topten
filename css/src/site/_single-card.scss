@@ -659,3 +659,26 @@
 		}
 	}
 }
+
+// We want to hide this earlier since we have fields that get wonky with low res
+.single-lomakekortti {
+	.sidebar-grid {
+		@media (max-width: $min-xxl) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+	aside.sidebar {
+		@media (max-width: $min-xxl) {
+			grid-row: 1;
+			display: none;
+			position: static;
+			height: auto;
+			border: 1px solid $black;
+			padding: 30px 30px 60px;
+
+			&.active {
+				display: flex;
+			}
+		}
+	}
+}
