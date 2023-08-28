@@ -42,7 +42,7 @@ $columns = array( 'left', 'middle', 'right' );
 			<?php foreach ( $columns as $column ) : ?>
 				<div class="footer <?php echo esc_attr( $column ); ?>">
 					<?php
-					if ( get_field( 'footer_' . $column, 'options' ) ) {
+					if ( get_field( 'footer_' . $column . '_title', 'options' ) ) {
 						echo "<h3 class='h4 title'>" . esc_html( get_field( 'footer_' . $column . '_title', 'options' ) ) . '</h3>';
 					}
 					if ( get_field( 'footer_' . $column, 'options' ) ) {

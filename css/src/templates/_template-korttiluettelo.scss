@@ -362,6 +362,9 @@ body.page-template-template-korttiluettelo {
 
 					.one-third {
 						grid-column: auto;
+						display: flex;
+						justify-content: flex-end;
+						flex-direction: column;
 
 						select {
 							width: 100%;
