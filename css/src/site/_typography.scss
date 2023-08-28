@@ -1,5 +1,9 @@
 @use "mixins/all" as *;
 
+#wpadminbar {
+	z-index: 9999999999;
+}
+
 html {
 	font-size: 62.5%;
 }

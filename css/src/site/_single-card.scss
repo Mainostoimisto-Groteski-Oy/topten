@@ -180,7 +180,7 @@
 
 					&.lightblue {
 						.tulkinta-symbol {
-							background-color: $tulkinta-lightblue;
+							background-color: $tulkinta-turquoise;
 						}
 					}
 
@@ -245,7 +245,7 @@
 				}
 
 				&.bg-blue {
-					background-color: $tulkinta-blue-transparent;
+					background-color: $tulkinta-blue-light;
 
 					a {
 						color: $tulkinta-blue;
@@ -257,7 +257,7 @@
 				}
 
 				&.bg-green {
-					background-color: $tulkinta-green-transparent;
+					background-color: $tulkinta-green-light;
 
 					a {
 						color: $tulkinta-green;
@@ -269,7 +269,7 @@
 				}
 
 				&.bg-red {
-					background-color: $tulkinta-red-transparent;
+					background-color: $tulkinta-red-light;
 
 					a {
 						color: $tulkinta-red;
@@ -281,13 +281,13 @@
 				}
 
 				&.bg-lightblue {
-					background-color: $tulkinta-lightblue-transparent;
+					background-color: $tulkinta-turquoise-light;
 
 					a {
-						color: $tulkinta-lightblue;
+						color: $tulkinta-turquoise;
 
 						&::after {
-							color: $tulkinta-lightblue;
+							color: $tulkinta-turquoise;
 						}
 					}
 				}

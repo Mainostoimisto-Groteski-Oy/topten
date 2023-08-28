@@ -25,7 +25,7 @@ body.page-template-template-korttiluettelo {
 					left: 0;
 					height: 100%;
 					width: 100%;
-					background-color: $grey-transparent;
+					background-color: $lightgrey;
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
@@ -301,14 +301,14 @@ body.page-template-template-korttiluettelo {
 									}
 
 									&:nth-child(even) {
-										background-color: $grey-transparent;
+										background-color: $lightgrey;
 									}
 
 									&.submit {
 										padding: 0 15px 25px;
 										border-bottom: 1px solid black;
 										margin-bottom: 25px;
-										background-color: $grey-transparent;
+										background-color: $lightgrey;
 									}
 								}
 							}
@@ -815,14 +815,14 @@ body.page-template-template-korttiluettelo {
 									ul.children {
 										margin: 0;
 										padding: 0;
-										background-color: $green-lightest;
+										background-color: $grey;
 
 										li.child {
-											background-color: $green-lightest;
+											background-color: $grey;
 
 											> p.name {
 												color: $green;
-												background-color: $green-lightest;
+												background-color: $grey;
 												border-bottom: 1px solid $black;
 												margin: 0;
 												padding: 15px 30px;
@@ -836,7 +836,7 @@ body.page-template-template-korttiluettelo {
 
 											ul.grandchildren {
 												padding: 0;
-												background-color: $green-lightest;
+												background-color: $grey;
 
 												li.card {
 													padding: 15px 30px 15px 45px;
@@ -876,7 +876,7 @@ body.page-template-template-korttiluettelo {
 								li.parent {
 									> p.name {
 										color: $green;
-										background-color: $green-lightest;
+										background-color: $grey;
 										border-bottom: 1px solid $black;
 										margin: 0;
 										padding: 15px 30px;

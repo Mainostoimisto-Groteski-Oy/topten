@@ -19,31 +19,6 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_63a069352e927",
-                    "label": "Sarakkeen taustaväri",
-                    "name": "generated_background_color",
-                    "aria-label": "",
-                    "type": "button_group",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "white": "Valkoinen",
-                        "cream": "Kerma",
-                        "green": "Vihreä"
-                    },
-                    "default_value": "white",
-                    "return_format": "value",
-                    "allow_null": 0,
-                    "layout": "horizontal"
-                },
-                {
                     "key": "field_63a069352fd3b",
                     "label": "Otsikko",
                     "name": "title",
@@ -184,31 +159,6 @@
             },
             "layout": "block",
             "sub_fields": [
-                {
-                    "key": "field_63a0693551bb6",
-                    "label": "Sarakkeen taustaväri",
-                    "name": "generated_background_color",
-                    "aria-label": "",
-                    "type": "button_group",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "white": "Valkoinen",
-                        "cream": "Kerma",
-                        "green": "Vihreä"
-                    },
-                    "default_value": "white",
-                    "return_format": "value",
-                    "allow_null": 0,
-                    "layout": "horizontal"
-                },
                 {
                     "key": "field_63a0693553846",
                     "label": "Otsikko",
@@ -353,5 +303,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684750166
+    "modified": 1693216016
 }

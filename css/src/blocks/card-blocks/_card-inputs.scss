@@ -71,14 +71,18 @@
 					padding: 10px;
 					margin: 5px 0;
 				}
+				span.prefix,
+				span.suffix {
+					font-size: 1.8rem;
+				}
 			}
 		}
 
 		&.checkbox-field,
 		&.radio-field {
 			display: flex;
-			gap: 5px;
-
+			gap: 10px;
+			align-items: center;
 			> span {
 				font-size: inherit;
 			}

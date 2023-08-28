@@ -20,31 +20,6 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_6475ce3c892d6",
-                    "label": "Sarakkeen taustaväri",
-                    "name": "generated_background_color",
-                    "aria-label": "",
-                    "type": "button_group",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "white": "Valkoinen",
-                        "cream": "Kerma",
-                        "green": "Vihreä"
-                    },
-                    "default_value": "white",
-                    "return_format": "value",
-                    "allow_null": 0,
-                    "layout": "horizontal"
-                },
-                {
                     "key": "field_6475ce3c8cd9e",
                     "label": "Otsikko",
                     "name": "title",
@@ -186,31 +161,6 @@
             "relevanssi_exclude": 0,
             "layout": "block",
             "sub_fields": [
-                {
-                    "key": "field_6475ce3cb67df",
-                    "label": "Sarakkeen taustaväri",
-                    "name": "generated_background_color",
-                    "aria-label": "",
-                    "type": "button_group",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "white": "Valkoinen",
-                        "cream": "Kerma",
-                        "green": "Vihreä"
-                    },
-                    "default_value": "white",
-                    "return_format": "value",
-                    "allow_null": 0,
-                    "layout": "horizontal"
-                },
                 {
                     "key": "field_6475ce3cba26b",
                     "label": "Otsikko",
@@ -355,31 +305,6 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_6475ce3ce3ca2",
-                    "label": "Sarakkeen taustaväri",
-                    "name": "generated_background_color",
-                    "aria-label": "",
-                    "type": "button_group",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "white": "Valkoinen",
-                        "cream": "Kerma",
-                        "green": "Vihreä"
-                    },
-                    "default_value": "white",
-                    "return_format": "value",
-                    "allow_null": 0,
-                    "layout": "horizontal"
-                },
-                {
                     "key": "field_6475ce3ce7720",
                     "label": "Otsikko",
                     "name": "title",
@@ -522,31 +447,6 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_6475ce581bf90",
-                    "label": "Sarakkeen taustaväri",
-                    "name": "generated_background_color",
-                    "aria-label": "",
-                    "type": "button_group",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "relevanssi_exclude": 0,
-                    "choices": {
-                        "white": "Valkoinen",
-                        "cream": "Kerma",
-                        "green": "Vihreä"
-                    },
-                    "default_value": "white",
-                    "return_format": "value",
-                    "allow_null": 0,
-                    "layout": "horizontal"
-                },
-                {
                     "key": "field_6475ce581bf91",
                     "label": "Otsikko",
                     "name": "title",
@@ -678,8 +578,8 @@
         },
         {
             "key": "field_64e49aa952910",
-            "label": "Koristeelliset otsikot sarakkeissa?",
-            "name": "decorate_titles",
+            "label": "Näytä numerot otsikoiden yläpuolella?",
+            "name": "show_numbers",
             "aria-label": "",
             "type": "true_false",
             "instructions": "",
@@ -716,5 +616,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1692703632
+    "modified": 1693216045
 }
