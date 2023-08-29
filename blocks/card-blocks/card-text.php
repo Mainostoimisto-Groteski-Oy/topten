@@ -1,8 +1,8 @@
 <?php
 $text     = get_field( 'text' );
 $tulkinta = get_field( 'tulkinta' );
+$color       = false;
 
-$color = false;
 
 if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	$color = topten_get_guide_color( $tulkinta['value'] );
@@ -15,7 +15,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 <div class="column-item card-text-block" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
-	<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?>">
+	<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?> ">
 		<?php if ( $tulkinta && 'none' !== $tulkinta['value'] ) : ?>
 			<?php
 			switch ( $tulkinta['value'] ) :

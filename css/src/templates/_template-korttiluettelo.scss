@@ -25,18 +25,41 @@ body.page-template-template-korttiluettelo {
 					left: 0;
 					height: 100%;
 					width: 100%;
-					background-color: $grey-transparent;
+					background-color: $ajaxgrey;
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
 					z-index: 99999;
-
-					.spinner {
-						content: "";
-						width: 50px;
-						height: 50px;
-						background-color: $black;
+				}
+				#ajaxSpinner {
+					position: fixed;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					display: none;
+					z-index: 999999;
+					&.active {
+						display: block;
+					}
+					.spinner-wrapper {
+						height: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.spinner {
+							width: 40px;
+							height: 40px;
+							border: 4px $darkgrey solid;
+							border-top: 4px $green solid;
+							border-radius: 50%;
+							animation: spinning 0.6s infinite linear;
+						}
+					}
+					@keyframes spinning {
+						100% {
+							transform: rotate(360deg);
+						}
 					}
 				}
 			}
@@ -301,14 +324,14 @@ body.page-template-template-korttiluettelo {
 									}
 
 									&:nth-child(even) {
-										background-color: $grey-transparent;
+										background-color: $lightgrey;
 									}
 
 									&.submit {
 										padding: 0 15px 25px;
 										border-bottom: 1px solid black;
 										margin-bottom: 25px;
-										background-color: $grey-transparent;
+										background-color: $lightgrey;
 									}
 								}
 							}
@@ -815,14 +838,14 @@ body.page-template-template-korttiluettelo {
 									ul.children {
 										margin: 0;
 										padding: 0;
-										background-color: $green-lightest;
+										background-color: $grey;
 
 										li.child {
-											background-color: $green-lightest;
+											background-color: $grey;
 
 											> p.name {
 												color: $green;
-												background-color: $green-lightest;
+												background-color: $grey;
 												border-bottom: 1px solid $black;
 												margin: 0;
 												padding: 15px 30px;
@@ -836,7 +859,7 @@ body.page-template-template-korttiluettelo {
 
 											ul.grandchildren {
 												padding: 0;
-												background-color: $green-lightest;
+												background-color: $grey;
 
 												li.card {
 													padding: 15px 30px 15px 45px;
@@ -876,7 +899,7 @@ body.page-template-template-korttiluettelo {
 								li.parent {
 									> p.name {
 										color: $green;
-										background-color: $green-lightest;
+										background-color: $grey;
 										border-bottom: 1px solid $black;
 										margin: 0;
 										padding: 15px 30px;

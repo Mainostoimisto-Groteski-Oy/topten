@@ -533,13 +533,16 @@ jQuery(document).ready(($) => {
 
 	// Applies ajax overlay when ajax is running
 	const ajaxOverlay = $('#ajaxOverlay');
+	const ajaxSpinner = $('#ajaxSpinner');
 	$(document)
 		.ajaxStart(() => {
 			$(ajaxOverlay).fadeIn(200);
+			$(ajaxSpinner).show();
 			$('#textSearch').addClass('disabled');
 		})
 		.ajaxStop(() => {
 			$(ajaxOverlay).fadeOut(200);
+			$(ajaxSpinner).hide();
 			$('#textSearch').removeClass('disabled');
 		});
 
@@ -567,6 +570,7 @@ jQuery(document).ready(($) => {
 	$('#toggleFilters').on('click', function () {
 		$(this).toggleClass('active');
 		$('section.list').toggleClass('filters-active');
+		$('#ajaxOverlay').toggleClass('filters-active');
 		if ($('ul#selectedCardClasses li').length === 1) {
 			$('ul#selectedCardClasses li').addClass('disabled');
 		} else {

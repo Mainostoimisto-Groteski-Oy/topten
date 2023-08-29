@@ -6,12 +6,7 @@ $fourth_block = get_field( 'fourth_block' );
 
 ?>
 
-<section <?php topten_block_id(); ?> class="four-column-block 
-								  <?php 
-									if ( get_field( 'decorate_titles' ) ) {
-										echo 'decorate'; } 
-									?>
-">
+<section <?php topten_block_id(); ?> class="four-column-block">
 	<div class="grid">
 		<div class="block-title">
 			<?php topten_block_title(); ?>
@@ -19,6 +14,11 @@ $fourth_block = get_field( 'fourth_block' );
 
 		<div class="first-block column">
 			<div class="wrapper">
+				<?php if ( get_field( 'show_numbers' ) ) : ?>
+					<div class="number">
+						<span>1.</span>
+					</div>
+				<?php endif; ?>
 				<?php if ( ! empty( $first_block['title'] ) ) : ?>
 					<div class="title-wrapper">
 						<h3 class="block-title h4">
@@ -55,6 +55,11 @@ $fourth_block = get_field( 'fourth_block' );
 
 		<div class="second-block column">
 			<div class="wrapper">
+				<?php if ( get_field( 'show_numbers' ) ) : ?>
+					<div class="number">
+						<span>2.</span>
+					</div>
+				<?php endif; ?>
 				<?php if ( ! empty( $second_block['title'] ) ) : ?>
 					<div class="title-wrapper">
 						<h3 class="block-title h4">
@@ -90,6 +95,11 @@ $fourth_block = get_field( 'fourth_block' );
 
 		<div class="third-block column">
 			<div class="wrapper">
+				<?php if ( get_field( 'show_numbers' ) ) : ?>
+					<div class="number">
+						<span>3.</span>
+					</div>
+				<?php endif; ?>
 				<?php if ( ! empty( $third_block['title'] ) ) : ?>
 					<div class="title-wrapper">
 						<h3 class="block-title h4">
@@ -125,6 +135,11 @@ $fourth_block = get_field( 'fourth_block' );
 
 		<div class="fourth-block column">
 			<div class="wrapper">
+				<?php if ( get_field( 'show_numbers' ) ) : ?>
+					<div class="number">
+						<span>4.</span>
+					</div>
+				<?php endif; ?>
 				<?php if ( ! empty( $fourth_block['title'] ) ) : ?>
 					<div class="title-wrapper">
 						<h3 class="block-title h4">
