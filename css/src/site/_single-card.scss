@@ -3,6 +3,23 @@
 .single-tulkintakortti,
 .single-ohjekortti,
 .single-lomakekortti {
+	.card-content {
+		.column {
+			p,
+			li,
+			a,
+			i,
+			s,
+			u,
+			span,
+			del,
+			ins,
+			sub,
+			sup {
+				font-size: 1.8rem;
+			}
+		}
+	}
 	.site {
 		overflow: hidden;
 	}

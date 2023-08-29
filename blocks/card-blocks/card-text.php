@@ -1,9 +1,8 @@
 <?php
 $text     = get_field( 'text' );
 $tulkinta = get_field( 'tulkinta' );
-
 $color       = false;
-$bigger_font = get_field( 'bigger_font' );
+
 
 if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	$color = topten_get_guide_color( $tulkinta['value'] );
@@ -13,7 +12,7 @@ if ( $tulkinta && 'none' !== $tulkinta['value'] ) :
 	?>
 <?php endif; ?>
 
-<div class="column-item card-text-block <?php echo $bigger_font ? 'bigger-font' : ''; ?> " style="<?php topten_get_block_width(); ?>">
+<div class="column-item card-text-block" style="<?php topten_get_block_width(); ?>">
 	<?php topten_get_desc(); ?>
 
 	<div class="text-wrapper <?php echo $color ? esc_html( 'bg-' . $color ) : ''; ?> <?php echo $tulkinta ? esc_html( $tulkinta['value'] ) : ''; ?> ">
