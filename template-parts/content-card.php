@@ -399,12 +399,13 @@ if ( 'tulkintakortti' === $type ) {
 									</span>
 								</a>
 
-								<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
+								
 									<?php if ( ! empty( term_description( $keyword->term_id ) ) ) : ?>
 										<div class="keyword-description-container" id="desc-<?php echo esc_attr( $keyword->term_id ); ?>">
 											<?php echo term_description( $keyword->term_id ); ?>
 										</div>
 									<?php endif; ?>
+									<?php if ( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ) : ?>
 									<a class="keyword-link"
 										href="<?php echo esc_url( get_field( 'link', $keyword->taxonomy . '_' . $keyword->term_id ) ); ?>"
 										target="_blank"
@@ -415,6 +416,13 @@ if ( 'tulkintakortti' === $type ) {
 											<?php esc_html_e( 'Avaa uudessa välilehdessä', 'topten' ); ?>
 										</span>
 									</a>
+								<?php else : ?>
+									<?php if ( ! empty( term_description( $keyword->term_id ) ) ) : ?>
+									<a class="keyword-link" href="#" data-id="<?php echo esc_attr( $keyword->term_id ); ?>">
+										<span class="icon" aria-hidden="true">i</span>
+										<span class="screen-reader-text">
+									</a>
+									<?php endif; ?>
 								<?php endif; ?>
 							</li>
 						<?php endforeach; ?>
