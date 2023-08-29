@@ -118,7 +118,8 @@ $cardClasses = get_terms(
 						<?php if ( $laws ) : ?>
 							<div class="one-third">
 								<label for="cardLaw">
-									<?php esc_html_e( 'Suodata kortteja pykälän mukaan', 'topten' ); ?>
+									<?php esc_html_e( 'Suodata MRL:n lukujen ja pykälien mukaan aihepiireittäin', 'topten' ); ?>
+									<?php esc_html_e( '(Huom: koskee toistaiseksi vain tulkintakortteja)', 'topten' ); ?>
 								</label>
 
 								<div class="inner-wrapper">
@@ -140,7 +141,7 @@ $cardClasses = get_terms(
 						<?php if ( $categories ) : ?>
 							<div class="one-third">
 								<label for="cardCategory">
-									<?php esc_html_e( 'Suodata kortteja vastuuryhmän mukaan', 'topten' ); ?>
+									<?php esc_html_e( 'Suodata kortteja suunnittelualan mukaan', 'topten' ); ?>
 								</label>
 
 								<div class="inner-wrapper">
