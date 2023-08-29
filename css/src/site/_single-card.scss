@@ -581,8 +581,8 @@
 					padding: 15px;
 					position: absolute;
 					left: 1px;
-					background-color: $white;
-					border: 1px solid $black;
+					background-color: $black;
+					border: none;
 					border-radius: 5px;
 					z-index: 999999;
 					visibility: hidden;
@@ -592,6 +592,7 @@
 					strong,
 					b {
 						font-size: 1.6rem;
+						color: $white;
 					}
 					p {
 						&:first-of-type {
