@@ -13,10 +13,14 @@
 		justify-content: space-between;
 		margin-top: auto;
 		margin-bottom: auto;
-
+		@media (max-width: $max-xs) {
+			width: 100%;
+			align-items: unset;
+		}
 		.checkboxes {
 			display: flex;
 			gap: 15px;
+			flex-wrap: wrap;
 		}
 
 		&.vertical {
@@ -29,6 +33,16 @@
 						margin-right: 3px;
 					}
 				}
+			}
+		}
+		&.text-before {
+			flex-direction: column;
+			.description {
+				max-width: unset !important;
+				width: 100%;
+			}
+			.checkboxes {
+				width: 100%;
 			}
 		}
 	}
@@ -67,6 +81,16 @@
 						margin-right: 3px;
 					}
 				}
+			}
+		}
+		&.text-before {
+			flex-direction: column;
+			.description {
+				max-width: unset !important;
+				width: 100%;
+			}
+			.radios {
+				width: 100%;
 			}
 		}
 	}

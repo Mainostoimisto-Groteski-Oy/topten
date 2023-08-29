@@ -244,7 +244,8 @@ $cardClasses = get_terms(
 		</div><!-- end top grid -->
 	</section>
 	<section class="cards list">
-	<div id="ajaxOverlay"><div class="spinner-wrapper"><div class="spinner"></div></div></div>
+	<div id="ajaxOverlay"></div>
+	<div id="ajaxSpinner"><div class="spinner-wrapper"><div class="spinner"></div></div></div>
 		<div class="grid">
 			<div class="filters" id="filterCards" role="search">
 				<div class="half">

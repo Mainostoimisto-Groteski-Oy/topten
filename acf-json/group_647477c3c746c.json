@@ -66,7 +66,8 @@
             "relevanssi_exclude": 0,
             "choices": {
                 "horizontal": "Vaaka",
-                "vertical": "Pysty"
+                "vertical": "Pysty",
+                "text-before": "Kuvaus yllä, vaaka"
             },
             "default_value": "horizontal",
             "return_format": "value",
@@ -113,5 +114,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693229150
+    "modified": 1693303823
 }

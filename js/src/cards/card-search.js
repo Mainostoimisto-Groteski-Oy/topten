@@ -533,13 +533,16 @@ jQuery(document).ready(($) => {
 
 	// Applies ajax overlay when ajax is running
 	const ajaxOverlay = $('#ajaxOverlay');
+	const ajaxSpinner = $('#ajaxSpinner');
 	$(document)
 		.ajaxStart(() => {
 			$(ajaxOverlay).fadeIn(200);
+			$(ajaxSpinner).show();
 			$('#textSearch').addClass('disabled');
 		})
 		.ajaxStop(() => {
 			$(ajaxOverlay).fadeOut(200);
+			$(ajaxSpinner).hide();
 			$('#textSearch').removeClass('disabled');
 		});
 
