@@ -72,10 +72,10 @@ $cardClasses = get_terms(
 						</div>
 
 						<div class="full
-						<?php 
+						<?php
 						if ( 'valid' !== get_field( 'card_status_type' ) ) :
 							?>
-							hidden 
+							hidden
 						<?php endif; ?> ">
 							<div class="input-wrapper keywords">
 								<label for="cardkeywords">
@@ -99,7 +99,7 @@ $cardClasses = get_terms(
 								</div>
 							</div>
 						</div>
-			
+
 
 						<div class="full">
 							<div class="input-wrapper dateRange">

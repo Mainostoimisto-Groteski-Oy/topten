@@ -6,11 +6,11 @@ $fourth_block = get_field( 'fourth_block' );
 
 ?>
 
-<section <?php topten_block_id(); ?> class="four-column-block 
-								  <?php 
-									if ( get_field( 'decorate_titles' ) ) {
-										echo 'decorate'; } 
-									?>
+<section <?php topten_block_id(); ?> class="four-column-block
+<?php
+if ( get_field( 'decorate_titles' ) ) {
+	echo 'decorate'; }
+?>
 ">
 	<div class="grid">
 		<div class="block-title">

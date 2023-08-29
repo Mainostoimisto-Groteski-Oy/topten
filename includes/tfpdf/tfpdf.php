@@ -75,6 +75,10 @@ class tFPDF {
 	protected $column_end_y;
 	protected $column_width;
 	protected $last_column_start_y;
+	protected $last_column_start_x;
+	protected $last_column_end_x;
+	protected $last_column_width;
+	protected $row_heights = array();
 
 	/*******************************************************************************
 								   Public methods                                 *

@@ -399,7 +399,7 @@ if ( 'tulkintakortti' === $type ) {
 									</span>
 								</a>
 
-								
+
 									<?php if ( ! empty( term_description( $keyword->term_id ) ) ) : ?>
 										<div class="keyword-description-container" id="desc-<?php echo esc_attr( $keyword->term_id ); ?>">
 											<?php echo term_description( $keyword->term_id ); ?>

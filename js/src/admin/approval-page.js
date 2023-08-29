@@ -28,8 +28,6 @@ jQuery(document).ready(($) => {
 		const postId = $(that).data('id');
 		const message = $(`textarea#tt-approval-message-${postId}`).val();
 
-		console.log(message);
-
 		$.ajax({
 			url: Ajax.url,
 			method: 'POST',
@@ -41,8 +39,6 @@ jQuery(document).ready(($) => {
 			},
 		})
 			.done((response) => {
-				console.log(response);
-
 				$('.tt-message-row').empty();
 
 				if (response.success) {
@@ -64,6 +60,7 @@ jQuery(document).ready(($) => {
 				}
 			})
 			.fail((jqXHR, textStatus, errorThrown) => {
+				// eslint-disable-next-line no-console
 				console.log(textStatus, errorThrown);
 
 				$('.tt-message-row').empty();

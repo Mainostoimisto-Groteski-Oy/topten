@@ -29,14 +29,14 @@ $right_block  = get_field( 'right_block' );
 						case 'megaphone':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/megaphone.png';
 							break;
-						case 'contact': 
+						case 'contact':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/contact.png';
 							break;
 						default:
 							$icon = '';
 							$skip = true;
 						endswitch;
-					if ( ! $skip ) : 
+					if ( ! $skip ) :
 						?>
 						<div class="icon-wrapper <?php echo esc_attr( $left_block['icon'] ); ?>">
 								<img src="<?php echo esc_url( $icon ); ?>" alt="" />
@@ -84,7 +84,7 @@ $right_block  = get_field( 'right_block' );
 		</div>
 
 		<div class="center-block <?php echo esc_attr( $center_block['icon_background_color'] ); ?>">
-			
+
 			<?php if ( ! empty( $center_block['icon'] ) ) : ?>
 				<div class="icon">
 					<?php
@@ -105,14 +105,14 @@ $right_block  = get_field( 'right_block' );
 						case 'megaphone':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/megaphone.png';
 							break;
-						case 'contact': 
+						case 'contact':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/contact.png';
 							break;
 						default:
 							$icon = '';
 							$skip = true;
 						endswitch;
-					if ( ! $skip ) : 
+					if ( ! $skip ) :
 						?>
 							<div class="icon-wrapper <?php echo esc_attr( $center_block['icon'] ); ?>">
 								<img src="<?php echo esc_url( $icon ); ?>" alt="" />
@@ -126,7 +126,7 @@ $right_block  = get_field( 'right_block' );
 						<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			
+
 			<div class="wrapper">
 				<?php if ( ! empty( $center_block['title'] ) ) : ?>
 					<h3 class="block-title h3">
@@ -160,7 +160,7 @@ $right_block  = get_field( 'right_block' );
 		</div>
 
 		<div class="right-block <?php echo esc_attr( $right_block['icon_background_color'] ); ?>">
-			
+
 			<?php if ( ! empty( $right_block['icon'] ) ) : ?>
 				<div class="icon">
 					<?php
@@ -181,14 +181,14 @@ $right_block  = get_field( 'right_block' );
 						case 'megaphone':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/megaphone.png';
 							break;
-						case 'contact': 
+						case 'contact':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/contact.png';
 							break;
 						default:
 							$icon = '';
 							$skip = true;
 						endswitch;
-					if ( ! $skip ) : 
+					if ( ! $skip ) :
 						?>
 							<div class="icon-wrapper <?php echo esc_attr( $right_block['icon'] ); ?>">
 								<img src="<?php echo esc_url( $icon ); ?>" alt="" />
@@ -202,7 +202,7 @@ $right_block  = get_field( 'right_block' );
 						<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			
+
 			<div class="wrapper">
 				<?php if ( ! empty( $right_block['title'] ) ) : ?>
 					<h3 class="block-title h3">

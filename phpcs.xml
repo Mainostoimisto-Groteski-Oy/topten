@@ -22,11 +22,11 @@
 	<!-- Check all files in this directory and the directories below it. -->
 	<file>.</file>
 
-    <!--
-    Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.
-    See https://github.com/WordPress/WordPress-Coding-Standards/issues/2035
-    -->
-    <ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
+	<!--
+	Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.
+	See https://github.com/WordPress/WordPress-Coding-Standards/issues/2035
+	-->
+	<ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
 
 	<!-- Exclude patterns. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -51,6 +51,7 @@
 		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
 		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
 		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
+		<exclude name="Squiz.Commenting.BlockComment.NoCapital" />
 
 		<!-- Exclude some of the rules related to variable naming/prefixing -->
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound" />

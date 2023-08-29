@@ -157,6 +157,13 @@ class Topten_PDF extends FPDFA {
 	protected int $previous_page = 1;
 
 	/**
+	 * Column classes
+	 *
+	 * @var string Column classes
+	 */
+	protected string $column_class = '';
+
+	/**
 	 * Convert pixels to millimeters
 	 *
 	 * @param int|float $px Pixels
@@ -235,8 +242,15 @@ class Topten_PDF extends FPDFA {
 					$this->font_size = 16;
 				}
 				break;
+			case 'label':
+				$this->font_size = 14;
+				break;
 			default:
 				$this->font_size = 16;
+		}
+
+		if ( 'label-text' === $class ) {
+			$this->font_size = 12;
 		}
 
 		$this->font_size_pt = $this->px_to_pt( $this->font_size );
@@ -426,6 +440,9 @@ class Topten_PDF extends FPDFA {
 		} else {
 			foreach ( $columns as $col_index => $column ) {
 				$width = $column['attributes']['width'] ?? 100;
+				$class = $column['attributes']['class'] ?? '';
+
+				$this->column_class = $class;
 
 				$width_pct     = ( $width / 100 );
 				$content_width = $this->GetPageWidth() - $this->rMargin - $this->lMargin;
@@ -574,32 +591,6 @@ class Topten_PDF extends FPDFA {
 				}
 			}
 		}
-
-		$margin = $this->lMargin - $this->row_padding;
-
-		// // Top line
-		// $this->Line(
-		// $margin,
-		// $margin,
-		// $this->GetPageWidth() - $margin,
-		// $margin
-		// );
-
-		// // Right line
-		// $this->Line(
-		// $margin,
-		// $margin,
-		// $margin,
-		// $start_y + $top_row_height
-		// );
-
-		// // Left line
-		// $this->Line(
-		// $this->GetPageWidth() - $margin,
-		// $margin,
-		// $this->GetPageWidth() - $margin,
-		// $start_y + $top_row_height
-		// );
 
 		$this->SetY( $start_y + $top_row_height );
 	}
@@ -1020,14 +1011,10 @@ class Topten_PDF extends FPDFA {
 			$current_x   = $this->GetX();
 			$current_y   = $this->GetY();
 
-			$this->set_size( $tag, $class );
-
 			$this->column_start_y = $current_y + $this->row_padding;
 
 			if ( $this->last_row_index === $row_index ) { // Same row
 				if ( $this->last_col_index !== $col_index ) { // Different column
-					json_log( $data );
-
 					// If we are on the same row, but different column, we need to reset the column start x and end x
 					$column_start_x = $current_x;
 
@@ -1044,19 +1031,26 @@ class Topten_PDF extends FPDFA {
 					$this->column_end_x   = $column_end;
 
 					// If we have enough room on the row for the column, use the last column start y
-					if ( $this->room_left >= $this->column_width ) {
+					if ( round( $this->room_left, 3 ) >= round( $this->column_width, 3 ) ) {
 						$this->column_start_y = $this->last_column_start_y;
 					} else {
-						$this->Ln();
+						$max_height = ! empty( $this->row_heights ) ? max( $this->row_heights ) : 0;
+						$y          = $this->last_column_start_y + $max_height + $this->row_padding;
 
+						$this->Ln();
 						$current_y            = $this->GetY();
-						$this->column_start_y = $current_y + $this->row_padding;
+						$this->column_start_y = $y + $this->row_padding;
+
+						$this->row_heights = array();
 					}
 
 					$this->last_column_start_y = $this->column_start_y;
 
 					// Calculate room left on the row for the next column
 					$this->room_left = $content_end - $this->column_end_x;
+				} else { // Same column
+					$this->column_start_y = $current_y;
+					$this->column_start_x = $this->last_column_end_x + $this->row_padding;
 				}
 			} else { // Different row
 				if ( 1 === $row_index ) {
@@ -1078,6 +1072,7 @@ class Topten_PDF extends FPDFA {
 				);
 
 				$this->last_column_start_y = $this->column_start_y;
+				$this->last_column_start_x = $this->column_start_x;
 
 				$column_start_x = $current_x;
 
@@ -1095,6 +1090,8 @@ class Topten_PDF extends FPDFA {
 
 				// Calculate room left on the row for the next column
 				$this->room_left = $content_end - $this->column_end_x;
+
+				$this->row_heights = array();
 			}
 
 			$this->SetXY( $this->column_start_x, $this->column_start_y );
@@ -1108,6 +1105,12 @@ class Topten_PDF extends FPDFA {
 			} else {
 				$this->write_text( $data );
 			}
+
+			$row_height = $this->GetY() - $this->column_start_y;
+
+			$this->row_heights[] = $row_height;
+
+			$this->last_column_end_x = $this->GetX();
 
 			if ( $this->column_end_x >= $content_end ) {
 				$this->SetX( $this->lMargin );

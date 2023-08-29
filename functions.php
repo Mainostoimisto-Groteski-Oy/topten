@@ -1349,7 +1349,7 @@ function topten_fetch_suggestions() {
 	}
 
 	// Get input
-	
+
 	/*
 	if ( isset( $_POST['userInput'] ) ) {
 		$userInput = sanitize_text_field( $_POST['userInput'] );
@@ -1385,7 +1385,7 @@ function topten_fetch_suggestions() {
 	} else {
 		$list = array();
 	}
-	
+
 	wp_send_json_success( $list );
 
 	wp_die();
