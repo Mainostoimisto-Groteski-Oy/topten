@@ -259,15 +259,22 @@ class Topten_PDF extends FPDFA {
 		switch ( $tag ) {
 			case 'b':
 			case 'strong':
+				$this->SetTextColor( 0, 0, 0 );
 				$this->font_style = 'B';
 				break;
 			case 'i':
 			case 'em':
 				// TODO: ITALICS NOT WORKING
 				// $this->font_style = 'I';
+				$this->SetTextColor( 0, 0, 0 );
 				$this->font_style = '';
 				break;
+			case 'a':
+				$this->SetTextColor( 78, 93, 51 );
+				$this->font_style = 'U';
+				break;
 			default:
+				$this->SetTextColor( 0, 0, 0 );
 				$this->font_style = '';
 				break;
 		}
@@ -368,34 +375,6 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
-	 * Draw right and left lines
-	 *
-	 * @param float $start_y Start Y
-	 * @param float $end_y End Y
-	 *
-	 * @return void
-	 */
-	protected function draw_lines( float $start_y, float $end_y ): void {
-		// Left line
-		$this->Line(
-			$this->GetX() - $this->row_padding,
-			$start_y,
-			$this->GetX() - $this->row_padding,
-			$end_y,
-		);
-
-		// Right line
-		$this->Line(
-			$this->GetX() + $this->column_width + $this->row_padding,
-			$start_y,
-			$this->GetX() + $this->column_width + $this->row_padding,
-			$end_y,
-		);
-
-		// error_log( 'Drawing a line from ' . $start_y . ' to ' . $end_y . ', page: ' . $this->PageNo() );
-	}
-
-	/**
 	 * Converts HTML to PDF
 	 *
 	 * @param array $data HTML data
@@ -418,8 +397,6 @@ class Topten_PDF extends FPDFA {
 		foreach ( $data['rows'] as $index => $row ) {
 			$this->write_columns( $row, $index );
 		}
-
-
 	}
 
 	/**
@@ -444,6 +421,8 @@ class Topten_PDF extends FPDFA {
 			$this->SetY( $this->GetY() + $this->row_padding );
 
 			$this->write_top_row( $row );
+
+			unset( $content_width );
 		} else {
 			foreach ( $columns as $col_index => $column ) {
 				$width = $column['attributes']['width'] ?? 100;
@@ -571,7 +550,8 @@ class Topten_PDF extends FPDFA {
 
 					$this->SetXY( $current_x + $img_width, $start_y );
 				} else {
-					$x = $this->GetPageWidth() - $this->lMargin - $this->rMargin - $max_line_width;
+					// Todo: Figure out why $max_line_width is too small. 10 is a quick fix for now
+					$x = $this->GetPageWidth() - $this->lMargin - $this->row_padding - $max_line_width - 10;
 
 					$this->SetX( $x );
 
@@ -656,16 +636,41 @@ class Topten_PDF extends FPDFA {
 	}
 
 	/**
+	 * Count list items
+	 *
+	 * @param array $data Data
+	 *
+	 * @return int
+	 */
+	protected function count_lis( $data ): int {
+		$lis = 0;
+
+		foreach ( $data as $datum ) {
+			$tag = sanitize_text_field( $datum['tag'] );
+
+			if ( 'li' === $tag ) {
+				$lis++;
+			}
+		}
+
+		return $lis;
+	}
+
+	/**
 	 * Write list
 	 *
 	 * @param array $data Data, where is tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
+	 * @param bool  $child_list Is this a child list?
 	 *
 	 * @return void
 	 */
-	protected function write_list( array $data ): void {
+	protected function write_list( array $data, bool $child_list = false ): void {
 		$list_type = $data['tag'];
 
 		$li_number = 0;
+
+		$total_lis = $this->count_lis( $data['children'] );
+		$lis       = 0;
 
 		foreach ( $data['children'] as $index => $datum ) {
 			$tag = sanitize_text_field( $datum['tag'] );
@@ -674,28 +679,35 @@ class Topten_PDF extends FPDFA {
 				continue;
 			}
 
+			$lis++;
+
 			$children = $datum['children'];
 
-			// If value is not allowed (like \n), remove it
-			$value = str_replace( $this->tag_blacklist, '', $datum['value'] );
-
-			// $this->set_style( $tag );
-
-			// // Todo: Add ordered list
 			if ( 'ol' === $list_type ) {
+				// If list type is ordered, add a number
 				$li_number++;
 
 				$char = $li_number . '.';
 			} else {
-				// Otherwise add bullet
-				$char = chr( 149 );
+				// Otherwise add a bullet
+				$char = '•';
 			}
 
-			$this->Write( $this->line_height_mm, $char . ' ' );
+			if ( $child_list ) {
+				$this->SetX( $this->GetX() + $this->px_to_mm( 24 ) );
+			}
+
+			// Set font size for the bullet and reset it back to original afterwards
+			$current_font_size = $this->FontSizePt;
+			$this->SetFontSize( 24 );
+			$this->Write( $this->line_height_mm, $char . ' ' ); // Add space after the bullet
+			$this->SetFontSize( $current_font_size );
 
 			$this->write_list_item( $children );
 
-			$this->Ln();
+			if ( $lis < $total_lis ) {
+				$this->Ln();
+			}
 
 			// $column_height += $this->line_height_mm;
 		}
@@ -706,15 +718,28 @@ class Topten_PDF extends FPDFA {
 	 *
 	 * @param array  $data Data, where is tag and value (for example array( 'tag' => 'h1', 'value' => 'Otsikko' )
 	 * @param string $parent_tag Parent tag
+	 * @param string $href Link href
 	 *
 	 * @return void
 	 */
-	protected function write_list_item( array $data, string $parent_tag = '' ): void {
+	protected function write_list_item( array $data, string $parent_tag = '', string $href = '' ): void {
 		foreach ( $data as $datum ) {
 			$tag = sanitize_text_field( $datum['tag'] );
 
+			if ( 'a' === $tag ) {
+				$href = $datum['value'] ?? '';
+			}
+
 			if ( ! empty( $datum['children'] ) ) {
-				$this->write_list_item( $datum['children'], $tag );
+				$child_tag = $datum['tag'];
+
+				if ( 'ul' === $child_tag || 'ol' === $child_tag ) {
+					$this->write_list( $datum, true );
+
+					continue;
+				} else {
+					$this->write_list_item( $datum['children'], $tag, $href );
+				}
 			} else {
 				$this->set_style( $parent_tag );
 
@@ -725,12 +750,16 @@ class Topten_PDF extends FPDFA {
 				$line_width = $this->GetStringWidth( $value );
 
 				// Todo
-				if ( $this->GetX() + $line_width > $this->column_end_x && $parent_tag ) {
-					// $this->Ln();
-					// $value = "\n" . $value;
-				}
+				// if ( $this->GetX() + $line_width > $this->column_end_x && $parent_tag ) {
+				// $this->Ln();
+				// $value = "\n" . $value;
+				// }
 
-				$this->Write( $this->line_height_mm, $value );
+				if ( 'a' === $parent_tag ) {
+					$this->Write( $this->line_height_mm, $value, esc_url_raw( $href ) );
+				} else {
+					$this->Write( $this->line_height_mm, $value );
+				}
 			}
 		}
 	}
@@ -991,10 +1020,14 @@ class Topten_PDF extends FPDFA {
 			$current_x   = $this->GetX();
 			$current_y   = $this->GetY();
 
-			$this->column_start_y = $current_y + $this->line_height_mm + $this->row_padding;
+			$this->set_size( $tag, $class );
+
+			$this->column_start_y = $current_y + $this->row_padding;
 
 			if ( $this->last_row_index === $row_index ) { // Same row
 				if ( $this->last_col_index !== $col_index ) { // Different column
+					json_log( $data );
+
 					// If we are on the same row, but different column, we need to reset the column start x and end x
 					$column_start_x = $current_x;
 
@@ -1013,6 +1046,11 @@ class Topten_PDF extends FPDFA {
 					// If we have enough room on the row for the column, use the last column start y
 					if ( $this->room_left >= $this->column_width ) {
 						$this->column_start_y = $this->last_column_start_y;
+					} else {
+						$this->Ln();
+
+						$current_y            = $this->GetY();
+						$this->column_start_y = $current_y + $this->row_padding;
 					}
 
 					$this->last_column_start_y = $this->column_start_y;
@@ -1021,6 +1059,14 @@ class Topten_PDF extends FPDFA {
 					$this->room_left = $content_end - $this->column_end_x;
 				}
 			} else { // Different row
+				if ( 1 === $row_index ) {
+					$this->column_start_y = $current_y;
+				} else {
+					$this->Ln();
+					$current_y            = $this->GetY();
+					$this->column_start_y = $current_y + $this->row_padding;
+				}
+
 				$this->column_start_y += $this->row_padding;
 
 				// Top line
@@ -1032,10 +1078,6 @@ class Topten_PDF extends FPDFA {
 				);
 
 				$this->last_column_start_y = $this->column_start_y;
-
-				if ( 1 === $row_index ) {
-					$this->column_start_y = $current_y;
-				}
 
 				$column_start_x = $current_x;
 

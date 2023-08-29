@@ -39,6 +39,12 @@ jQuery(document).ready(($) => {
 				width: image.width,
 				height: image.height,
 			};
+		} else if (tag === 'a') {
+			nodeData.value = node.href;
+
+			node.childNodes.forEach((child) => {
+				nodeData.children.push(getChild(child));
+			});
 		} else if (node.childNodes.length > 0) {
 			nodeData.value = null;
 
@@ -127,7 +133,9 @@ jQuery(document).ready(($) => {
 		const cardContent = $(`article.${type} .card-content`);
 
 		// Get card content
-		const data = generatePDFdata(cardContent);
+		let data = generatePDFdata(cardContent);
+
+		data = JSON.stringify(data);
 
 		$.ajax({
 			url: Ajax.url,
@@ -169,7 +177,9 @@ jQuery(document).ready(($) => {
 			})
 			.fail((jqXHR, textStatus, errorThrown) => {
 				// eslint-disable-next-line no-console
-				console.error(textStatus, errorThrown);
+				console.error(jqXHR);
+				console.error(textStatus);
+				console.error(errorThrown);
 			});
 	});
 
