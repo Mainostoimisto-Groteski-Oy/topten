@@ -46,7 +46,7 @@ $cardClasses = get_terms(
 	<section class="cards filters">
 		<div class="grid top">
 			<div class="title-wrapper">
-				<h2 class="title h3"><?php esc_html_e( 'Suodata kortteja', 'topten' ); ?></h2><button id="toggleFilters" class="toggler" aria-expanded="false" aria-controls="searchAndFilters">keyboard_double_arrow_right</button>
+				<button id="toggleFilters" class="toggler" aria-expanded="false" aria-controls="searchAndFilters"><h2 class="title h3"><?php esc_html_e( 'Suodata kortteja', 'topten' ); ?></h2><span class="material-symbols">keyboard_double_arrow_right</span></button>
 			</div>
 
 			<div class="content-area" id="searchAndFilters">
@@ -167,7 +167,7 @@ $cardClasses = get_terms(
 								</p>
 
 									<?php foreach ( $cardClasses as $class ) : ?>
-									<div class="input-wrapper horizontal">
+									<button class="input-wrapper horizontal checkboxbutton">
 										<div class="checkbox-wrapper">
 											<label for="class-<?php echo esc_html( $class->slug ); ?>" class="inner-wrapper">
 												<input class=""
@@ -181,7 +181,7 @@ $cardClasses = get_terms(
 											</label>
 										</div>
 										<span class="check" data-name="cardclassfilter" data-id="<?php echo esc_attr( $class->term_id ); ?>"><?php echo esc_html( $class->name ); ?></span>
-									</div>
+									</button>
 									<?php endforeach; ?>
 
 							</div>

@@ -135,6 +135,7 @@ function topten_card_list( $card_array ) {
 			'hide_empty' => false,
 		)
 	);
+	var_dump( $card_array );
 	// TODO: Comment this shit
 	?>
 
