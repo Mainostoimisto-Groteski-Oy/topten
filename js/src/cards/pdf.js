@@ -268,7 +268,7 @@ jQuery(document).ready(($) => {
 
 			let value;
 
-			if ($(this).attr('type') === 'checkbox') {
+			if ($(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio') {
 				value = $(this).is(':checked');
 			} else {
 				value = $(this).val();

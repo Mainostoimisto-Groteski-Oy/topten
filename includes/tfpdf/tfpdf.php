@@ -1163,7 +1163,10 @@ class tFPDF {
 
 	function Ln( $h = null ) {
 		// Line feed; default value is the last cell height
-		$this->x = $this->lMargin;
+		// $this->x = $this->lMargin;
+
+		$this->x = $this->column_start_x;
+
 		if ( $h === null ) {
 			$this->y += $this->lasth;
 		} else {

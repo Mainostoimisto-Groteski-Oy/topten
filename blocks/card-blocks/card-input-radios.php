@@ -48,7 +48,9 @@ $prevent_save = get_field( 'prevent_save' );
 						value="<?php esc_html( $label ); ?>"
 						<?php echo $required ? 'required' : ''; ?> />
 
-					<?php echo esc_html( $label ); ?>
+					<span class="label-text">
+						<?php echo esc_html( $label ); ?>
+					</span>
 				</label>
 			<?php endwhile; ?>
 		</div>

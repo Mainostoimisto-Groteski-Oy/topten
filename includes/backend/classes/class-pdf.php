@@ -396,7 +396,11 @@ class Topten_PDF extends FPDFA {
 	 * @return void
 	 */
 	public function generate_pdf( array $data ): void {
-		$this->SetMargins( $this->row_padding * 2, $this->row_padding * 2, $this->row_padding * 2 );
+		$this->SetMargins(
+			$this->row_padding * 2,
+			$this->row_padding * 2,
+			$this->row_padding * 2
+		);
 
 		$this->AddFont( 'Blinker', '', 'Blinker-Regular.ttf', true );
 		$this->AddFont( 'Blinker', 'B', 'Blinker-Bold.ttf', true );
@@ -482,7 +486,7 @@ class Topten_PDF extends FPDFA {
 						$this->tMargin - $this->row_padding,
 						$this->lMargin - $this->row_padding,
 						$this->GetPageWidth() - $this->rMargin,
-						$this->GetPageHeight() - $this->bMargin,
+						$this->GetPageHeight() - $this->tMargin,
 						'D'
 					);
 				}
@@ -666,6 +670,10 @@ class Topten_PDF extends FPDFA {
 		foreach ( $data['children'] as $index => $datum ) {
 			$tag = sanitize_text_field( $datum['tag'] );
 
+			if ( 0 === $lis ) {
+				$this->Ln();
+			}
+
 			if ( 'li' !== $tag ) {
 				continue;
 			}
@@ -739,6 +747,9 @@ class Topten_PDF extends FPDFA {
 				$value .= ' ';
 
 				$line_width = $this->GetStringWidth( $value );
+
+				// error_log( $value );
+				// error_log( $this->column_start_x );
 
 				// Todo
 				// if ( $this->GetX() + $line_width > $this->column_end_x && $parent_tag ) {
@@ -919,14 +930,16 @@ class Topten_PDF extends FPDFA {
 				'D'
 			);
 
-			$this->SetY( $rect_end_y + $rect_start_y );
+			$this->SetXY( $this->GetX(), $rect_end_y + $rect_start_y );
 
-			$this->column_width   = $original_column_width;
+			$this->column_width = $original_column_width;
+
 			$this->column_start_x = $original_column_start_x;
 			$this->column_end_x   = $original_column_end_x;
+
 			$this->column_start_y = $original_column_start_y;
 			$this->column_end_y   = $original_column_end_y;
-		} elseif ( 'checkbox' === $type ) {
+		} elseif ( 'checkbox' === $type || 'radio' === $type ) {
 			$checked = $data['attributes']['checked'] ?? false;
 
 			if ( is_string( $checked ) ) {
@@ -938,13 +951,25 @@ class Topten_PDF extends FPDFA {
 			$checkbox_size       = $this->px_to_mm( 8 ); // Checkbox size in mm (8px x 8px)
 			$checkbox_margin_top = $this->line_height_mm / 2 - $checkbox_size / 2;
 
-			$this->Rect(
-				$this->GetX(),
-				$this->GetY() + $checkbox_margin_top,
-				$checkbox_size,
-				$checkbox_size,
-				$fill,
-			);
+			$radio_size       = $this->px_to_mm( 4 ); // Radio size in mm (6px x 6px)
+			$radio_margin_top = $this->line_height_mm / 2 - $radio_size / 2;
+
+			if ( 'checkbox' === $type ) {
+				$this->Rect(
+					$this->GetX(),
+					$this->GetY() + $checkbox_margin_top,
+					$checkbox_size,
+					$checkbox_size,
+					$fill,
+				);
+			} elseif ( 'radio' === $type ) {
+				$this->Circle(
+					$this->GetX(),
+					$this->GetY() + $radio_margin_top,
+					$radio_size,
+					$fill
+				);
+			}
 
 			$this->SetXY( $this->GetX() + $checkbox_size, $this->GetY() );
 		}
@@ -968,11 +993,38 @@ class Topten_PDF extends FPDFA {
 			if ( 'input' === $tag ) {
 				$this->write_input( $child );
 			} elseif ( 'div' === $tag ) {
+				$suffix_width = 0;
+
+				foreach ( $child['children'] as $grandchild ) {
+					$grandchild_tag = $grandchild['tag'];
+					$class          = $grandchild['attributes']['class'] ?? '';
+
+					if ( 'suffix' === $class ) {
+						foreach ( $grandchild['children'] as $ggchild ) {
+							$value        = $ggchild['value'];
+							$suffix_width = $this->GetStringWidth( $value );
+						}
+					}
+				}
+
+				$original_column_width = $this->column_width;
+
 				foreach ( $child['children'] as $grandchild ) {
 					$grandchild_tag = $grandchild['tag'];
 
 					if ( 'input' === $grandchild_tag ) {
+						$this->column_width = $this->column_width - $suffix_width - $this->row_padding;
+
 						$this->write_input( $grandchild );
+
+						$this->column_width = $original_column_width;
+					} elseif ( 'span' === $grandchild_tag ) {
+						error_log( '--' );
+						error_log( $this->PageNo() . ' - ' . $this->GetX() . ' - ' . $this->column_start_y );
+						$this->SetXY( $this->GetX(), $this->column_start_y );
+
+						$this->write_text( $grandchild );
+						error_log( $this->PageNo() );
 					}
 				}
 			} elseif ( 'span' === $tag ) {
@@ -1019,27 +1071,25 @@ class Topten_PDF extends FPDFA {
 					$column_start_x = $current_x;
 
 					// Column end point is the current x + the column width
-					$column_end = $current_x + $this->column_width;
+					$column_end_x = $current_x + $this->column_width;
 
 					// If the column end point is greater than the content end point, we need to reset the column start and end xes
-					if ( $column_end > $content_end ) {
+					if ( round( $column_end_x, 3 ) > round( $content_end, 3 ) ) {
 						$column_start_x = $this->lMargin;
-						$column_end     = $column_start_x + $this->column_width;
+						$column_end_x   = $column_start_x + $this->column_width;
 					}
 
 					$this->column_start_x = $column_start_x;
-					$this->column_end_x   = $column_end;
+					$this->column_end_x   = $column_end_x;
 
 					// If we have enough room on the row for the column, use the last column start y
 					if ( round( $this->room_left, 3 ) >= round( $this->column_width, 3 ) ) {
 						$this->column_start_y = $this->last_column_start_y;
 					} else {
 						$max_height = ! empty( $this->row_heights ) ? max( $this->row_heights ) : 0;
-						$y          = $this->last_column_start_y + $max_height + $this->row_padding;
 
 						$this->Ln();
-						$current_y            = $this->GetY();
-						$this->column_start_y = $y + $this->row_padding;
+						$this->column_start_y = $this->last_column_start_y + $max_height + $this->row_padding;
 
 						$this->row_heights = array();
 					}
@@ -1049,8 +1099,19 @@ class Topten_PDF extends FPDFA {
 					// Calculate room left on the row for the next column
 					$this->room_left = $content_end - $this->column_end_x;
 				} else { // Same column
-					$this->column_start_y = $current_y;
-					$this->column_start_x = $this->last_column_end_x + $this->row_padding;
+					if ( 'p' === $tag ) {
+						$this->Ln();
+
+						$current_y = $this->GetY();
+
+						$this->column_start_y      = $current_y + $this->row_padding;
+						$this->last_column_start_y = $this->column_start_y;
+					} else {
+						$this->column_start_y      = $current_y;
+						$this->last_column_start_y = $this->column_start_y;
+
+						$this->column_start_x = $this->last_column_end_x + $this->row_padding;
+					}
 				}
 			} else { // Different row
 				if ( 1 === $row_index ) {
@@ -1094,6 +1155,9 @@ class Topten_PDF extends FPDFA {
 				$this->row_heights = array();
 			}
 
+			// json_log( $data );
+			// error_log( $this->column_start_x . ' - ' . $this->column_start_y );
+
 			$this->SetXY( $this->column_start_x, $this->column_start_y );
 
 			if ( 'ul' === $tag || 'ol' === $tag ) {
@@ -1106,7 +1170,7 @@ class Topten_PDF extends FPDFA {
 				$this->write_text( $data );
 			}
 
-			$row_height = $this->GetY() - $this->column_start_y;
+			$row_height = $this->GetY() - $this->column_start_y + $this->line_height_mm;
 
 			$this->row_heights[] = $row_height;
 
