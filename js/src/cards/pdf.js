@@ -321,12 +321,31 @@ jQuery(document).ready(($) => {
 				cardId,
 			},
 		})
-			.done((response) => {
-				console.log(response);
+			.success((response) => {
+				if (response.success) {
+					closeModal();
+					$('.lomake-card-success').fadeIn(200);
+					$('.lomake-card-success .message-wrapper p.message').html(response.data);
+					setTimeout(() => {
+						$('.lomake-card-success').fadeOut(200, () => {
+							$('.lomake-card-success .message-wrapper p.message').html('');
+						});
+					}, 2500);
+				} else {
+					$('.save-card-modal .message-wrapper').addClass('error');
+					$('.save-card-modal .message-wrapper').fadeIn(200);
+					$('.save-card-modal .message-wrapper p.message').html(response.data);
+					setTimeout(() => {
+						$('.save-card-modal .message-wrapper').fadeOut(200, () => {
+							$('.save-card-modal .message-wrapper p.message').html('');
+						});
+					}, 2500);
+				}
 			})
 			.fail((jqXHR, textStatus, errorThrown) => {
 				// eslint-disable-next-line no-console
 				console.error(textStatus, errorThrown);
+				console.log('ajax fail');
 			});
 	});
 

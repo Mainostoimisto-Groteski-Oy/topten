@@ -64,7 +64,7 @@ if ( 'tulkintakortti' === $type ) {
 
 <?php topten_card_notification( 'single' ); ?>
 
-<?php if ( get_field( $prefix . '_guide', 'options' ) ) : ?>
+
 	<section class="text-block card">
 		<div class="grid">
 			<span class="title h4">
@@ -74,28 +74,30 @@ if ( 'tulkintakortti' === $type ) {
 			<div class="text">
 				<?php the_field( $prefix . '_guide_before', 'options' ); ?>
 				<?php
-				if ( have_rows( 'guide', 'options' ) ) :
-					?>
-					<div class="tulkinnat">
-						<?php
-						while ( have_rows( 'guide', 'options' ) ) :
-
-							the_row();
-
-							$icon  = get_sub_field( 'icon' );
-							$color = get_sub_field( 'color' );
-							$name  = get_sub_field( 'name' );
-							?>
-							<div class="tulkinta">
-								<p class="<?php echo esc_html( $color ) . ' ' . esc_html( $icon ); ?>">
-									<?php echo esc_html( $name ); ?>
-								</p>
-							</div>
-							<?php
-						endwhile;
+				if ( get_field( $prefix . '_guide', 'options' ) ) : 
+					if ( have_rows( 'guide', 'options' ) ) :
 						?>
-					</div>
-					<?php
+						<div class="tulkinnat">
+							<?php
+							while ( have_rows( 'guide', 'options' ) ) :
+
+								the_row();
+
+								$icon  = get_sub_field( 'icon' );
+								$color = get_sub_field( 'color' );
+								$name  = get_sub_field( 'name' );
+								?>
+								<div class="tulkinta">
+									<p class="<?php echo esc_html( $color ) . ' ' . esc_html( $icon ); ?>">
+										<?php echo esc_html( $name ); ?>
+									</p>
+								</div>
+								<?php
+							endwhile;
+							?>
+						</div>
+						<?php
+					endif;
 				endif;
 				?>
 				<?php the_field( $prefix . '_guide_after', 'options' ); ?>
@@ -104,14 +106,16 @@ if ( 'tulkintakortti' === $type ) {
 			<?php if ( 'lomakekortti' === $type ) : ?>
 				<div class="card-actions">
 					<div class="left-side">
-						<span class="title h4">
-							<?php esc_html_e( 'Tallenna esitäytetty lomake', 'topten' ); ?>
-						</span>
-
-						<p>
-							TODO: Vaihda nämä tekstit
-							Huomioithan, että tallennetun lomakkeen tiedot säilyvät vain x määräajan
-						</p>
+						<?php if ( get_field( 'lomake_save_title', 'options' ) ) : ?>
+							<span class="title h4">
+								<?php the_field( 'lomake_save_title', 'options' ); ?>
+							</span>
+						<?php endif; ?>
+						<?php if ( get_field( 'lomake_save_text', 'options' ) ) : ?>
+							<p>
+								<?php the_field( 'lomake_save_text', 'options' ); ?>
+							</p>
+						<?php endif; ?>
 
 						<button type="button" class="button save-card" aria-haspopup="dialog" aria-expanded="false">
 							<?php esc_html_e( 'Tallenna lomake', 'topten' ); ?>
@@ -119,13 +123,16 @@ if ( 'tulkintakortti' === $type ) {
 					</div>
 
 					<div class="right-side">
-						<span class="title h4">
-							<?php esc_html_e( 'Jatka lomakkeen täyttämistä', 'topten' ); ?>
-						</span>
-
-						<p>
-							<?php esc_html_e( 'Jatka lomakkeen täyttämistä syöttämällä tallentamasi koodi alapuolelta löytyvään kenttään. ', 'topten' ); ?>
-						</p>
+						<?php if ( get_field( 'lomake_load_title', 'options' ) ) : ?>
+							<span class="title h4">
+								<?php the_field( 'lomake_load_title', 'options' ); ?>
+							</span>
+						<?php endif; ?>
+						<?php if ( get_field( 'lomake_load_text', 'options' ) ) : ?>
+							<p>
+								<?php the_field( 'lomake_load_text', 'options' ); ?>
+							</p>
+						<?php endif; ?>
 
 						<label class="card-code-label" for="card-code">
 							<span class="label-text">
@@ -151,11 +158,16 @@ if ( 'tulkintakortti' === $type ) {
 							role="dialog"
 							aria-labelledby="save-card-modal-title"
 							aria-modal="true">
-							<h2 id="save-card-modal-title" class="h4 modal-title">
-								TESTI
-							</h2>
-
-							<p>TODO: VAIHDA TEKSTIT</p>
+							<?php if ( get_field( 'lomake_modal_title', 'options' ) ) : ?>
+								<h2 id="save-card-modal-title" class="h4 modal-title">
+									<?php the_field( 'lomake_modal_title', 'options' ); ?>
+								</h2>
+							<?php endif; ?>
+							<?php if ( get_field( 'lomake_modal_text_before', 'options' ) ) : ?>
+								<p>
+									<?php the_field( 'lomake_modal_text_before', 'options' ); ?>
+								</p>
+							<?php endif; ?>
 
 							<div class="copy-card-code-wrapper" aria-live="polite" aria-busy="false">
 								<label for="card-code-textarea" class="card-code-textarea-wrapper">
@@ -184,9 +196,11 @@ if ( 'tulkintakortti' === $type ) {
 								</div>
 							</div>
 
-							<p>
-								Voit myös lähettää koodin sähköpostiiisi. Syötä sähköpostiosoitteesi alla olevaan kenttään ja klikkaa lähetä.
-							</p>
+							<?php if ( get_field( 'lomake_modal_text_after', 'options' ) ) : ?>
+								<p>
+									<?php the_field( 'lomake_modal_text_after', 'options' ); ?>
+								</p>
+							<?php endif; ?>
 
 							<label class="card-code-label" for="copy-card-code">
 								<span class="label-text">
@@ -215,10 +229,15 @@ if ( 'tulkintakortti' === $type ) {
 						</div>
 					</div>
 				</div>
+				<div class="lomake-card-success">
+					<div class="message-wrapper">
+						<p class="message"></p>
+					</div>
+				</div>
 			<?php endif; ?>
 		</div>
 	</section>
-<?php endif; ?>
+
 
 <div class="grid toggle">
 	<button class="sidebar-toggle"
