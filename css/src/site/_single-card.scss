@@ -3,6 +3,24 @@
 .single-tulkintakortti,
 .single-ohjekortti,
 .single-lomakekortti {
+	.card-content {
+		.column {
+			p,
+			li,
+			a,
+			i,
+			s,
+			u,
+			span,
+			del,
+			ins,
+			sub,
+			input,
+			sup {
+				font-size: 1.8rem;
+			}
+		}
+	}
 	.site {
 		overflow: hidden;
 	}
@@ -180,7 +198,7 @@
 
 					&.lightblue {
 						.tulkinta-symbol {
-							background-color: $tulkinta-lightblue;
+							background-color: $tulkinta-turquoise;
 						}
 					}
 
@@ -245,7 +263,7 @@
 				}
 
 				&.bg-blue {
-					background-color: $tulkinta-blue-transparent;
+					background-color: $tulkinta-blue-light;
 
 					a {
 						color: $tulkinta-blue;
@@ -257,7 +275,7 @@
 				}
 
 				&.bg-green {
-					background-color: $tulkinta-green-transparent;
+					background-color: $tulkinta-green-light;
 
 					a {
 						color: $tulkinta-green;
@@ -269,7 +287,7 @@
 				}
 
 				&.bg-red {
-					background-color: $tulkinta-red-transparent;
+					background-color: $tulkinta-red-light;
 
 					a {
 						color: $tulkinta-red;
@@ -281,13 +299,13 @@
 				}
 
 				&.bg-lightblue {
-					background-color: $tulkinta-lightblue-transparent;
+					background-color: $tulkinta-turquoise-light;
 
 					a {
-						color: $tulkinta-lightblue;
+						color: $tulkinta-turquoise;
 
 						&::after {
-							color: $tulkinta-lightblue;
+							color: $tulkinta-turquoise;
 						}
 					}
 				}
@@ -666,6 +684,29 @@
 						content: counters(item, ".") ". ";
 					}
 				}
+			}
+		}
+	}
+}
+
+// We want to hide this earlier since we have fields that get wonky with low res
+.single-lomakekortti {
+	.sidebar-grid {
+		@media (max-width: $min-xxl) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+	aside.sidebar {
+		@media (max-width: $min-xxl) {
+			grid-row: 1;
+			display: none;
+			position: static;
+			height: auto;
+			border: 1px solid $black;
+			padding: 30px 30px 60px;
+
+			&.active {
+				display: flex;
 			}
 		}
 	}

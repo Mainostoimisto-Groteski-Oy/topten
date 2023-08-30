@@ -1,0 +1,124 @@
+@use "mixins/all" as *;
+
+.accordion-block {
+    margin: 15px 0;
+    padding-bottom: 25px;
+    &.override-margin {
+        margin: 0;
+        padding-bottom: 0;
+        .grid {
+            .content {
+                .accordion-title {
+                    &:last-of-type {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.no-padding {
+        padding-bottom: 0;
+    }
+
+    &.border {
+        .grid {
+            position: relative;
+        }
+    }
+
+    a {
+        color: $white;
+    }
+
+    .grid {
+        grid-template-columns: minmax(0, 1fr);
+
+        .content {
+            .accordion-title {
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                margin: 25px 0;
+                transition: all 0.25s;
+                cursor: pointer;
+                position: relative;
+                padding: 15px 30px;
+                background-color: $white;
+                color: $black;
+                width: 100%;
+                border: none;
+                border: 1px solid $black;
+                &:first-of-type {
+                    margin-top: 0;
+                }
+                &.toggled {
+                    margin-bottom: 0;
+
+                    .material-icons {
+                        transform: rotate(-90deg);
+                    }
+                }
+
+                span {
+                    display: inline-block;
+                    color: $black;
+                    padding: 0;
+                    margin: 0;
+
+                    &:first-child {
+                        font-weight: 600;
+                        display: inline-block;
+                    }
+
+                    &.material-symbols {
+                        font-weight: 600;
+                        transition: all 0.25s;
+                        margin-left: auto;
+                        color: $black;
+                        font-size: 4.5rem;
+                        overflow: visible;
+                    }
+                }
+            }
+
+            .accordion-text {
+                display: none;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 0;
+
+                a {
+                    color: $black;
+                }
+
+                p {
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+
+                &.toggled {
+                    display: grid;
+                }
+
+                @include arrowlinks($black, 600);
+                .links {
+                    a.link {
+                        &::before {
+                            bottom: 0;
+                        }
+                    }
+                }
+                .text-wrapper {
+                    padding: 30px;
+                    border-left: 1px solid $black;
+                    border-right: 1px solid $black;
+                    border-bottom: 1px solid $black;
+                    @media (max-width: $max-xxs) {
+                        padding: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

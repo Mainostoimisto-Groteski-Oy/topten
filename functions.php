@@ -315,6 +315,7 @@ function topten_allowed_block_types( $allowed_blocks, $editor_context ) {
 			'acf/kolme-saraketta',
 			'acf/nelja-saraketta',
 			'acf/lista',
+			'acf/haitari',
 			// 'acf/upotus',
 			// 'acf/logot',
 			// 'acf/yhteystiedot',
@@ -611,6 +612,20 @@ function topten_acf() {
 					'jsx'   => true,
 				),
 				'icon'            => 'welcome-widgets-menus',
+			)
+		);
+		$block_name  = 'Haitari';
+		$block_slug  = 'accordion-block';
+		$description = 'Lohko haitarielementillä';
+
+		acf_register_block_type(
+			array(
+				'name'            => $block_name,
+				'title'           => $block_name,
+				'description'     => $description,
+				'render_template' => "blocks/$block_slug.php",
+				'keywords'        => array( $block_name ),
+				'icon'            => 'menu',
 			)
 		);
 

@@ -74,7 +74,9 @@
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			gap: 0;
 			padding: 15px;
-
+			@media (max-width: $max-xs) {
+				grid-template-columns: minmax(0, 1fr);
+			}
 			.column {
 				border: none;
 				flex-direction: unset;
@@ -88,11 +90,19 @@
 			.logos {
 				display: flex;
 				align-items: center;
-
+				@media (max-width: $max-xs) {
+					padding: 0px 5px;
+				}
 				img {
 					max-width: 125px;
 
 					&.topten {
+						max-width: 55px;
+						@media (max-width: $max-xs) {
+							max-width: 30px;
+						}
+					}
+					@media (max-width: $max-xs) {
 						max-width: 55px;
 					}
 				}
@@ -100,6 +110,9 @@
 				picture.topten {
 					img {
 						max-width: 55px;
+						@media (max-width: $max-xs) {
+							max-width: 30px;
+						}
 					}
 				}
 			}
@@ -122,7 +135,9 @@
 						}
 					}
 				}
-
+				.inner-wrapper.ident {
+					width: 100%;
+				}
 				.inner-column {
 					padding: 5px;
 					text-transform: uppercase;

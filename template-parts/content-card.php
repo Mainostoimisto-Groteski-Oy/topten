@@ -300,7 +300,7 @@ if ( 'tulkintakortti' === $type ) {
 							</p>
 						</div>
 
-						<div class="inner-wrapper">
+						<div class="inner-wrapper ident">
 							<div class="inner-column identifier">
 								<p class="small-title">
 									<?php esc_html_e( 'Tunniste', 'topten' ); ?>

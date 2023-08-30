@@ -3,5 +3,12 @@
 .card-content {
 	.card-text-block {
 		// width: calc(var(--width, 100%) - 10px);
+		.text-wrapper {
+			p {
+				@media (max-width: $max-xs) {
+					padding: 0 !important;
+				}
+			}
+		}
 	}
 }
