@@ -164,7 +164,34 @@ section.text-block {
 		}
 	}
 }
-
+.lomake-card-success {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 450px;
+	height: 100px;
+	margin: auto;
+	.message-wrapper {
+		font-size: 1.6rem;
+		text-align: center;
+		background-color: rgba($admin-green, 0.95);
+		padding: 5px 10px;
+		border-radius: 5px;
+		position: relative;
+		inset: 0;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.message {
+			margin: 0;
+		}
+	}
+}
 .save-card-modal {
 	position: fixed;
 	inset: 0;
@@ -238,7 +265,9 @@ section.text-block {
 			height: 100%;
 			width: 100%;
 			margin: 0;
-
+			&.error {
+				background-color: rgba($archive-red, 0.95);
+			}
 			.message {
 				position: relative;
 				margin: 0;

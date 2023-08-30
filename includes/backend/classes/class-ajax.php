@@ -218,6 +218,6 @@ class Topten_Ajax extends Topten {
 
 		wp_mail( $to, $subject, $body, $headers );
 
-		wp_send_json_success( __( 'Koodi lähetetty sähköpostiisi.', 'topten' ) );
+		wp_send_json_success( __( 'Koodi on lähetetty sähköpostiisi.', 'topten' ) );
 	}
 }
