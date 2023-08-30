@@ -108,6 +108,7 @@ jQuery(document).ready(($) => {
 			},
 			success(data) {
 				// PHP code handles the data so we just need to append it to the DOM
+				console.log(data);
 				$('#listCards').html(data);
 				// Hide empty categories
 				// Tulkintakortti post type has three levels of categories, the others two

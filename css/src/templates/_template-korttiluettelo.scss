@@ -88,27 +88,35 @@ body.page-template-template-korttiluettelo {
 							color: $black;
 						}
 
-						// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
-						.toggler {
-							font-family: $font-icons;
-							font-size: 3rem;
-							background: none;
+						button.toggler {
+							width: 100%;
+							background-color: transparent;
 							border: none;
-							position: absolute;
-							right: 0;
-							top: 50%;
-							transform: translate(0, -50%);
-							transition: all 0.15s;
-
-							&:hover {
-								transform: translate(0, -50%) scale(1.2);
+							text-align: left;
+							span.material-symbols {
+								font-family: $font-icons;
+								font-size: 3rem;
+								background: none;
+								border: none;
+								position: absolute;
+								right: 0;
+								top: 50%;
+								transform: translate(0, -50%);
+								transition: all 0.15s;
 							}
-
 							&.active {
-								transform: translate(0, -50%) rotate(90deg);
-
+								span.material-symbols {
+									transform: translate(0, -50%) rotate(90deg);
+								}
 								&:hover {
-									transform: translate(0, -50%) rotate(90deg) scale(1.2);
+									span.material-symbols {
+										transform: translate(0, -50%) rotate(90deg) scale(1.2);
+									}
+								}
+							}
+							&:hover {
+								span.material-symbols {
+									transform: translate(0, -50%) scale(1.2);
 								}
 							}
 						}
@@ -196,7 +204,6 @@ body.page-template-template-korttiluettelo {
 									gap: 5px;
 									align-items: center;
 									position: relative;
-
 									button {
 										border-radius: 100px;
 										background-color: $green;
@@ -207,7 +214,10 @@ body.page-template-template-korttiluettelo {
 										height: 16px;
 										position: absolute;
 										top: 8px;
-
+										transition: all 0.15s;
+										&:hover {
+											background-color: $black;
+										}
 										// TODO: MATERIAL ICONS EI OLE SAAVUTETTAVA PSEUDOELEMENTEISSÄ
 										&::after {
 											position: absolute;
@@ -530,7 +540,7 @@ body.page-template-template-korttiluettelo {
 						border: 1px solid $grey;
 					}
 
-					button {
+					button:not(.checkboxbutton) {
 						background-color: $black;
 						color: $white;
 						border: 1px solid $black;
@@ -552,8 +562,15 @@ body.page-template-template-korttiluettelo {
 						}
 					}
 
-					.submit {
+					button[type="submit"] {
 						grid-column: 1 / -1;
+						margin-right: auto;
+					}
+					button.checkboxbutton {
+						margin-right: auto;
+						padding: 0;
+						background: transparent;
+						border: none;
 					}
 				}
 
