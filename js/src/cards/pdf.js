@@ -332,6 +332,7 @@ jQuery(document).ready(($) => {
 			},
 		})
 			.done((response) => {
+				// Todo: Show message
 				console.log(response);
 			})
 			.fail((jqXHR, textStatus, errorThrown) => {

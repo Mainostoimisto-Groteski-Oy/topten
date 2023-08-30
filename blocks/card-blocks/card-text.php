@@ -1,7 +1,7 @@
 <?php
 $text     = get_field( 'text' );
 $tulkinta = get_field( 'tulkinta' );
-$color       = false;
+$color    = false;
 
 
 if ( $tulkinta && 'none' !== $tulkinta['value'] ) :

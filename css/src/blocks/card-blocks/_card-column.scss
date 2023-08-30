@@ -3,6 +3,7 @@
 .card-content {
 	.column-item {
 		width: calc(var(--width, 100%) - 10px);
+
 		@media (max-width: $max-xs) {
 			width: 100%;
 		}

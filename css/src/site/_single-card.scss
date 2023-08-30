@@ -21,6 +21,7 @@
 			}
 		}
 	}
+
 	.site {
 		overflow: hidden;
 	}
@@ -696,6 +697,7 @@
 			grid-template-columns: minmax(0, 1fr);
 		}
 	}
+
 	aside.sidebar {
 		@media (max-width: $min-xxl) {
 			grid-row: 1;

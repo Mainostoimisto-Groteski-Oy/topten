@@ -13,10 +13,12 @@
 		justify-content: space-between;
 		margin-top: auto;
 		margin-bottom: auto;
+
 		@media (max-width: $max-xs) {
 			width: 100%;
 			align-items: unset;
 		}
+
 		.checkboxes {
 			display: flex;
 			gap: 15px;
@@ -27,20 +29,25 @@
 			.checkboxes {
 				flex-direction: column;
 				gap: 5px;
+
 				label.checkbox-field {
 					display: block;
+
 					input {
 						margin-right: 3px;
 					}
 				}
 			}
 		}
+
 		&.text-before {
 			flex-direction: column;
+
 			.description {
 				max-width: unset !important;
 				width: 100%;
 			}
+
 			.checkboxes {
 				width: 100%;
 			}
@@ -51,10 +58,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
 		@media (max-width: $max-xs) {
 			width: 100%;
 			align-items: unset;
 		}
+
 		&.center {
 			margin-top: auto;
 			margin-bottom: auto;
@@ -63,9 +72,11 @@
 		.radios {
 			display: flex;
 			gap: 15px;
+
 			span.text-before {
 				font-size: 1.6rem;
 			}
+
 			@media (max-width: $max-xs) {
 				width: 100%;
 			}
@@ -75,20 +86,25 @@
 			.radios {
 				flex-direction: column;
 				gap: 5px;
+
 				label.radio-field {
 					display: block;
+
 					input {
 						margin-right: 3px;
 					}
 				}
 			}
 		}
+
 		&.text-before {
 			flex-direction: column;
+
 			.description {
 				max-width: unset !important;
 				width: 100%;
 			}
+
 			.radios {
 				width: 100%;
 			}
@@ -118,6 +134,7 @@
 					padding: 10px;
 					margin: 5px 0;
 				}
+
 				span.prefix,
 				span.suffix {
 					font-size: 1.6rem;
@@ -142,18 +159,22 @@
 			font-weight: 400;
 		}
 	}
+
 	&.checkboxes-wrapper,
 	&.radios-wrapper {
 		@media (max-width: $max-xs) {
 			width: 100%;
 		}
+
 		&.horizontal {
 			@media (max-width: $max-xs) {
 				display: flex;
 				flex-direction: column;
 			}
+
 			.description {
 				max-width: 80%;
+
 				@media (max-width: $max-xs) {
 					width: 100%;
 					max-width: unset;

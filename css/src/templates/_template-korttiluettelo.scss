@@ -32,6 +32,7 @@ body.page-template-template-korttiluettelo {
 					align-items: center;
 					z-index: 99999;
 				}
+
 				#ajaxSpinner {
 					position: fixed;
 					top: 50%;
@@ -39,14 +40,17 @@ body.page-template-template-korttiluettelo {
 					transform: translate(-50%, -50%);
 					display: none;
 					z-index: 999999;
+
 					&.active {
 						display: block;
 					}
+
 					.spinner-wrapper {
 						height: 100%;
 						display: flex;
 						justify-content: center;
 						align-items: center;
+
 						.spinner {
 							width: 40px;
 							height: 40px;
@@ -56,6 +60,7 @@ body.page-template-template-korttiluettelo {
 							animation: spinning 0.6s infinite linear;
 						}
 					}
+
 					@keyframes spinning {
 						100% {
 							transform: rotate(360deg);

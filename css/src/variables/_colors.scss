@@ -1,5 +1,5 @@
-$black: #000000;
-$white: #ffffff;
+$black: #000;
+$white: #fff;
 $lightgreen: #a6ae99;
 $green: #4e5d33;
 $darkgrey: #d4d1d0;
@@ -14,8 +14,10 @@ $tulkinta-green-light: #eaede8;
 $tulkinta-red-light: #f1eaea;
 $tulkinta-blue-light: #e6e7f1;
 $tulkinta-turquoise-light: #e8f1f4;
+
 // Grey overlay color over shit when ajax is working
 $ajaxgrey: rgba(249, 249, 249, 0.75);
+
 // Admin colors
 $admin-green: #4caf50;
 $admin-red: #d63638;

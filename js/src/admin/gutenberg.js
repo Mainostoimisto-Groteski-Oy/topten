@@ -20,7 +20,8 @@ jQuery(document).ready(($) => {
 		$(this).closest('.wp-block').css('width', `calc(${width} - 10px)`);
 
 		if ($(this).attr('id') === 'block-f8634fab-40f4-47eb-a792-1e9f07dde401') {
-			console.log($(this).closest('.wp-block'));
+			// Todo?
+			// console.log($(this).closest('.wp-block'));
 		}
 	}
 
