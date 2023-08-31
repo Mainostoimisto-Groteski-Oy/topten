@@ -14,6 +14,7 @@ module.exports = {
 			'error',
 			{
 				danglingComma: 'es5',
+				endOfLine: 'auto',
 			},
 		],
 		indent: ['error', 'tab'],

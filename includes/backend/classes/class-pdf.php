@@ -218,18 +218,18 @@ class Topten_PDF extends FPDFA {
 	protected function set_size( string $tag, string $class = '' ): void {
 		switch ( $tag ) {
 			case 'h1':
-				$this->font_size = 32;
+				$this->font_size = 28;
 				break;
 			case 'h2':
 				if ( str_contains( $class, 'desc' ) ) {
 					$this->font_size = 14;
 				} else {
-					$this->font_size = 32;
+					$this->font_size = 24;
 				}
 
 				break;
 			case 'h3':
-				$this->font_size = 26;
+				$this->font_size = 22;
 				break;
 			case 'strong':
 				if ( str_contains( $class, 'top_row' ) ) {
@@ -401,6 +401,8 @@ class Topten_PDF extends FPDFA {
 			$this->row_padding * 2,
 			$this->row_padding * 2
 		);
+
+		$this->SetAutoPageBreak( true, $this->row_padding * 2 );
 
 		$this->AddFont( 'Blinker', '', 'Blinker-Regular.ttf', true );
 		$this->AddFont( 'Blinker', 'B', 'Blinker-Bold.ttf', true );
@@ -672,6 +674,8 @@ class Topten_PDF extends FPDFA {
 
 			if ( 0 === $lis ) {
 				$this->Ln();
+
+				$this->SetX( $this->column_start_x );
 			}
 
 			if ( 'li' !== $tag ) {
@@ -747,9 +751,6 @@ class Topten_PDF extends FPDFA {
 				$value .= ' ';
 
 				$line_width = $this->GetStringWidth( $value );
-
-				// error_log( $value );
-				// error_log( $this->column_start_x );
 
 				// Todo
 				// if ( $this->GetX() + $line_width > $this->column_end_x && $parent_tag ) {
@@ -1019,12 +1020,9 @@ class Topten_PDF extends FPDFA {
 
 						$this->column_width = $original_column_width;
 					} elseif ( 'span' === $grandchild_tag ) {
-						error_log( '--' );
-						error_log( $this->PageNo() . ' - ' . $this->GetX() . ' - ' . $this->column_start_y );
 						$this->SetXY( $this->GetX(), $this->column_start_y );
 
 						$this->write_text( $grandchild );
-						error_log( $this->PageNo() );
 					}
 				}
 			} elseif ( 'span' === $tag ) {
@@ -1073,6 +1071,8 @@ class Topten_PDF extends FPDFA {
 					// Column end point is the current x + the column width
 					$column_end_x = $current_x + $this->column_width;
 
+					json_log( $data );
+
 					// If the column end point is greater than the content end point, we need to reset the column start and end xes
 					if ( round( $column_end_x, 3 ) > round( $content_end, 3 ) ) {
 						$column_start_x = $this->lMargin;
@@ -1106,6 +1106,11 @@ class Topten_PDF extends FPDFA {
 
 						$this->column_start_y      = $current_y + $this->row_padding;
 						$this->last_column_start_y = $this->column_start_y;
+					} elseif ( 'ul' === $tag || 'ol' === $tag ) {
+						$current_y = $this->GetY();
+
+						$this->column_start_y      = $current_y;
+						$this->last_column_start_y = $this->column_start_y;
 					} else {
 						$this->column_start_y      = $current_y;
 						$this->last_column_start_y = $this->column_start_y;
@@ -1124,13 +1129,24 @@ class Topten_PDF extends FPDFA {
 
 				$this->column_start_y += $this->row_padding;
 
-				// Top line
-				$this->Line(
-					$this->lMargin - $this->row_padding,
-					$this->column_start_y - $this->row_padding,
-					$this->GetPageWidth() - $this->rMargin + $this->row_padding,
-					$this->column_start_y - $this->row_padding
-				);
+				$column_height = $this->get_column_height( $data );
+
+				$this->column_end_y = $this->column_start_y + $column_height;
+
+				if ( $this->column_end_y > $this->GetPageHeight() - $this->bMargin ) {
+					$this->AddPage();
+
+					$this->column_start_y = $this->tMargin + $this->row_padding;
+					$this->column_end_y   = $this->column_start_y + $column_height;
+				} else {
+					// Top line
+					$this->Line(
+						$this->lMargin - $this->row_padding,
+						$this->column_start_y - $this->row_padding,
+						$this->GetPageWidth() - $this->rMargin + $this->row_padding,
+						$this->column_start_y - $this->row_padding
+					);
+				}
 
 				$this->last_column_start_y = $this->column_start_y;
 				$this->last_column_start_x = $this->column_start_x;

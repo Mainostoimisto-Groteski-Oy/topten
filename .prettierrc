@@ -3,6 +3,7 @@
 	"useTabs": true,
 	"bracketSameLine": true,
 	"singleQuote": true,
+	"endOfLine": "auto",
 	"overrides": [
 		{
 			"files": "*.scss",

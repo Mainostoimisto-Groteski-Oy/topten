@@ -1026,10 +1026,7 @@ class tFPDF {
 		$s    = str_replace( "\r", '', (string) $txt );
 		$wmax = ( $this->column_width - 2 * $this->cMargin );
 
-		$content_end = $this->GetPageWidth() - $this->rMargin;
-
 		$room_left = $wmax - $this->GetX();
-
 		$room_left = $wmax;
 
 		if ( $this->unifontSubset ) {
@@ -1100,7 +1097,9 @@ class tFPDF {
 
 				// Automatic line break
 				if ( $sep == -1 ) {
-					if ( $this->x > $this->lMargin ) {
+					// if ( $this->x > $this->lMargin ) {
+					if ( $this->x > $this->column_end_x ) {
+
 						// Move to next line
 						$this->x  = $this->lMargin;
 						$this->y += $h;

@@ -1,7 +1,5 @@
 import { __ } from '@wordpress/i18n';
-
-/* global Ajax */
-jQuery(document).ready(($) => {
+/* global Ajax */ jQuery(document).ready(($) => {
 	function getChild(node) {
 		const tag = node.nodeName.toLowerCase();
 
