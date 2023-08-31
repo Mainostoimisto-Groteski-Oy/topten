@@ -1277,27 +1277,43 @@ function topten_card_search() {
 	$lomake_array   = array();
 
 	// If posts are found, save them to their own arrays from which one array is created
-	if ( $the_query->have_posts() ) {
-		while ( $the_query->have_posts() ) {
-			$the_query->the_post();
-			$post_id = get_the_ID();
-			// combine identifier from acf fields start and end
-			$identifier = get_field( 'identifier_start' ) . '' . get_field( 'identifier_end' );
-			if ( 'tulkintakortti' === get_post_type( $post_id ) ) {
-				$tulkinta_array[] = array(
-					'ID'         => $post_id,
-					'identifier' => $identifier,
-				);
-			} elseif ( 'ohjekortti' === get_post_type( $post_id ) ) {
-				$ohje_array[] = array(
-					'ID'         => $post_id,
-					'identifier' => $identifier,
-				);
-			} elseif ( 'lomakekortti' === get_post_type( $post_id ) ) {
-				$lomake_array[] = array(
-					'ID'         => $post_id,
-					'identifier' => $identifier,
-				);
+	if ( 'identifier' === $filterOrder ) {
+		if ( $the_query->have_posts() ) {
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
+				$post_id = get_the_ID();
+				// combine identifier from acf fields start and end
+				$identifier = get_field( 'identifier_start' ) . '' . get_field( 'identifier_end' );
+				if ( 'tulkintakortti' === get_post_type( $post_id ) ) {
+					$tulkinta_array[] = array(
+						'ID'         => $post_id,
+						'identifier' => $identifier,
+					);
+				} elseif ( 'ohjekortti' === get_post_type( $post_id ) ) {
+					$ohje_array[] = array(
+						'ID'         => $post_id,
+						'identifier' => $identifier,
+					);
+				} elseif ( 'lomakekortti' === get_post_type( $post_id ) ) {
+					$lomake_array[] = array(
+						'ID'         => $post_id,
+						'identifier' => $identifier,
+					);
+				}
+			}
+		}
+	} else {
+		if ( $the_query->have_posts() ) {
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
+				$post_id = get_the_ID();
+				if ( 'tulkintakortti' === get_post_type( $post_id ) ) {
+					$tulkinta_array[] = $post_id;
+				} elseif ( 'ohjekortti' === get_post_type( $post_id ) ) {
+					$ohje_array[] = $post_id;
+				} elseif ( 'lomakekortti' === get_post_type( $post_id ) ) {
+					$lomake_array[] = $post_id;
+				}
 			}
 		}
 	}
@@ -1314,28 +1330,31 @@ function topten_card_search() {
 		wp_die();
 	} else {
 		// Sort every array by identifier
-		usort(
-			$tulkinta_array,
-			function( $a, $b ) {
-				return $a['identifier'] <=> $b['identifier'];
-			}
-		);
-		usort(
-			$ohje_array,
-			function( $a, $b ) {
-				return $a['identifier'] <=> $b['identifier'];
-			}
-		);
-		usort(
-			$lomake_array,
-			function( $a, $b ) {
-				return $a['identifier'] <=> $b['identifier'];
-			}
-		);
-		// remove identifiers from arrays and leave only IDs
-		$tulkinta_array = array_column( $tulkinta_array, 'ID' );
-		$ohje_array     = array_column( $ohje_array, 'ID' );
-		$lomake_array   = array_column( $lomake_array, 'ID' );
+		// only do this shit if we sort by identifier
+		if ( 'identifier' === $filterOrder ) {
+			usort(
+				$tulkinta_array,
+				function( $a, $b ) {
+					return $a['identifier'] <=> $b['identifier'];
+				}
+			);
+			usort(
+				$ohje_array,
+				function( $a, $b ) {
+					return $a['identifier'] <=> $b['identifier'];
+				}
+			);
+			usort(
+				$lomake_array,
+				function( $a, $b ) {
+					return $a['identifier'] <=> $b['identifier'];
+				}
+			);
+			// remove identifiers from arrays and leave only IDs
+			$tulkinta_array = array_column( $tulkinta_array, 'ID' );
+			$ohje_array     = array_column( $ohje_array, 'ID' );
+			$lomake_array   = array_column( $lomake_array, 'ID' );
+		}
 
 		// Create array of arrays
 		$card_array = array(

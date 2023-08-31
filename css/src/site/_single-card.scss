@@ -712,4 +712,17 @@
 			}
 		}
 	}
+	.lomake-card-actions {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		gap: 15px;
+		button {
+			text-transform: uppercase;
+			font-weight: 400 !important;
+			&.save-as-pdf {
+				margin-right: auto;
+			}
+		}
+	}
 }

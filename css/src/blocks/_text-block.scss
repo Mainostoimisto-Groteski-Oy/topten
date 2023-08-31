@@ -98,12 +98,17 @@ section.text-block {
 	.card-actions {
 		display: grid;
 		grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 4fr) minmax(0, 2fr);
-
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+		}
 		@include button;
 
 		.left-side {
 			grid-column: 1;
-
+			@media (max-width: $max-s) {
+				grid-column: auto;
+				margin-bottom: 15px;
+			}
 			p {
 				font-size: 1.8rem;
 			}
@@ -111,7 +116,9 @@ section.text-block {
 
 		.right-side {
 			grid-column: 3;
-
+			@media (max-width: $max-s) {
+				grid-column: auto;
+			}
 			p {
 				font-size: 1.8rem;
 			}
@@ -148,7 +155,9 @@ section.text-block {
 
 			.input-with-button {
 				display: flex;
-
+				@media (max-width: $max-s) {
+					margin-right: auto;
+				}
 				input {
 					border-radius: 5px 0 0 5px;
 					border: 1px solid $black;
@@ -164,7 +173,34 @@ section.text-block {
 		}
 	}
 }
-
+.lomake-card-success {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 450px;
+	height: 100px;
+	margin: auto;
+	.message-wrapper {
+		font-size: 1.6rem;
+		text-align: center;
+		background-color: rgba($admin-green, 0.95);
+		padding: 5px 10px;
+		border-radius: 5px;
+		position: relative;
+		inset: 0;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.message {
+			margin: 0;
+		}
+	}
+}
 .save-card-modal {
 	position: fixed;
 	inset: 0;
@@ -238,7 +274,9 @@ section.text-block {
 			height: 100%;
 			width: 100%;
 			margin: 0;
-
+			&.error {
+				background-color: rgba($archive-red, 0.95);
+			}
 			.message {
 				position: relative;
 				margin: 0;

@@ -34,13 +34,21 @@
 		<div class="grid">
 			<div class="container">
 
-				<?php if ( get_field( 'show_topten_logo', 'options' ) ) : ?>
+				<?php if ( get_field( 'show_topten_logo', 'options' ) && ! get_field( 'topten_logo_home_link', 'options' ) ) : ?>
 
 				<div class="topten-branding">
 					<?php $logo = get_field( 'topten_logo', 'options' ); ?>
 					<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 				</div>
 
+				<?php else : ?>
+
+				<a class="topten-branding" href="<?php echo esc_url( home_url() ); ?>">
+					<?php $logo = get_field( 'topten_logo', 'options' ); ?>
+					<span class="screen-reader-text"><?php echo esc_html_e( 'Palaa etusivulle', 'topten' ); ?></span>
+					<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
+				</a>
+					
 				<?php endif; ?>
 
 				<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="site-navigation" aria-expanded="false">
@@ -49,12 +57,20 @@
 					</span>
 				</button>
 
-				<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>
+				<?php if ( get_field( 'show_rty_logo', 'options' ) && ! get_field( 'rty_logo_link', 'options' ) ) : ?>
 
 					<div class="rty-branding">
 						<?php $logo = get_field( 'rty_logo', 'options' ); ?>
 						<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 					</div>
+
+				<?php else : ?>
+					
+					<a class="rty-branding" href="<?php echo esc_url( get_field( 'rty_logo_link_url', 'options' ) ); ?>">
+						<?php $logo = get_field( 'rty_logo', 'options' ); ?>
+						<span class="screen-reader-text"><?php echo esc_html_e( 'Rakennustarkastusyhdistyksen sivuille', 'topten' ); ?></span>
+						<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
+					</a>
 
 				<?php endif; ?>
 			</div>
