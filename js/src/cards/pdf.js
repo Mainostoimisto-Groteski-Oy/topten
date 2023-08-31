@@ -345,7 +345,6 @@ jQuery(document).ready(($) => {
 			.fail((jqXHR, textStatus, errorThrown) => {
 				// eslint-disable-next-line no-console
 				console.error(textStatus, errorThrown);
-				console.log('ajax fail');
 			});
 	});
 
