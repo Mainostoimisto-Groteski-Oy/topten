@@ -63,6 +63,53 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_64f049dc82f4d",
+            "label": "Logo on linkki RTY:n sivuille?",
+            "name": "rty_logo_link",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_64f04a34eef3c",
+            "label": "RTY:n url",
+            "name": "rty_logo_link_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64f049dc82f4d",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "https:\/\/www.rakennustarkastusyhdistys.fi\/",
+            "placeholder": ""
+        },
+        {
             "key": "field_64dc672dff37b",
             "label": "Näytä TopTen logo headerissa?",
             "name": "show_topten_logo",
@@ -79,6 +126,27 @@
             "relevanssi_exclude": 0,
             "message": "",
             "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_64f040988e2b5",
+            "label": "Logo on linkki etusivulle?",
+            "name": "topten_logo_home_link",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 1,
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
@@ -1193,5 +1261,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1693377610
+    "modified": 1693469273
 }

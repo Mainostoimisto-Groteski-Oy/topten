@@ -356,10 +356,24 @@ if ( 'tulkintakortti' === $type ) {
 			the_content(); // Kortin sisältölohkot
 			?>
 		</div>
-
-		<button type="button" class="button inverted save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
-			<?php esc_html_e( 'Tulosta kortti', 'topten' ); ?>
-		</button>
+		<?php if ( 'lomakekortti' !== $type ) : ?>
+			<button type="button" class="button inverted save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
+				<?php esc_html_e( 'Tulosta kortti', 'topten' ); ?>
+			</button>
+		<?php else : ?>
+		
+		<div class="lomake-card-actions">
+			<button type="button" class="button inverted save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
+					<?php esc_html_e( 'Tulosta lomake', 'topten' ); ?>
+			</button>
+			<button type="button" class="button clear-input" data-type="<?php echo esc_attr( $type ); ?>">
+					<?php esc_html_e( 'Tyhjennä lomake', 'topten' ); ?>
+			</button>
+			<button type="button" class="button save-card" aria-haspopup="dialog" aria-expanded="false">
+				<?php esc_html_e( 'Tallenna lomake', 'topten' ); ?>
+			</button>
+		<?php endif; ?>
+		</div>
 	</article>
 
 	<aside class="sidebar" id="sidebar-menu">

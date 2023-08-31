@@ -44,7 +44,18 @@ $class = 'hero-block hero-' . $select;
 	<?php if ( 'image-text' === $select ) : ?>
 
 		<div class="hero-content-wrapper">
-			<div class="grid-full">
+			<div class="
+			<?php 
+			if ( get_field( 'smaller_grid' ) ) {
+				echo 'grid';
+			} else {
+				echo 'grid-full';} 
+			?>
+			<?php 
+			if ( get_field( 'hero_order' ) === 'image-right' ) {
+					echo 'right'; } 
+			?>
+			">
 				<div class="image-block 
 				<?php 
 				if ( get_field( 'hero_order' ) === 'image-right' ) {
@@ -53,7 +64,16 @@ $class = 'hero-block hero-' . $select;
 				" style="<?php echo ( 'image-text' === $select && $background_url ) ? esc_attr( $background_url ) : ''; ?>">
 
 			</div>
-				<div class="text-block">
+				<div class="text-block
+				<?php 
+				if ( get_field( 'hero_order' ) === 'image-right' ) {
+					echo 'image-right'; } 
+				?>
+				<?php 
+				if ( get_field( 'less_padding' ) ) {
+					echo ' less-padding'; } 
+				?>
+				">
 					<?php if ( get_field( 'hero_logo' ) ) : ?>
 						<div class="logo">
 							<?php $logo = get_field( 'hero_logo' ); ?>
