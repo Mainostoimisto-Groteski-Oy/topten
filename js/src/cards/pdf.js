@@ -347,6 +347,22 @@ jQuery(document).ready(($) => {
 				console.error(textStatus, errorThrown);
 			});
 	});
+	/** Clear card fields */
+	$('.clear-input').on('click', function () {
+		// eslint-disable-next-line no-alert
+		const confirm = window.confirm(__('Haluatko varmasti tyhjentää lomakkeen?', 'topten'));
+		if (confirm === true) {
+			$('.lomakekortti .card-content input, .lomakekortti .card-content textarea').each(function () {
+				$(this).val('');
+
+				if ($(this).attr('type') === 'checkbox') {
+					$(this).prop('checked', false);
+				} else {
+					$(this).val('');
+				}
+			});
+		}
+	});
 
 	/**
 	 * Load card from database

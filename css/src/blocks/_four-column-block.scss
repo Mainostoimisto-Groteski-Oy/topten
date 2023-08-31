@@ -3,9 +3,9 @@
 /// _multi-column-block.scss löytyy sellaiset arvot, jotka vaikuttaa sekä kahden, kolmen ja neljän palstan lohkoon
 section.four-column-block {
 	padding-bottom: 25px;
-	border: 1px solid $black;
 	background-color: $white;
-
+	border-top: 1px solid $black;
+	border-bottom: 1px solid $black;
 	.grid,
 	.grid-full {
 		grid-template-columns: repeat(4, minmax(0, 1fr));

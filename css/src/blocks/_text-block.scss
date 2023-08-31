@@ -98,12 +98,17 @@ section.text-block {
 	.card-actions {
 		display: grid;
 		grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 4fr) minmax(0, 2fr);
-
+		@media (max-width: $max-s) {
+			grid-template-columns: minmax(0, 1fr);
+		}
 		@include button;
 
 		.left-side {
 			grid-column: 1;
-
+			@media (max-width: $max-s) {
+				grid-column: auto;
+				margin-bottom: 15px;
+			}
 			p {
 				font-size: 1.8rem;
 			}
@@ -111,7 +116,9 @@ section.text-block {
 
 		.right-side {
 			grid-column: 3;
-
+			@media (max-width: $max-s) {
+				grid-column: auto;
+			}
 			p {
 				font-size: 1.8rem;
 			}
@@ -148,7 +155,9 @@ section.text-block {
 
 			.input-with-button {
 				display: flex;
-
+				@media (max-width: $max-s) {
+					margin-right: auto;
+				}
 				input {
 					border-radius: 5px 0 0 5px;
 					border: 1px solid $black;

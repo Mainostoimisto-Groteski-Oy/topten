@@ -327,6 +327,69 @@
                     "parent_repeater": "field_63bd15cf80b58"
                 }
             ]
+        },
+        {
+            "key": "field_64f042f63f308",
+            "label": "Vähennä tyhjää tilaa tekstilohkosta?",
+            "name": "less_padding",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_64f05e3ed432a",
+            "label": "Pienennä lohkon leveyttä?",
+            "name": "smaller_grid",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63a1652892c35",
+                        "operator": "==",
+                        "value": "image-text"
+                    },
+                    {
+                        "field": "field_64f042f63f308",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -347,5 +410,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1686046082
+    "modified": 1693474398
 }
