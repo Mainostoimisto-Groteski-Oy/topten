@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-dev:
     runs-on: ubuntu-latest
 
     steps:
@@ -88,7 +88,7 @@ jobs:
         with:
           type: "zip"
           filename: "topten.zip"
-          exclusions: "*.git* /*node_modules/* .editorconfig /*vendor/*"
+          exclusions: "*.git* /*node_modules/* .editorconfig /*vendor/* /docs/* /*src/*"
 
       - name: Upload release
         uses: ncipollo/release-action@v1
