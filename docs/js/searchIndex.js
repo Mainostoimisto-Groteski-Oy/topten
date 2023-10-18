@@ -763,7 +763,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\TOPTEN_VERSION",
             "name": "TOPTEN_VERSION",
-            "summary": "",
+            "summary": "Theme\u0020version\u0020number",
             "url": "namespaces/default.html#constant_TOPTEN_VERSION"
         },                {
             "fqsen": "\\",
