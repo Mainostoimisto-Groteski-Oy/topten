@@ -540,17 +540,6 @@ if ( 'tulkintakortti' === $type ) {
 
 				<div class="box links">
 					<div class="buttons">
-
-						<?php if ( $versions ) : ?>
-							<?php $diff_url = site_url( '/vertaa?card_id=' . get_the_ID() ); ?>
-
-							<a class="button" href="<?php echo esc_url( $diff_url ); ?>">
-								<span class="link-text">
-									<?php esc_html_e( 'Vertaa korttia edelliseen versioon', 'topten' ); ?>
-								</span>
-							</a>
-						<?php endif; ?>
-
 						<?php if ( ! get_field( 'disable_pdf' ) && 'valid' === $status ) : ?>
 							<button type="button" class="action button save-as-pdf" data-type="<?php echo esc_attr( $type ); ?>">
 								<span class="link-text"><?php esc_html_e( 'Tulosta kortti', 'topten' ); ?></span>
