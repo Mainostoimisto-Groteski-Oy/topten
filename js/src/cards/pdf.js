@@ -194,7 +194,7 @@ jQuery(document).ready(($) => {
 	// }
 
 	function limitInputCharacters() {
-		$(document).on('input', '.card-content input[type="text"], .card-content textarea', function () {
+		$(document).on('input', '.card-content input[type="text"]', function () {
 			const value = $(this).val();
 
 			const tempElement = $('<span>')
@@ -222,7 +222,7 @@ jQuery(document).ready(($) => {
 			}
 		});
 
-		$(document).on('paste', '.card-content input[type="text"], .card-content textarea', function (event) {
+		$(document).on('paste', '.card-content input[type="text"]', function (event) {
 			event.preventDefault();
 
 			const value = $(this).val();
@@ -263,6 +263,184 @@ jQuery(document).ready(($) => {
 
 			$(this).val(string);
 		});
+
+		// Todo: Fix textarea
+		// $(document).on('input', '.card-content textarea', function () {
+		// 	const value = $(this).val();
+		// 	const rows = $(this).attr('rows');
+
+		// 	// Split by line breaks
+		// 	const lines = value.split(/\r|\r\n|\n/);
+
+		// 	let row = 0;
+
+		// 	lines.forEach((line) => {
+		// 		row++;
+
+		// 		const tempElement = $('<span>')
+		// 			.css('font-family', $(this).css('font-family'))
+		// 			.css('font-size', $(this).css('font-size'))
+		// 			.css('font-weight', $(this).css('font-weight'))
+		// 			.css('font-style', $(this).css('font-style'))
+		// 			.css('letter-spacing', $(this).css('letter-spacing'))
+		// 			.css('text-transform', $(this).css('text-transform'))
+		// 			.css('white-space', 'nowrap')
+		// 			.css('position', 'absolute')
+		// 			.css('top', '-9999px')
+		// 			.css('left', '-9999px')
+		// 			.css('width', 'auto')
+		// 			.css('height', 'auto')
+		// 			.text(line)
+		// 			.appendTo('body');
+
+		// 		const textWidth = tempElement.width();
+
+		// 		tempElement.remove();
+
+		// 		if (textWidth >= $(this).width()) {
+		// 			row++;
+		// 		}
+		// 	});
+
+		// 	if (row > rows) {
+		// 		$(this).val(value.slice(0, -1));
+		// 	}
+		// });
+
+		// Todo: Fix paste on textarea
+		// $(document).on('paste', '.card-content textarea', function (event) {
+		// 	event.preventDefault();
+
+		// 	const value = $(this).val();
+		// 	const rows = $(this).attr('rows');
+
+		// 	// Split by line breaks
+		// 	const lines = value.split(/\r|\r\n|\n/);
+
+		// 	// Get clipboard data
+		// 	const clipboardData = event.originalEvent.clipboardData.getData('text/plain');
+
+		// 	let row = 0;
+
+		// 	console.log(lines);
+
+		// 	lines.forEach((line) => {
+		// 		if (line === '') {
+		// 			return;
+		// 		}
+
+		// 		row++;
+
+		// 		const tempElement = $('<span>')
+		// 			.css('font-family', $(this).css('font-family'))
+		// 			.css('font-size', $(this).css('font-size'))
+		// 			.css('font-weight', $(this).css('font-weight'))
+		// 			.css('font-style', $(this).css('font-style'))
+		// 			.css('letter-spacing', $(this).css('letter-spacing'))
+		// 			.css('text-transform', $(this).css('text-transform'))
+		// 			.css('white-space', 'nowrap')
+		// 			.css('position', 'absolute')
+		// 			.css('top', '-9999px')
+		// 			.css('left', '-9999px')
+		// 			.css('width', 'auto')
+		// 			.css('height', 'auto')
+		// 			.text(line)
+		// 			.appendTo('body');
+
+		// 		const textWidth = tempElement.width();
+
+		// 		tempElement.remove();
+
+		// 		if (textWidth >= $(this).width()) {
+		// 			row++;
+		// 		}
+		// 	});
+
+		// 	console.log('rows pre ' + row);
+
+		// 	const clipboardLines = clipboardData.split(/\r|\r\n|\n/);
+
+		// 	let lastIsLineBreak = false;
+		// 	const lastLine = lines[lines.length - 1];
+
+		// 	// Check if last character is line break
+		// 	if (value.slice(-1) === '\n') {
+		// 		lastIsLineBreak = true;
+
+		// 		row++;
+		// 	}
+
+		// 	let elementString = value;
+
+		// 	clipboardLines.forEach((line) => {
+		// 		let string = '';
+
+		// 		if (!lastIsLineBreak) {
+		// 			string = lastLine + line;
+		// 		} else {
+		// 			string = line;
+
+		// 			row++;
+		// 		}
+
+		// 		console.log(row);
+
+		// 		if (row > rows) {
+		// 			return;
+		// 		}
+
+		// 		const chars = line.split('');
+
+		// 		chars.forEach((char) => {
+		// 			string += char;
+
+		// 			const tempElement = $('<span>')
+		// 				.css('font-family', $(this).css('font-family'))
+		// 				.css('font-size', $(this).css('font-size'))
+		// 				.css('font-weight', $(this).css('font-weight'))
+		// 				.css('font-style', $(this).css('font-style'))
+		// 				.css('letter-spacing', $(this).css('letter-spacing'))
+		// 				.css('text-transform', $(this).css('text-transform'))
+		// 				.css('white-space', 'nowrap')
+		// 				.css('position', 'absolute')
+		// 				.css('top', '-9999px')
+		// 				.css('left', '-9999px')
+		// 				.css('width', 'auto')
+		// 				.css('height', 'auto')
+		// 				.text(line)
+		// 				.appendTo('body');
+
+		// 			tempElement.text(string);
+
+		// 			console.log($(this).width(), tempElement.width());
+
+		// 			const x = Math.ceil(tempElement.width() / $(this).width());
+
+		// 			console.log(x);
+
+		// 			// if (tempElement.width() > $(this).width()) {
+		// 			// 	row++;
+		// 			// }
+
+		// 			tempElement.remove();
+
+		// 			if (row > rows) {
+		// 				string = string.slice(0, -1);
+		// 			}
+		// 		});
+
+		// 		// if (row <= rows) {
+		// 		// 	string += '\n';
+		// 		// }
+
+		// 		// console.log(string);
+
+		// 		elementString += string;
+		// 	});
+
+		// 	$(this).val(elementString);
+		// });
+
 		// const originalContainer = $('.card-content-wrapper');
 
 		// if (originalContainer.length > 0) {
