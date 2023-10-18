@@ -1,0 +1,30 @@
+name: Generate docs
+
+on:
+  workflow_run:
+    workflows: ["Build main"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build with phpDocumentor
+        run: |
+          docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 -t"docs" --ignore=vendor --ignore=node_modules --ignore=fonts --ignore=includes/tfpdf
+
+      - name: Commit & push
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .
+          git commit -m "docs: generate docs"
+          git push
