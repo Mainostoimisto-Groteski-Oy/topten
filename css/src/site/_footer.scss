@@ -35,8 +35,7 @@ footer {
 
 		.site-branding {
 			grid-column: 1;
-			align-self: flex-start;
-			justify-self: flex-start;
+			place-self: flex-start flex-start;
 
 			> a {
 				display: block;

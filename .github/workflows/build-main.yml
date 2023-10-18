@@ -37,6 +37,9 @@ jobs:
       - name: Run gulp prod
         run: gulp gitProd
 
+      - name: Generate docs
+        run: docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 -d ./ -t ./docs
+
       - name: Commit & push
         run: |
           git config user.name github-actions[bot]

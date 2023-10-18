@@ -4,20 +4,25 @@
 	margin: 0 auto;
 	font-size: 1.8rem;
 	padding: 15px 30px;
+
 	@media (max-width: $max-xs) {
 		padding: 15px;
 	}
+
 	p {
 		font-size: 1.8rem;
 	}
+
 	.cmplz-subtitle {
 		font-weight: 600;
 	}
+
 	li {
 		font-size: 1.8rem;
 		margin-bottom: 10px;
 	}
 }
+
 #cmplz-cookies-overview .cmplz-dropdown summary p,
 #cmplz-document .cmplz-dropdown summary p,
 .editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown summary p,
@@ -29,16 +34,19 @@
 .editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown a {
 	font-size: 1.6rem;
 }
+
 #cmplz-cookies-overview .cmplz-dropdown h4,
 #cmplz-document .cmplz-dropdown h4,
 .editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown h4 {
 	font-size: 1.8rem;
 }
+
 #cmplz-cookies-overview .cmplz-dropdown h5,
 #cmplz-document .cmplz-dropdown h5,
 .editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown h5 {
 	font-size: 1.6rem;
 }
+
 #cmplz-manage-consent-container.cmplz-manage-consent-container
 	.cmplz-categories
 	.cmplz-category
@@ -47,6 +55,7 @@
 	font-size: 1.6rem;
 	color: $card-main-green;
 }
+
 #cmplz-manage-consent-container.cmplz-manage-consent-container .cmplz-categories .cmplz-category .cmplz-description {
 	padding: 15px;
 }
@@ -57,22 +66,27 @@
 		.cmplz-title {
 			font-size: 1.6rem;
 		}
+
 		.cmplz-message {
 			font-size: 1.4rem;
 			line-height: 1.5;
 		}
+
 		.cmplz-links {
 			.cmplz-link {
 				font-size: 1.4rem;
 			}
 		}
+
 		.cmplz-categories .cmplz-category .cmplz-description span {
 			font-size: 1.6rem;
 		}
+
 		.cmplz-categories .cmplz-category .cmplz-category-header .cmplz-always-active {
 			color: $card-main-green;
 			font-size: 1.4rem;
 		}
+
 		.cmplz-categories
 			.cmplz-category
 			.cmplz-banner-checkbox
@@ -80,12 +94,15 @@
 			+ .cmplz-label::before {
 			background-color: $card-main-green;
 		}
+
 		.cmplz-buttons {
 			.cmplz-btn {
 				font-size: 1.6rem;
+
 				&.cmplz-accept {
 					background-color: $green;
 					border: 1px solid $green;
+
 					&:hover {
 						background-color: $card-main-green;
 						border: 1px solid $card-main-green;
