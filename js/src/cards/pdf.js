@@ -622,9 +622,44 @@ jQuery(document).ready(($) => {
 	// 		});
 	// });
 
-	$('.save-as-pdf:not(:disabled)').on('click', function () {
+	// This needs to actually do something :D
+	$(document).on('click', '.save-as-pdf:not(:disabled)', function () {
 		window.print();
 	});
+
+	// Duplicate text areas for printing so content is not cut off when creating pdf / printing out card
+	window.onbeforeprint = function () {
+		const contents = [];
+		$('.card-content textarea').each(function () {
+			contents.push($(this).val());
+			const content = $(this).val();
+			const id = $(this).attr('id');
+			const minHeight = $(this).innerHeight();
+			const divs = $(
+				'<div class="textarea-duplicate" data-id="' +
+					id +
+					'" style="min-height:' +
+					minHeight +
+					'px">' +
+					content +
+					'</div>',
+			);
+			if ($('.textarea-duplicate[data-id="' + id + '"]').length === 0) {
+				$(this).after(divs);
+				$(this).hide();
+			}
+		});
+	};
+
+	// After print window is closed, get rid of the duplicates and show the original textareas
+	window.onafterprint = function () {
+		$('.card-content textarea').each(function () {
+			$(this).show();
+		});
+		$('.card-content .textarea-duplicate').each(function () {
+			$(this).remove();
+		});
+	};
 
 	$('.close-modal').on('click', function () {
 		closeModal();

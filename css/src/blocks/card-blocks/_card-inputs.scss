@@ -132,6 +132,14 @@
 		resize: none;
 		overflow: hidden;
 	}
+	.textarea-duplicate {
+		border: 1px solid black;
+		padding: 10px;
+		margin: 5px 0px;
+		width: 100%;
+		font-size: 1.8rem;
+		white-space: pre-wrap;
+	}
 
 	label {
 		&.text-field,
@@ -148,7 +156,7 @@
 
 				input {
 					width: 100%;
-					padding: 10px;
+					padding: 2px;
 					margin: 5px 0;
 				}
 

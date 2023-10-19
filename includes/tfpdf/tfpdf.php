@@ -1060,7 +1060,6 @@ class tFPDF {
 
 			if ( $c == "\n" ) {
 				// Explicit line break
-				error_log('lool');
 
 				if ( $this->unifontSubset ) {
 					$this->Cell( $w, $h, mb_substr( $s, $j, $i - $j, 'UTF-8' ), 0, 2, '', false, $link );
