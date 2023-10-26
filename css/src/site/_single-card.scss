@@ -990,19 +990,19 @@
 // also show some things earlier
 .single-lomakekortti {
 	section.single-card-container {
-		@media (max-width: $min-xxl) {
+		@media (max-width: $min-l) {
 			background-color: $site-background;
 		}
 
 		&::before {
-			@media (max-width: $min-xxl) {
+			@media (max-width: $min-l) {
 				display: none;
 				content: none;
 			}
 		}
 
 		&::after {
-			@media (max-width: $min-xxl) {
+			@media (max-width: $min-l) {
 				display: none;
 				content: none;
 			}
@@ -1010,19 +1010,19 @@
 	}
 
 	section.card-toggle-container {
-		@media (max-width: $min-xxl) {
+		@media (max-width: $min-l) {
 			background-color: $site-background;
 		}
 
 		.grid.toggle {
-			@media (max-width: $min-xxl) {
+			@media (max-width: $min-l) {
 				display: grid;
 				gap: 30px;
 				grid-template-columns: minmax(0, 1fr);
 				padding-bottom: 0;
 			}
 
-			@media (max-width: $min-xxl) {
+			@media (max-width: $min-l) {
 				#toggleSidebar {
 					display: flex;
 					height: 35px;
@@ -1055,13 +1055,13 @@
 	}
 
 	.sidebar-grid {
-		@media (max-width: $min-xxl) {
+		@media (max-width: $min-l) {
 			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
 	aside.sidebar {
-		@media (max-width: $min-xxl) {
+		@media (max-width: $min-l) {
 			grid-row: 1;
 			display: none;
 			position: static;
