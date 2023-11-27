@@ -225,7 +225,8 @@ body.page-template-template-korttiluettelo {
 									flex-direction: row;
 								}
 
-								li.keyword {
+								li.keyword,
+								span.keyword {
 									display: flex;
 									gap: 5px;
 									align-items: center;

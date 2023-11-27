@@ -52,12 +52,13 @@
 				<a class="topten-branding" href="<?php echo esc_url( home_url() ); ?>">
 					<?php $logo = get_field( 'topten_logo', 'options' ); ?>
 					<span class="screen-reader-text"><?php echo esc_html_e( 'Palaa etusivulle', 'topten' ); ?></span>
+
 					<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 				</a>
 
 				<?php endif; ?>
 
-				<button class="menu-toggle" id="toggleMenu" aria-label="Avaa valikko" aria-controls="site-navigation" aria-expanded="false">
+				<button class="menu-toggle" id="toggleMenu" aria-label="Valikko" aria-controls="site-navigation" aria-expanded="false">
 					<span class="material-symbols" aria-hidden="true">
 						menu
 					</span>
@@ -83,7 +84,7 @@
 		</div>
 	</header>
 
-	<nav id="site-navigation" class="main-navigation" aria-expanded="false">
+	<nav id="site-navigation" class="main-navigation">
 		<?php
 		wp_nav_menu(
 			array(

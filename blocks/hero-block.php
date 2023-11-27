@@ -29,11 +29,12 @@ $class = 'hero-block hero-' . $select;
 ?>
 
 <section <?php topten_block_id(); ?> class="<?php echo esc_attr( $class ); ?> <?php topten_focal_point(); ?>">
-<?php if ( ( 'image' === $select || 'image-text-two-column' === $select ) && ! empty( $background_url ) ) : ?>
-<div class="hero-image-wrapper">
-	<img src="<?php echo esc_url( $background_image['sizes']['qhd'] ); ?>" alt="<?php echo esc_attr( $background_image['alt'] ); ?>" />
-</div>
-<?php endif; ?>
+	<?php if ( ( 'image' === $select || 'image-text-two-column' === $select ) && ! empty( $background_url ) ) : ?>
+		<div class="hero-image-wrapper">
+			<img src="<?php echo esc_url( $background_image['sizes']['qhd'] ); ?>" alt="<?php echo esc_attr( $background_image['alt'] ); ?>" />
+		</div>
+	<?php endif; ?>
+
 	<?php if ( 'image' === $select ) : ?>
 		<div class="hero-content-wrapper">
 			<div class="grid">
@@ -47,60 +48,63 @@ $class = 'hero-block hero-' . $select;
 	<?php endif; ?>
 
 	<?php if ( 'image-text' === $select ) : ?>
-
 		<div class="hero-content-wrapper">
 			<div class="
-			<?php 
-			if ( get_field( 'smaller_grid' ) ) {
-				echo 'grid';
-			} else {
-				echo 'grid-full';} 
-			?>
-			<?php 
-			if ( get_field( 'hero_order' ) === 'image-right' ) {
-					echo 'right'; } 
-			?>
-			">
-				<div class="image-block 
-				<?php 
-				if ( get_field( 'hero_order' ) === 'image-right' ) {
-					echo 'right'; } 
+				<?php
+				if ( get_field( 'smaller_grid' ) ) {
+					echo 'grid';
+				} else {
+					echo 'grid-full';}
 				?>
-				" style="<?php echo ( 'image-text' === $select && $background_url ) ? esc_attr( $background_url ) : ''; ?>">
-
-			</div>
-				<div class="text-block
-				<?php 
+				<?php
 				if ( get_field( 'hero_order' ) === 'image-right' ) {
-					echo 'image-right'; } 
-				?>
-				<?php 
-				if ( get_field( 'less_padding' ) ) {
-					echo ' less-padding'; } 
+						echo 'right'; }
 				?>
 				">
+
+				<div class="image-block
+					<?php
+					if ( get_field( 'hero_order' ) === 'image-right' ) {
+						echo 'right'; }
+					?>
+					" style="<?php echo ( 'image-text' === $select && $background_url ) ? esc_attr( $background_url ) : ''; ?>">
+				</div>
+
+				<div class="text-block
+					<?php
+					if ( get_field( 'hero_order' ) === 'image-right' ) {
+						echo 'image-right'; }
+					?>
+					<?php
+					if ( get_field( 'less_padding' ) ) {
+						echo ' less-padding'; }
+					?>
+					">
 					<?php if ( get_field( 'hero_logo' ) ) : ?>
 						<div class="logo">
 							<?php $logo = get_field( 'hero_logo' ); ?>
 							<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 						</div>
 					<?php endif; ?>
+
 					<?php topten_block_title(); ?>
+
 					<?php if ( get_field( 'hero_ingress' ) ) : ?>
 						<div class="ingress">
 							<?php the_field( 'hero_ingress' ); ?>
 						</div>
 					<?php endif; ?>
+
 					<?php if ( get_field( 'hero_text' ) ) : ?>
 						<div class="text">
 							<?php the_field( 'hero_text' ); ?>
 						</div>
 					<?php endif; ?>
+
 					<?php topten_buttons(); ?>
 				</div>
 			</div>
 		</div>
-
 	<?php endif; ?>
 
 	<?php if ( 'image-text-two-column' === $select ) : ?>
@@ -113,12 +117,15 @@ $class = 'hero-block hero-' . $select;
 							<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ); ?>" />
 						</div>
 					<?php endif; ?>
+
 					<?php topten_block_title(); ?>
+
 					<?php if ( get_field( 'hero_ingress' ) ) : ?>
 						<div class="ingress">
 							<?php the_field( 'hero_ingress' ); ?>
 						</div>
 					<?php endif; ?>
+
 					<div class="hero-text-content">
 						<div class="left">
 							<?php if ( get_field( 'hero_text_left' ) ) : ?>
@@ -127,6 +134,7 @@ $class = 'hero-block hero-' . $select;
 								</div>
 							<?php endif; ?>
 						</div>
+
 						<div class="right">
 							<?php if ( get_field( 'hero_text_right' ) ) : ?>
 								<div class="text">
@@ -134,12 +142,13 @@ $class = 'hero-block hero-' . $select;
 								</div>
 							<?php endif; ?>
 						</div>
-					<?php topten_buttons(); ?>
+
+						<?php topten_buttons(); ?>
+					</div>
 				</div>
 			</div>
 		</div>
 	<?php endif; ?>
-
 </section>
 
 <?php if ( get_field( 'show_breadcrumb', 'options' ) ) : ?>

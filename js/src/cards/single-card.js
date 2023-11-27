@@ -75,24 +75,39 @@ jQuery(document).ready(($) => {
 			});
 		});
 	}
+
 	// Show info boxes and set their position correctly on mouseenter, hide on mouseout
-	$('#sidebar-menu .keywords .keyword').on('click', function () {
+	$('.sidebar .keywords .keyword button').on('click', function () {
 		$('.keyword-description-container').removeClass('active');
-		const id = $(this).attr('data-id');
+
+		// Set aria-expanded attribute to true
+		$(this).attr('aria-expanded', 'true');
+
+		const controls = $(this).attr('aria-controls');
+
 		// get sidebar width
-		const sidebarWidth = $('#sidebar-menu').width();
+		const sidebarWidth = $('.sidebar').width();
+
 		// set keyword-description-container width to sidebar width
 		$('.keyword-description-container').css('width', sidebarWidth + 'px');
+
+		const tooltip = $('.keyword-description-container#' + controls);
+
 		// get height of keyword-description-container and add some space
-		const height = $('.keyword-description-container[id=desc-' + id + ']').height() + 35;
+		const height = tooltip.height() + 35;
+
 		// get left border of ul.keywords
-		const left = $('#sidebar-menu .keywords').offset().left;
+		const left = $('.sidebar .keywords').offset().left;
+
 		// get left border of keyword
 		const keywordLeft = $(this).offset().left;
+
 		// get width of keyword
 		const keywordWidth = $(this).parent('.keyword').innerWidth();
+
 		// calculate left offset for keyword-description-container
 		let leftOffset = keywordLeft - left - keywordWidth;
+
 		if (leftOffset < 0) {
 			// Don't want this to go out of bounds
 			leftOffset = -1;
@@ -100,18 +115,35 @@ jQuery(document).ready(($) => {
 			// -30 because of padding
 			leftOffset = leftOffset - leftOffset * 2 - 30;
 		}
+
 		// set left offset for keyword-description-container
-		$('.keyword-description-container[id=desc-' + id + ']').css('left', leftOffset + 'px');
+		tooltip.css('left', leftOffset + 'px');
 
 		// keyword-description-container should appear a bit above keyword
-		$('.keyword-description-container[id=desc-' + id + ']').css('top', -height + 'px');
+		tooltip.css('top', -height + 'px');
+
 		// set to active (shown) on mouseenter
-		$('.keyword-description-container[id=desc-' + id + ']').addClass('active');
+		tooltip.addClass('active');
 	});
+
 	$(document).on('click', '.keyword.close-button', function () {
 		$('.keyword-description-container').removeClass('active');
+
+		// Set aria-expanded attribute to false
+		$('.sidebar .keywords .keyword button').attr('aria-expanded', 'false');
 	});
-	/* $('#sidebar-menu .keywords .keyword .keyword-link').on('mouseleave', function () {
+
+	// Close the keyword-description-container with esc
+	$(document).keyup(function (e) {
+		if (e.keyCode === 27) {
+			$('.keyword-description-container').removeClass('active');
+
+			// Set aria-expanded attribute to false
+			$('.sidebar .keywords .keyword button').attr('aria-expanded', 'false');
+		}
+	});
+
+	/* $('.sidebar .keywords .keyword .keyword-link').on('mouseleave', function () {
 		$('.keyword-description-container').removeClass('active');
 	}); */
 });

@@ -9,6 +9,7 @@ jQuery(document).ready(($) => {
 			$('#text-' + noTagHash).addClass('toggled');
 		}
 	}
+
 	$('.accordion-title').on('click', function (event) {
 		event.preventDefault();
 

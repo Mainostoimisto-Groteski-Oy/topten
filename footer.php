@@ -30,9 +30,10 @@ $columns = array( 'left', 'middle', 'right' );
 			<div class="site-branding">
 				<?php
 					$site_logo = esc_url( wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ) );
+					$alt       = get_post_meta( get_theme_mod( 'custom_logo' ), '_wp_attachment_image_alt', true );
 				?>
 				<a class="custom-logo-link" href="<?php echo esc_url( home_url() ); ?>" rel="home">
-					<img src="<?php echo esc_url( $site_logo ); ?>" alt="<?php bloginfo( 'name' ); ?>" />
+					<img src="<?php echo esc_url( $site_logo ); ?>" alt="<?php echo esc_attr( $alt ); ?>" />
 				</a>
 			</div>
 			<?php if ( get_field( 'show_rty_logo', 'options' ) ) : ?>

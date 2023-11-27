@@ -19,6 +19,18 @@ function initSliders() {
 			rewind: true,
 			arrows: false,
 			pagination: true,
+			i18n: {
+				prev: 'Edellinen',
+				next: 'Seuraava',
+				slideX: 'Mene diaan %s',
+				pageX: 'Mene sivulle %s',
+				first: 'Mene ensimmäiseen diaan',
+				last: 'Mene viimeiseen diaan',
+				play: 'Aloita automaattinen toisto',
+				pause: 'Keskeytä automaattinen toisto',
+				select: 'Valitse sivu',
+				slideLabel: 'Dia %s',
+			},
 		});
 
 		splide.mount();

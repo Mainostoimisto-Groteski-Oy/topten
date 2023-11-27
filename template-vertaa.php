@@ -129,7 +129,7 @@ if ( 'tulkintakortti' === $type ) {
 		<div class="grid toggle">
 			<button class="sidebar-toggle"
 				id="toggleSidebar"
-				aria-label="<?php echo esc_attr( __( 'Avaa sivupalkki', 'topten' ) ); ?>"
+				aria-label="<?php echo esc_attr( __( 'Sivupalkki', 'topten' ) ); ?>"
 				aria-controls="sidebar-menu"
 				aria-expanded="false">
 				<span class="material-symbols" aria-hidden="true">
@@ -406,7 +406,7 @@ if ( 'tulkintakortti' === $type ) {
 								</button>
 							</div>
 
-							<div class="box-content" id="tableOfContents" aria-expanded="true">
+							<div class="box-content" id="tableOfContents">
 								<?php topten_get_table_of_contents( true ); ?>
 							</div>
 						</div>
@@ -543,7 +543,7 @@ if ( 'tulkintakortti' === $type ) {
 							</div>
 
 							<div class="box-content">
-								<ul class="keywords" id="keywordList" aria-expanded="false">
+								<ul class="keywords" id="keywordList">
 
 									<?php
 									foreach ( $keywords as $index => $keyword ) :
@@ -589,9 +589,9 @@ if ( 'tulkintakortti' === $type ) {
 											<?php endif; ?>
 
 											<?php if ( ! empty( term_description( $keyword->term_id ) ) ) : ?>
-												<div class="keyword-info">
+												<button type="button" class="keyword-info" aria-controls="desc-<?php echo esc_attr( $keyword->term_id ); ?>" aria-expanded="false">
 													<span class="icon" aria-hidden="true">i</span>
-												</div>
+												</button>
 											<?php endif; ?>
 										</li>
 									<?php endforeach; ?>

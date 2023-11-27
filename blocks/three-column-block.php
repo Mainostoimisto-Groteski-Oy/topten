@@ -13,6 +13,7 @@ $right_block  = get_field( 'right_block' );
 				<div class="icon">
 					<?php
 					$skip = false;
+
 					switch ( $left_block['icon'] ) :
 						case 'exclamation':
 							$icon = get_template_directory_uri() . '/assets/dist/icons/exclamation.png';
@@ -35,21 +36,24 @@ $right_block  = get_field( 'right_block' );
 						default:
 							$icon = '';
 							$skip = true;
-						endswitch;
+					endswitch;
+
 					if ( ! $skip ) :
 						?>
 						<div class="icon-wrapper <?php echo esc_attr( $left_block['icon'] ); ?>">
-								<img src="<?php echo esc_url( $icon ); ?>" alt="" />
-							</div>
-						<?php else : ?>
-							<div class="icon-placeholder">
-								<span></span>
-								<span></span>
-								<span></span>
-							</div>
-						<?php endif; ?>
+							<img src="<?php echo esc_url( $icon ); ?>" alt="" />
+						</div>
+
+					<?php else : ?>
+						<div class="icon-placeholder">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
+
 			<div class="wrapper">
 				<?php if ( ! empty( $left_block['title'] ) ) : ?>
 					<h3 class="block-title h3">
@@ -84,7 +88,6 @@ $right_block  = get_field( 'right_block' );
 		</div>
 
 		<div class="center-block <?php echo esc_attr( $center_block['icon_background_color'] ); ?>">
-
 			<?php if ( ! empty( $center_block['icon'] ) ) : ?>
 				<div class="icon">
 					<?php
@@ -111,19 +114,20 @@ $right_block  = get_field( 'right_block' );
 						default:
 							$icon = '';
 							$skip = true;
-						endswitch;
+					endswitch;
+
 					if ( ! $skip ) :
 						?>
-							<div class="icon-wrapper <?php echo esc_attr( $center_block['icon'] ); ?>">
-								<img src="<?php echo esc_url( $icon ); ?>" alt="" />
-							</div>
-						<?php else : ?>
-							<div class="icon-placeholder">
-								<span></span>
-								<span></span>
-								<span></span>
-							</div>
-						<?php endif; ?>
+						<div class="icon-wrapper <?php echo esc_attr( $center_block['icon'] ); ?>">
+							<img src="<?php echo esc_url( $icon ); ?>" alt="" />
+						</div>
+					<?php else : ?>
+						<div class="icon-placeholder">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 
@@ -160,7 +164,6 @@ $right_block  = get_field( 'right_block' );
 		</div>
 
 		<div class="right-block <?php echo esc_attr( $right_block['icon_background_color'] ); ?>">
-
 			<?php if ( ! empty( $right_block['icon'] ) ) : ?>
 				<div class="icon">
 					<?php
@@ -187,19 +190,20 @@ $right_block  = get_field( 'right_block' );
 						default:
 							$icon = '';
 							$skip = true;
-						endswitch;
+					endswitch;
+
 					if ( ! $skip ) :
 						?>
-							<div class="icon-wrapper <?php echo esc_attr( $right_block['icon'] ); ?>">
-								<img src="<?php echo esc_url( $icon ); ?>" alt="" />
-							</div>
-						<?php else : ?>
-							<div class="icon-placeholder">
-								<span></span>
-								<span></span>
-								<span></span>
-							</div>
-						<?php endif; ?>
+						<div class="icon-wrapper <?php echo esc_attr( $right_block['icon'] ); ?>">
+							<img src="<?php echo esc_url( $icon ); ?>" alt="" />
+						</div>
+					<?php else : ?>
+						<div class="icon-placeholder">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 
@@ -213,6 +217,7 @@ $right_block  = get_field( 'right_block' );
 				<?php if ( ! empty( $right_block['text'] ) ) : ?>
 					<?php echo wp_kses_post( $right_block['text'] ); ?>
 				<?php endif; ?>
+
 				<?php
 				if ( ! empty( $right_block['links'] ) ) {
 					echo '<ul class="links">';

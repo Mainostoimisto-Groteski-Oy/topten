@@ -140,7 +140,8 @@
 			position: relative;
 			z-index: 999;
 			grid-column: 1 / 5;
-			overflow: visible;
+			overflow-y: scroll;
+			padding-bottom: 100px;
 
 			@media (max-width: $max-l) {
 				grid-column: 1 / 6;
@@ -171,6 +172,11 @@
 					text-decoration: none;
 					position: relative;
 					color: $black;
+
+					&:focus .link-text {
+						outline: 1px solid $black;
+						outline-offset: 1px;
+					}
 
 					span.link-text {
 						font-size: 2.4rem;

@@ -87,10 +87,12 @@ $cardClasses = get_terms(
 										name="cardkeywords"
 										id="cardkeywords"
 										placeholder="<?php esc_html_e( 'Hae asiasanaa', 'topten' ); ?>" />
+
 									<input type="hidden"
 										name="cardkeywordsValue"
 										id="cardkeywordsValue"
 										/>
+
 									<button type="submit"
 										name="keywordssearch"
 										id="keywordssearch" >

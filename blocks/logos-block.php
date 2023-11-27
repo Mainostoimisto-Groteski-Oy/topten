@@ -48,62 +48,65 @@ if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) )
 			<div class="splide carousel logos">
 				<div class="splide__track">
 					<ul class="splide__list">
-					<li class="splide__slide">
-						<div class="big-wrapper">
-					<?php
-					$amount = count( $postslist );
-					foreach ( $postslist as $index => $post ) :
-						if ( $index % 18 === 0 && 0 !== $index ) :
-							?>
-							</li>
-							<li class="splide__slide">
-								<div class="big-wrapper">
-						<?php endif; ?>
+						<li class="splide__slide">
+							<div class="big-wrapper">
+								<?php
+								$amount = count( $postslist );
 
-							<?php
-								$id = $post->ID;
-								setup_postdata( $post );
+								foreach ( $postslist as $index => $post ) :
+									if ( $index % 18 === 0 && 0 !== $index ) :
+										?>
+									</div>
+									</li>
 
-								$logo = get_field( $type . '_logo', $id );
-								$name = get_field( $type . '_nimi', $id );
-							?>
-							<div class="wrapper
-							<?php
-							if ( ! $logo ) {
-								echo 'text-only'; }
-							?>
-							">
-							<?php
-							if ( $logo ) :
-								$src = esc_url( $logo['sizes']['medium'] );
-								$alt = esc_attr( $logo['alt'] );
-								$img = sprintf( '<img src="%s" alt="%s">', $src, $alt );
-
-								$link = get_field( $type . '_url', $id );
-
-								if ( $link ) :
-									echo sprintf( '<a class="logo" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $img ), esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) );
-									else :
-										echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
+									<li class="splide__slide">
+										<div class="big-wrapper">
+										<?php
 									endif;
-							elseif ( $name && ! $logo ) :
-								$name = get_field( $type . '_nimi', $id );
-								$link = get_field( $type . '_url', $id );
-								if ( $link ) :
 
-									echo sprintf( '<a class="logo text" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $name ), esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) );
-								else :
-									echo sprintf( '<p class="logo text">%s</p>', wp_kses_post( $name ) );
-								endif;
-							endif;
-							?>
-						</div>
+									$id = $post->ID;
+									setup_postdata( $post );
 
-						<?php
-					endforeach;
-					wp_reset_postdata();
-					?>
-					</li>
+									$logo = get_field( $type . '_logo', $id );
+									$name = get_field( $type . '_nimi', $id );
+									?>
+									<div class="wrapper
+										<?php
+										if ( ! $logo ) {
+											echo 'text-only'; }
+										?>
+										">
+										<?php
+										if ( $logo ) :
+											$src = esc_url( $logo['sizes']['medium'] );
+											$alt = esc_attr( $logo['alt'] );
+											$img = sprintf( '<img src="%s" alt="%s">', $src, $alt );
+
+											$link = get_field( $type . '_url', $id );
+
+											if ( $link ) :
+												echo sprintf( '<a class="logo" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $img ), esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) );
+												else :
+													echo sprintf( '<div class="logo">%s</div>', wp_kses_post( $img ) );
+												endif;
+										elseif ( $name && ! $logo ) :
+											$name = get_field( $type . '_nimi', $id );
+											$link = get_field( $type . '_url', $id );
+											if ( $link ) :
+
+												echo sprintf( '<a class="logo text" href="%s" target="_blank">%s<span class="screen-reader-text">%s</span></a>', esc_url( $link ), wp_kses_post( $name ), esc_html__( 'Linkki aukeaa uuteen ikkunaan', 'topten' ) );
+											else :
+												echo sprintf( '<p class="logo text">%s</p>', wp_kses_post( $name ) );
+											endif;
+										endif;
+										?>
+									</div>
+									<?php
+								endforeach;
+								wp_reset_postdata();
+								?>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>

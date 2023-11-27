@@ -203,7 +203,7 @@ jQuery(document).ready(($) => {
 						$(`#selected${type}`).parent('figure').addClass('active');
 						$(terms).each(function () {
 							$(`#selected${type}`).append(
-								`<li class="keyword" data-id="${this.value}"><button class="removekeyword" data-type="${type}" data-id="${this.value}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${this.label}</span></li>`,
+								`<li class="keyword" data-id="${this.value}"><button class="removekeyword" aria-label="Poista ${this.label}" data-type="${type}" data-id="${this.value}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${this.label}</span></li>`,
 							);
 						});
 					}
@@ -227,7 +227,7 @@ jQuery(document).ready(($) => {
 				$('#selectedLaw').html('');
 				$(`#selectedLaw`).parent('figure').addClass('active');
 				$('#selectedLaw').append(
-					`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" data-type="cardLaw" data-id="${splitLaw[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${splitLaw[1]}</span></li>`,
+					`<li class="keyword" data-id="${splitLaw[0]}"><button class="removekeyword" aria-label="Poista ${splitLaw[1]}" data-type="cardLaw" data-id="${splitLaw[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${splitLaw[1]}</span></li>`,
 				);
 			}
 		}
@@ -238,7 +238,7 @@ jQuery(document).ready(($) => {
 				$('#selectedCategory').html('');
 				$(`#selectedCategory`).parent('figure').addClass('active');
 				$('#selectedCategory').append(
-					`<li class="keyword" data-id="${splitCategory[0]}"><button class="removekeyword" data-type="cardCategory" data-id="${splitCategory[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${splitCategory[1]}</span></li>`,
+					`<span class="keyword" data-id="${splitCategory[0]}"><button class="removekeyword" aria-label="Poista ${splitCategory[1]}" data-type="cardCategory" data-id="${splitCategory[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${splitCategory[1]}</span></span>`,
 				);
 			}
 		}
@@ -253,7 +253,7 @@ jQuery(document).ready(($) => {
 				$('#selectedDateStart').html('');
 				$(`#selectedDateStart`).parent('ul').parent('figure').addClass('active');
 				$('#selectedDateStart').append(
-					`<li class="keyword" data-id="dateStart"><button class="removekeyword" data-type="cardDateStart" data-time="${cardDateStart}" data-id="dateStart"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${dateString}</span></li>`,
+					`<span class="keyword" data-id="dateStart"><button class="removekeyword" aria-label="Poista ${dateString}" data-type="cardDateStart" data-time="${cardDateStart}" data-id="dateStart"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${dateString}</span></span>`,
 				);
 			}
 		}
@@ -268,7 +268,7 @@ jQuery(document).ready(($) => {
 				const year = date.getFullYear();
 				const dateString = `${day}.${month}.${year}`;
 				$('#selectedDateEnd').append(
-					`<li class="keyword" data-id="dateEnd"><button class="removekeyword" data-type="cardDateEnd" data-time="${cardDateEnd}" data-id="dateEnd"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${dateString}</span></li>`,
+					`<span class="keyword" data-id="dateEnd"><button class="removekeyword" aria-label="Poista ${dateString}" data-type="cardDateEnd" data-time="${cardDateEnd}" data-id="dateEnd"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${dateString}</span></span>`,
 				);
 			}
 		}
@@ -278,7 +278,7 @@ jQuery(document).ready(($) => {
 				$('#selectedFreeText').html('');
 				$(`#selectedFreeText`).parent('figure').addClass('active');
 				$('#selectedFreeText').append(
-					`<li class="keyword" data-id="freeText"><button class="removekeyword" data-type="freeText" data-id="freeText"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${freeText}</span></li>`,
+					`<span class="keyword" data-id="freeText"><button class="removekeyword" aria-label="Poista ${freeText}" data-type="freeText" data-id="freeText"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${freeText}</span></span>`,
 				);
 			}
 		}
@@ -324,7 +324,7 @@ jQuery(document).ready(($) => {
 				if (existingChildren.indexOf(keyword) === -1) {
 					$(`#selected${type}`).parent('figure').addClass('active');
 					$(`#selected${type}`).append(
-						`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${$(
+						`<li class="keyword" data-id="${keyword}"><button class="removekeyword" aria-label="Poista" data-type="${type}" data-id="${keyword}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${$(
 							`#card${type}`,
 						).val()}</span></li>`,
 					);
@@ -333,7 +333,7 @@ jQuery(document).ready(($) => {
 				// If there are no items in DOM, append it
 				$(`#selected${type}`).parent('figure').addClass('active');
 				$(`#selected${type}`).append(
-					`<li class="keyword" data-id="${keyword}"><button class="removekeyword" data-type="${type}" data-id="${keyword}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${$(
+					`<li class="keyword" data-id="${keyword}"><button class="removekeyword" aria-label="Poista" data-type="${type}" data-id="${keyword}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${$(
 						`#card${type}`,
 					).val()}</span></li>`,
 				);
@@ -358,7 +358,7 @@ jQuery(document).ready(($) => {
 					// split the string into an array
 					const split = this.toString().split('|');
 					$('#selectedCardClasses').append(
-						`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" data-type="cardclassfilter" data-id="${split[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${split[1]}</span></li>`,
+						`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" aria-label="Poista" data-type="cardclassfilter" data-id="${split[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${split[1]}</span></li>`,
 					);
 				});
 			}
@@ -381,7 +381,7 @@ jQuery(document).ready(($) => {
 					// split the string into an array
 					const split = this.toString().split('|');
 					$('#selectedCardTypes').append(
-						`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" data-type="cardTypeFilter" data-id="${split[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${split[1]}</span></li>`,
+						`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" aria-label="Poista" data-type="cardTypeFilter" data-id="${split[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${split[1]}</span></li>`,
 					);
 				});
 			}
@@ -527,6 +527,7 @@ jQuery(document).ready(($) => {
 					label: item.label,
 					value: item.value,
 				}));
+
 				$('#cardkeywords').autocomplete({
 					source: suggestions,
 					// When user selects an item from the list, display values
@@ -539,6 +540,11 @@ jQuery(document).ready(($) => {
 						if (!ui.item) {
 							$('#cardkeywords').val('');
 						}
+					},
+					focus(e, ui) {
+						this.value = ui.item.label;
+
+						e.preventDefault();
 					},
 					minLength: 1,
 					// Show the list of values
@@ -604,15 +610,15 @@ jQuery(document).ready(($) => {
 				$(li).attr('data-id', value);
 
 				$(li).html(
-					'<button class="removekeyword" data-type="cardclassfilter" data-id="' +
+					'<button class="removekeyword" aria-label="Poista" data-type="cardclassfilter" data-id="' +
 						value +
-						'"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">' +
+						'"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">' +
 						name +
 						'</span>',
 				);
 
 				// $('#selectedCardClasses').append(
-				// 	`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" data-type="cardclassfilter" data-id="${split[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="screen-reader-text">Poista</span><span class="name">${split[1]}</span></li>`,
+				// 	`<li class="keyword" data-id="${split[0]}"><button class="removekeyword" aria-label="Poista" data-type="cardclassfilter" data-id="${split[0]}"><span class="material-symbols" aria-hidden="true">close</span></button><span class="name">${split[1]}</span></li>`,
 				// );
 
 				$('#selectedCardClasses').append(li);
@@ -784,6 +790,7 @@ jQuery(document).ready(($) => {
 			const splitCategory = cardCategory.split('|');
 			$('#cardCategory').val(splitCategory[0]);
 		}
+
 		// Applies keyword filters to sidebar
 		$('#keywordssearch').on('click', () => {
 			// if this length 3 or over
