@@ -501,12 +501,8 @@
 		flex-direction: column;
 		gap: 30px;
 
-		&#sidebar-menu-mobile {
-			display: none;
-		}
-
 		@media print {
-			display: none;
+			display: none !important;
 		}
 
 		/* It's bad, but it works */
@@ -543,20 +539,12 @@
 		}
 
 		@media (max-width: $max-m) {
-			&#sidebar-menu {
-				display: none;
-			}
-
 			grid-row: 1;
 			display: none;
 			position: static;
 			height: auto;
 			border: 1px solid $black;
 			padding: 30px 30px 60px;
-
-			&#sidebar-menu-mobile.active {
-				display: flex;
-			}
 		}
 
 		.boxes {
@@ -567,15 +555,15 @@
 
 			// Make sidebar scrollable
 			// Remove this (and the media query) if looks bad
-			// max-height: calc(100vh - var(--breadcrumbs-height) - var(--navbar-height));
-			// overflow-y: scroll;
-			// padding-right: 15px;
+			overflow-y: scroll;
+			padding-right: 15px;
+			max-height: calc(100vh - var(--breadcrumbs-height) - var(--navbar-height) - 25px);
 
-			// @media (max-width: $max-m) {
-			// 	max-height: unset;
-			// 	overflow-y: initial;
-			// 	padding-right: 0;
-			// }
+			@media (max-width: $max-m) {
+				max-height: unset;
+				overflow-y: initial;
+				padding-right: 0;
+			}
 
 			.box {
 				z-index: 999;
@@ -776,12 +764,12 @@
 		}
 
 		ul.keywords {
-			padding: 0;
 			margin: 0;
 			display: flex;
 			flex-wrap: wrap;
 			list-style: none;
 			gap: 10px;
+			padding: 0 2px;
 
 			li {
 				background-color: $white;

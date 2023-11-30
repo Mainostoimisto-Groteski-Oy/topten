@@ -852,7 +852,7 @@ jQuery(document).ready(($) => {
 	/**
 	 * Load card from database
 	 */
-	$('.load-card').on('click', function () {
+	$(document).on('click', '.load-card', function () {
 		$('.card-code-label .material-symbols').hide();
 		$('.card-code-label .errormsg').hide();
 		const cardCode = $('#card-code').val();
