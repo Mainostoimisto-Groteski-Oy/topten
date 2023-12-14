@@ -496,7 +496,7 @@
 	aside.sidebar {
 		background-color: $site-background;
 		position: relative;
-		padding: 0 30px;
+		padding: 0 25px;
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
@@ -704,7 +704,11 @@
 					&.active {
 						display: block;
 					}
-
+					.versions {
+						display: flex;
+						flex-direction: column;
+						gap: 5px;
+					}
 					a.related-card {
 						display: block;
 

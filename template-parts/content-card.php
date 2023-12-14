@@ -497,7 +497,7 @@ if ( 'tulkintakortti' === $type ) {
 							<p>
 								<?php esc_html_e( 'Tästä kortista on olemassa aiemmin luodut versiot:', 'topten' ); ?>
 							</p>
-
+							<div class="versions">
 							<?php foreach ( $versions as $old_version ) : ?>
 								<?php
 								// Check if the version exists
@@ -519,6 +519,7 @@ if ( 'tulkintakortti' === $type ) {
 									?>
 								</a>
 							<?php endforeach; ?>
+							</div>
 						</div>
 					</div>
 				<?php endif; ?>
