@@ -126,6 +126,16 @@ Search.appendIndex(
             "summary": "Do\u0020not\u0020optimize\u0020PDFs",
             "url": "namespaces/default.html#function_topten_imagify_ignore"
         },                {
+            "fqsen": "\\gro_the_field\u0028\u0029",
+            "name": "gro_the_field",
+            "summary": "ACF\u0020the_field\u0020replacement\u0020that\u0020allows\u0020iframes",
+            "url": "namespaces/default.html#function_gro_the_field"
+        },                {
+            "fqsen": "\\gro_the_sub_field\u0028\u0029",
+            "name": "gro_the_sub_field",
+            "summary": "ACF\u0020the_sub_field\u0020replacement\u0020that\u0020allows\u0020iframes",
+            "url": "namespaces/default.html#function_gro_the_sub_field"
+        },                {
             "fqsen": "\\Topten_Admin",
             "name": "Topten_Admin",
             "summary": "Topten\u0020admin\u0020class,\u0020used\u0020in\u0020backend\nLoads\u0020textdomain\u0020and\u0020includes\u0020other\u0020classes",
