@@ -17,7 +17,7 @@
 						aria-controls="accordion-text-<?php echo esc_attr( $prefix ); ?>"
 						id="accordion-title-<?php echo esc_attr( $prefix ); ?>">
 							<span class="h3">
-								<?php the_field( $prefix . '_guide_title', 'options' ); ?>
+								<?php gro_the_field( $prefix . '_guide_title', 'options' ); ?>
 							</span>
 
 							<span class="material-symbols" aria-hidden="true">
@@ -28,7 +28,7 @@
 						<div class="accordion-text"
 						id="accordion-text-<?php echo esc_attr( $prefix ); ?>">
 							<div class="text-wrapper">
-							<?php the_field( $prefix . '_guide_before', 'options' ); ?>
+							<?php gro_the_field( $prefix . '_guide_before', 'options' ); ?>
 							<?php 
 							if ( get_field( $prefix . '_guide', 'options' ) ) :
 								if ( have_rows( 'guide', 'options' ) ) :
@@ -55,7 +55,7 @@
 										<?php
 									endif;
 								endif;
-							the_field( $prefix . '_guide_after', 'options' ); 
+							gro_the_field( $prefix . '_guide_after', 'options' ); 
 							?>
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 							id="accordion-title-<?php echo esc_attr( $id ); ?>">
 						<?php endif; ?>
 						<span class="h3">
-							<?php the_sub_field( 'accordion_title' ); ?>
+							<?php gro_the_sub_field( 'accordion_title' ); ?>
 						</span>
 
 						<span class="material-symbols" aria-hidden="true">
@@ -114,7 +114,7 @@
 							</div>
 						<?php endif; ?>
 						<div class="text-wrapper">
-							<?php the_sub_field( 'text' ); ?>
+							<?php gro_the_sub_field( 'text' ); ?>
 
 							<?php if ( have_rows( 'buttons' ) ) : ?>
 								<ul class="links">
@@ -135,7 +135,7 @@
 												target="<?php echo esc_attr( $link_target ); ?>"
 												aria-label="<?php echo esc_attr( $link_title ); ?>">
 												<span class="link-text">
-												<?php the_sub_field( 'button_text' ); ?>
+												<?php gro_the_sub_field( 'button_text' ); ?>
 												</span>
 												<span class="material-symbols" aria-hidden="true">
 													keyboard_double_arrow_right

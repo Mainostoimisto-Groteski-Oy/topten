@@ -5,13 +5,13 @@
 
 			<?php if ( get_field( 'ingress' ) ) : ?>
 				<div class="ingress">
-					<?php the_field( 'ingress' ); ?>
+					<?php gro_the_field( 'ingress' ); ?>
 				</div>
 			<?php endif; ?>
 
 			<?php if ( get_field( 'text' ) ) : ?>
 				<div class="text">
-					<?php the_field( 'text' ); ?>
+					<?php gro_the_field( 'text' ); ?>
 				</div>
 			<?php endif; ?>
 

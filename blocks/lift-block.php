@@ -16,7 +16,7 @@ if ( $background_image ) {
 			<?php topten_block_title(); ?>
 			<?php if ( get_field( 'text' ) ) : ?>
 				<div class="text">
-					<?php the_field( 'text' ); ?>
+					<?php gro_the_field( 'text' ); ?>
 				</div>
 			<?php endif; ?>
 

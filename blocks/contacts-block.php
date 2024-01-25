@@ -23,13 +23,13 @@
 				<div class="details">
 					<?php if ( get_sub_field( 'name' ) ) : ?>
 						<div class="name">
-							<?php the_sub_field( 'name' ); ?>
+							<?php gro_the_sub_field( 'name' ); ?>
 						</div>
 					<?php endif; ?>
 
 					<?php if ( get_sub_field( 'title' ) ) : ?>
 						<div class="titteli">
-							<?php the_sub_field( 'title' ); ?>
+							<?php gro_the_sub_field( 'title' ); ?>
 						</div>
 					<?php endif; ?>
 

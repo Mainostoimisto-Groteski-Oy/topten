@@ -160,13 +160,13 @@ if ( 'tulkintakortti' === $type ) {
 												<?php esc_html_e( 'Voimassaolo', 'topten' ); ?>
 
 												<strong class="smaller">
-													<?php the_field( 'card_valid_start', $id ); ?>
+													<?php gro_the_field( 'card_valid_start', $id ); ?>
 												</strong>
 
 												<strong class="smaller">-</strong>
 
 												<strong class="smaller">
-													<?php the_field( 'card_valid_end', $id ); ?>
+													<?php gro_the_field( 'card_valid_end', $id ); ?>
 												</strong>
 											<?php endif; ?>
 										<?php else : ?>
@@ -264,7 +264,7 @@ if ( 'tulkintakortti' === $type ) {
 						<div class="box-content">
 							<?php if ( get_field( 'lomake_save_text', 'options' ) ) : ?>
 								<p>
-									<?php the_field( 'lomake_save_text', 'options' ); ?>
+									<?php gro_the_field( 'lomake_save_text', 'options' ); ?>
 								</p>
 							<?php endif; ?>
 							<button type="button" class="button save-card" aria-haspopup="dialog" aria-expanded="false">
@@ -294,7 +294,7 @@ if ( 'tulkintakortti' === $type ) {
 						<div class="box-content">
 							<?php if ( get_field( 'lomake_load_text', 'options' ) ) : ?>
 								<p>
-									<?php the_field( 'lomake_load_text', 'options' ); ?>
+									<?php gro_the_field( 'lomake_load_text', 'options' ); ?>
 								</p>
 							<?php endif; ?>
 							<label class="card-code-label" for="card-code">
@@ -588,12 +588,12 @@ if ( 'tulkintakortti' === $type ) {
 			aria-modal="true">
 			<?php if ( get_field( 'lomake_modal_title', 'options' ) ) : ?>
 				<h2 id="save-card-modal-title" class="h4 modal-title">
-					<?php the_field( 'lomake_modal_title', 'options' ); ?>
+					<?php gro_the_field( 'lomake_modal_title', 'options' ); ?>
 				</h2>
 			<?php endif; ?>
 			<?php if ( get_field( 'lomake_modal_text_before', 'options' ) ) : ?>
 				<p>
-					<?php the_field( 'lomake_modal_text_before', 'options' ); ?>
+					<?php gro_the_field( 'lomake_modal_text_before', 'options' ); ?>
 				</p>
 			<?php endif; ?>
 
@@ -626,7 +626,7 @@ if ( 'tulkintakortti' === $type ) {
 
 			<?php if ( get_field( 'lomake_modal_text_after', 'options' ) ) : ?>
 				<p>
-					<?php the_field( 'lomake_modal_text_after', 'options' ); ?>
+					<?php gro_the_field( 'lomake_modal_text_after', 'options' ); ?>
 				</p>
 			<?php endif; ?>
 

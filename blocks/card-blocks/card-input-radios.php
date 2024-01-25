@@ -33,7 +33,7 @@ $prevent_save = get_field( 'prevent_save' );
 		<div class="radios">
 			<?php if ( get_field( 'text_before_radios' ) ) : ?>
 				<span class="text-before <?php echo $responsive_only ? 'responsive-only' : ''; ?>">
-					<?php the_field( 'text_before_radios' ); ?>
+					<?php gro_the_field( 'text_before_radios' ); ?>
 				</span>
 			<?php endif; ?>
 

@@ -37,7 +37,7 @@ if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) )
 
 			<?php if ( get_field( 'description' ) ) : ?>
 				<div class="description">
-					<?php the_field( 'description' ); ?>
+					<?php gro_the_field( 'description' ); ?>
 				</div>
 			<?php endif; ?>
 
@@ -130,7 +130,7 @@ if ( empty( topten_block_title( false ) ) && empty( get_field( 'description' ) )
 
 					<?php if ( get_field( 'description' ) ) : ?>
 						<div class="description">
-							<?php the_field( 'description' ); ?>
+							<?php gro_the_field( 'description' ); ?>
 						</div>
 					<?php endif; ?>
 

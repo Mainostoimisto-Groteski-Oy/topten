@@ -53,13 +53,13 @@ if ( 'newest' === $articles_type ) {
 }
 ?>
 
-<section <?php topten_block_id(); ?> class="articles-block <?php the_field( 'background' ); ?>">
+<section <?php topten_block_id(); ?> class="articles-block <?php gro_the_field( 'background' ); ?>">
 	<div class="grid">
 		<div class="text-block">
 			<?php topten_block_title(); ?>
 
 			<?php if ( get_field( 'text' ) ) : ?>
-				<?php the_field( 'text' ); ?>
+				<?php gro_the_field( 'text' ); ?>
 			<?php endif; ?>
 		</div>
 

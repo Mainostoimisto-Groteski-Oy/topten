@@ -91,13 +91,13 @@ $class = 'hero-block hero-' . $select;
 
 					<?php if ( get_field( 'hero_ingress' ) ) : ?>
 						<div class="ingress">
-							<?php the_field( 'hero_ingress' ); ?>
+							<?php gro_the_field( 'hero_ingress' ); ?>
 						</div>
 					<?php endif; ?>
 
 					<?php if ( get_field( 'hero_text' ) ) : ?>
 						<div class="text">
-							<?php the_field( 'hero_text' ); ?>
+							<?php gro_the_field( 'hero_text' ); ?>
 						</div>
 					<?php endif; ?>
 
@@ -122,7 +122,7 @@ $class = 'hero-block hero-' . $select;
 
 					<?php if ( get_field( 'hero_ingress' ) ) : ?>
 						<div class="ingress">
-							<?php the_field( 'hero_ingress' ); ?>
+							<?php gro_the_field( 'hero_ingress' ); ?>
 						</div>
 					<?php endif; ?>
 
@@ -130,7 +130,7 @@ $class = 'hero-block hero-' . $select;
 						<div class="left">
 							<?php if ( get_field( 'hero_text_left' ) ) : ?>
 								<div class="text">
-									<?php the_field( 'hero_text_left' ); ?>
+									<?php gro_the_field( 'hero_text_left' ); ?>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -138,7 +138,7 @@ $class = 'hero-block hero-' . $select;
 						<div class="right">
 							<?php if ( get_field( 'hero_text_right' ) ) : ?>
 								<div class="text">
-									<?php the_field( 'hero_text_right' ); ?>
+									<?php gro_the_field( 'hero_text_right' ); ?>
 								</div>
 							<?php endif; ?>
 						</div>

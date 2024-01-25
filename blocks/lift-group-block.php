@@ -17,8 +17,8 @@
 				?>
 				<div class="lift" style="<?php echo esc_attr( $background_url ); ?>">
 					<div class="text">
-						<h2 class="title h4"><?php the_sub_field( 'title' ); ?></h2>
-						<p><?php the_sub_field( 'description' ); ?></p>
+						<h2 class="title h4"><?php gro_the_sub_field( 'title' ); ?></h2>
+						<p><?php gro_the_sub_field( 'description' ); ?></p>
 						<?php 
 						if ( get_sub_field( 'link' ) ) : 
 								$link   = get_sub_field( 'link' );

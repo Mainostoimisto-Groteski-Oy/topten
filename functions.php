@@ -1799,3 +1799,54 @@ function topten_imagify_ignore( $optimize, $attachment_id, $metadata ) {
 }
 
 add_filter( 'imagify_auto_optimize_attachment', 'topten_imagify_ignore', 10, 3 );
+
+
+/**
+ * ACF the_field replacement that allows iframes
+ *
+ * @param string   $field_name ACF field name
+ * @param int|bool $post_id Post ID
+ */
+function gro_the_field( $field_name, $post_id = false ) {
+	$post_id = acf_filter_post_id( $post_id );
+
+	$field = get_field( $field_name, $post_id );
+
+	if ( $field ) {
+		
+		$allowed_html           = wp_kses_allowed_html( 'post' );
+		$allowed_html['iframe'] = array(
+			'src'             => true,
+			'width'           => true,
+			'height'          => true,
+			'frameborder'     => true,
+			'allowfullscreen' => true,
+		);
+		echo wp_kses( $field, $allowed_html );
+	}
+}
+
+/**
+ * ACF the_sub_field replacement that allows iframes
+ *
+ * @param string   $field_name ACF field name
+ * @param int|bool $post_id Post ID
+ */
+function gro_the_sub_field( $field_name, $post_id = false ) {
+	$post_id = acf_filter_post_id( $post_id );
+
+	$field = get_sub_field( $field_name, $post_id );
+
+	if ( $field ) {
+		
+		$allowed_html           = wp_kses_allowed_html( 'post' );
+		$allowed_html['iframe'] = array(
+			'src'             => true,
+			'width'           => true,
+			'height'          => true,
+			'frameborder'     => true,
+			'allowfullscreen' => true,
+		);
+		echo wp_kses( $field, $allowed_html );
+	}
+}

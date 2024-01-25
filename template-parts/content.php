@@ -130,7 +130,7 @@ if ( get_field( 'article_author' ) || get_field( 'single_article_social', 'optio
 		<?php endif; ?>
 		<?php if ( get_field( 'single_article_social', 'options' ) ) : ?>
 			<div class="social">
-				<h3 class="title h4"><?php the_field( 'single_article_social_title', 'options' ); ?></h3>
+				<h3 class="title h4"><?php gro_the_field( 'single_article_social_title', 'options' ); ?></h3>
 				<div class="socials">
 					<?php
 					// Social media sharing buttons for Facebook, Twitter and LinkedIn
@@ -172,7 +172,7 @@ if ( get_field( 'article_author' ) || get_field( 'single_article_social', 'optio
 				<?php endif; ?>
 
 
-				<div class="text"><?php the_field( 'single_article_social_text', 'options' ); ?></div>
+				<div class="text"><?php gro_the_field( 'single_article_social_text', 'options' ); ?></div>
 				<?php if ( get_field( 'single_article_social_button', 'options' ) ) : ?>
 					<?php
 					$link        = get_field( 'single_article_social_button', 'options' );

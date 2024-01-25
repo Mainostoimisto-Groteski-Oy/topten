@@ -3,7 +3,7 @@
 		<div class="text">
 			<?php topten_block_title(); ?>
 			<?php if ( get_field( 'description' ) ) : ?>
-				<div class="description"><?php the_field( 'description' ); ?></div>
+				<div class="description"><?php gro_the_field( 'description' ); ?></div>
 			<?php endif; ?>
 		</div>
 		<?php if ( have_rows( 'list' ) ) : ?>
@@ -13,7 +13,7 @@
 					the_row(); 
 					?>
 					<li>
-						<h3 class="title h4"><?php the_sub_field( 'name' ); ?></h3>
+						<h3 class="title h4"><?php gro_the_sub_field( 'name' ); ?></h3>
 						<?php 
 						if ( get_sub_field( 'link' ) ) :
 						

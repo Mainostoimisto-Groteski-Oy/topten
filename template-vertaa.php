@@ -198,13 +198,13 @@ if ( 'tulkintakortti' === $type ) {
 													<?php esc_html_e( 'Voimassaolo', 'topten' ); ?>
 
 													<strong class="smaller">
-														<?php the_field( 'card_valid_start', $card_id ); ?>
+														<?php gro_the_field( 'card_valid_start', $card_id ); ?>
 													</strong>
 
 													<strong class="smaller">-</strong>
 
 													<strong class="smaller">
-														<?php the_field( 'card_valid_end', $card_id ); ?>
+														<?php gro_the_field( 'card_valid_end', $card_id ); ?>
 													</strong>
 												<?php endif; ?>
 											<?php else : ?>
@@ -324,13 +324,13 @@ if ( 'tulkintakortti' === $type ) {
 														<?php esc_html_e( 'Voimassaolo', 'topten' ); ?>
 
 														<strong class="smaller">
-															<?php the_field( 'card_valid_start', $version_id ); ?>
+															<?php gro_the_field( 'card_valid_start', $version_id ); ?>
 														</strong>
 
 														<strong class="smaller">-</strong>
 
 														<strong class="smaller">
-															<?php the_field( 'card_valid_end', $version_id ); ?>
+															<?php gro_the_field( 'card_valid_end', $version_id ); ?>
 														</strong>
 													<?php endif; ?>
 												<?php else : ?>
@@ -432,7 +432,7 @@ if ( 'tulkintakortti' === $type ) {
 							<div class="box-content">
 								<?php if ( get_field( 'lomake_save_text', 'options' ) ) : ?>
 									<p>
-										<?php the_field( 'lomake_save_text', 'options' ); ?>
+										<?php gro_the_field( 'lomake_save_text', 'options' ); ?>
 									</p>
 								<?php endif; ?>
 
@@ -469,7 +469,7 @@ if ( 'tulkintakortti' === $type ) {
 							<div class="box-content">
 								<?php if ( get_field( 'lomake_load_text', 'options' ) ) : ?>
 									<p>
-										<?php the_field( 'lomake_load_text', 'options' ); ?>
+										<?php gro_the_field( 'lomake_load_text', 'options' ); ?>
 									</p>
 								<?php endif; ?>
 
