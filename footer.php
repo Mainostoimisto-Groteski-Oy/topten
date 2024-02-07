@@ -18,7 +18,7 @@ $columns = array( 'left', 'middle', 'right' );
 					<div class="content with-text">
 						<?php if ( get_field( 'prefooter_text', 'options' ) ) : ?>
 							<div class="text">
-								<p><?php the_field( 'prefooter_text', 'options' ); ?></p>
+								<p><?php gro_the_field( 'prefooter_text', 'options' ); ?></p>
 							</div>
 						<?php endif; ?>
 					</div>
@@ -52,7 +52,7 @@ $columns = array( 'left', 'middle', 'right' );
 						echo "<h3 class='h4 title'>" . esc_html( get_field( 'footer_' . $column . '_title', 'options' ) ) . '</h3>';
 					}
 					if ( get_field( 'footer_' . $column, 'options' ) ) {
-						the_field( 'footer_' . $column, 'options' );
+						gro_the_field( 'footer_' . $column, 'options' );
 					}
 
 					if ( have_rows( 'footer_buttons_' . $column, 'options' ) ) {
@@ -104,7 +104,7 @@ $columns = array( 'left', 'middle', 'right' );
 					if ( get_field( 'footer_after_' . $column, 'options' ) ) :
 						?>
 						<div class="text-after-links">
-							<?php the_field( 'footer_after_' . $column, 'options' ); ?>
+							<?php gro_the_field( 'footer_after_' . $column, 'options' ); ?>
 						</div>
 						<?php
 					endif;
