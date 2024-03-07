@@ -149,15 +149,15 @@ if ( 'tulkintakortti' === $type ) {
 
 	<section class="single-card-container">
 		<div class="grid sidebar-grid">
-			<article id="post-<?php echo esc_attr( $card->ID ); ?>">
-				<?php
-				$identifier_start = get_field( 'identifier_start', $card->ID );
-				$identifier_end   = get_field( 'identifier_end', $card->ID );
-				$version_number   = get_field( 'version', $card->ID );
-				$status           = get_field( 'card_status_publish', $card->ID );
-				$post_date        = date( 'j.n.Y', strtotime( $card->post_date ) );
-				?>
+			<?php
+			$identifier_start = get_field( 'identifier_start', $card->ID );
+			$identifier_end   = get_field( 'identifier_end', $card->ID );
+			$version_number   = get_field( 'version', $card->ID );
+			$status           = get_field( 'card_status_publish', $card->ID );
+			$post_date        = date( 'j.n.Y', strtotime( $card->post_date ) );
+			?>
 
+			<article id="post-<?php echo esc_attr( $card->ID ); ?>" data-version="<?php echo esc_attr( $version_number ); ?>">
 				<div class="card-content-wrapper">
 					<div class="card-content current">
 						<section class="row-block top">

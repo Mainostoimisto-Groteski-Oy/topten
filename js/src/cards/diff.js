@@ -169,6 +169,15 @@ jQuery(document).ready(($) => {
 		} else {
 			// Item not found
 			$(currentItem).addClass('changed');
+
+			let change = '<div class="change-wrapper">';
+			change +=
+				'<p class="change-header"><span class="material-symbols" aria-hidden="true">added_box</span>Versio ' +
+				versionNumber +
+				'</p>';
+			change += '</div>';
+
+			$(currentItem).after(change);
 		}
 	}
 
@@ -266,6 +275,7 @@ jQuery(document).ready(($) => {
 		const currentCard = $('.card-content.current');
 		const oldCards = $('.card-content.old');
 
+		const currentVersion = $(currentCard).parent().parent().data('version');
 		const currentColumns = $(currentCard).find('.row-block:not(.top) .column-item');
 
 		currentColumns.each(function () {
@@ -378,7 +388,6 @@ jQuery(document).ready(($) => {
 										const emptyElement = $('<div class="empty-line"></div>');
 
 										$(currentInput).parent().parent().prepend(emptyElement);
-										// $(currentLabel).addClass('changed');
 									}
 								}
 
@@ -439,8 +448,6 @@ jQuery(document).ready(($) => {
 									// Item doesn't exists
 									$(this).addClass('changed');
 								}
-
-								// findChanges(oldColumn, childCurrentId, this, appendedTexts, versionNumber);
 							});
 						} else {
 							findChanges(oldColumn, currentId, currentItem, appendedTexts, versionNumber);
@@ -466,6 +473,32 @@ jQuery(document).ready(($) => {
 				} else {
 					// Block did not exist in this revision
 					$(currentColumn).addClass('added');
+
+					let revisionVersion = '';
+
+					// Find the oldest card that has this block
+					$(oldCards).each(function () {
+						const found = $(this).find(`[data-block-id="${blockId}"]`);
+
+						if (!found.length) {
+							return;
+						}
+
+						revisionVersion = $(this).parent().parent().data('version');
+					});
+
+					if (!revisionVersion) {
+						revisionVersion = currentVersion;
+					}
+
+					let change = '<div class="change-wrapper">';
+					change +=
+						'<p class="change-header"><span class="material-symbols" aria-hidden="true">add</span>Lisätty versiossa ' +
+						revisionVersion +
+						'</p>';
+					change += '</div>';
+
+					$(currentColumn).append(change);
 				}
 			});
 		});
