@@ -76,6 +76,13 @@
 					}
 				}
 
+				ul,
+				ol {
+					&.changed {
+						margin-left: 15px;
+					}
+				}
+
 				.changed {
 					position: relative;
 					background-color: $diff-added;

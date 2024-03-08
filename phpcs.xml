@@ -76,6 +76,7 @@
 		<properties>
 			<property name="prefixes" type="array">
 				<element value="topten" />
+				<element value="gro" />
 				<element value="groteski" />
 			</property>
 		</properties>

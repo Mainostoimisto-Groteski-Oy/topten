@@ -1,4 +1,10 @@
 jQuery(document).ready(($) => {
+	let currentCard;
+	let oldCards;
+
+	let currentVersion;
+	let currentColumns;
+
 	function getChildren(item) {
 		let children = false;
 
@@ -8,7 +14,7 @@ jQuery(document).ready(($) => {
 				const tag = $(this).prop('tagName');
 
 				if ('DIV' === tag || 'UL' === tag || 'OL' === tag || 'FIGURE' === tag || 'PICTURE' === tag) {
-					children = getChildren(this);
+					children = getChildren(this, children);
 				} else {
 					children = $(item).children();
 				}
@@ -167,18 +173,35 @@ jQuery(document).ready(($) => {
 				}
 			}
 		} else {
-			// Item not found
-			$(currentItem).addClass('changed');
-
-			let change = '<div class="change-wrapper">';
-			change +=
-				'<p class="change-header"><span class="material-symbols" aria-hidden="true">added_box</span>Versio ' +
-				versionNumber +
-				'</p>';
-			change += '</div>';
-
-			$(currentItem).after(change);
+			markAdded(currentId, currentItem);
 		}
+	}
+
+	function markAdded(currentId, currentItem) {
+		$(currentItem).addClass('changed');
+
+		let revisionVersion = '';
+		// Find the oldest card that has this block
+		$(oldCards).each(function () {
+			const found = $(this).find(`[data-block-id="${currentId}"]`);
+			if (!found.length) {
+				return;
+			}
+			revisionVersion = $(this).parent().parent().data('version');
+		});
+
+		if (!revisionVersion) {
+			revisionVersion = currentVersion;
+		}
+
+		let change = '<div class="change-wrapper">';
+		change +=
+			'<p class="change-header"><span class="material-symbols" aria-hidden="true">add</span>Versio ' +
+			revisionVersion +
+			'</p>';
+		change += '</div>';
+
+		$(currentItem).after(change);
 	}
 
 	function findChangesOld(currentColumn, oldId, currentChildren, appendedTexts, versionNumber, index, $this) {
@@ -272,11 +295,11 @@ jQuery(document).ready(($) => {
 	}
 
 	if ($('body').hasClass('page-template-template-vertaa')) {
-		const currentCard = $('.card-content.current');
-		const oldCards = $('.card-content.old');
+		currentCard = $('.card-content.current');
+		oldCards = $('.card-content.old');
 
-		const currentVersion = $(currentCard).parent().parent().data('version');
-		const currentColumns = $(currentCard).find('.row-block:not(.top) .column-item');
+		currentVersion = $(currentCard).parent().parent().data('version');
+		currentColumns = $(currentCard).find('.row-block:not(.top) .column-item');
 
 		currentColumns.each(function () {
 			const currentColumn = this;
@@ -401,7 +424,14 @@ jQuery(document).ready(($) => {
 								handlePrefixOrSuffix(suffix, oldSuffix, false, versionNumber, appendedTexts, currentColumn);
 							}
 						} else if ('OL' === tag || 'UL' === tag) {
-							// This should never run
+							const oldItem = $(oldColumn).find(`[data-topten-id="${currentId}"]`);
+
+							if ($(oldItem).length > 0) {
+								// Item exists
+							} else {
+								// Item doesn't exists
+								markAdded(currentId, currentItem);
+							}
 						} else if ('LI' === tag) {
 							handleLi(this, oldColumn, currentId, appendedTexts, versionNumber);
 						} else if ('TABLE' === tag) {
@@ -450,7 +480,7 @@ jQuery(document).ready(($) => {
 								}
 							});
 						} else {
-							findChanges(oldColumn, currentId, currentItem, appendedTexts, versionNumber);
+							findChanges(oldColumn, currentId, currentItem, appendedTexts, versionNumber, currentVersion);
 						}
 					});
 
@@ -473,32 +503,6 @@ jQuery(document).ready(($) => {
 				} else {
 					// Block did not exist in this revision
 					$(currentColumn).addClass('added');
-
-					let revisionVersion = '';
-
-					// Find the oldest card that has this block
-					$(oldCards).each(function () {
-						const found = $(this).find(`[data-block-id="${blockId}"]`);
-
-						if (!found.length) {
-							return;
-						}
-
-						revisionVersion = $(this).parent().parent().data('version');
-					});
-
-					if (!revisionVersion) {
-						revisionVersion = currentVersion;
-					}
-
-					let change = '<div class="change-wrapper">';
-					change +=
-						'<p class="change-header"><span class="material-symbols" aria-hidden="true">add</span>Lisätty versiossa ' +
-						revisionVersion +
-						'</p>';
-					change += '</div>';
-
-					$(currentColumn).append(change);
 				}
 			});
 		});

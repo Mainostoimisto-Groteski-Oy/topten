@@ -704,11 +704,13 @@
 					&.active {
 						display: block;
 					}
+
 					.versions {
 						display: flex;
 						flex-direction: column;
 						gap: 5px;
 					}
+
 					a.related-card {
 						display: block;
 
