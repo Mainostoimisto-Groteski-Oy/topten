@@ -21,7 +21,9 @@
 
 		.gfield {
 			margin-top: auto;
-
+			&.gfield--type-honeypot {
+				display: none !important;
+			}
 			&.gfield--type-checkbox {
 				grid-column: 1 / -1;
 				padding: 0;

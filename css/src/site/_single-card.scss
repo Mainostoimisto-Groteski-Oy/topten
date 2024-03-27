@@ -500,7 +500,9 @@
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
-
+		&.active {
+			display: flex;
+		}
 		@media print {
 			display: none !important;
 		}
@@ -556,6 +558,7 @@
 			// Make sidebar scrollable
 			// Remove this (and the media query) if looks bad
 			overflow-y: scroll;
+			overflow-x: hidden;
 			padding-right: 15px;
 			max-height: calc(100vh - var(--breadcrumbs-height) - var(--navbar-height) - 25px);
 

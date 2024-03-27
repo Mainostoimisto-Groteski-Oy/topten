@@ -86,10 +86,11 @@ jQuery(document).ready(($) => {
 		const controls = $(this).attr('aria-controls');
 
 		// get sidebar width
-		const sidebarWidth = $('.sidebar').width();
-
+		const sidebarWidth = $('.sidebar .boxes').innerWidth();
+		// remove 30px from sidebar width because padding
+		const keywordDescriptionWidth = sidebarWidth - 30;
 		// set keyword-description-container width to sidebar width
-		$('.keyword-description-container').css('width', sidebarWidth + 'px');
+		$('.keyword-description-container').css('width', keywordDescriptionWidth + 'px');
 
 		const tooltip = $('.keyword-description-container#' + controls);
 
