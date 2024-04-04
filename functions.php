@@ -266,7 +266,7 @@ function topten_editor_scripts() {
 
 	wp_enqueue_style( 'roboto', get_template_directory_uri() . '/fonts/roboto/roboto.css', array(), TOPTEN_VERSION );
 
-	// Material Symbols (https://fonts.google.com/icons)
+	// Google Material Symbols font
 	wp_enqueue_style( 'material-symbols', get_template_directory_uri() . '/fonts/MaterialSymbols/MaterialSymbols.css', array(), TOPTEN_VERSION );
 
 	wp_enqueue_script( 'groteski-script', get_template_directory_uri() . '/js/dist/main.min.js', array( 'jquery' ), TOPTEN_VERSION, true );
