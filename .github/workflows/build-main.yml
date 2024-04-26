@@ -82,7 +82,7 @@ jobs:
             ! -name ".stylelintignore" \
             ! -name "phpcs.xml" \
             ! -name "webpack.config.js" \
-            ! -name "documentation-${{ github.event.repository.name }}.zip" \
+            ! -name "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}-docs.zip" \
             ! -name "topten" \
             -exec mv {} ${{ github.event.repository.name }} \;
 
@@ -96,7 +96,7 @@ jobs:
       - name: Upload release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip,${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}-docs"
+          artifacts: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip,${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}-docs.zip"
           commit: "main"
           tag: "${{ steps.bump-tag.outputs.new_tag }}"
           token: ${{ secrets.GITHUB_TOKEN }}
