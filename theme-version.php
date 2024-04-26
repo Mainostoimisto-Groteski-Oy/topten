@@ -7,5 +7,5 @@ if ( ! defined( 'TOPTEN_VERSION' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
-	define( 'TOPTEN_VERSION', '1.0.36' );
+	define( 'TOPTEN_VERSION', '1.0.37' );
 }
