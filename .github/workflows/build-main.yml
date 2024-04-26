@@ -91,6 +91,7 @@ jobs:
         with:
           type: "zip"
           filename: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip"
+          path: "${{ github.event.repository.name }}"
 
       - name: Upload release
         uses: ncipollo/release-action@v1
