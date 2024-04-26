@@ -50,12 +50,41 @@ jobs:
 
       - name: Archive documentation
         run: |
-          cd docs && zip -r ../documentation-${{ github.event.repository.name }}.zip .
+          cd docs && zip -r ../${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}-docs.zip .
 
       - name: Create folder for the zip
         run: |
           mkdir "${{ github.event.repository.name }}"
-          find . -maxdepth 1 ! -name "${{ github.event.repository.name }}" ! -name ".git" ! -name ".github" ! -name ".phpdoc" ! -name ".editorconfig" ! -name "node_modules" ! -name "vendor" ! -name "docs" ! -name "js/src" ! -name "css/src" ! -name "assets/src" ! -name "gulpfile.mjs" ! -name "package-lock.json" ! -name "package.json" ! -name "composer.json" ! -name "composer.lock" ! -name "README.md" ! -name ".eslintrc.js" ! -name ".eslintignore" ! -name ".gitignore" ! -name ".prettierrc" ! -name ".prettierignore" ! -name ".stylelintrc" ! -name ".stylelintignore" ! -name "phpcs.xml" ! -name "webpack.config.js" ! -name "documentation-${{ github.event.repository.name }}.zip" -exec mv {} ${{ github.event.repository.name }} \;
+          find . -maxdepth 1 \
+            ! -name "${{ github.event.repository.name }}" \
+            ! -name ".git" \
+            ! -name ".github" \
+            ! -name ".phpdoc" \
+            ! -name ".editorconfig" \
+            ! -name "node_modules" \
+            ! -name "vendor" \
+            ! -name "docs" \
+            ! -name "js/src" \
+            ! -name "css/src" \
+            ! -name "assets/src" \
+            ! -name "gulpfile.mjs" \
+            ! -name "package-lock.json" \
+            ! -name "package.json" \
+            ! -name "composer.json" \
+            ! -name "composer.lock" \
+            ! -name "README.md" \
+            ! -name ".eslintrc.js" \
+            ! -name ".eslintignore" \
+            ! -name ".gitignore" \
+            ! -name ".prettierrc" \
+            ! -name ".prettierignore" \
+            ! -name ".stylelintrc" \
+            ! -name ".stylelintignore" \
+            ! -name "phpcs.xml" \
+            ! -name "webpack.config.js" \
+            ! -name "documentation-${{ github.event.repository.name }}.zip" \
+            ! -name "topten" \
+            -exec mv {} ${{ github.event.repository.name }} \;
 
       - name: Archive release
         uses: thedoctor0/zip-release@main
@@ -66,7 +95,7 @@ jobs:
       - name: Upload release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip,documentation-${{ github.event.repository.name }}.zip"
+          artifacts: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip,${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}-docs"
           commit: "main"
           tag: "${{ steps.bump-tag.outputs.new_tag }}"
           token: ${{ secrets.GITHUB_TOKEN }}
