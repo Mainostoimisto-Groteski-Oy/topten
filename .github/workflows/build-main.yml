@@ -2,10 +2,8 @@ name: Build main
 
 on:
   workflow_run:
-    workflows: ["Run linters"]
-    branches: [main]
-    types:
-      - completed
+    branches:
+      - main
 
 permissions:
   checks: write
@@ -24,29 +22,40 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install Node.js dependencies
         run: npm ci
 
-      - name: Pull
-        run: |
-         git fetch
-         git pull
-
       - name: Run gulp prod
-        run: gulp gitProd
+        run: gulp prod
 
-      - name: Commit & push
+      - name: Bump tag
+        id: bump-tag
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          INITIAL_VERSION: 1.0.0
+          DEFAULT_BUMP: patch
+
+      - name: Change version in theme-version.php and style.css
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git commit -a -m "build: main release"
-          git push
+          sed -i "s/Version: .*/Version: ${{ steps.bump-tag.outputs.new_tag }}/g" style.css
+          sed -i "s/TOPTEN_VERSION', '.*/TOPTEN_VERSION', '${{ steps.bump-tag.outputs.new_tag }}' );/g" theme-version.php
 
-      - name: Get version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@main
+      - name: Create documentation with phpDocumentor
+        run: |
+          docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 -t"docs" --ignore=vendor --ignore=node_modules --ignore=fonts --ignore=includes/tfpdf
+
+      - name: Archive documentation
+        run: |
+          zip -r documentation-${{ github.event.repository.name }}.zip docs
+
+      - name: Create folder for the zip
+        run: |
+          mkdir "${{ github.event.repository.name }}"
+          find . -maxdepth 1 ! -name "${{ github.event.repository.name }}" ! -name ".git" ! -name ".github" ! -name ".phpdoc" ! -name ".editorconfig" ! -name "node_modules" ! -name "vendor" ! -name "docs" ! -name "js/src" ! -name "css/src" ! -name "assets/src" ! -name "gulpfile.mjs" ! -name "package-lock.json" ! -name "package.json" ! -name "composer.json" ! -name "composer.lock" ! -name "README.md" ! -name ".eslintrc.js" ! -name ".eslintignore" ! -name ".gitignore" ! -name ".prettierrc" ! -name ".prettierignore" ! -name ".stylelintrc" ! -name ".stylelintignore" ! -name "phpcs.xml" ! -name "webpack.config.js" ! -name "documentation-${{ github.event.repository.name }}.zip" -exec mv {} ${{ github.event.repository.name }} \;
 
       - name: Archive release
         uses: thedoctor0/zip-release@main
@@ -58,9 +67,9 @@ jobs:
       - name: Upload release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "topten.zip"
+          artifacts: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip,documentation-${{ github.event.repository.name }}.zip"
           commit: "main"
-          tag: "${{ steps.package-version.outputs.current-version }}"
+          tag: "${{ steps.bump-tag.outputs.new_tag }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           makeLatest: true
           prerelease: false
