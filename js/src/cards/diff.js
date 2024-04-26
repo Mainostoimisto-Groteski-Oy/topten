@@ -76,8 +76,6 @@ jQuery(document).ready(($) => {
 						appendedTexts.push(oldText);
 					}
 				}
-			} else {
-				// console.log('no list elements');
 			}
 		} else {
 			// No childs

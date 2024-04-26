@@ -117,8 +117,6 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 							'post_name' => $slug,
 						)
 					);
-
-					json_log( $x );
 				}
 			}
 

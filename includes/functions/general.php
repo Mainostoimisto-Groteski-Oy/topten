@@ -80,8 +80,11 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
 		if ( in_array( 'expired', $status, true ) ) {
 			$date_start = get_field( 'card_valid_start', $id );
 			$date_end   = get_field( 'card_valid_end', $id );
-			$date       = date( 'j.n.Y', strtotime( $date_start ) ) . ' - ' . date( 'j.n.Y', strtotime( $date_end ) );
 			$date_class = 'red';
+
+			if ( $date_start && $date_end ) {
+				$date = date( 'j.n.Y', strtotime( $date_start ) ) . ' - ' . date( 'j.n.Y', strtotime( $date_end ) );
+			}
 		}
 		if ( in_array( 'future', $status, true ) ) {
 			$date       = get_field( 'card_future_date', $id );

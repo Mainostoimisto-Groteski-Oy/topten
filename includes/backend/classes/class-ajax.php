@@ -56,7 +56,12 @@ class Topten_Ajax extends Topten {
 			if ( is_array( $value ) ) {
 				$this->sanitize_array( $value );
 			} else {
-				$value = sanitize_text_field( $value );
+				$value = wp_kses(
+					$value,
+					array(
+						'br' => array(),
+					)
+				);
 			}
 		}
 
@@ -186,6 +191,9 @@ class Topten_Ajax extends Topten {
 		}
 
 		$response = maybe_unserialize( $card->data );
+
+		// Convert <br> to \n
+		$response = str_replace( '<br>', "\n", $response );
 
 		wp_send_json_success( $response );
 	}

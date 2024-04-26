@@ -114,7 +114,7 @@ function js() {
 		.pipe(webpack(wpConfig, compiler))
 
 		.on('error', (err) => {
-			console.log(err.message);
+			console.error(err.message);
 			this.emit('end');
 		})
 		.pipe(dest(config.js.dest))

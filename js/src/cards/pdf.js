@@ -741,6 +741,8 @@ jQuery(document).ready(($) => {
 
 			if ($(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio') {
 				value = $(this).is(':checked');
+			} else if ($(this).is('textarea')) {
+				value = $(this).val().replace(/\n/g, '<br>');
 			} else {
 				value = $(this).val();
 			}
