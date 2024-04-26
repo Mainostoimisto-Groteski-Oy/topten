@@ -174,75 +174,6 @@ function adminProductionJs() {
 		.pipe(dest(config.js.admin.dest));
 }
 
-function bumpPackagePatch() {
-	return src('./package.json')
-		.pipe(bump({ type: 'patch' }))
-
-		.pipe(dest('./'));
-}
-
-function bumpPackageMinor() {
-	return src('./package.json')
-		.pipe(bump({ type: 'minor' }))
-
-		.pipe(dest('./'));
-}
-
-function bumpPackagePre() {
-	return src('./package.json')
-		.pipe(bump({ type: 'prerelease' }))
-
-		.pipe(dest('./'));
-}
-
-function bumpFunctionsPatch() {
-	config.bump.type = 'patch';
-
-	return src('./theme-version.php')
-		.pipe(bump(config.bump))
-
-		.pipe(dest('./'));
-}
-
-function bumpFunctionsMinor() {
-	config.bump.type = 'minor';
-
-	return src('./theme-version.php')
-		.pipe(bump(config.bump))
-
-		.pipe(dest('./'));
-}
-
-function bumpFunctionsPre() {
-	config.bump.type = 'prerelease';
-
-	return src('./theme-version.php')
-		.pipe(bump(config.bump))
-
-		.pipe(dest('./'));
-}
-
-function bumpStylesheetPatch() {
-	return src('./style.css')
-		.pipe(bump({ type: 'patch' }))
-
-		.pipe(dest('./'));
-}
-
-function bumpStylesheetMinor() {
-	return src('./style.css')
-		.pipe(bump({ type: 'minor' }))
-
-		.pipe(dest('./'));
-}
-
-function bumpStylesheetPre() {
-	return src('./style.css')
-		.pipe(bump({ type: 'prerelease' }))
-
-		.pipe(dest('./'));
-}
-
 function optimizeAssets() {
 	const files = [];
 
@@ -312,18 +243,9 @@ export const prod = series(
 	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs)),
 );
 
-export const generate = series(
-	cleanDist,
-	parallel(optimizeAssets, productionStyles, series(productionJs, adminProductionJs)),
-);
-
-export const bumpVersionPre = series(bumpFunctionsPre, bumpStylesheetPre, bumpPackagePre); // 1.0.0-dev.1 -> 1.0.0-dev.2
-export const bumpVersionPatch = series(bumpFunctionsPatch, bumpStylesheetPatch, bumpPackagePatch); // 1.0.0 -> 1.0.1
-export const bumpVersionMinor = series(bumpFunctionsMinor, bumpStylesheetMinor, bumpPackageMinor); // 1.0.0 -> 1.1.0
+export const generate = prod;
+export const build = prod;
 
 export const bs = initBrowserSync;
-
-export const gitProd = series(cleanDist, prod, bumpVersionPatch);
-export const gitProdDev = series(cleanDist, prod);
 
 export default watchFiles;

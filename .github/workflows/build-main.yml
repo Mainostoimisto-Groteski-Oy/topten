@@ -50,7 +50,7 @@ jobs:
 
       - name: Archive documentation
         run: |
-          zip -r documentation-${{ github.event.repository.name }}.zip docs
+          cd docs && zip -r ../documentation-${{ github.event.repository.name }}.zip .
 
       - name: Create folder for the zip
         run: |
@@ -61,8 +61,7 @@ jobs:
         uses: thedoctor0/zip-release@main
         with:
           type: "zip"
-          filename: "topten.zip"
-          exclusions: "*.git* /*node_modules/* .editorconfig /*vendor/* /docs/* /*src/* gulpfile.mjs package-lock.json package.json composer.json composer.lock README.md .eslintrc.js .eslintignore .gitignore .prettierrc .prettierignore .stylelintrc .stylelintignore phpcs.xml webpack.config.js /*.github/* Toptenrava.pdf toptenrava.pdf"
+          filename: "${{ github.event.repository.name }}-${{ steps.bump-tag.outputs.new_tag }}.zip"
 
       - name: Upload release
         uses: ncipollo/release-action@v1
