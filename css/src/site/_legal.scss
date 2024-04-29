@@ -62,6 +62,10 @@
 
 // shouldn't have to use these but the plugin settings seem to do nothing for now
 #cmplz-cookiebanner-container {
+	@media print {
+		display: none !important;
+	}
+
 	.cmplz-cookiebanner {
 		.cmplz-title {
 			font-size: 1.6rem;

@@ -871,7 +871,10 @@ jQuery(document).ready(($) => {
 			.done((response) => {
 				if (response.success) {
 					for (const index in response.data) {
-						if ($(`#${index}`).attr('type') === 'checkbox') {
+						// Remove all spaces from the index
+						index.replace(/\s/g, '');
+
+						if ($(`#${index}`).attr('type') === 'checkbox' || $(`#${index}`).attr('type') === 'radio') {
 							if (response.data[index] === 'true') {
 								$(`#${index}`).prop('checked', true);
 							} else {

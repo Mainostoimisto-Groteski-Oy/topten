@@ -12,6 +12,12 @@ body.no-scroll {
 	overflow: hidden;
 }
 
+#cmplz-manage-consent {
+	@media print {
+		display: none;
+	}
+}
+
 .page-breadcrumbs {
 	border-bottom: 1px solid $black;
 	border-top: 1px solid $black;

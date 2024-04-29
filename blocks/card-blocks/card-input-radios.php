@@ -41,7 +41,7 @@ $prevent_save = get_field( 'prevent_save' );
 				<?php
 				the_row();
 
-				$index = $block_id . ' - ' . get_row_index();
+				$index = $block_id . '-' . get_row_index();
 
 				$label = get_sub_field( 'label' );
 				?>

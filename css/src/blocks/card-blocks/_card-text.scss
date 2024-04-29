@@ -36,6 +36,10 @@
 				}
 			}
 
+			&.tabled {
+				max-width: 100%;
+			}
+
 			@media (max-width: $max-xl) and (min-width: $min-l) {
 				&.tabled {
 					overflow-x: auto;
