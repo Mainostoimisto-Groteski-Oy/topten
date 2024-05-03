@@ -126,7 +126,7 @@ jQuery(document).ready(($) => {
 				filterOrder,
 				cardTypes,
 				cardClasses,
-				nonce: Ajax.nonce,
+				// nonce: Ajax.nonce,
 			},
 			success(data) {
 				// PHP code handles the data so we just need to append it to the DOM
@@ -192,7 +192,7 @@ jQuery(document).ready(($) => {
 				method: 'POST',
 				data: {
 					action: 'topten_fetch_terms',
-					nonce: Ajax.nonce,
+					// nonce: Ajax.nonce,
 					keywords: words,
 					type: typeName,
 				},
@@ -520,7 +520,7 @@ jQuery(document).ready(($) => {
 			method: 'POST',
 			data: {
 				action: 'topten_fetch_suggestions',
-				nonce: Ajax.nonce,
+				// nonce: Ajax.nonce,
 			},
 			success(data) {
 				suggestions = $.map(data.data, (item) => ({

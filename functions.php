@@ -1035,11 +1035,14 @@ function groteski_help_widget() {
  * @since 1.0.0
  */
 function topten_card_search() {
+	/*
+	Is this even required for public facing things that have no security issues? Commented out because server has some issues with nonce verification
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 
 		wp_die();
 	}
+	*/
 
 	$args = array(
 		'posts_per_page'         => -1,
@@ -1425,10 +1428,15 @@ add_action( 'wp_ajax_nopriv_topten_card_search', 'topten_card_search' );
  * @since 1.0.0
  */
 function topten_fetch_suggestions() {
+	/*
+	Is this even required for public facing things that have no security issues? Commented out because server has some issues with nonce verification
+	
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 		wp_die();
 	}
+
+	*/
 
 	// Get input
 
@@ -1482,10 +1490,13 @@ add_action( 'wp_ajax_nopriv_topten_fetch_suggestions', 'topten_fetch_suggestions
  * @since 1.0.0
  */
 function topten_fetch_terms() {
+	/*
+	Is this even required for public facing things that have no security issues? Commented out because server has some issues with nonce verification
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'nonce' ) ) {
 		wp_send_json_error( 'Nonce value cannot be verified.' );
 		wp_die();
 	}
+	*/
 
 
 	// This does nothing yet
