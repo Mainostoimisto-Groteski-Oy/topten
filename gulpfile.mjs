@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import _ from 'lodash';
 import gulp from 'gulp';
 import autoprefixer from 'autoprefixer';
@@ -7,7 +8,7 @@ import cssnano from 'cssnano';
 import * as dartSass from 'sass';
 import { deleteAsync } from 'del';
 import gulpSass from 'gulp-sass';
-import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
+import imagemin from 'gulp-imagemin';
 import path from 'path';
 import postcss from 'gulp-postcss';
 import rename from 'gulp-rename';
@@ -175,9 +176,7 @@ function adminProductionJs() {
 function optimizeAssets() {
 	const files = [];
 
-	src(config.assets.src).pipe(dest(config.assets.dest));
-
-	return src([config.assets.src, '!**/*.gif'])
+	return src(config.assets.src)
 		.pipe(
 			tap((f) => {
 				const file = f;
@@ -189,7 +188,7 @@ function optimizeAssets() {
 			}),
 		)
 
-		.pipe(imagemin([gifsicle({ enabled: false }), mozjpeg(), optipng(), svgo()]))
+		.pipe(imagemin())
 
 		.pipe(dest(config.assets.dest))
 
