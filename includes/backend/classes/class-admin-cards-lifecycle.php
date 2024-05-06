@@ -111,7 +111,7 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 					// Update slug to include version number
 					$slug = sanitize_title( get_the_title( $version ) ) . '-' . $version_number;
 
-					$x = wp_update_post(
+					wp_update_post(
 						array(
 							'ID'        => $version,
 							'post_name' => $slug,
@@ -140,6 +140,23 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 		if ( 'draft' === $this->primary_status ) {
 			if ( 'pending_approval' === $this->secondary_status && 'pending_approval' !== $this->old_secondary_status ) {
 				update_post_meta( $this->post_id, 'committer', get_current_user_id() );
+			}
+		}
+
+		$statuses_for_date_updates = array(
+			'expired',
+			'repealed',
+		);
+
+		if ( 'publish' === $this->primary_status && in_array( $this->secondary_status, $statuses_for_date_updates, true ) ) {
+			if ( ! get_field( 'card_valid_start', $this->post_id ) ) {
+				$start = get_the_date( 'Y-m-d H:i:s', $this->post_id );
+				update_field( 'card_valid_start', $start, $this->post_id );
+			}
+
+			if ( ! get_field( 'card_valid_end', $this->post_id ) ) {
+				$end = wp_date( 'Y-m-d H:i:s' );
+				update_field( 'card_valid_end', $end, $this->post_id );
 			}
 		}
 
@@ -182,7 +199,7 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 
 		if ( 'acf/teksti' === $attributes['name'] && isset( $attributes['data']['text'] ) ) {
 			$text = wpautop( $attributes['data']['text'] );
-
+			$text = htmlspecialchars( $text, ENT_QUOTES, 'UTF-8' );
 			$text = '<div>' . $text . '</div>';
 
 			$dom = new DOMDocument( '1.0', 'UTF-8' );
