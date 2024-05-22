@@ -102,7 +102,7 @@ class Topten_Ajax extends Topten {
 	 * @since 1.0.0
 	 */
 	public function generate_pdf_ajax() {
-		check_ajax_referer( 'nonce', 'nonce' );
+		// check_ajax_referer( 'nonce', 'nonce' );
 
 		$title       = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 		$article_url = isset( $_POST['article_url'] ) ? esc_url( sanitize_text_field( $_POST['article_url'] ) ) : '';
@@ -142,7 +142,7 @@ class Topten_Ajax extends Topten {
 	 * @since 1.0.0
 	 */
 	public function save_card_ajax() {
-		check_ajax_referer( 'nonce', 'nonce' );
+		// check_ajax_referer( 'nonce', 'nonce' );
 
 		$data = isset( $_POST['data'] ) ? $this->sanitize_array( $_POST['data'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
@@ -170,7 +170,7 @@ class Topten_Ajax extends Topten {
 	 * @since 1.0.0
 	 */
 	public function load_card_ajax() {
-		check_ajax_referer( 'nonce', 'nonce' );
+		// check_ajax_referer( 'nonce', 'nonce' );
 
 		$code = isset( $_POST['code'] ) ? sanitize_text_field( $_POST['code'] ) : '';
 
@@ -204,7 +204,7 @@ class Topten_Ajax extends Topten {
 	 * @since 1.0.0
 	 */
 	public function send_code_ajax(): void {
-		check_ajax_referer( 'nonce', 'nonce' );
+		// check_ajax_referer( 'nonce', 'nonce' );
 
 		$code    = isset( $_POST['code'] ) ? sanitize_text_field( $_POST['code'] ) : '';
 		$email   = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
