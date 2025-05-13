@@ -13,7 +13,7 @@
 
 get_header();
 // Server secret key for hashing email addresses
-$secret = 'dGA6jTPZk5D7e2Fg73kEW1V9Kyj867oJ';
+
 
 ?>
 
@@ -28,7 +28,7 @@ $secret = 'dGA6jTPZk5D7e2Fg73kEW1V9Kyj867oJ';
 			<h1 class="h2"><?php esc_html_e( 'Topten-infoviestit', 'topten' ); ?></h1>
 			<?php
 			// if token and email are set, and token matches hash of email, unsubscribe user
-			if ( ( isset( $_GET['token'] ) && isset( $_GET['email'] ) ) && $_GET['token'] === hash_hmac( 'sha256', $_GET['email'], $secret ) ) { // phpcs:ignore
+			if ( ( isset( $_GET['token'] ) && isset( $_GET['email'] ) ) && $_GET['token'] === hash_hmac( 'sha256', $_GET['email'], GRO_EMAIL_SECRET ) ) { // phpcs:ignore
 
 				// should probably be sanitized with sanitize_email() but I won't touch this
 				$email = esc_html( $_GET['email'] ); // phpcs:ignore
@@ -52,7 +52,7 @@ $secret = 'dGA6jTPZk5D7e2Fg73kEW1V9Kyj867oJ';
 				?>
 				<p class="error"><?php esc_html_e( 'Varmistustunnusta ei ole määritetty.', 'topten' ); ?></p>
 				<?php
-			} elseif ( ( isset( $_GET['token'] ) && isset( $_GET['email'] ) ) && $_GET['token'] !== hash_hmac( 'sha256', $_GET['email'], $secret ) ) { // phpcs:ignore
+			} elseif ( ( isset( $_GET['token'] ) && isset( $_GET['email'] ) ) && $_GET['token'] !== hash_hmac( 'sha256', $_GET['email'], GRO_EMAIL_SECRET ) ) { // phpcs:ignore
 				?>
 				<p class="error"><?php esc_html_e( 'Virheellinen varmistustunnus.', 'topten' ); ?></p>
 				<?php

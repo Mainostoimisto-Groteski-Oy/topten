@@ -321,11 +321,11 @@ class Topten_Admins_Cards_Lifecycle extends Topten_Admin_Cards {
 
 		// Email everyone in the list
 		foreach ( $subscribers as $subscriber ) {
-			$body   = '';
-			$to     = $subscriber['email'];
-			$secret = 'dGA6jTPZk5D7e2Fg73kEW1V9Kyj867oJ';
-			$token  = hash_hmac( 'sha256', $to, $secret );
-			$link   = home_url() . '/unsubscribe?email=' . $to . '&token=' . $token;
+			$body = '';
+			$to   = $subscriber['email'];
+
+			$token = hash_hmac( 'sha256', $to, GRO_EMAIL_SECRET );
+			$link  = home_url() . '/unsubscribe?email=' . $to . '&token=' . $token;
 
 			if ( 'A' === $version ) {
 				$body  = '<p>Hei,</p>';
