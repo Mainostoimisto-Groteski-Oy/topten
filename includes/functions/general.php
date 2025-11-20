@@ -162,23 +162,29 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
  *
  * @param array $card_array Card list
  */
-function topten_card_list( $card_array ) {
+function topten_card_list( $card_array, $law_type = '' ) {
+	error_log( 'card list called' );
 	// Card arrays are created by the function that calls this one
 	// Need to get all the laki and kortin_kategoria terms for this to work
+	if ( $law_type === 'rakl' ) {
+		$term_name = 'laki_rakl';
+	} else {
+		$term_name = 'laki';
+	}
 	$laws = get_terms(
-		'laki',
+		$term_name,
 		array(
 			'hide_empty' => false,
 		)
 	);
-
+	
 	$categories = get_terms(
 		'kortin_kategoria',
 		array(
 			'hide_empty' => false,
 		)
 	);
-
+	
 
 
 		// Tulkinta cards have a different structure (one more level) and different taxonomy than the rest.
@@ -197,7 +203,7 @@ function topten_card_list( $card_array ) {
 							continue;
 						endif;
 
-						$children = get_term_children( $term->term_id, 'laki' );
+						$children = get_term_children( $term->term_id, $term_name );
 						?>
 
 						<li class="parent" data-id="<?php echo esc_html( $term->term_id ); ?>">
@@ -218,7 +224,7 @@ function topten_card_list( $card_array ) {
 											<?php
 											$cards = $card_array['tulkinta'];
 											foreach ( $cards as $card ) {
-												if ( 'tulkintakortti' !== get_post_type( $card ) || ! is_object_in_term( $card, 'laki', $child->name ) ) {
+												if ( 'tulkintakortti' !== get_post_type( $card ) || ! is_object_in_term( $card, $term_name, $child->name ) ) {
 													continue;
 												}
 												// in the end call the function that creates the actual card and echo it out. could've should've would've been done in js, but this works too

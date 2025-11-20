@@ -1115,7 +1115,28 @@ function topten_card_search() {
 		}
 	}
 
-
+	// Card page type
+	$card_page_type = '';
+	if ( isset( $_POST['cardPageType'] ) ) {
+		$card_page_type = sanitize_text_field( wp_unslash( $_POST['cardPageType'] ) );
+		if ( 'rakl' === $card_page_type ) {
+			// Check for taxonomy card_type and see if it has term 'rakl'
+			$args['tax_query'][] =
+			array(
+				'taxonomy' => 'card_type',
+				'field'    => 'slug',
+				'terms'    => 'rakl',
+			);
+		} elseif ( 'mrl' === $card_page_type ) {
+			// Check for taxonomy card_type and see if it has term 'mrl'
+			$args['tax_query'][] =
+			array(
+				'taxonomy' => 'card_type',
+				'field'    => 'slug',
+				'terms'    => 'mrl',
+			);
+		}   
+	}
 
 	// Card types
 	$incoming_post_types = array();
@@ -1189,7 +1210,7 @@ function topten_card_search() {
 	// );
 	// }
 
-
+	
 	// Law article (single value)
 	$law = '';
 
@@ -1202,14 +1223,20 @@ function topten_card_search() {
 	}
 
 	if ( $law ) {
+		if ( $card_page_type === 'rakl' ) {
+			$taxonomy = 'laki_rakl';
+		} else {
+			$taxonomy = 'laki';
+		}
 		$args['tax_query'][] =
 			array(
-				'taxonomy' => 'laki',
+				'taxonomy' => $taxonomy,
 				'field'    => 'term_id',
 				'terms'    => $law,
 			);
 
 	}
+
 
 	// Category (single value)
 	$category = '';
@@ -1301,12 +1328,12 @@ function topten_card_search() {
 	// if ( $cache ) {
 	// return $cache;
 	// }
-
+	
 	$the_query = new WP_Query();
 
 	$the_query->parse_query( $args );
 
-		// If Relevanssi is installed, use it
+	// If Relevanssi is installed, use it
 	if ( function_exists( 'relevanssi_do_query' ) ) {
 		if ( ! empty( $s ) ) {
 			relevanssi_do_query( $the_query );
@@ -1316,7 +1343,7 @@ function topten_card_search() {
 	} else {
 		$the_query->query( $args );
 	}
-
+	
 	// Create arrays for different card types
 	$tulkinta_array = array();
 	$ohje_array     = array();
@@ -1410,7 +1437,14 @@ function topten_card_search() {
 		);
 
 		// Run function to get the results
-		topten_card_list( $card_array );
+		
+		if ( ! $card_page_type || $card_page_type === '' ) {
+			topten_card_list( $card_array, '' );
+		} elseif ( 'rakl' === $card_page_type ) {
+			topten_card_list( $card_array, 'rakl' );
+		} elseif ( 'mrl' === $card_page_type ) {
+			topten_card_list( $card_array, 'mrl' );
+		}
 	}
 
 	// $cache = set_transient( $cache_key, $result );
@@ -1641,15 +1675,41 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 
 			array_splice( $links, 1, -2, $breadcrumb );
 		} elseif ( is_singular( 'tulkintakortti' ) || is_singular( 'ohjekortti' ) || is_singular( 'lomakekortti' ) ) {
-			$id         = get_the_ID();
-			$status     = get_field( 'card_status_publish', $id );
-			$breadcrumb = array();
+			$id                 = get_the_ID();
+			$status             = get_field( 'card_status_publish', $id );
+			$breadcrumb         = array();
+			$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+			error_log( print_r( $card_taxonomy_type, true ) );
+			// if this is rakl or mrl card and TULKINTAkortti, we need to add the correct archive link
+			if ( is_singular( 'tulkintakortti' ) ) {
+				/*
+				if ( $card_taxonomy_type === 'rakl' ) {
+					$page_to_get_from_options = 'main_card_archive_rakl';
+				} else {
+					$page_to_get_from_options = 'main_card_archive';
+				} */
+				if ( $card_taxonomy_type && ! is_wp_error( $card_taxonomy_type ) ) {
+					$term_slugs = wp_list_pluck( $card_taxonomy_type, 'slug' );
+					if ( in_array( 'rakl', $term_slugs, true ) ) {
+						$page_to_get_from_options = 'main_card_archive_rakl';
+						error_log( 'Rakl card detected' );
+					} else {
+						$page_to_get_from_options = 'main_card_archive';
+						error_log( 'Not rakl card' );
+					}
+				} else {
+					$page_to_get_from_options = 'main_card_archive';
+					
+				}
+			} else {
+				$page_to_get_from_options = 'main_card_archive';
+			}
 
 			if ( is_array( $status ) ) {
 				if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
 					$breadcrumb[] = array(
-						'url'  => get_permalink( get_field( 'main_card_archive', 'options' ) ),
-						'text' => get_the_title( get_field( 'main_card_archive', 'options' ) ),
+						'url'  => get_permalink( get_field( $page_to_get_from_options, 'options' ) ),
+						'text' => get_the_title( get_field( $page_to_get_from_options, 'options' ) ),
 					);
 				}
 				if ( in_array( 'expired', $status, true ) ) {

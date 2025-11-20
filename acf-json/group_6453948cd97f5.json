@@ -26,6 +26,32 @@
             "return_format": "value",
             "allow_null": 0,
             "layout": "horizontal"
+        },
+        {
+            "key": "field_691db27e0e884",
+            "label": "Näytä",
+            "name": "card_page_type",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "choices": {
+                "rakl": "RakL",
+                "mrl": "MRL",
+                "all": "Molemmat"
+            },
+            "default_value": "all",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "layout": "horizontal"
         }
     ],
     "location": [
@@ -46,5 +72,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683199247
+    "display_title": "",
+    "modified": 1763553973
 }

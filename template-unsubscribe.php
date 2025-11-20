@@ -12,9 +12,6 @@
 // phpcs:disable WordPress.Security.NonceVerification.Recommended
 
 get_header();
-// Server secret key for hashing email addresses
-
-
 ?>
 
 <main id="primary" class="site-main" data-template="<?php echo esc_html( get_field( 'card_status_type' ) ); ?>">

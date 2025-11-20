@@ -11,9 +11,20 @@
 
 get_header();
 
+// Korttien tyyppi (mrl, rakl, all)
+$card_page_type = get_field( 'card_page_type' ) ? get_field( 'card_page_type' ) : 'all';
+
 // Haetaan kaikki lait
 $laws = get_terms(
 	'laki',
+	array(
+		'hide_empty' => false,
+	)
+);
+
+// Haetaan RakL lait
+$laws_rakl = get_terms(
+	'laki_rakl',
 	array(
 		'hide_empty' => false,
 	)
@@ -117,7 +128,11 @@ $cardClasses = get_terms(
 
 						</div>
 
-						<?php if ( $laws ) : ?>
+						<?php 
+						if ( $laws ) :
+							; 
+							?>
+							<?php if ( $card_page_type !== 'rakl' ) : ?>
 							<div class="one-third">
 								<label for="cardLaw">
 									<?php esc_html_e( 'Suodata MRL:n lukujen ja pykälien mukaan aihepiireittäin', 'topten' ); ?>
@@ -138,6 +153,29 @@ $cardClasses = get_terms(
 									</select>
 								</div>
 							</div>
+								<?php elseif ( $card_page_type === 'rakl' ) : ?>
+							<div class="one-third">
+								<label for="cardLaw">
+									<?php esc_html_e( 'Suodata RakL:n lukujen ja pykälien mukaan aihepiireittäin', 'topten' ); ?>
+									<?php esc_html_e( '(Huom: koskee toistaiseksi vain tulkintakortteja)', 'topten' ); ?>
+								</label>
+
+								<div class="inner-wrapper">
+									<select name="cardLaw" id="cardLaw">
+										<option value="" selected>
+											<?php esc_html_e( 'Valitse', 'topten' ); ?>
+										</option>
+
+										<?php foreach ( $laws_rakl as $law ) : ?>
+											<option value="<?php echo esc_attr( $law->term_id ); ?>" data-name="<?php echo esc_attr( $law->name ); ?>">
+												<?php echo esc_html( $law->name ); ?>
+											</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<?php endif; ?>
+							
 						<?php endif; ?>
 
 						<?php if ( $categories ) : ?>
@@ -319,7 +357,7 @@ $cardClasses = get_terms(
 
 			</div>
 
-			<div class="list" id="listCards">
+			<div class="list" id="listCards" data-page-type="<?php echo esc_html( get_field( 'card_page_type' ) ); ?>">
 				<div class="cardlist" id="tulkintakortit">
 
 				</div>

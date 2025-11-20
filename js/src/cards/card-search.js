@@ -38,6 +38,19 @@ jQuery(document).ready(($) => {
 	// Fetch cards from database via query
 	// cardStatusType is an acf field set in korttiluettelo template that determines which cards are shown (valid, expired or 2025 law)
 	function cardSearch() {
+		let cardPageType = '';
+		const currentPageCardType = $('#listCards').attr('data-page-type');
+		if (localStorage.getItem('cardPageType')) {
+			cardPageType = localStorage.getItem('cardPageType');
+		} else {
+			cardPageType = $('#listCards').attr('data-page-type');
+		}
+		// if currentpagecardtype is different than stored pagetype, use current page type and reset cardLaw
+		if (currentPageCardType !== cardPageType) {
+			cardPageType = currentPageCardType;
+			localStorage.setItem('cardPageType', cardPageType);
+			localStorage.removeItem('cardLaw');
+		}
 		const cardStatusType = $('#primary').attr('data-template');
 
 		let freeText = '';
@@ -110,6 +123,7 @@ jQuery(document).ready(($) => {
 				cardTypes.push($(this).val());
 			});
 		}
+
 		$.ajax({
 			url: Ajax.url,
 			method: 'POST',
@@ -126,6 +140,7 @@ jQuery(document).ready(($) => {
 				filterOrder,
 				cardTypes,
 				cardClasses,
+				cardPageType,
 				// nonce: Ajax.nonce,
 			},
 			success(data) {
@@ -291,6 +306,18 @@ jQuery(document).ready(($) => {
 		showFilters('cardDateStart');
 		showFilters('cardDateEnd');
 		showFilters('freeText');
+		storePageType();
+	}
+
+	// store page type
+	function storePageType() {
+		let cardPageType = '';
+		if ($('#listCards').attr('data-page-type')) {
+			cardPageType = $('#listCards').attr('data-page-type');
+		} else {
+			cardPageType = 'all';
+		}
+		localStorage.setItem('cardPageType', cardPageType);
 	}
 
 	// Handles keywords and card classes

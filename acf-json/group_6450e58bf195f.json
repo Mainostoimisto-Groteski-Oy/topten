@@ -18,7 +18,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6450e58c592ef",
@@ -256,7 +257,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_647710d17fb74",
@@ -279,7 +281,7 @@
         },
         {
             "key": "field_646ef8ebf789e",
-            "label": "Rakentamisen yhteiset käytännöt -sivu",
+            "label": "Rakentamisen yhteiset käytännöt -sivu (MRL)",
             "name": "main_card_archive",
             "aria-label": "",
             "type": "post_object",
@@ -302,6 +304,38 @@
             "return_format": "id",
             "multiple": 0,
             "allow_null": 0,
+            "allow_in_bindings": 1,
+            "bidirectional": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_691edbdc20f8d",
+            "label": "Rakentamisen yhteiset käytännöt -sivu (RakL)",
+            "name": "main_card_archive_rakl",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "post_type": [
+                "page"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "bidirectional": 0,
             "ui": 1,
             "bidirectional_target": []
         },
@@ -496,6 +530,8 @@
                     "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
                     "parent_repeater": "field_646efd549731a"
                 },
                 {
@@ -526,6 +562,8 @@
                     "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
                     "parent_repeater": "field_646efd549731a"
                 },
                 {
@@ -568,7 +606,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6512cbde72b92",
@@ -689,7 +728,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6512cadf7a624",
@@ -810,7 +850,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6512cc0372b93",
@@ -1097,7 +1138,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6479b1f76f492",
@@ -1316,7 +1358,9 @@
             "allow_null": 0,
             "ui": 0,
             "ajax": 0,
-            "placeholder": ""
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_650015a628f82",
@@ -1334,7 +1378,8 @@
             },
             "relevanssi_exclude": 0,
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_650015b628f83",
@@ -1403,5 +1448,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1695730717
+    "display_title": "",
+    "modified": 1763630058
 }
