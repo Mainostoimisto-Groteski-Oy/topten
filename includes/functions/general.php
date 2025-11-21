@@ -163,7 +163,6 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
  * @param array $card_array Card list
  */
 function topten_card_list( $card_array, $law_type = '', $active_card_tab = '' ) {
-	error_log( 'card list called' );
 	// Card arrays are created by the function that calls this one
 	// Need to get all the laki and kortin_kategoria terms for this to work
 	if ( $law_type === 'rakl' ) {
