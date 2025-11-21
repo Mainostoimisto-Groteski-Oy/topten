@@ -1438,7 +1438,7 @@ function topten_card_search() {
 
 		// Run function to get the results
 		
-		if ( ! $card_page_type || $card_page_type === '' ) {
+		if ( ! $card_page_type || $card_page_type === '' || $card_page_type === 'all' ) {
 			topten_card_list( $card_array, '' );
 		} elseif ( 'rakl' === $card_page_type ) {
 			topten_card_list( $card_array, 'rakl' );
@@ -1679,27 +1679,18 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 			$status             = get_field( 'card_status_publish', $id );
 			$breadcrumb         = array();
 			$card_taxonomy_type = get_the_terms( $id, 'card_type' );
-			error_log( print_r( $card_taxonomy_type, true ) );
 			// if this is rakl or mrl card and TULKINTAkortti, we need to add the correct archive link
 			if ( is_singular( 'tulkintakortti' ) ) {
-				/*
-				if ( $card_taxonomy_type === 'rakl' ) {
-					$page_to_get_from_options = 'main_card_archive_rakl';
-				} else {
-					$page_to_get_from_options = 'main_card_archive';
-				} */
 				if ( $card_taxonomy_type && ! is_wp_error( $card_taxonomy_type ) ) {
 					$term_slugs = wp_list_pluck( $card_taxonomy_type, 'slug' );
 					if ( in_array( 'rakl', $term_slugs, true ) ) {
 						$page_to_get_from_options = 'main_card_archive_rakl';
-						error_log( 'Rakl card detected' );
 					} else {
 						$page_to_get_from_options = 'main_card_archive';
-						error_log( 'Not rakl card' );
 					}
 				} else {
 					$page_to_get_from_options = 'main_card_archive';
-					
+
 				}
 			} else {
 				$page_to_get_from_options = 'main_card_archive';
