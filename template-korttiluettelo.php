@@ -201,7 +201,7 @@ $cardClasses = get_terms(
 						<?php endif; ?>
 
 						<?php if ( $cardClasses ) : ?>
-							<div class="one-third checkboxes" id="classCheckboxes">
+							<div class="full checkboxes" id="classCheckboxes">
 								<p for="cardClass" class="label">
 									<?php esc_html_e( 'Näytä kortit luokasta', 'topten' ); ?>
 								</p>
@@ -223,49 +223,7 @@ $cardClasses = get_terms(
 							</div>
 						<?php endif; ?>
 
-						<div class="one-third checkboxes special" id="typeCheckboxes">
-							<p for="cardType" class="label">
-								<?php esc_html_e( 'Näytä', 'topten' ); ?>
-							</p>
-							<div class="box-wrapper">
-								<input
-									type="checkbox"
-									name="cardTypeFilter"
-									id="cardTulkinta"
-									value="tulkintakortti"
-									data-name="Tulkintakortit"
-									checked />
-									<label for="cardTulkinta">
-									<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
-								</label>
-							</div>
-
-							<div class="box-wrapper">
-								<input
-										type="checkbox"
-										name="cardTypeFilter"
-										id="cardOhje"
-										value="ohjekortti"
-										data-name="Ohjekortit"
-										checked />
-									<label for="cardOhje">
-									<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
-								</label>
-							</div>
-
-							<div class="box-wrapper">
-									<input
-										type="checkbox"
-										name="cardTypeFilter"
-										id="cardLomake"
-										value="lomakekortti"
-										data-name="Lomakekortit"
-										checked />
-									<label for="cardLomake">
-									<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
-								</label>
-							</div>
-						</div>
+						
 
 						<div class="submit">
 							<button type="submit"
@@ -324,13 +282,36 @@ $cardClasses = get_terms(
 			</div> <!-- end content area -->
 
 
+			<div class="tabs" id="cardTabs">
+				<div class="full">
+					<div class="input-wrapper tabs">
+						<button type="button"
+							class="tablink button"
+							data-target="tulkintakortit">
+							<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
+						</button>
 
+						<button type="button"
+							class="tablink button"
+							data-target="ohjekortit">
+							<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
+						</button>
+
+						<button type="button"
+							class="tablink button"
+							data-target="lomakekortit">
+							<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
+						</button>
+					</div>
+				</div>
+			</div>
 		</div><!-- end top grid -->
 	</section>
 	<section class="cards list">
 	<div id="ajaxOverlay"></div>
 	<div id="ajaxSpinner"><div class="spinner-wrapper"><div class="spinner"></div></div></div>
 		<div class="grid">
+			
 			<div class="filters" id="filterCards" role="search">
 				<div class="full">
 					<div class="input-wrapper">
@@ -358,7 +339,7 @@ $cardClasses = get_terms(
 			</div>
 
 			<div class="list" id="listCards" data-page-type="<?php echo esc_html( get_field( 'card_page_type' ) ); ?>">
-				<div class="cardlist" id="tulkintakortit">
+				<div class="cardlist active" id="tulkintakortit">
 
 				</div>
 

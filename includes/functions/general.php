@@ -162,7 +162,7 @@ function topten_get_card( $post_id, $return_format = 'echo' ) {
  *
  * @param array $card_array Card list
  */
-function topten_card_list( $card_array, $law_type = '' ) {
+function topten_card_list( $card_array, $law_type = '', $active_card_tab = '' ) {
 	error_log( 'card list called' );
 	// Card arrays are created by the function that calls this one
 	// Need to get all the laki and kortin_kategoria terms for this to work
@@ -184,14 +184,50 @@ function topten_card_list( $card_array, $law_type = '' ) {
 			'hide_empty' => false,
 		)
 	);
-	
+	// check for empty card arrays to determine where to put active class. if active card tab is set, use that instead
+	if ( empty( $active_card_tab ) ) {
+		if ( ! empty( $card_array['tulkinta'] ) ) {
+			$active_tulkinta = ' active';
+		} else {
+			$active_tulkinta = '';
+		}
+		if ( ! empty( $card_array['ohje'] ) && empty( $card_array['tulkinta'] ) ) {
+			$active_ohje = ' active';
+		} else {
+			$active_ohje = '';
+		}
+		if ( ! empty( $card_array['lomake'] ) && empty( $card_array['tulkinta'] ) && empty( $card_array['ohje'] ) ) {
+			$active_lomake = ' active';
+		} else {
+			$active_lomake = '';
+		}
+	} else {
+		if ( $active_card_tab === 'tulkintakortit' ) {
+			$active_tulkinta = ' active';
+			$active_ohje     = '';
+			$active_lomake   = '';
+		} elseif ( $active_card_tab === 'ohjekortit' ) {
+			$active_tulkinta = '';
+			$active_ohje     = ' active';
+			$active_lomake   = '';
+		} elseif ( $active_card_tab === 'lomakekortit' ) {
+			$active_tulkinta = '';
+			$active_ohje     = '';
+			$active_lomake   = ' active';
+		} else {
+			// Default to tulkinta if something unexpected is passed
+			$active_tulkinta = 'active';
+			$active_ohje     = '';
+			$active_lomake   = '';
+		}
+	}
 
 
 		// Tulkinta cards have a different structure (one more level) and different taxonomy than the rest.
 		// Other cards are like Taxonomy term - cards, these are Taxonomy term - taxonomy child term - cards
 	if ( ! empty( $card_array['tulkinta'] ) ) :
 		?>
-			<div class="cardlist" id="tulkintakortit">
+			<div class="cardlist <?php echo esc_attr( $active_tulkinta ); ?>" id="tulkintakortit">
 				<h2 class="h2 title">
 					<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
 				</h2>
@@ -239,10 +275,19 @@ function topten_card_list( $card_array, $law_type = '' ) {
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<?php endif; ?>
+		<?php else : ?>
+			<div class="cardlist empty <?php echo esc_attr( $active_tulkinta ); ?>" id="tulkintakortit">
+				<h2 class="h2 title">
+					<?php esc_html_e( 'Tulkintakortit', 'topten' ); ?>
+				</h2>
+				<p class="empty">
+					<?php esc_html_e( 'Hakuehdoilla ei löytynyt tulkintakortteja.', 'topten' ); ?>
+				</p>
+			</div>
+		<?php endif; ?>
 			<?php // The rest of the cards are simpler, just get the categories and sort the cards into them. Logic is similar ?>
-			<?php if ( ! empty( $card_array['ohje'] ) ) : ?>
-			<div class="cardlist" id="ohjekortit">
+		<?php if ( ! empty( $card_array['ohje'] ) ) : ?>
+			<div class="cardlist  <?php echo esc_attr( $active_ohje ); ?>" id="ohjekortit">
 				<h2 class="h2 title">
 					<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
 				</h2>
@@ -270,9 +315,18 @@ function topten_card_list( $card_array, $law_type = '' ) {
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<?php endif; ?>
-			<?php if ( ! empty( $card_array['lomake'] ) ) : ?>
-			<div class="cardlist" id="lomakekortit">
+		<?php else : ?>
+			<div class="cardlist empty <?php echo esc_attr( $active_ohje ); ?>" id="ohjekortit">
+				<h2 class="h2 title">
+					<?php esc_html_e( 'Ohjekortit', 'topten' ); ?>
+				</h2>
+				<p class="empty">
+					<?php esc_html_e( 'Hakuehdoilla ei löytynyt ohjekortteja.', 'topten' ); ?>
+				</p>
+			</div>
+		<?php endif; ?>
+		<?php if ( ! empty( $card_array['lomake'] ) ) : ?>
+			<div class="cardlist  <?php echo esc_attr( $active_lomake ); ?>" id="lomakekortit">
 				<h2 class="h2 title">
 					<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
 				</h2>
@@ -299,7 +353,16 @@ function topten_card_list( $card_array, $law_type = '' ) {
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<?php endif; ?>
+		<?php else : ?>
+			<div class="cardlist empty <?php echo esc_attr( $active_lomake ); ?>" id="lomakekortit">
+				<h2 class="h2 title">
+					<?php esc_html_e( 'Lomakekortit', 'topten' ); ?>
+				</h2>
+				<p class="empty">
+					<?php esc_html_e( 'Hakuehdoilla ei löytynyt lomakekortteja.', 'topten' ); ?>
+				</p>
+			</div>
+		<?php endif; ?>
 
 	<?php
 }
@@ -322,16 +385,20 @@ function topten_card_notification( $type = '' ) {
 		$id = get_the_ID();
 
 		if ( 'archive' === $type ) :
-
+			
 			$status = get_field( 'card_status_type', $id );
 
 			if ( 'future' === $status ) :
 
-				$message = get_field( 'future_card_archive_note', 'options' );
-				$class   = 'future';
-
+				$message        = get_field( 'future_card_archive_note', 'options' );
+				$class          = 'future';
+				$card_page_type = get_field( 'card_page_type', $id );
 				if ( get_field( 'future_card_archive_link', 'options' ) ) {
-					$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+					if ( 'rakl' === $card_page_type ) {
+							$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
+					} else {
+						$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+					}               
 				} else {
 					$link = '';
 				}
@@ -339,53 +406,68 @@ function topten_card_notification( $type = '' ) {
 
 				elseif ( 'past' === $status ) :
 
-					$message = get_field( 'expired_card_archive_note', 'options' );
-					$class   = 'expired';
-
+					$message        = get_field( 'expired_card_archive_note', 'options' );
+					$class          = 'expired';
+					$card_page_type = get_field( 'card_page_type', $id );
 					if ( get_field( 'expired_card_archive_link', 'options' ) ) {
-						$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+						if ( 'rakl' === $card_page_type ) {
+							$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
+						} else {
+							$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+						}
 					} else {
 						$link = '';
 					}
 
 				endif;
 
-			elseif ( 'single' === $type ) :
+				elseif ( 'single' === $type ) :
+					$status = get_field( 'card_status_publish', $id );
 
-				$status = get_field( 'card_status_publish', $id );
+					if ( is_array( $status ) ) :
 
-				if ( is_array( $status ) ) :
+						if ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) :
+							$message = get_field( 'expired_card_archive_note', 'options' );
+							$class   = 'expired';
 
-					if ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) :
-
-						$message = get_field( 'expired_card_archive_note', 'options' );
-						$class   = 'expired';
-
-						if ( get_field( 'expired_card_archive_link', 'options' ) ) {
-							$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
-						} else {
-							$link = '';
-						}
-
-						elseif ( in_array( 'future', $status, true ) ) :
-
-							$message = get_field( 'future_card_archive_note', 'options' );
-							$class   = 'future';
-
-							if ( get_field( 'future_card_archive_link', 'options' ) ) {
-								$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+							if ( get_field( 'expired_card_archive_link', 'options' ) ) {
+								$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+								$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
+								if ( in_array( 'rakl', $term_slugs, true ) ) {
+									$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
+								} else {
+									$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+								}                       
 							} else {
 								$link = '';
 							}
 
-						endif;
+							elseif ( in_array( 'future', $status, true ) ) :
 
-					endif;
+								$message = get_field( 'future_card_archive_note', 'options' );
+								$class   = 'future';
+
+								if ( get_field( 'future_card_archive_link', 'options' ) ) {
+									$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+									$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
+									if ( in_array( 'rakl', $term_slugs, true ) ) {
+										$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
+									} else {
+										$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+									}                       
+								} else {
+									$link = '';
+								}
+
+
+							endif;
+
+						endif;
 
 				endif;
 
-			if ( ! empty( $message ) ) :
-				?>
+				if ( ! empty( $message ) ) :
+					?>
 			<section class="cards-notification <?php echo esc_attr( $class ); ?>">
 				<div class="grid">
 						<?php if ( ! empty( $link ) ) : ?>
@@ -397,7 +479,7 @@ function topten_card_notification( $type = '' ) {
 					<?php endif; ?>
 				</div>
 			</section>
-				<?php
+					<?php
 		endif;
 	endif;
 }

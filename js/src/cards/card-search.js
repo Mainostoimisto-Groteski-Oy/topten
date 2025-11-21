@@ -45,11 +45,12 @@ jQuery(document).ready(($) => {
 		} else {
 			cardPageType = $('#listCards').attr('data-page-type');
 		}
-		// if currentpagecardtype is different than stored pagetype, use current page type and reset cardLaw
+		// if currentpagecardtype is different than stored pagetype, use current page type and reset cardLaw and activeCardTab
 		if (currentPageCardType !== cardPageType) {
 			cardPageType = currentPageCardType;
 			localStorage.setItem('cardPageType', cardPageType);
 			localStorage.removeItem('cardLaw');
+			localStorage.removeItem('activeCardTab');
 		}
 		const cardStatusType = $('#primary').attr('data-template');
 
@@ -123,7 +124,12 @@ jQuery(document).ready(($) => {
 				cardTypes.push($(this).val());
 			});
 		}
-
+		let activeCardTab = '';
+		if (localStorage.getItem('activeCardTab')) {
+			activeCardTab = localStorage.getItem('activeCardTab');
+		} else {
+			activeCardTab = '';
+		}
 		$.ajax({
 			url: Ajax.url,
 			method: 'POST',
@@ -141,6 +147,7 @@ jQuery(document).ready(($) => {
 				cardTypes,
 				cardClasses,
 				cardPageType,
+				activeCardTab,
 				// nonce: Ajax.nonce,
 			},
 			success(data) {
@@ -651,12 +658,6 @@ jQuery(document).ready(($) => {
 				$('#selectedCardClasses').append(li);
 			});
 
-		$('#typeCheckboxes')
-			.find('input[type=checkbox]')
-			.each(function () {
-				$(this).prop('checked', true);
-			});
-
 		$('#cardSidebar ul#selectedkeywords li').each(function () {
 			$(this).remove();
 		});
@@ -718,21 +719,6 @@ jQuery(document).ready(($) => {
 			cardClassFilterLength = JSON.parse(localStorage.getItem('cardclassfilter')).length;
 		}
 
-		// Do the same for card types
-		if ($('#typeCheckboxes').length > 0) {
-			// push all checked boxes to array and add to localstorage
-			const typeBoxes = [];
-			$('#typeCheckboxes input:checked').each(function () {
-				typeBoxes.push($(this).val());
-			});
-			localStorage.setItem('cardTypeFilter', JSON.stringify(typeBoxes));
-		}
-
-		let cardTypeFilterLength = $('#typeCheckboxes input').length;
-		if (JSON.parse(localStorage.getItem('cardTypeFilter')).length > 0) {
-			cardTypeFilterLength = JSON.parse(localStorage.getItem('cardTypeFilter')).length;
-		}
-
 		if (
 			localStorage.getItem('keywords') ||
 			localStorage.getItem('cardLaw') ||
@@ -740,8 +726,7 @@ jQuery(document).ready(($) => {
 			localStorage.getItem('cardDateStart') ||
 			localStorage.getItem('cardDateEnd') ||
 			localStorage.getItem('freeText') ||
-			cardClassFilterLength < $('#classCheckboxes input').length ||
-			cardTypeFilterLength < $('#typeCheckboxes input').length
+			cardClassFilterLength < $('#classCheckboxes input').length
 		) {
 			$('#toggleFilters').addClass('active');
 			$('#toggleFilters').parent('.title-wrapper').toggleClass('active');
@@ -785,11 +770,6 @@ jQuery(document).ready(($) => {
 				checkedBoxes.push($(this).val());
 			});
 			localStorage.setItem('cardclassfilter', JSON.stringify(checkedBoxes));
-			const checkedTypesBoxes = [];
-			$('#typeCheckboxes input:checked').each(function () {
-				checkedTypesBoxes.push($(this).val());
-			});
-			localStorage.setItem('cardTypeFilter', JSON.stringify(checkedTypesBoxes));
 
 			// Execute
 			applyFilters('cardclassfilter');
@@ -838,7 +818,7 @@ jQuery(document).ready(($) => {
 		$('#municipalitiessearch').on('click', () => {
 			applyFilters('municipalities');
 		});
-*/
+		*/
 		// If there are keywords in localstorage, fetch them and display them
 		if ($('#selectedkeywords').length > 0) {
 			updateFilters('keywords');
@@ -932,5 +912,29 @@ jQuery(document).ready(($) => {
 				}
 			});
 		});
+	}
+	if ($('.page-template-template-korttiluettelo').length > 0) {
+		$(document).on('click', '#cardTabs .input-wrapper.tabs button', function () {
+			const tab = $(this).attr('data-target');
+			$('.input-wrapper.tabs button').removeClass('active');
+			$(this).addClass('active');
+			$('.cardlist').removeClass('active');
+			$('.cardlist#' + tab).addClass('active');
+			// store active tab in localstorage
+			localStorage.setItem('activeCardTab', tab);
+		});
+		// on page load set the active tab from localstorage
+		if (localStorage.getItem('activeCardTab')) {
+			const activeTab = localStorage.getItem('activeCardTab');
+			$('.input-wrapper.tabs button').removeClass('active');
+			$(`.input-wrapper.tabs button[data-target=${activeTab}]`).addClass('active');
+			$('.cardlist').removeClass('active');
+			$(`.cardlist#${activeTab}`).addClass('active');
+		} else {
+			// default to first tab
+			$('.input-wrapper.tabs button').removeClass('active');
+			$('.input-wrapper.tabs button').first().addClass('active');
+			$('.cardlist').removeClass('active');
+		}
 	}
 });

@@ -1138,25 +1138,8 @@ function topten_card_search() {
 		}   
 	}
 
-	// Card types
-	$incoming_post_types = array();
-	$post_types          = array();
-	// sanitize array and set post types
-	if ( isset( $_POST['cardTypes'] ) ) {
-		if ( ! empty( $_POST['cardTypes'] ) ) {
-			$incoming_post_types = array_map( 'sanitize_text_field', $_POST['cardTypes'] );
-			foreach ( $incoming_post_types as $post_type ) {
-				// This has some extra crap coming in from ajax so get rid of it
-				$post_type    = explode( '|', $post_type );
-				$post_types[] = $post_type[0];
-			}
-		}
-		if ( ! $post_types ) {
-			$post_types = '';
-		}
-	}
-
-	$args['post_type'] = $post_types;
+	// Post types to search
+	$args['post_type'] = array( 'tulkintakortti', 'ohjekortti', 'lomakekortti' );
 
 	// Search text input
 	$s = isset( $_POST['freeText'] ) ? sanitize_text_field( $_POST['freeText'] ) : '';
@@ -1436,14 +1419,20 @@ function topten_card_search() {
 			'lomake'   => $lomake_array,
 		);
 
+		// Get active card tab
+		$active_card_tab = '';
+		if ( isset( $_POST['activeCardTab'] ) ) {
+			$active_card_tab = sanitize_text_field( wp_unslash( $_POST['activeCardTab'] ) );
+		}
+
 		// Run function to get the results
 		
 		if ( ! $card_page_type || $card_page_type === '' || $card_page_type === 'all' ) {
-			topten_card_list( $card_array, '' );
+			topten_card_list( $card_array, '', $active_card_tab );
 		} elseif ( 'rakl' === $card_page_type ) {
-			topten_card_list( $card_array, 'rakl' );
+			topten_card_list( $card_array, 'rakl', $active_card_tab );
 		} elseif ( 'mrl' === $card_page_type ) {
-			topten_card_list( $card_array, 'mrl' );
+			topten_card_list( $card_array, 'mrl', $active_card_tab );
 		}
 	}
 
@@ -1679,23 +1668,26 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 			$status             = get_field( 'card_status_publish', $id );
 			$breadcrumb         = array();
 			$card_taxonomy_type = get_the_terms( $id, 'card_type' );
-			// if this is rakl or mrl card and TULKINTAkortti, we need to add the correct archive link
-			if ( is_singular( 'tulkintakortti' ) ) {
-				if ( $card_taxonomy_type && ! is_wp_error( $card_taxonomy_type ) ) {
-					$term_slugs = wp_list_pluck( $card_taxonomy_type, 'slug' );
-					if ( in_array( 'rakl', $term_slugs, true ) ) {
+			// if this is rakl or mrl card and, we need to add the correct archive link
+			if ( $card_taxonomy_type && ! is_wp_error( $card_taxonomy_type ) ) {
+				$term_slugs = wp_list_pluck( $card_taxonomy_type, 'slug' );
+				if ( in_array( 'rakl', $term_slugs, true ) ) {
+					if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
 						$page_to_get_from_options = 'main_card_archive_rakl';
-					} else {
-						$page_to_get_from_options = 'main_card_archive';
-					}
+					} elseif ( in_array( 'expired', $status, true ) ) {
+						$page_to_get_from_options = 'expired_card_archive_rakl';
+					} 
 				} else {
-					$page_to_get_from_options = 'main_card_archive';
-
+					if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
+						$page_to_get_from_options = 'main_card_archive';
+					} elseif ( in_array( 'expired', $status, true ) ) {
+						$page_to_get_from_options = 'expired_card_archive';
+					} 
 				}
 			} else {
 				$page_to_get_from_options = 'main_card_archive';
-			}
 
+			}
 			if ( is_array( $status ) ) {
 				if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
 					$breadcrumb[] = array(
@@ -1705,8 +1697,8 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 				}
 				if ( in_array( 'expired', $status, true ) ) {
 					$breadcrumb[] = array(
-						'url'  => get_permalink( get_field( 'expired_card_archive', 'options' ) ),
-						'text' => get_the_title( get_field( 'expired_card_archive', 'options' ) ),
+						'url'  => get_permalink( get_field( $page_to_get_from_options, 'options' ) ),
+						'text' => get_the_title( get_field( $page_to_get_from_options, 'options' ) ),
 					);
 				}
 				if ( in_array( 'future', $status, true ) ) {

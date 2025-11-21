@@ -46,29 +46,31 @@ if ( is_array( $versions ) ) {
 if ( is_array( $status ) ) {
 	if ( in_array( 'valid', $status, true ) || in_array( 'approved_for_repeal', $status, true ) ) {
 		$status = 'valid';
-		// check if this is a tulkintakortti type card with rakl taxonomy term
-		if ( 'tulkintakortti' === $type ) {
-			$card_taxonomy_type = get_the_terms( $id, 'card_type' );
-			$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
-			if ( in_array( 'rakl', $term_slugs, true ) ) {
-				$target_url_id = get_field( 'main_card_archive_rakl', 'options' );
-				$target_url    = get_permalink( $target_url_id );
-				$target_title  = get_the_title( $target_url_id );
-			} else {
-				$target_url_id = get_field( 'main_card_archive', 'options' );
-				$target_url    = get_permalink( $target_url_id );
-				$target_title  = get_the_title( $target_url_id );
-			}
+		// check if this is has rakl taxonomy term
+		$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+		$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
+		if ( in_array( 'rakl', $term_slugs, true ) ) {
+			$target_url_id = get_field( 'main_card_archive_rakl', 'options' );
+			$target_url    = get_permalink( $target_url_id );
+			$target_title  = get_the_title( $target_url_id );
 		} else {
 			$target_url_id = get_field( 'main_card_archive', 'options' );
 			$target_url    = get_permalink( $target_url_id );
 			$target_title  = get_the_title( $target_url_id );
-		}
+		}   
 	} elseif ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) {
-		$status        = 'past';
-		$target_url_id = get_field( 'expired_card_archive', 'options' );
-		$target_url    = get_permalink( $target_url_id );
-		$target_title  = get_the_title( $target_url_id );
+		$status             = 'past';
+		$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+		$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
+		if ( in_array( 'rakl', $term_slugs, true ) ) {
+			$target_url_id = get_field( 'expired_card_archive_rakl', 'options' );
+			$target_url    = get_permalink( $target_url_id );
+			$target_title  = get_the_title( $target_url_id );
+		} else {
+			$target_url_id = get_field( 'expired_card_archive', 'options' );
+			$target_url    = get_permalink( $target_url_id );
+			$target_title  = get_the_title( $target_url_id );
+		}
 	} elseif ( in_array( 'future', $status, true ) ) {
 		$status        = 'future';
 		$target_url_id = get_field( 'future_card_archive', 'options' );
@@ -127,8 +129,19 @@ if ( 'tulkintakortti' === $type ) {
 		</button>
 	</div>
 </section>
-
-<section class="single-card-container">
+<?php
+// get card type taxonomy term
+$card_type_terms = get_the_terms( $id, 'card_type' );
+$card_type_class = '';
+if ( $card_type_terms && ! is_wp_error( $card_type_terms ) ) {
+	$card_type_slugs = wp_list_pluck( $card_type_terms, 'slug' );
+	$card_type_class = implode( ' ', $card_type_slugs );
+}
+if ( empty( $card_type_class ) ) {
+	$card_type_class = 'default';
+}
+?>
+<section class="single-card-container type-<?php echo esc_attr( $card_type_class ); ?>">
 	<div class="grid sidebar-grid">
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div class="card-content-wrapper">
