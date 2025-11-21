@@ -21,6 +21,7 @@ body.page-template-template-korttiluettelo {
 					gap: 5px;
 					@media (max-width: $max-xxs) {
 						gap: 15px;
+						padding-bottom: 15px;
 					}
 					@include button;
 					button.button {
@@ -33,7 +34,7 @@ body.page-template-template-korttiluettelo {
 						border-top-left-radius: 4px;
 						@media (max-width: $max-xxs) {
 							border: 1px solid $black;
-							border-bottom: none;
+							border-bottom: 1px solid $black;
 							border-radius: 4px;
 						}
 						&.active {
