@@ -181,6 +181,10 @@ body.page-template-template-korttiluettelo {
 						&.expanded {
 							border-left: 1px solid $black;
 							border-right: 1px solid $black;
+							border-bottom: 1px solid $black;
+							border-bottom-right-radius: 5px;
+							border-bottom-left-radius: 5px;
+							margin-bottom: 30px;
 							background-color: $card-tertiary-green;
 						}
 
@@ -1211,6 +1215,9 @@ body.page-template-template-korttiluettelo {
 			.list[data-page-type="rakl"] {
 				.title {
 					background-color: $rakl-dark-red;
+				}
+				ul.cards li.parent ul.children li.child > .name {
+					background-color: $rakl-lightest-red !important;
 				}
 				ul.cards {
 					li.parent {
