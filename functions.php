@@ -1904,3 +1904,20 @@ function gro_the_sub_field( $field_name, $post_id = false ) {
 		echo wp_kses( $field, $allowed_html );
 	}
 }
+
+/**
+ * Change Yoast Duplicate Post plugin link text to differentiate from custom copy function
+ *
+ * @param string $translation Translated text
+ * @param string $text Original text
+ * @param string $context Context information
+ * @param string $domain Text domain
+ * @return string Modified translation
+ */
+function topten_change_yoast_duplicate_text( $translation, $text, $context, $domain ) {
+	if ( 'duplicate-post' === $domain && 'Clone' === $text && 'verb' === $context ) {
+		return 'Kopioi (yksinkertainen)';
+	}
+	return $translation;
+}
+add_filter( 'gettext_with_context', 'topten_change_yoast_duplicate_text', 20, 4 );
