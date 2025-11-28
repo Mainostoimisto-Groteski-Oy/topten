@@ -384,11 +384,8 @@ function topten_card_notification( $type = '' ) {
 		$id = get_the_ID();
 
 		if ( 'archive' === $type ) :
-			
 			$status = get_field( 'card_status_type', $id );
-
 			if ( 'future' === $status ) :
-
 				$message        = get_field( 'future_card_archive_note', 'options' );
 				$class          = 'future';
 				$card_page_type = get_field( 'card_page_type', $id );
@@ -401,72 +398,82 @@ function topten_card_notification( $type = '' ) {
 				} else {
 					$link = '';
 				}
-
-
-				elseif ( 'past' === $status ) :
+			elseif ( 'past' === $status ) :
 
 					$message        = get_field( 'expired_card_archive_note', 'options' );
 					$class          = 'expired';
 					$card_page_type = get_field( 'card_page_type', $id );
+				if ( get_field( 'expired_card_archive_link', 'options' ) ) {
+					if ( 'rakl' === $card_page_type ) {
+						$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
+					} else {
+						$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+					}
+				} else {
+					$link = '';
+				}
+
+			elseif ( 'valid' === $status && 'mrl' === get_field( 'card_page_type', $id ) ) :
+
+				$message = get_field( 'mrl_card_archive_note', 'options' );
+				$class   = 'mrl';
+				if ( get_field( 'mrl_card_archive_link', 'options' ) ) {
+					$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
+				} else {
+					$link = '';
+				}
+			endif;
+
+
+
+
+		elseif ( 'single' === $type ) :
+				$status = get_field( 'card_status_publish', $id );
+
+			if ( is_array( $status ) ) :
+
+				if ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) :
+					$message = get_field( 'expired_card_archive_note', 'options' );
+					$class   = 'expired';
+
 					if ( get_field( 'expired_card_archive_link', 'options' ) ) {
-						if ( 'rakl' === $card_page_type ) {
+						$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+						$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
+						if ( in_array( 'rakl', $term_slugs, true ) ) {
 							$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
 						} else {
 							$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
-						}
+						}                       
 					} else {
 						$link = '';
 					}
 
-				endif;
+					elseif ( in_array( 'future', $status, true ) ) :
 
-				elseif ( 'single' === $type ) :
-					$status = get_field( 'card_status_publish', $id );
+						$message = get_field( 'future_card_archive_note', 'options' );
+						$class   = 'future';
 
-					if ( is_array( $status ) ) :
-
-						if ( in_array( 'expired', $status, true ) || in_array( 'repealed', $status, true ) ) :
-							$message = get_field( 'expired_card_archive_note', 'options' );
-							$class   = 'expired';
-
-							if ( get_field( 'expired_card_archive_link', 'options' ) ) {
-								$card_taxonomy_type = get_the_terms( $id, 'card_type' );
-								$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
-								if ( in_array( 'rakl', $term_slugs, true ) ) {
-									$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
-								} else {
-									$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
-								}                       
+						if ( get_field( 'future_card_archive_link', 'options' ) ) {
+							$card_taxonomy_type = get_the_terms( $id, 'card_type' );
+							$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
+							if ( in_array( 'rakl', $term_slugs, true ) ) {
+								$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
 							} else {
-								$link = '';
-							}
+								$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
+							}                       
+						} else {
+							$link = '';
+						}
 
-							elseif ( in_array( 'future', $status, true ) ) :
-
-								$message = get_field( 'future_card_archive_note', 'options' );
-								$class   = 'future';
-
-								if ( get_field( 'future_card_archive_link', 'options' ) ) {
-									$card_taxonomy_type = get_the_terms( $id, 'card_type' );
-									$term_slugs         = wp_list_pluck( $card_taxonomy_type, 'slug' );
-									if ( in_array( 'rakl', $term_slugs, true ) ) {
-										$link = get_permalink( get_field( 'main_card_archive_rakl', 'options' ) );
-									} else {
-										$link = get_permalink( get_field( 'main_card_archive', 'options' ) );
-									}                       
-								} else {
-									$link = '';
-								}
-
-
-							endif;
 
 						endif;
 
-				endif;
+					endif;
 
-				if ( ! empty( $message ) ) :
-					?>
+			endif;
+
+		if ( ! empty( $message ) ) :
+			?>
 			<section class="cards-notification <?php echo esc_attr( $class ); ?>">
 				<div class="grid">
 						<?php if ( ! empty( $link ) ) : ?>

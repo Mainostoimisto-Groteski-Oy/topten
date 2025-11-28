@@ -141,6 +141,12 @@ section.cards-notification {
 			color: $black !important;
 		}
 	}
+	&.mrl {
+		background-color: $highlight-green;
+		a {
+			color: $black !important;
+		}
+	}
 
 	.grid {
 		padding: 0 15px;

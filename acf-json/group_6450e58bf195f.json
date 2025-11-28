@@ -512,6 +512,50 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_692965f6180d6",
+            "label": "MRL-korttien huomautusteksti",
+            "name": "mrl_card_archive_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_69296743a918d",
+            "label": "Käytä linkkinä rakentamisen yhteiset käytännöt (RakL) -sivulle?",
+            "name": "mrl_card_archive_link",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_646efd549731a",
             "label": "Korttien selitteet",
             "name": "guide",
@@ -1481,5 +1525,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763720993
+    "modified": 1764321367
 }
